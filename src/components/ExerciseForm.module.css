@@ -1,0 +1,44 @@
+.form {
+	background-color: rgb(207, 144, 27);
+	width: 75%;
+	margin: auto;
+
+	border: 3px orange solid;
+	border-radius: 40px;
+	margin-top: 1rem;
+	padding: 10px;
+}
+
+.form .form_group {
+	padding: 5px;
+}
+
+.form label {
+	/* display: block; */
+	float: left;
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+.form input {
+	padding: 4px;
+	width: 25%;
+}
+
+.form textarea {
+	padding: 4px;
+	width: 75%;
+}
+
+.form input.invalid {
+	border: 3px red solid;
+}
+
+.form h3 {
+	margin: 4px;
+}
+
+.form p.invalid {
+	color: rgb(184, 19, 19);
+	font-weight: bold;
+}
