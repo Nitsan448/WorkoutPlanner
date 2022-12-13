@@ -25,10 +25,7 @@ function ExerciseForm(props) {
 
 	function addNewExerciseHandler(event) {
 		event.preventDefault();
-		nameInput.reset();
-		repetitionsInput.reset();
-		restTimeInput.reset();
-		descriptionInput.reset();
+		resetInputFields();
 
 		dispatch(
 			currentWorkoutActions.addExercise({
@@ -41,6 +38,25 @@ function ExerciseForm(props) {
 		);
 	}
 
+	function resetInputFields() {
+		nameInput.reset();
+		repetitionsInput.reset();
+		restTimeInput.reset();
+		descriptionInput.reset();
+	}
+
+	function renderInput(input, inputClass, type) {
+		return (
+			<input
+				className={inputClass}
+				type={type}
+				value={input.value}
+				onChange={input.valueChangeHandler}
+				onBlur={input.inputBlurHandler}
+			/>
+		);
+	}
+
 	return (
 		// TODO: get rid of space between error paragraph and input fields
 		isFormOpen ? (
@@ -49,25 +65,13 @@ function ExerciseForm(props) {
 					<h3>New Exercise</h3>
 					<div className={classes.form_group}>
 						<label>Name:</label>
-						<input
-							className={nameInputClasses}
-							type="text"
-							name="name"
-							value={nameInput.value}
-							onChange={nameInput.valueChangeHandler}
-							onBlur={nameInput.inputBlurHandler}></input>
+						{renderInput(nameInput, nameInputClasses, "text")}
 						{nameInput.hasError && <p className={classes.invalid}>Name cannot be empty</p>}
 					</div>
 
 					<div className={classes.form_group}>
 						<label>Repetitions:</label>
-						<input
-							className={repetitionsInputClasses}
-							type="number"
-							name="repetitions"
-							value={repetitionsInput.value}
-							onChange={repetitionsInput.valueChangeHandler}
-							onBlur={repetitionsInput.inputBlurHandler}></input>
+						{renderInput(repetitionsInput, repetitionsInputClasses, "number")}
 						{repetitionsInput.hasError && (
 							<p className={classes.invalid}>Repetitions must be larger than 0</p>
 						)}
@@ -75,13 +79,7 @@ function ExerciseForm(props) {
 
 					<div className={classes.form_group}>
 						<label>Rest time:</label>
-						<input
-							className={restTimeInputClasses}
-							type="number"
-							name="rest-time"
-							value={restTimeInput.value}
-							onChange={restTimeInput.valueChangeHandler}
-							onBlur={restTimeInput.inputBlurHandler}></input>
+						{renderInput(restTimeInput, restTimeInputClasses, "number")}
 						{restTimeInput.hasError && <p className={classes.invalid}>rest time must be 0 or more</p>}
 					</div>
 

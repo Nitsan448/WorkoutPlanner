@@ -1,12 +1,15 @@
 import React from "react";
 import classes from "./Input.module.css";
 
-function Input(props)
-{
+function Input(props) {
 	return (
-		<input type={props.type} className={props.className} name={props.name}
-			value={props.value} onChange={props.onChange} onBlur={props.onChange}>
-		</input>
+		<input
+			type={props.type}
+			className={props.className}
+			name={props.name}
+			value={props.value}
+			onChange={props.onChange}
+			onBlur={props.onChange}></input>
 	);
 }
 
