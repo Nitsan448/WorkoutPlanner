@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+	workoutName: "",
+	exercises: [],
+	currentExerciseIndex: 0,
+	changed: false,
+};
+
 const currentWorkoutSlice = createSlice({
 	name: "current workout",
-	initialState: {
-		workoutName: "",
-		exercises: [],
-		currentExerciseIndex: 0,
-		changed: false,
-	},
+	initialState,
 	reducers: {
 		replaceCurrentWorkout(state, action) {
 			state.exercises = action.payload.exercises;
@@ -25,6 +27,12 @@ const currentWorkoutSlice = createSlice({
 		},
 		nextExercise(state, action) {
 			state.currentExerciseIndex++;
+		},
+		reset(state) {
+			state.workoutName = "";
+			state.exercises = [];
+			state.currentExerciseIndex = 0;
+			state.changed = false;
 		},
 	},
 });

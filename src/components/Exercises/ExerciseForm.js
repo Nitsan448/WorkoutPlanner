@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import classes from "./ExerciseForm.module.css";
-import Button from "./UI/Button";
-import useInput from "../hooks/useInput";
-import { currentWorkoutActions } from "../store/currentWorkout-slice";
+import Button from "../UI/Button";
+import useInput from "../../hooks/use-input";
+import { currentWorkoutActions } from "../../store/currentWorkout-slice";
 import { useDispatch } from "react-redux";
 
 function ExerciseForm(props) {
@@ -26,6 +26,7 @@ function ExerciseForm(props) {
 	function addNewExerciseHandler(event) {
 		event.preventDefault();
 		resetInputFields();
+		setIsFormOpen(false);
 
 		dispatch(
 			currentWorkoutActions.addExercise({
@@ -93,15 +94,11 @@ function ExerciseForm(props) {
 							onBlur={descriptionInput.inputBlurHandler}></textarea>
 						{descriptionInput.hasError && <p className={classes.invalid}>Description cannot be empty</p>}
 					</div>
-					<Button
-						disabled={!formIsValid}
-						text="Add exercise"></Button>
+					<Button disabled={!formIsValid} text="Add exercise"></Button>
 				</form>
 			</div>
 		) : (
-			<Button
-				onClick={() => setIsFormOpen(true)}
-				text="Add new exercise"></Button>
+			<Button onClick={() => setIsFormOpen(true)} text="Add new exercise"></Button>
 		)
 	);
 }

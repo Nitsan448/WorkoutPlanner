@@ -1,10 +1,10 @@
 import { currentWorkoutActions } from "./currentWorkout-slice";
-import { uiActions } from "./ui-slice";
+const fireBaseUrl = "https://practicing-react-67914-default-rtdb.firebaseio.com/";
 
-export function fetchWorkoutData() {
+export function fetchWorkoutData(workoutId) {
 	return async (dispatch) => {
 		const fetchData = async () => {
-			const response = await fetch("https://practicing-react-67914-default-rtdb.firebaseio.com/workout.json");
+			const response = await fetch(`${fireBaseUrl}workout/${workoutId}.json`);
 			if (!response.ok) {
 				throw new Error("Could not fetch workout data");
 			}
@@ -21,22 +21,16 @@ export function fetchWorkoutData() {
 					exercises: workoutData.exercises || [],
 				})
 			);
-		} catch (Error) {
-			dispatch(
-				uiActions.showNotification({
-					status: "error",
-					title: "Error!",
-					message: "Fetching workout data failed",
-				})
-			);
+		} catch (error) {
+			console.log("Workout empty");
 		}
 	};
 }
 
-export function sendWorkoutData(workout) {
+export function sendWorkoutData(workout, workoutId) {
 	return async () => {
 		const sendRequest = async () => {
-			const response = await fetch("https://practicing-react-67914-default-rtdb.firebaseio.com/workout.json", {
+			const response = await fetch(`${fireBaseUrl}workout/${workoutId}.json`, {
 				method: "PUT",
 				body: JSON.stringify({
 					exercises: workout.exercises,

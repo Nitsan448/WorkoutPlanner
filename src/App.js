@@ -1,45 +1,22 @@
-import classes from "./App.module.css";
-import Exercise from "./components/Exercise";
-import ExerciseForm from "./components/ExerciseForm";
-import { useSelector, useDispatch } from "react-redux";
-import { sendWorkoutData, fetchWorkoutData } from "./store/currentWorkout-actions";
-import { useEffect } from "react";
-
-let isInitial = true;
+import { Routes, Route, Navigate } from "react-router-dom";
+import CurrentWorkout from "./pages/CurrentWorkout";
+import Workouts from "./pages/Workouts";
+import NotFound from "./pages/NotFound";
+import Layout from "./components/Layout/Layout";
 
 function App() {
-	const dispatch = useDispatch();
-	const currentWorkout = useSelector((state) => state.currentWorkout);
-
-	useEffect(() => {
-		dispatch(fetchWorkoutData());
-	}, [dispatch]);
-
-	useEffect(() => {
-		if (isInitial) {
-			isInitial = false;
-			return;
-		}
-		if (currentWorkout.changed) {
-			dispatch(sendWorkoutData(currentWorkout));
-		}
-	}, [currentWorkout, dispatch]);
-
 	return (
-		<div className={classes.App}>
-			<ExerciseForm></ExerciseForm>
-			<ul>
-				{currentWorkout.exercises.map((exercise) => (
-					<Exercise
-						key={exercise.key}
-						name={exercise.name}
-						repetitions={exercise.repetitions}
-						restTime={exercise.restTime}
-						description={exercise.description}
-					/>
-				))}
-			</ul>
-		</div>
+		<Layout>
+			<Routes>
+				<Route path="/" element={<Navigate replace to="/workouts" />} />
+
+				<Route path="/workouts" element={<Workouts />} />
+
+				<Route path="/workouts/:workoutId" element={<CurrentWorkout />} />
+
+				<Route path="*" element={<NotFound />} />
+			</Routes>
+		</Layout>
 	);
 }
 
