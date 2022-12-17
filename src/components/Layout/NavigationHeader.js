@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 import classes from "./NavigationHeader.module.css";
-import { currentWorkoutActions } from "../../store/currentWorkout-slice";
+import { workoutActions } from "../../store/workout-slice";
 import { useDispatch } from "react-redux";
 
 const MainNavigation = () => {
 	const dispatch = useDispatch();
 
-	function resetCurrentWorkoutHandler() {
-		dispatch(currentWorkoutActions.reset());
+	function resetworkoutHandler() {
+		dispatch(workoutActions.reset());
 	}
 
 	return (
@@ -16,7 +16,7 @@ const MainNavigation = () => {
 				<ul>
 					<li>
 						<NavLink
-							onClick={resetCurrentWorkoutHandler}
+							onClick={resetworkoutHandler}
 							end
 							to="/workouts"
 							className={(navData) => (navData.isActive ? classes.active : "")}>

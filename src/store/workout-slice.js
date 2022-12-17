@@ -7,11 +7,11 @@ const initialState = {
 	changed: false,
 };
 
-const currentWorkoutSlice = createSlice({
+const workoutSlice = createSlice({
 	name: "current workout",
 	initialState,
 	reducers: {
-		replaceCurrentWorkout(state, action) {
+		replaceWorkout(state, action) {
 			state.exercises = action.payload.exercises;
 			state.currentExerciseIndex = 0;
 		},
@@ -37,5 +37,5 @@ const currentWorkoutSlice = createSlice({
 	},
 });
 
-export const currentWorkoutActions = currentWorkoutSlice.actions;
-export default currentWorkoutSlice;
+export const workoutActions = workoutSlice.actions;
+export default workoutSlice;

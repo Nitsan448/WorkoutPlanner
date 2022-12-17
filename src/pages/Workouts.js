@@ -14,8 +14,8 @@ function Workouts(props) {
 	return (
 		<div className={classes.workouts}>
 			<div className={classes.gridContainer}>
-				<Button onClick={() => goToWorkoutHandler(0)} text="Workout 1"></Button>
-				<Button onClick={() => goToWorkoutHandler(1)} text="Workout 2"></Button>
+				<Button onClick={() => goToWorkoutHandler(0)} text="Simple and Sinister"></Button>
+				<Button onClick={() => goToWorkoutHandler(1)} text="Dry figthing weight"></Button>
 				<Button onClick={() => goToWorkoutHandler(2)} text="Workout 3"></Button>
 				<Button onClick={() => goToWorkoutHandler(3)} text="Workout 4"></Button>
 				<Button onClick={() => goToWorkoutHandler(4)} text="Workout 5"></Button>
