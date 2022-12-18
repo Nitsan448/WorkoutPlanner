@@ -6,21 +6,31 @@ import { fetchWorkoutData } from "../store/workout-actions";
 import { getTimeInMinutesAndSeconds } from "../helpers/time";
 import useTimer from "../hooks/use-timer";
 import Timer from "../components/Timer";
+import Button from "../components/UI/Button";
+import { useNavigate } from "react-router-dom";
 
 function PlayWorkout(props) {
+	const navigate = useNavigate();
 	// const params = useParams();
 	// const { workoutId } = params;
-	const workoutId = ":0";
-	const dispatch = useDispatch();
+
 	const [currentSet, setCurrentSet] = useState(1);
 	const [inSet, setInSet] = useState(true);
 	const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
-
-	useEffect(() => {
-		dispatch(fetchWorkoutData(workoutId));
-	}, [dispatch, workoutId]);
+	const [workoutFinished, setWorkoutFinished] = useState(false);
 
 	const currentWorkout = useSelector((state) => state.currentWorkout);
+	// const dispatch = useDispatch();
+
+	// useEffect(() => {
+	// 	console.log(workoutId);
+	// 	dispatch(fetchWorkoutData(workoutId));
+	// }, []);
+
+	useEffect(() => {
+		setNewTimerTime();
+	}, [inSet, currentSet]);
+
 	const [currentExercise, setCurrentExercise] = useState(currentWorkout.exercises[currentExerciseIndex]);
 
 	const initialTimerTime = getNewTimerTime();
@@ -35,7 +45,6 @@ function PlayWorkout(props) {
 		} else {
 			updateCurrentSetState();
 		}
-		setNewTimerTime();
 	}
 
 	function changeToNextExercise() {
@@ -45,7 +54,7 @@ function PlayWorkout(props) {
 			setCurrentSet(1);
 			setInSet(true);
 		} else {
-			console.log("Workout finished!!!");
+			setWorkoutFinished(true);
 		}
 	}
 
@@ -83,9 +92,15 @@ function PlayWorkout(props) {
 				restTime={currentExercise.restTime}
 				description={currentExercise.description}></PlayingExercise>
 			<div>
-				{inSet ? <h3>In set</h3> : <h3>Resting</h3>}
+				{inSet ? <h2>In set</h2> : <h2>Resting</h2>}
 				<Timer minutes={timer.minutes} seconds={timer.seconds} />
 			</div>
+			{workoutFinished && (
+				<div>
+					<label>Workout finished!</label>
+					<Button onClick={() => navigate("/workouts")} text="Back to home page" />
+				</div>
+			)}
 		</>
 	);
 }

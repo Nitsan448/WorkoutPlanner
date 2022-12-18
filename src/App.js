@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import ViewCurrentWorkout from "./pages/ViewWorkout";
+import ViewWorkout from "./pages/ViewWorkout";
 import Workouts from "./pages/Workouts";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout/Layout";
-import CurrentWorkoutPlaying from "./pages/PlayWorkout";
+import PlayWorkout from "./pages/PlayWorkout";
 
 function App() {
 	return (
@@ -13,9 +13,9 @@ function App() {
 
 				<Route path="/workouts" element={<Workouts />} />
 
-				<Route path="/workouts/:workoutId" element={<ViewCurrentWorkout />} />
+				<Route path="/workouts/:workoutId" element={<ViewWorkout />} />
 
-				<Route path="/workouts/:workoutId/playing" element={<CurrentWorkoutPlaying />} />
+				<Route path="/workouts/:workoutId/playing" element={<PlayWorkout />} />
 
 				<Route path="*" element={<NotFound />} />
 			</Routes>

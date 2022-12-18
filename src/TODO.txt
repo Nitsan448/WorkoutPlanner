@@ -1,0 +1,9 @@
+Clean code
+
+Fix bug on refresh in play workout page
+
+Work on workouts page - add workouts, add play button to existing workouts.
+
+Add edit mode to view workout page
+
+Add user authentication
