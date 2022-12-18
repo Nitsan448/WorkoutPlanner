@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./PlayingExercise.module.css";
-import { getTimeInSetFormat } from "../../helpers/time";
 
 function PlayingExercise(props) {
 	return (

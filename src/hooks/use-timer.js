@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function useTimer(initialTime, onTimerFinished) {
 	const [minutes, setMinutes] = useState(initialTime[0]);
@@ -14,8 +14,8 @@ function useTimer(initialTime, onTimerFinished) {
 			} else {
 				onTimerFinished();
 			}
-		}, 1000 / 100); //TODO: Remove /10
-	}, [seconds, minutes]);
+		}, 1000 / 20); //TODO: Remove /20
+	}, [seconds, minutes, onTimerFinished]);
 
 	return {
 		minutes,

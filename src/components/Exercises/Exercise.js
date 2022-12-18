@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Exercise.module.css";
-import { getTimeInSetFormat } from "../../helpers/time";
+import { getTimeInTimerFormat } from "../../helpers/time";
 
 function Exercise(props) {
 	return (
@@ -8,7 +8,7 @@ function Exercise(props) {
 			<h3>{props.name}</h3>
 			<p>Set Time: {props.setTime}</p>
 			<p>Sets: {props.sets}</p>
-			<p>Rest time: {getTimeInSetFormat(props.restTime)}</p>
+			<p>Rest time: {getTimeInTimerFormat(props.restTime)}</p>
 			<p>Description: {props.description}</p>
 		</div>
 	);

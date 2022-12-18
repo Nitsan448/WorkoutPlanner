@@ -6,7 +6,7 @@ function getTimeInSeconds(time) {
 	return minutes * 60 + seconds;
 }
 
-function getTimeInSetFormat(timeInSeconds) {
+function getTimeInTimerFormat(timeInSeconds) {
 	const [minutes, seconds] = getTimeInMinutesAndSeconds(timeInSeconds);
 
 	let minutesString = minutes.toString();
@@ -27,4 +27,4 @@ function getTimeInMinutesAndSeconds(timeInSeconds) {
 	return [minutes, seconds];
 }
 
-export { getTimeInSeconds, getTimeInSetFormat, getTimeInMinutesAndSeconds };
+export { getTimeInSeconds, getTimeInTimerFormat, getTimeInMinutesAndSeconds };

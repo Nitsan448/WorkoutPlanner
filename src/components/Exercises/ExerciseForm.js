@@ -9,7 +9,6 @@ import { isPositiveNumber } from "../../helpers/helpers";
 
 function ExerciseForm(props) {
 	const dispatch = useDispatch();
-	const [setSettingIsTime, setSetSettingIsTime] = useState(true);
 
 	const [isFormOpen, setIsFormOpen] = useState(false);
 
@@ -22,7 +21,7 @@ function ExerciseForm(props) {
 	const restTimeInput = useInput((value) => validateTimeInput(value), "00:00");
 
 	function validateTimeInput(value) {
-		if (value.split(":").length != 2) {
+		if (value.split(":").length !== 2) {
 			return false;
 		}
 		const [minutes, seconds] = value.split(":");

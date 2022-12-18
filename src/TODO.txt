@@ -1,9 +1,16 @@
-Clean code
-
 Fix bug on refresh in play workout page
 
-Work on workouts page - add workouts, add play button to existing workouts.
+Add choice between set time and repetitions
+
+Work on workouts page - add play button to existing workouts.
+
+Add user authentication
+
+
+
+
+After learning node.js:
 
 Add edit mode to view workout page
 
-Add user authentication
+Work on workouts page - add workouts

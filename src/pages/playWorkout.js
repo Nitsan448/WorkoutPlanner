@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from "react";
 import PlayingExercise from "../components/Exercises/PlayingExercise";
 import { useSelector, useDispatch } from "react-redux";
-// import { useParams } from "react-router-dom";
 import { getTimeInMinutesAndSeconds } from "../helpers/time";
 import useTimer from "../hooks/use-timer";
 import Timer from "../components/Timer";
 import Button from "../components/UI/Button";
 import { useNavigate } from "react-router-dom";
+import { fetchWorkoutData } from "../store/workout-actions";
 
 function PlayWorkout(props) {
 	const navigate = useNavigate();
-	// const params = useParams();
-	// const { workoutId } = params;
+	const dispatch = useDispatch();
 
 	const [currentSet, setCurrentSet] = useState(1);
 	const [inSet, setInSet] = useState(true);
 	const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 	const [workoutFinished, setWorkoutFinished] = useState(false);
 
-	const currentWorkout = useSelector((state) => state.currentWorkout);
-	// const dispatch = useDispatch();
+	const workoutId = ":0";
+	useEffect(() => {
+		dispatch(fetchWorkoutData(workoutId));
+	}, [dispatch, workoutId]);
 
-	// useEffect(() => {
-	// 	console.log(workoutId);
-	// 	dispatch(fetchWorkoutData(workoutId));
-	// }, []);
+	const currentWorkout = useSelector((state) => state.currentWorkout);
 
 	useEffect(() => {
 		setNewTimerTime();
@@ -36,25 +34,28 @@ function PlayWorkout(props) {
 	const timer = useTimer(initialTimerTime, timerFinishedHandler);
 
 	function timerFinishedHandler() {
-		const changeToNextSet = !inSet || (inSet && currentExercise.restTime === 0);
+		const exerciseFinished = inSet && currentSet === +currentExercise.sets;
 
-		const lastSet = currentSet === +currentExercise.sets;
-		if (lastSet && changeToNextSet) {
-			changeToNextExercise();
+		if (exerciseFinished) {
+			finishExercise();
 		} else {
 			updateCurrentSetState();
 		}
 	}
 
-	function changeToNextExercise() {
+	function finishExercise() {
 		if (currentExerciseIndex < currentWorkout.exercises.length - 1) {
-			setCurrentExerciseIndex(currentExerciseIndex + 1);
-			setCurrentExercise(currentWorkout.exercises[currentExerciseIndex + 1]);
-			setCurrentSet(1);
-			setInSet(true);
+			goToNextExercise();
 		} else {
 			setWorkoutFinished(true);
 		}
+	}
+
+	function goToNextExercise() {
+		setCurrentExerciseIndex(currentExerciseIndex + 1);
+		setCurrentExercise(currentWorkout.exercises[currentExerciseIndex + 1]);
+		setCurrentSet(1);
+		setInSet(true);
 	}
 
 	function updateCurrentSetState() {
@@ -68,6 +69,7 @@ function PlayWorkout(props) {
 		}
 	}
 
+	//Use callback?
 	function setNewTimerTime() {
 		const [minutes, seconds] = getNewTimerTime();
 		timer.setMinutes(minutes);
@@ -83,23 +85,26 @@ function PlayWorkout(props) {
 
 	return (
 		<>
-			<PlayingExercise
-				name={currentExercise.name}
-				setTime={currentExercise.setTime}
-				currentSet={currentSet}
-				sets={currentExercise.sets}
-				restTime={currentExercise.restTime}
-				description={currentExercise.description}></PlayingExercise>
 			<div>
-				{inSet ? <h2>In set</h2> : <h2>Resting</h2>}
-				<Timer minutes={timer.minutes} seconds={timer.seconds} />
-			</div>
-			{workoutFinished && (
+				{/* Current exercise && */}
+				<PlayingExercise
+					name={currentExercise.name}
+					setTime={currentExercise.setTime}
+					currentSet={currentSet}
+					sets={currentExercise.sets}
+					restTime={currentExercise.restTime}
+					description={currentExercise.description}></PlayingExercise>
 				<div>
-					<label>Workout finished!</label>
-					<Button onClick={() => navigate("/workouts")} text="Back to home page" />
+					{inSet ? <h2>In set</h2> : <h2>Resting</h2>}
+					<Timer minutes={timer.minutes} seconds={timer.seconds} />
 				</div>
-			)}
+				{workoutFinished && (
+					<div>
+						<label>Workout finished!</label>
+						<Button onClick={() => navigate("/workouts")} text="Back to home page" />
+					</div>
+				)}
+			</div>
 		</>
 	);
 }
