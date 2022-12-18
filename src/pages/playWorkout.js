@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import PlayingExercise from "../components/Exercises/PlayingExercise";
 import { useSelector, useDispatch } from "react-redux";
 // import { useParams } from "react-router-dom";
-import { fetchWorkoutData } from "../store/workout-actions";
 import { getTimeInMinutesAndSeconds } from "../helpers/time";
 import useTimer from "../hooks/use-timer";
 import Timer from "../components/Timer";
