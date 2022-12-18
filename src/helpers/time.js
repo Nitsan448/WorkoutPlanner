@@ -7,8 +7,7 @@ function getTimeInSeconds(time) {
 }
 
 function getTimeInSetFormat(timeInSeconds) {
-	const minutes = Math.floor(timeInSeconds / 60);
-	const seconds = timeInSeconds % 60;
+	const [minutes, seconds] = getTimeInMinutesAndSeconds(timeInSeconds);
 
 	let minutesString = minutes.toString();
 	let secondsString = seconds.toString();
@@ -21,4 +20,11 @@ function getTimeInSetFormat(timeInSeconds) {
 	return minutesString + ":" + secondsString;
 }
 
-export { getTimeInSeconds, getTimeInSetFormat };
+function getTimeInMinutesAndSeconds(timeInSeconds) {
+	const minutes = Math.floor(timeInSeconds / 60);
+	const seconds = timeInSeconds % 60;
+
+	return [minutes, seconds];
+}
+
+export { getTimeInSeconds, getTimeInSetFormat, getTimeInMinutesAndSeconds };

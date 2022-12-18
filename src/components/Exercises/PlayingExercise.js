@@ -6,8 +6,8 @@ function PlayingExercise(props) {
 	return (
 		<div className={classes.playingExercise}>
 			<h2>{props.name}</h2>
-			<p>Repetitions: {props.repetitions}</p>
-			<p>Current set: {`1/${props.sets}`}</p>
+			<p>Set Time: {props.setTime}</p>
+			<p>Current set: {`${props.currentSet}/${props.sets}`}</p>
 			<p>Description: {props.description}</p>
 		</div>
 	);

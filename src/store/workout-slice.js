@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	workoutName: "",
 	exercises: [],
-	currentExerciseIndex: 0,
 	changed: false,
 };
 
@@ -25,13 +24,9 @@ const workoutSlice = createSlice({
 			state.changed = true;
 			state.exercises = state.exercises.filter((exercise) => exercise.id === exerciseToRemoveId);
 		},
-		nextExercise(state, action) {
-			state.currentExerciseIndex++;
-		},
 		reset(state) {
 			state.workoutName = "";
 			state.exercises = [];
-			state.currentExerciseIndex = 0;
 			state.changed = false;
 		},
 	},

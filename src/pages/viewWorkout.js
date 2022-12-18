@@ -44,7 +44,7 @@ function ViewWorkout(props) {
 					<Exercise
 						key={exercise.key}
 						name={exercise.name}
-						repetitions={exercise.repetitions}
+						setTime={exercise.setTime}
 						sets={exercise.sets}
 						restTime={exercise.restTime}
 						description={exercise.description}

@@ -9,34 +9,37 @@ import { isPositiveNumber } from "../../helpers/helpers";
 
 function ExerciseForm(props) {
 	const dispatch = useDispatch();
+	const [setSettingIsTime, setSetSettingIsTime] = useState(true);
 
 	const [isFormOpen, setIsFormOpen] = useState(false);
 
 	const nameInput = useInput((value) => value.trim() !== "");
 
-	const repetitionsInput = useInput((value) => value > 0, 10);
+	const setTimeInput = useInput((value) => validateTimeInput(value), "00:00");
 
 	const setsInput = useInput((value) => value > 0, 1);
 
-	const restTimeInput = useInput((value) => {
+	const restTimeInput = useInput((value) => validateTimeInput(value), "00:00");
+
+	function validateTimeInput(value) {
 		if (value.split(":").length != 2) {
 			return false;
 		}
 		const [minutes, seconds] = value.split(":");
 		return isPositiveNumber(minutes) && isPositiveNumber(seconds);
-	}, "00:00");
+	}
 
 	const descriptionInput = useInput((value) => value.trim() !== "");
 
 	const nameInputClasses = nameInput.hasError ? classes.invalid : "";
 	const setsInputClasses = setsInput.hasError ? classes.invalid : "";
-	const repetitionsInputClasses = repetitionsInput.hasError ? classes.invalid : "";
+	const setTimeInputClasses = setTimeInput.hasError ? classes.invalid : "";
 	const restTimeInputClasses = restTimeInput.hasError ? classes.invalid : "";
 	const descriptionInputClasses = descriptionInput.hasError ? classes.invalid : "";
 
 	const formIsValid =
 		nameInput.isValid &&
-		repetitionsInput.isValid &&
+		setTimeInput.isValid &&
 		restTimeInput.isValid &&
 		descriptionInput.isValid &&
 		setsInput.isValid;
@@ -50,7 +53,7 @@ function ExerciseForm(props) {
 			workoutActions.addExercise({
 				key: nameInput.value,
 				name: nameInput.value,
-				repetitions: repetitionsInput.value,
+				setTime: getTimeInSeconds(setTimeInput.value),
 				sets: setsInput.value,
 				restTime: getTimeInSeconds(restTimeInput.value),
 				description: descriptionInput.value,
@@ -60,7 +63,7 @@ function ExerciseForm(props) {
 
 	function resetInputFields() {
 		nameInput.reset();
-		repetitionsInput.reset();
+		setTimeInput.reset();
 		setsInput.reset();
 		restTimeInput.reset();
 		descriptionInput.reset();
@@ -81,17 +84,28 @@ function ExerciseForm(props) {
 					/>
 					{nameInput.hasError && <p className={classes.invalid}>Name cannot be empty</p>}
 				</div>
+				{/* 
+				<div
+					className={classes.form_group}
+					onChange={(event) => {
+						console.log(event.target.value);
+					}}>
+					<label>Set time:</label>
+					<input type="radio" value="set time" name="set settings" />
+					<label>Repetitions:</label>
+					<input type="radio" value="repetitions" name="set settings" />
+				</div> */}
 
 				<div className={classes.form_group}>
-					<label>Repetitions:</label>
+					<label>setTime:</label>
 					<input
-						className={repetitionsInputClasses}
-						type="number"
-						value={repetitionsInput.value}
-						onChange={repetitionsInput.valueChangeHandler}
-						onBlur={repetitionsInput.inputBlurHandler}
+						className={setTimeInputClasses}
+						type="text"
+						value={setTimeInput.value}
+						onChange={setTimeInput.valueChangeHandler}
+						onBlur={setTimeInput.inputBlurHandler}
 					/>
-					{repetitionsInput.hasError && <p className={classes.invalid}>Repetitions must be larger than 0</p>}
+					{setTimeInput.hasError && <p className={classes.invalid}>Set time must be in xx:xx format</p>}
 				</div>
 
 				<div className={classes.form_group}>
@@ -115,7 +129,7 @@ function ExerciseForm(props) {
 						onChange={restTimeInput.valueChangeHandler}
 						onBlur={restTimeInput.inputBlurHandler}
 					/>
-					{restTimeInput.hasError && <p className={classes.invalid}>rest time must be in xx:xx format</p>}
+					{restTimeInput.hasError && <p className={classes.invalid}>Rest time must be in xx:xx format</p>}
 				</div>
 
 				<div className={classes.form_group}>

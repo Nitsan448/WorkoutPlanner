@@ -6,7 +6,7 @@ function Exercise(props) {
 	return (
 		<div className={classes.exercise}>
 			<h3>{props.name}</h3>
-			<p>Repetitions: {props.repetitions}</p>
+			<p>Set Time: {props.setTime}</p>
 			<p>Sets: {props.sets}</p>
 			<p>Rest time: {getTimeInSetFormat(props.restTime)}</p>
 			<p>Description: {props.description}</p>
