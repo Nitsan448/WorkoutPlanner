@@ -12,26 +12,38 @@ function PlayWorkout(props) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const currentWorkout = useSelector((state) => state.currentWorkout);
+
 	const [currentSet, setCurrentSet] = useState(1);
 	const [inSet, setInSet] = useState(true);
 	const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 	const [workoutFinished, setWorkoutFinished] = useState(false);
+	const [currentExercise, setCurrentExercise] = useState(currentWorkout.exercises[currentExerciseIndex]);
+
+	const initialTimerTime = getNewTimerTime();
+	const timer = useTimer(initialTimerTime, timerFinishedHandler);
 
 	const workoutId = ":0";
 	useEffect(() => {
 		dispatch(fetchWorkoutData(workoutId));
 	}, [dispatch, workoutId]);
 
-	const currentWorkout = useSelector((state) => state.currentWorkout);
-
 	useEffect(() => {
 		setNewTimerTime();
 	}, [inSet, currentSet]);
 
-	const [currentExercise, setCurrentExercise] = useState(currentWorkout.exercises[currentExerciseIndex]);
+	//Use callback?
+	function setNewTimerTime() {
+		const newTimerTime = getNewTimerTime();
+		timer.setTimerTime(newTimerTime);
+	}
 
-	const initialTimerTime = getNewTimerTime();
-	const timer = useTimer(initialTimerTime, timerFinishedHandler);
+	function getNewTimerTime() {
+		if (inSet) {
+			return getTimeInMinutesAndSeconds(currentExercise.setTime);
+		}
+		return getTimeInMinutesAndSeconds(currentExercise.restTime);
+	}
 
 	function timerFinishedHandler() {
 		const exerciseFinished = inSet && currentSet === +currentExercise.sets;
@@ -61,50 +73,37 @@ function PlayWorkout(props) {
 	function updateCurrentSetState() {
 		if (inSet && currentExercise.restTime > 0) {
 			setInSet(false);
-			setCurrentSet(currentSet + 1);
 		} else if (inSet && currentExercise.restTime === 0) {
 			setCurrentSet(currentSet + 1);
 		} else {
 			setInSet(true);
+			setCurrentSet(currentSet + 1);
 		}
-	}
-
-	//Use callback?
-	function setNewTimerTime() {
-		const [minutes, seconds] = getNewTimerTime();
-		timer.setMinutes(minutes);
-		timer.setSeconds(seconds);
-	}
-
-	function getNewTimerTime() {
-		if (inSet) {
-			return getTimeInMinutesAndSeconds(currentExercise.setTime);
-		}
-		return getTimeInMinutesAndSeconds(currentExercise.restTime);
 	}
 
 	return (
 		<>
-			<div>
-				{/* Current exercise && */}
-				<PlayingExercise
-					name={currentExercise.name}
-					setTime={currentExercise.setTime}
-					currentSet={currentSet}
-					sets={currentExercise.sets}
-					restTime={currentExercise.restTime}
-					description={currentExercise.description}></PlayingExercise>
-				<div>
-					{inSet ? <h2>In set</h2> : <h2>Resting</h2>}
-					<Timer minutes={timer.minutes} seconds={timer.seconds} />
-				</div>
-				{workoutFinished && (
+			{currentWorkout && (
+				<>
+					<PlayingExercise
+						name={currentExercise.name}
+						setTime={currentExercise.setTime}
+						currentSet={currentSet}
+						sets={currentExercise.sets}
+						restTime={currentExercise.restTime}
+						description={currentExercise.description}></PlayingExercise>
 					<div>
-						<label>Workout finished!</label>
-						<Button onClick={() => navigate("/workouts")} text="Back to home page" />
+						{inSet ? <h2>In set</h2> : <h2>Resting</h2>}
+						<Timer minutes={timer.minutes} seconds={timer.seconds} />
 					</div>
-				)}
-			</div>
+				</>
+			)}
+			{workoutFinished && (
+				<div>
+					<label>Workout finished!</label>
+					<Button onClick={() => navigate("/workouts")} text="Back to home page" />
+				</div>
+			)}
 		</>
 	);
 }
