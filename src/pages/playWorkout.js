@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PlayingExercise from "../components/Exercises/PlayingExercise";
 import { useSelector, useDispatch } from "react-redux";
 import { getTimeInMinutesAndSeconds } from "../helpers/time";
@@ -20,30 +20,28 @@ function PlayWorkout(props) {
 	const [workoutFinished, setWorkoutFinished] = useState(false);
 	const [currentExercise, setCurrentExercise] = useState(currentWorkout.exercises[currentExerciseIndex]);
 
-	const initialTimerTime = getNewTimerTime();
-	const timer = useTimer(initialTimerTime, timerFinishedHandler);
-
 	const workoutId = ":0";
 	useEffect(() => {
 		dispatch(fetchWorkoutData(workoutId));
 	}, [dispatch, workoutId]);
 
-	useEffect(() => {
-		setNewTimerTime();
-	}, [inSet, currentSet]);
-
-	//Use callback?
-	function setNewTimerTime() {
-		const newTimerTime = getNewTimerTime();
-		timer.setTimerTime(newTimerTime);
-	}
-
-	function getNewTimerTime() {
+	const getNewTimerTime = useCallback(() => {
 		if (inSet) {
 			return getTimeInMinutesAndSeconds(currentExercise.setTime);
 		}
 		return getTimeInMinutesAndSeconds(currentExercise.restTime);
-	}
+	}, [inSet, currentExercise.setTime, currentExercise.restTime]);
+
+	const initialTimerTime = getNewTimerTime();
+	const timer = useTimer(initialTimerTime, timerFinishedHandler);
+
+	useEffect(() => {
+		function setNewTimerTime() {
+			const newTimerTime = getNewTimerTime();
+			timer.setTimerTime(newTimerTime);
+		}
+		setNewTimerTime();
+	}, [getNewTimerTime, currentSet]);
 
 	function timerFinishedHandler() {
 		const exerciseFinished = inSet && currentSet === +currentExercise.sets;

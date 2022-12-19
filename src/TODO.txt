@@ -1,8 +1,10 @@
-Fix bug on refresh in play workout page
+play workout page - Fix fetching data
+Fix workoutId
+clean code - dependencies, etc.
 
 Add choice between set time and repetitions
 
-Work on workouts page - add play button to existing workouts.
+Work on workouts page - fix play button for existing workouts.
 
 Add user authentication
 
