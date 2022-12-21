@@ -2,14 +2,9 @@ import React, { useState } from "react";
 import classes from "./ExerciseForm.module.css";
 import Button from "../UI/Button";
 import useInput from "../../hooks/use-input";
-import { workoutActions } from "../../store/workout-slice";
-import { useDispatch } from "react-redux";
-import { getTimeInSeconds } from "../../helpers/time";
 import { isPositiveNumber } from "../../helpers/helpers";
 
 function ExerciseForm(props) {
-	const dispatch = useDispatch();
-
 	const [isFormOpen, setIsFormOpen] = useState(false);
 
 	const nameInput = useInput((value) => value.trim() !== "");
@@ -48,16 +43,16 @@ function ExerciseForm(props) {
 		resetInputFields();
 		setIsFormOpen(false);
 
-		dispatch(
-			workoutActions.addExercise({
-				key: nameInput.value,
-				name: nameInput.value,
-				setTime: getTimeInSeconds(setTimeInput.value),
-				sets: setsInput.value,
-				restTime: getTimeInSeconds(restTimeInput.value),
-				description: descriptionInput.value,
-			})
-		);
+		// dispatch(
+		// 	workoutActions.addExercise({
+		// 		key: nameInput.value,
+		// 		name: nameInput.value,
+		// 		setTime: getTimeInSeconds(setTimeInput.value),
+		// 		sets: setsInput.value,
+		// 		restTime: getTimeInSeconds(restTimeInput.value),
+		// 		description: descriptionInput.value,
+		// 	})
+		// );
 	}
 
 	function resetInputFields() {
