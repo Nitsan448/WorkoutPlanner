@@ -14,7 +14,7 @@ function ViewingWorkout(props) {
 
 	return (
 		<>
-			<h2>{props.workout.workoutName}</h2>
+			<h2>{props.workout.name}</h2>
 			<ul>
 				{props.workout.exercises.map((exercise) => (
 					<Exercise

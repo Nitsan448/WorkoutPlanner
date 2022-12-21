@@ -1,9 +1,10 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 function useTimer(initialTime, timerFinishedHandler) {
-	const [state, dispatchUpdateTimerState] = useReducer(timerReducer, initialTime);
+	const [state, dispatchUpdateTime] = useReducer(timeReducer, initialTime);
+	const [paused, setPaused] = useState(false);
 
-	function timerReducer(state, action) {
+	function timeReducer(state, action) {
 		if (action.type === "tick") {
 			if (state.seconds > 0) {
 				return { minutes: state.minutes, seconds: state.seconds - 1 };
@@ -13,27 +14,36 @@ function useTimer(initialTime, timerFinishedHandler) {
 				timerFinishedHandler();
 				return { minutes: state.minutes, seconds: state.seconds };
 			}
-		} else if (action.type === "set-timer-time") {
+		} else if (action.type === "set-time") {
 			return { minutes: action.minutes, seconds: action.seconds };
 		}
 	}
 
-	function setTimerTime({ minutes, seconds }) {
-		dispatchUpdateTimerState({ type: "set-timer-time", minutes, seconds });
+	function setTime({ minutes, seconds }) {
+		dispatchUpdateTime({ type: "set-time", minutes, seconds });
+	}
+
+	function togglePausedState() {
+		setPaused((paused) => !paused);
 	}
 
 	useEffect(() => {
 		const timerInterval = setInterval(() => {
-			dispatchUpdateTimerState({ type: "tick" });
-		}, 1000 / 40);
+			if (!paused) {
+				dispatchUpdateTime({ type: "tick" });
+			} else {
+				clearInterval(timerInterval);
+			}
+		}, 1000 / 10);
 
 		return () => clearInterval(timerInterval);
-	}, []);
+	}, [paused]);
 
 	return {
 		minutes: state.minutes,
 		seconds: state.seconds,
-		setTimerTime,
+		setTime,
+		togglePausedState,
 	};
 }
 

@@ -1,34 +1,60 @@
-// import { useReducer, useCallback } from "react";
+import { useReducer, useCallback } from "react";
 
-// function useHttp(requestFunction, startWithPending = false) {
-// 	//Set pending status if startwithpending is true
+function httpReducer(state, action) {
+	if (action.type === "SEND") {
+		return {
+			data: null,
+			error: null,
+			status: "pending",
+		};
+	}
 
-// 	const sendRequest = useCallback(async (requestConfig, applyData) => {
-// 		//Set sending status
+	if (action.type === "SUCCESS") {
+		return {
+			data: action.responseData,
+			error: null,
+			status: "completed",
+		};
+	}
 
-// 		try {
-// 			const response = await fetch(requestConfig.url, {
-// 				method: requestConfig.method ? requestConfig.method : "GET",
-// 				headers: requestConfig.headers ? requestConfig.headers : {},
-// 				body: JSON.stringify(requestConfig.body ? requestConfig.body : null),
-// 			});
-// 			if (!response.ok) {
-// 				throw new Error("Request failed");
-// 			}
+	if (action.type === "ERROR") {
+		return {
+			data: null,
+			error: action.errorMessage,
+			status: "completed",
+		};
+	}
 
-// 			const data = await response.json();
+	return state;
+}
 
-// 			applyData(data);
-// 		} catch (error) {
-// 			throw new Error("Request failed");
-// 		}
+function useHttp(requestFunction, startWithPending = false) {
+	const [httpState, dispatch] = useReducer(httpReducer, {
+		status: startWithPending ? "pending" : null,
+		data: null,
+		error: null,
+	});
 
-// 		//Send finished status
-// 	}, []);
+	const sendRequest = useCallback(
+		async function (requestData) {
+			dispatch({ type: "SEND" });
+			try {
+				const responseData = await requestFunction(requestData);
+				dispatch({ type: "SUCCESS", responseData });
+			} catch (error) {
+				dispatch({
+					type: "ERROR",
+					errorMessage: error.message || "Something went wrong!",
+				});
+			}
+		},
+		[requestFunction]
+	);
 
-// 	return {
-// 		sendRequest,
-// 	};
-// }
+	return {
+		sendRequest,
+		...httpState,
+	};
+}
 
-// export default useHttp;
+export default useHttp;

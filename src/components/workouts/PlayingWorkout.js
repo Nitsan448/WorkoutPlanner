@@ -31,7 +31,7 @@ function PlayingWorkout(props) {
 			timer.setTime(newTimerTime);
 		}
 		setNewTimerTime();
-	}, [getNewTimerTime, currentSet]);
+	}, [getNewTimerTime, currentSet]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	function timerFinishedHandler() {
 		const exerciseFinished = inSet && currentSet === +currentExercise.sets;
