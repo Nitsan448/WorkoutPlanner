@@ -3,7 +3,6 @@ import classes from "./Exercise.module.css";
 import { getTimeInTimerFormat } from "../../helpers/time";
 
 function Exercise(props) {
-	console.log(props.setTime);
 	return (
 		<div className={classes.exercise}>
 			<h3>{props.name}</h3>

@@ -19,7 +19,7 @@ export async function fetchExercisesData(workoutId) {
 	return response.json();
 }
 
-export async function fetchWorkoutNames() {
+export async function fetchWorkouts() {
 	const response = await fetch(`${SERVERURL}workouts`);
 	if (!response.ok) {
 		throw new Error("Could not fetch workout names");

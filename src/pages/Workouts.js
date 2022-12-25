@@ -3,39 +3,39 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import classes from "./Workouts.module.css";
 import useHttp from "../hooks/use-http";
-import { fetchWorkoutNames } from "../lib/workoutsApi";
+import { fetchWorkouts } from "../lib/workoutsApi";
 
 function Workouts(props) {
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const {
-		sendRequest: sendFetchWorkoutNamesRequest,
-		status: fetchWorkoutNamesStatus,
-		data: workoutNames,
-		error: fetchWorkoutNamesError,
-	} = useHttp(fetchWorkoutNames, true);
+		sendRequest: sendFetchWorkoutsRequest,
+		status: fetchWorkoutsStatus,
+		data: workouts,
+		error: fetchWorkoutsError,
+	} = useHttp(fetchWorkouts, true);
 
 	useEffect(() => {
-		sendFetchWorkoutNamesRequest();
-	}, []);
+		sendFetchWorkoutsRequest();
+	}, [sendFetchWorkoutsRequest]);
 
 	function viewWorkoutHandler(workoutIndex) {
-		navigate(`${location.pathname}/:${workoutIndex}?playing=false`);
+		navigate(`${location.pathname}/${workoutIndex}?playing=false`);
 	}
 
 	function playWorkoutHandler(workoutIndex) {
-		navigate(`${location.pathname}/:${workoutIndex}?playing=true`);
+		navigate(`${location.pathname}/${workoutIndex}?playing=true`);
 	}
 
-	if (fetchWorkoutNamesStatus === "pending") {
+	if (fetchWorkoutsStatus === "pending") {
 		return <h2>Fetching Workout Names data...</h2>;
 	}
-	if (fetchWorkoutNamesError) {
+	if (fetchWorkoutsError) {
 		return (
 			<div>
 				<h2>There was an error fetching workout data</h2>
-				<p>{fetchWorkoutNamesError}</p>
+				<p>{fetchWorkoutsError}</p>
 			</div>
 		);
 	}
@@ -43,24 +43,13 @@ function Workouts(props) {
 	return (
 		<div className={classes.workouts}>
 			<div className={classes.gridContainer}>
-				{workoutNames.map((workoutName, index) => (
-					<div>
-						<Button onClick={() => viewWorkoutHandler(index * 2)} text={workoutName.name}></Button>
-						<Button onClick={() => playWorkoutHandler(index * 2 + 1)} text="Play"></Button>
+				{workouts.map((workout, index) => (
+					<div key={index + 1}>
+						<Button onClick={() => viewWorkoutHandler(index + 1)} text={workout.name}></Button>
+						<Button onClick={() => playWorkoutHandler(index + 1)} text="Play"></Button>
+						<h3>{workout.description}</h3>
 					</div>
 				))}
-				{/* <div>
-					<Button onClick={() => viewWorkoutHandler(0)} text="Simple and Sinister"></Button>
-					<Button onClick={() => playWorkoutHandler(0)} text="Play"></Button>
-				</div>
-				<div>
-					<Button onClick={() => viewWorkoutHandler(1)} text="Push ups and pull ups"></Button>
-					<Button onClick={() => playWorkoutHandler(1)} text="Play"></Button>
-				</div>
-				<div>
-					<Button onClick={() => viewWorkoutHandler(2)} text="Armor building complex"></Button>
-					<Button onClick={() => playWorkoutHandler(2)} text="Play"></Button>
-				</div> */}
 			</div>
 		</div>
 	);

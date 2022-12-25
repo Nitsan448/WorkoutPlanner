@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { fetchWorkoutData, fetchExercisesData, sendWorkoutData } from "../lib/workoutsApi";
+import { fetchWorkoutData, fetchExercisesData } from "../lib/workoutsApi";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import useHttp from "../hooks/use-http";
 import PlayingWorkout from "../components/workouts/PlayingWorkout";
 import ViewingWorkout from "../components/workouts/ViewingWorkout";
 
-let isInitial = true;
+// let isInitial = true;
 
 function Workout(props) {
 	const location = useLocation();
@@ -42,7 +42,7 @@ function Workout(props) {
 	// 	isInitial = false;
 	// }, [workout, workoutId, dispatch]);
 
-	if (fetchWorkoutStatus === "pending" || fetchExercisesStatus === " pending") {
+	if (fetchWorkoutStatus === "pending" || fetchExercisesStatus === "pending") {
 		return <h2>Fetching workout data...</h2>;
 	}
 	if (fetchWorkoutError || fetchExercisesError) {
