@@ -10,6 +10,15 @@ export async function fetchWorkoutData(workoutId) {
 	return response.json();
 }
 
+export async function fetchExercisesData(workoutId) {
+	const response = await fetch(`${SERVERURL}workouts/${workoutId}/exercises`);
+	if (!response.ok) {
+		throw new Error("Could not fetch exercises data");
+	}
+
+	return response.json();
+}
+
 export async function fetchWorkoutNames() {
 	const response = await fetch(`${SERVERURL}workouts`);
 	if (!response.ok) {
@@ -33,6 +42,9 @@ export async function sendWorkoutData(workout, workoutId) {
 				workoutName: workout.workoutName,
 				currentExerciseIndex: workout.currentExerciseIndex,
 			}),
+			headers: {
+				"Content-Type": "application.json",
+			},
 		});
 		if (!response.ok) {
 			throw new Error("Could not send workout data");

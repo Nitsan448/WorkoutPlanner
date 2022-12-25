@@ -17,10 +17,10 @@ function PlayingWorkout(props) {
 
 	const getNewTimerTime = useCallback(() => {
 		if (inSet) {
-			return getTimeInMinutesAndSeconds(currentExercise.setTime);
+			return getTimeInMinutesAndSeconds(currentExercise.set_time);
 		}
-		return getTimeInMinutesAndSeconds(currentExercise.restTime);
-	}, [inSet, currentExercise.setTime, currentExercise.restTime]);
+		return getTimeInMinutesAndSeconds(currentExercise.rest_time);
+	}, [inSet, currentExercise.set_time, currentExercise.rest_time]);
 
 	const initialTimerTime = getNewTimerTime();
 	const timer = useTimer(initialTimerTime, timerFinishedHandler);
@@ -59,9 +59,9 @@ function PlayingWorkout(props) {
 	}
 
 	function updateCurrentSetState() {
-		if (inSet && currentExercise.restTime > 0) {
+		if (inSet && currentExercise.rest_time > 0) {
 			setInSet(false);
-		} else if (inSet && currentExercise.restTime === 0) {
+		} else if (inSet && currentExercise.rest_time === 0) {
 			setCurrentSet(currentSet + 1);
 		} else {
 			setInSet(true);
@@ -73,10 +73,10 @@ function PlayingWorkout(props) {
 		<>
 			<PlayingExercise
 				name={currentExercise.name}
-				setTime={currentExercise.setTime}
+				setTime={currentExercise.set_time}
 				currentSet={currentSet}
 				sets={currentExercise.sets}
-				restTime={currentExercise.restTime}
+				restTime={currentExercise.rest_time}
 				description={currentExercise.description}></PlayingExercise>
 			<div>
 				{inSet ? <h2>In set</h2> : <h2>Resting</h2>}

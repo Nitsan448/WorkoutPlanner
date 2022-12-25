@@ -1,8 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import workoutSlice from "./workout-slice";
+// import { configureStore } from "@reduxjs/toolkit";
+// import workoutSlice from "./workout-slice";
 
-const store = configureStore({
-	reducer: { currentWorkout: workoutSlice.reducer },
-});
+// const store = configureStore({
+// 	reducer: { currentWorkout: workoutSlice.reducer },
+// });
 
-export default store;
+// export default store;

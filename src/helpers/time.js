@@ -11,6 +11,7 @@ function getTimeInTimerFormat(timeInSeconds) {
 
 	let minutesString = minutes.toString();
 	let secondsString = seconds.toString();
+
 	if (minutes < 10) {
 		minutesString = `0${minutes}`;
 	}
