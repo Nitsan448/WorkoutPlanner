@@ -3,12 +3,18 @@ import Workout from "./pages/Workout";
 import Workouts from "./pages/Workouts";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout/Layout";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 function App() {
 	return (
 		<Layout>
 			<Routes>
-				<Route path="/" element={<Navigate replace to="/workouts" />} />
+				<Route path="/" element={<Navigate replace to="/register" />} />
+
+				<Route path="/register" element={<Register />} />
+
+				<Route path="/login" element={<Login />} />
 
 				<Route path="/workouts" element={<Workouts />} />
 

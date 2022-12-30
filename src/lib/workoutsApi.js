@@ -43,7 +43,7 @@ export async function sendWorkoutData(workout, workoutId) {
 				currentExerciseIndex: workout.currentExerciseIndex,
 			}),
 			headers: {
-				"Content-Type": "application.json",
+				"Content-Type": "application/json",
 			},
 		});
 		if (!response.ok) {
