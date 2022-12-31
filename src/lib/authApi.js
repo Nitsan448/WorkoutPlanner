@@ -28,6 +28,7 @@ export async function login(user) {
 		headers: {
 			"Content-Type": "application/json",
 		},
+		credentials: "include",
 	});
 	if (!response.ok) {
 		throw new Error("Could not login");

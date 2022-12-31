@@ -4,7 +4,7 @@ import classes from "../components/Exercises/ExerciseForm.module.css";
 import Button from "../components/UI/Button";
 import { register } from "../lib/authApi";
 import useHttp from "../hooks/use-http";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register(props) {
 	const navigate = useNavigate();
@@ -96,6 +96,7 @@ function Register(props) {
 			</form>
 			{registerRequestStatus === "pending" ? <h3>Registering...</h3> : ""}
 			{registerRequestError ? <h3>{registerRequestError}</h3> : ""}
+			<Link to="/Login">Login</Link>
 		</div>
 	);
 }
