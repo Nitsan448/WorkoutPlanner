@@ -18,7 +18,7 @@ function ViewingWorkout(props) {
 			<ul>
 				{props.workout.exercises.map((exercise) => (
 					<Exercise
-						key={exercise.id}
+						key={exercise.exercise_id}
 						name={exercise.name}
 						setTime={exercise.set_time}
 						sets={exercise.sets}

@@ -43,10 +43,10 @@ function Workouts(props) {
 	return (
 		<div className={classes.workouts}>
 			<div className={classes.gridContainer}>
-				{workouts.map((workout, index) => (
-					<div key={index + 1}>
-						<Button onClick={() => viewWorkoutHandler(index + 1)} text={workout.name} />
-						<Button onClick={() => playWorkoutHandler(index + 1)} text="Play" />
+				{workouts.map((workout) => (
+					<div key={workout.workout_id}>
+						<Button onClick={() => viewWorkoutHandler(workout.workout_id)} text={workout.name} />
+						<Button onClick={() => playWorkoutHandler(workout.workout_id)} text="Play" />
 						<h3>{workout.description}</h3>
 					</div>
 				))}

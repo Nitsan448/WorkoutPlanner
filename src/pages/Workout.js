@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchWorkoutData, fetchExercisesData } from "../lib/workoutsApi";
+import { fetchWorkoutData, fetchRoutinesData } from "../lib/workoutsApi";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import useHttp from "../hooks/use-http";
@@ -24,16 +24,16 @@ function Workout(props) {
 	} = useHttp(fetchWorkoutData, true);
 
 	const {
-		sendRequest: sendFetchExercisesRequest,
-		status: fetchExercisesStatus,
-		data: exercisesData,
-		error: fetchExercisesError,
-	} = useHttp(fetchExercisesData, true);
+		sendRequest: sendFetchRoutinesRequest,
+		status: fetchRoutinesStatus,
+		data: routinesData,
+		error: fetchRoutinesError,
+	} = useHttp(fetchRoutinesData, true);
 
 	useEffect(() => {
 		sendFetchWorkoutRequest(workoutId);
-		sendFetchExercisesRequest(workoutId);
-	}, [sendFetchWorkoutRequest, sendFetchExercisesRequest, workoutId]);
+		sendFetchRoutinesRequest(workoutId);
+	}, [sendFetchWorkoutRequest, sendFetchRoutinesRequest, workoutId]);
 
 	// useEffect(() => {
 	// 	if (workout.changed && !isInitial) {
@@ -42,10 +42,10 @@ function Workout(props) {
 	// 	isInitial = false;
 	// }, [workout, workoutId, dispatch]);
 
-	if (fetchWorkoutStatus === "pending" || fetchExercisesStatus === "pending") {
+	if (fetchWorkoutStatus === "pending" || fetchRoutinesStatus === "pending") {
 		return <h2>Fetching workout data...</h2>;
 	}
-	if (fetchWorkoutError || fetchExercisesError) {
+	if (fetchWorkoutError || fetchRoutinesError) {
 		return (
 			<div>
 				<h2>There was an error fetching workout data</h2>
@@ -57,7 +57,7 @@ function Workout(props) {
 	const workout = {
 		name: workoutData.name,
 		description: workoutData.description,
-		exercises: exercisesData,
+		exercises: routinesData,
 	};
 
 	return <>{isWorkoutPlaying ? <PlayingWorkout workout={workout} /> : <ViewingWorkout workout={workout} />}</>;

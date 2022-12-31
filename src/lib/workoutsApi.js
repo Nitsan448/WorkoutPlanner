@@ -2,7 +2,7 @@
 const SERVERURL = "http://localhost:8000/";
 
 export async function fetchWorkoutData(workoutId) {
-	const response = await fetch(`${SERVERURL}workouts/${workoutId}`);
+	const response = await fetch(`${SERVERURL}workouts/${workoutId}`, { credentials: "include" });
 	if (!response.ok) {
 		throw new Error("Could not fetch workout data");
 	}
@@ -10,10 +10,10 @@ export async function fetchWorkoutData(workoutId) {
 	return response.json();
 }
 
-export async function fetchExercisesData(workoutId) {
-	const response = await fetch(`${SERVERURL}workouts/${workoutId}/exercises`);
+export async function fetchRoutinesData(workoutId) {
+	const response = await fetch(`${SERVERURL}workouts/${workoutId}/routines`, { credentials: "include" });
 	if (!response.ok) {
-		throw new Error("Could not fetch exercises data");
+		throw new Error("Could not fetch routines data");
 	}
 
 	return response.json();
@@ -47,6 +47,7 @@ export async function sendWorkoutData(workout, workoutId) {
 			headers: {
 				"Content-Type": "application/json",
 			},
+			credentials: "include",
 		});
 		if (!response.ok) {
 			throw new Error("Could not send workout data");
