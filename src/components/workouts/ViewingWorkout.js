@@ -9,7 +9,7 @@ function ViewingWorkout(props) {
 	const location = useLocation();
 
 	function StartWorkoutHandler() {
-		navigate(`${location.pathname}?playing=true`);
+		navigate(`${location.pathname}?mode=play`);
 	}
 
 	return (

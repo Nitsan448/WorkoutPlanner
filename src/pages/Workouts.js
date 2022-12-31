@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import classes from "./Workouts.module.css";
 import useHttp from "../hooks/use-http";
-import { fetchWorkouts } from "../lib/workoutsApi";
+import { fetchWorkouts, addNewWorkout } from "../lib/workoutsApi";
 
 function Workouts(props) {
 	const navigate = useNavigate();
@@ -16,16 +16,23 @@ function Workouts(props) {
 		error: fetchWorkoutsError,
 	} = useHttp(fetchWorkouts, true);
 
+	const {
+		sendRequest: sendAddNewWorkoutRequest,
+		status: addNewWorkoutStatus,
+		data: adddWorkoutId,
+		error: addNewWorkoutError,
+	} = useHttp(addNewWorkout, false);
+
 	useEffect(() => {
 		sendFetchWorkoutsRequest();
 	}, [sendFetchWorkoutsRequest]);
 
-	function viewWorkoutHandler(workoutIndex) {
-		navigate(`${location.pathname}/${workoutIndex}?playing=false`);
+	function goToWorkoutHandler(workoutIndex, mode) {
+		navigate(`${location.pathname}/${workoutIndex}?mode=${mode}`);
 	}
 
-	function playWorkoutHandler(workoutIndex) {
-		navigate(`${location.pathname}/${workoutIndex}?playing=true`);
+	function createNewWorkout() {
+		sendAddNewWorkoutRequest();
 	}
 
 	if (fetchWorkoutsStatus === "pending") {
@@ -45,12 +52,13 @@ function Workouts(props) {
 			<div className={classes.gridContainer}>
 				{workouts.map((workout) => (
 					<div key={workout.workout_id}>
-						<Button onClick={() => viewWorkoutHandler(workout.workout_id)} text={workout.name} />
-						<Button onClick={() => playWorkoutHandler(workout.workout_id)} text="Play" />
+						<Button onClick={() => goToWorkoutHandler(workout.workout_id, "view")} text={workout.name} />
+						<Button onClick={() => goToWorkoutHandler(workout.workout_id, "play")} text="Play" />
 						<h3>{workout.description}</h3>
 					</div>
 				))}
 			</div>
+			<Button onClick={createNewWorkout} text="Add workout" />
 		</div>
 	);
 }

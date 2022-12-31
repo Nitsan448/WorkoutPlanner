@@ -35,23 +35,42 @@ export async function addExercise(exercise, workoutId) {
 	// const response = await fetch(`${SERVERURL}workouts/${workoutId}.json`)
 }
 
-export async function sendWorkoutData(workout, workoutId) {
-	const sendRequest = async () => {
-		const response = await fetch(`${SERVERURL}workouts/${workoutId}.json`, {
-			method: "PUT",
-			body: JSON.stringify({
-				exercises: workout.exercises,
-				workoutName: workout.workoutName,
-				currentExerciseIndex: workout.currentExerciseIndex,
-			}),
-			headers: {
-				"Content-Type": "application/json",
-			},
-			credentials: "include",
-		});
-		if (!response.ok) {
-			throw new Error("Could not send workout data");
-		}
-	};
-	await sendRequest();
+export async function addNewWorkout() {
+	const response = await fetch(`${SERVERURL}workouts/create-workout`, {
+		method: "POST",
+		body: JSON.stringify({
+			name: "",
+			description: "",
+		}),
+		headers: {
+			"Content-Type": "application/json",
+		},
+		credentials: "include",
+	});
+	if (!response.ok) {
+		throw new Error("Could not send workout data");
+	}
+
+	return response.json();
 }
+
+// export async function sendWorkoutData(workout, workoutId) {
+// 	// const sendRequest = async () => {
+// 		const response = await fetch(`${SERVERURL}workouts/${workoutId}.json`, {
+// 			method: "PUT",
+// 			body: JSON.stringify({
+// 				exercises: workout.exercises,
+// 				workoutName: workout.workoutName,
+// 				currentExerciseIndex: workout.currentExerciseIndex,
+// 			}),
+// 			headers: {
+// 				"Content-Type": "application/json",
+// 			},
+// 			credentials: "include",
+// 		});
+// 		if (!response.ok) {
+// 			throw new Error("Could not send workout data");
+// 		}
+// 	};
+// 	await sendRequest();
+// }

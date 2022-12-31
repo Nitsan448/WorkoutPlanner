@@ -11,7 +11,7 @@ import ViewingWorkout from "../components/workouts/ViewingWorkout";
 function Workout(props) {
 	const location = useLocation();
 	const queryParams = new URLSearchParams(location.search);
-	const isWorkoutPlaying = queryParams.get("playing") === "true";
+	const workoutMode = queryParams.get("mode");
 
 	const params = useParams();
 	const { workoutId } = params;
@@ -60,7 +60,12 @@ function Workout(props) {
 		exercises: routinesData,
 	};
 
-	return <>{isWorkoutPlaying ? <PlayingWorkout workout={workout} /> : <ViewingWorkout workout={workout} />}</>;
+	return (
+		<>
+			{workoutMode === "view" && <ViewingWorkout workout={workout} />}
+			{workoutMode === "play" && <PlayingWorkout workout={workout} />}
+		</>
+	);
 }
 
 export default Workout;
