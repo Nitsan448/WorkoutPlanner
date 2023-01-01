@@ -1,7 +1,7 @@
 // const SERVERURL = "https://practicing-react-67914-default-rtdb.firebaseio.com/";
 const SERVERURL = "http://localhost:8000/workouts/";
 
-export async function fetchWorkoutData(workoutId) {
+export async function fetchWorkoutRequest(workoutId) {
 	const response = await fetch(`${SERVERURL}${workoutId}`, { credentials: "include" });
 	if (!response.ok) {
 		throw new Error("Could not fetch workout data");
@@ -10,7 +10,7 @@ export async function fetchWorkoutData(workoutId) {
 	return response.json();
 }
 
-export async function fetchRoutinesData(workoutId) {
+export async function fetchRoutinesRequest(workoutId) {
 	const response = await fetch(`${SERVERURL}${workoutId}/routines`, { credentials: "include" });
 	if (!response.ok) {
 		throw new Error("Could not fetch routines data");
@@ -19,7 +19,7 @@ export async function fetchRoutinesData(workoutId) {
 	return response.json();
 }
 
-export async function fetchWorkouts() {
+export async function fetchWorkoutsRequest() {
 	const response = await fetch(`${SERVERURL}`, {
 		credentials: "include",
 	});
@@ -30,7 +30,7 @@ export async function fetchWorkouts() {
 	return response.json();
 }
 
-export async function addNewWorkout() {
+export async function addWorkoutRequest() {
 	const response = await fetch(`${SERVERURL}create-workout`, {
 		method: "POST",
 		body: JSON.stringify({
@@ -47,24 +47,3 @@ export async function addNewWorkout() {
 	}
 	return response.json();
 }
-
-// export async function sendWorkoutData(workout, workoutId) {
-// 	// const sendRequest = async () => {
-// 		const response = await fetch(`${SERVERURL}workouts/${workoutId}.json`, {
-// 			method: "PUT",
-// 			body: JSON.stringify({
-// 				exercises: workout.exercises,
-// 				workoutName: workout.workoutName,
-// 				currentExerciseIndex: workout.currentExerciseIndex,
-// 			}),
-// 			headers: {
-// 				"Content-Type": "application/json",
-// 			},
-// 			credentials: "include",
-// 		});
-// 		if (!response.ok) {
-// 			throw new Error("Could not send workout data");
-// 		}
-// 	};
-// 	await sendRequest();
-// }

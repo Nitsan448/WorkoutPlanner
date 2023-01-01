@@ -2,13 +2,14 @@ clean code
 
 Add choice between set time and repetitions
 
+Go straight to home page when user is already logged in
 
-After learning node.js:
+Add all missing fields - public, likes, image, etc.
 
-add workouts
+Add logout to navigation bar
+
 edit workouts
 delete workouts
-add Exercises
 edit exercises
 delete exercises (delete routine, and delete exercise if it there are no more routines with this exercise id)
 

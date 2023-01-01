@@ -1,6 +1,6 @@
 const SERVERURL = "http://localhost:8000/routines/";
 
-export async function addRoutine(routine) {
+export async function addRoutineRequest(routine) {
 	const response = await fetch(`${SERVERURL}create-routine`, {
 		method: "POST",
 		body: JSON.stringify({
@@ -25,7 +25,7 @@ export async function addRoutine(routine) {
 	return response.json();
 }
 
-export async function deleteRoutine(routine) {
+export async function deleteRoutineRequest(routine) {
 	const response = await fetch(`${SERVERURL}${routine.workoutId}/${routine.orderInWorkout}`, {
 		method: "DELETE",
 		headers: {

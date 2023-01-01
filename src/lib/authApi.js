@@ -1,6 +1,6 @@
 const SERVERURL = "http://localhost:8000/";
 
-export async function register(user) {
+export async function registerRequest(user) {
 	const response = await fetch(`${SERVERURL}auth/register`, {
 		method: "POST",
 		body: JSON.stringify({
@@ -18,7 +18,7 @@ export async function register(user) {
 	return response.json();
 }
 
-export async function login(user) {
+export async function loginRequest(user) {
 	const response = await fetch(`${SERVERURL}auth/login`, {
 		method: "POST",
 		body: JSON.stringify({

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchWorkoutData, fetchRoutinesData } from "../lib/workoutsApi";
+import { fetchWorkoutRequest, fetchRoutinesRequest } from "../lib/workoutsApi";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import useHttp from "../hooks/use-http";
@@ -22,14 +22,14 @@ function Workout(props) {
 		status: fetchWorkoutStatus,
 		data: workoutData,
 		error: fetchWorkoutError,
-	} = useHttp(fetchWorkoutData, true);
+	} = useHttp(fetchWorkoutRequest, true);
 
 	const {
 		sendRequest: sendFetchRoutinesRequest,
 		status: fetchRoutinesStatus,
 		data: routinesData,
 		error: fetchRoutinesError,
-	} = useHttp(fetchRoutinesData, true);
+	} = useHttp(fetchRoutinesRequest, true);
 
 	useEffect(() => {
 		sendFetchWorkoutRequest(workoutId);

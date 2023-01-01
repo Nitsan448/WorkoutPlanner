@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useInput from "../hooks/use-input";
 import classes from "../components/Exercises/ExerciseForm.module.css";
 import Button from "../components/UI/Button";
-import { login } from "../lib/authApi";
+import { loginRequest } from "../lib/authApi";
 import useHttp from "../hooks/use-http";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +21,7 @@ function Login(props) {
 		sendRequest: sendloginRequest,
 		status: loginRequestStatus,
 		error: loginRequestError,
-	} = useHttp(login, false);
+	} = useHttp(loginRequest, false);
 
 	function loginHandler(event) {
 		event.preventDefault();
@@ -35,7 +35,7 @@ function Login(props) {
 		if (loginRequestStatus === "completed" && !loginRequestError) {
 			navigate(`/workouts`);
 		}
-	}, [loginRequestError, loginRequestStatus]);
+	}, [loginRequestError, loginRequestStatus, navigate]);
 
 	return (
 		<div className={classes.form}>

@@ -3,7 +3,7 @@ import classes from "./Exercise.module.css";
 import { getTimeInTimerFormat } from "../../helpers/time";
 import Button from "../UI/Button";
 import useHttp from "../../hooks/use-http";
-import { deleteRoutine } from "../../lib/routinesApi";
+import { deleteRoutineRequest } from "../../lib/routinesApi";
 import { useParams } from "react-router-dom";
 
 function EditingExercise(props) {
@@ -13,7 +13,7 @@ function EditingExercise(props) {
 		sendRequest: sendDeleteRoutineRequest,
 		error: deleteRoutineError,
 		status: deleteRoutineStatus,
-	} = useHttp(deleteRoutine, false);
+	} = useHttp(deleteRoutineRequest, false);
 
 	function deleteExercise() {
 		sendDeleteRoutineRequest({ workoutId, orderInWorkout: props.orderInWorkout });

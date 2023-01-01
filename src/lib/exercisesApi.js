@@ -1,6 +1,6 @@
 const SERVERURL = "http://localhost:8000/exercises/";
 
-export async function addExercise(exercise) {
+export async function addExerciseRequest(exercise) {
 	const response = await fetch(`${SERVERURL}create-exercise`, {
 		method: "POST",
 		body: JSON.stringify({

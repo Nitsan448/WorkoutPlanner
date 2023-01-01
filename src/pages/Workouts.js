@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import classes from "./Workouts.module.css";
 import useHttp from "../hooks/use-http";
-import { fetchWorkouts, addNewWorkout } from "../lib/workoutsApi";
+import { addWorkoutRequest, fetchWorkoutsRequest } from "../lib/workoutsApi";
 
 function Workouts(props) {
 	const navigate = useNavigate();
@@ -14,14 +14,21 @@ function Workouts(props) {
 		status: fetchWorkoutsStatus,
 		data: workouts,
 		error: fetchWorkoutsError,
-	} = useHttp(fetchWorkouts, true);
+	} = useHttp(fetchWorkoutsRequest, true);
 
 	const {
 		sendRequest: sendAddNewWorkoutRequest,
 		status: addNewWorkoutStatus,
 		data: createdWorkoutId,
 		error: addNewWorkoutError,
-	} = useHttp(addNewWorkout, false);
+	} = useHttp(addWorkoutRequest, false);
+
+	const goToWorkoutHandler = useCallback(
+		(workoutIndex, mode) => {
+			navigate(`${location.pathname}/${workoutIndex}?mode=${mode}`);
+		},
+		[navigate, location]
+	);
 
 	useEffect(() => {
 		sendFetchWorkoutsRequest();
@@ -31,11 +38,7 @@ function Workouts(props) {
 		if (addNewWorkoutStatus === "completed" && !addNewWorkoutError) {
 			goToWorkoutHandler(createdWorkoutId, "edit");
 		}
-	}, [addNewWorkoutStatus, addNewWorkoutError]);
-
-	function goToWorkoutHandler(workoutIndex, mode) {
-		navigate(`${location.pathname}/${workoutIndex}?mode=${mode}`);
-	}
+	}, [addNewWorkoutStatus, addNewWorkoutError, createdWorkoutId, goToWorkoutHandler]);
 
 	function createNewWorkout() {
 		sendAddNewWorkoutRequest();

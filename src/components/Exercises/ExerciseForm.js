@@ -4,8 +4,8 @@ import Button from "../UI/Button";
 import useInput from "../../hooks/use-input";
 import { isPositiveNumber } from "../../helpers/helpers";
 import { useParams } from "react-router-dom";
-import { addExercise } from "../../lib/exercisesApi";
-import { addRoutine } from "../../lib/routinesApi";
+import { addExerciseRequest } from "../../lib/exercisesApi";
+import { addRoutineRequest } from "../../lib/routinesApi";
 import useHttp from "../../hooks/use-http";
 import { getTimeInSeconds } from "../../helpers/time";
 
@@ -14,16 +14,13 @@ function ExerciseForm(props) {
 	const { workoutId } = params;
 
 	const [isFormOpen, setIsFormOpen] = useState(false);
+	const [orderInWorkout, setOrderInWorkout] = useState(props.orderInWorkout);
 
 	const nameInput = useInput((value) => value.trim() !== "");
-
 	const setTimeInput = useInput((value) => validateTimeInput(value), "00:00");
-
 	const setsInput = useInput((value) => value > 0, 1);
-
 	const restTimeInput = useInput((value) => validateTimeInput(value), "00:00");
-
-	const [orderInWorkout, setOrderInWorkout] = useState(props.orderInWorkout);
+	const descriptionInput = useInput(() => true);
 
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
@@ -32,8 +29,6 @@ function ExerciseForm(props) {
 		const [minutes, seconds] = value.split(":");
 		return isPositiveNumber(minutes) && isPositiveNumber(seconds);
 	}
-
-	const descriptionInput = useInput((value) => true);
 
 	const nameInputClasses = nameInput.hasError ? classes.invalid : "";
 	const setsInputClasses = setsInput.hasError ? classes.invalid : "";
@@ -52,14 +47,14 @@ function ExerciseForm(props) {
 		status: addExerciseStatus,
 		data: exerciseId,
 		error: addExerciseError,
-	} = useHttp(addExercise, true);
+	} = useHttp(addExerciseRequest, true);
 
 	const {
 		sendRequest: sendAddRoutineRequest,
 		status: addRoutineStatus,
 		data: routineData,
 		error: addRoutineError,
-	} = useHttp(addRoutine, true);
+	} = useHttp(addRoutineRequest, true);
 
 	useEffect(() => {
 		if (addExerciseStatus === "completed" && !addExerciseError) {

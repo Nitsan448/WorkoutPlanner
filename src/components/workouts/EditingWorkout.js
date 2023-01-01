@@ -6,20 +6,14 @@ import Button from "../UI/Button";
 import EditingExercise from "../Exercises/EditingExercise";
 
 function EditingWorkout(props) {
-	let workout = props.workout;
-	if (!workout) {
-		workout = {
-			name: "",
-			description: "",
-			exercises,
-		};
-	}
-	const [exercises, setExercises] = useState(workout.exercises);
-	const workoutNameInput = useInput((value) => value.trim().length > 0, workout.name);
-	const workoutNameInputClasses = workoutNameInput.hasError ? classes.invalid : "";
+	const workout = props.workout ? props.workout : { name: "", description: "", exercises: [] };
 
-	const workoutDescriptionInput = useInput((value) => value.trim().length > 0, workout.description);
-	const workoutDescriptionInputClasses = workoutDescriptionInput.hasError ? classes.invalid : "";
+	const [exercises, setExercises] = useState(workout.exercises);
+
+	const workoutNameInput = useInput((value) => value.trim().length > 0, workout.name);
+	const workoutDescriptionInput = useInput((value) => true, workout.description);
+
+	const workoutNameInputClasses = workoutNameInput.hasError ? classes.invalid : "";
 
 	function getExerciseAsComponent(exercise) {
 		return (
@@ -41,8 +35,7 @@ function EditingWorkout(props) {
 	}
 
 	function deleteExercise(orderInWorkout) {
-		console.log(orderInWorkout);
-		setExercises((exercises) => exercises.filter((exercise) => exercise.order_in_workout != orderInWorkout));
+		setExercises((exercises) => exercises.filter((exercise) => exercise.order_in_workout !== orderInWorkout));
 	}
 
 	return (
@@ -60,17 +53,18 @@ function EditingWorkout(props) {
 					</div>
 					<div className={classes.form_group}>
 						<label>Description</label>
-						<input
-							className={workoutDescriptionInputClasses}
-							type="text"
+						<textarea
 							value={workoutDescriptionInput.value}
 							onChange={workoutDescriptionInput.valueChangeHandler}
-							onBlur={workoutDescriptionInput.inputBlurHandler}></input>
+							onBlur={workoutDescriptionInput.inputBlurHandler}></textarea>
 					</div>
 				</form>
 				<ul>{exercises.map((exercise) => getExerciseAsComponent(exercise))}</ul>
+				<ExerciseForm addToWorkout={addExercise} orderInWorkout={workout.exercises.length + 1} />
 			</div>
-			<ExerciseForm addToWorkout={addExercise} orderInWorkout={workout.exercises.length + 1} />
+
+			{/* TODO: send workout name and description to server and update components on button click */}
+			<Button text="Finish editing" />
 		</>
 	);
 }

@@ -5,7 +5,6 @@ import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout/Layout";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import NewWorkout from "./pages/NewWorkout";
 
 function App() {
 	return (
@@ -18,8 +17,6 @@ function App() {
 				<Route path="/login" element={<Login />} />
 
 				<Route path="/workouts" element={<Workouts />} />
-
-				<Route path="/workouts/createWorkout" element={<NewWorkout />} />
 
 				<Route path="/workouts/:workoutId" element={<Workout />} />
 

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useInput from "../hooks/use-input";
 import classes from "../components/Exercises/ExerciseForm.module.css";
 import Button from "../components/UI/Button";
-import { register } from "../lib/authApi";
+import { registerRequest } from "../lib/authApi";
 import useHttp from "../hooks/use-http";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -26,7 +26,7 @@ function Register(props) {
 		sendRequest: sendRegisterRequest,
 		status: registerRequestStatus,
 		error: registerRequestError,
-	} = useHttp(register, false);
+	} = useHttp(registerRequest, false);
 
 	function registerHandler(event) {
 		event.preventDefault();
@@ -41,7 +41,7 @@ function Register(props) {
 		if (registerRequestStatus === "completed" && !registerRequestError) {
 			navigate(`/login`);
 		}
-	}, [registerRequestError, registerRequestStatus]);
+	}, [registerRequestError, registerRequestStatus, navigate]);
 
 	return (
 		<div className={classes.form}>

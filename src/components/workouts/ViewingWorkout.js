@@ -1,6 +1,5 @@
 import React from "react";
 import Exercise from "../Exercises/Exercise";
-import ExerciseForm from "../Exercises/ExerciseForm";
 import Button from "../../components/UI/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -10,6 +9,10 @@ function ViewingWorkout(props) {
 
 	function StartWorkoutHandler() {
 		navigate(`${location.pathname}?mode=play`);
+	}
+
+	function EditWorkoutHandler() {
+		navigate(`${location.pathname}?mode=edit`);
 	}
 
 	return (
@@ -27,8 +30,8 @@ function ViewingWorkout(props) {
 					/>
 				))}
 			</ul>
-			<ExerciseForm></ExerciseForm>
 			<div style={{ display: "flex", justifyContent: "center" }}>
+				<Button onClick={EditWorkoutHandler} text="Edit workout"></Button>
 				<Button onClick={StartWorkoutHandler} text="Start Workout"></Button>
 			</div>
 		</>

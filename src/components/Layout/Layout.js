@@ -1,4 +1,3 @@
-// import classes from "./Layout.module.css";
 import NavigationHeader from "./NavigationHeader";
 
 const Layout = (props) => {
