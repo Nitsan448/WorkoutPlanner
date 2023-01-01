@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import useHttp from "../hooks/use-http";
 import PlayingWorkout from "../components/workouts/PlayingWorkout";
 import ViewingWorkout from "../components/workouts/ViewingWorkout";
+import EditingWorkout from "../components/workouts/EditingWorkout";
 
 // let isInitial = true;
 
@@ -55,8 +56,8 @@ function Workout(props) {
 	}
 
 	const workout = {
-		name: workoutData.name,
-		description: workoutData.description,
+		name: workoutData[0].name,
+		description: workoutData[0].description,
 		exercises: routinesData,
 	};
 
@@ -64,6 +65,7 @@ function Workout(props) {
 		<>
 			{workoutMode === "view" && <ViewingWorkout workout={workout} />}
 			{workoutMode === "play" && <PlayingWorkout workout={workout} />}
+			{workoutMode === "edit" && <EditingWorkout workout={workout} />}
 		</>
 	);
 }

@@ -1,8 +1,8 @@
 // const SERVERURL = "https://practicing-react-67914-default-rtdb.firebaseio.com/";
-const SERVERURL = "http://localhost:8000/";
+const SERVERURL = "http://localhost:8000/workouts/";
 
 export async function fetchWorkoutData(workoutId) {
-	const response = await fetch(`${SERVERURL}workouts/${workoutId}`, { credentials: "include" });
+	const response = await fetch(`${SERVERURL}${workoutId}`, { credentials: "include" });
 	if (!response.ok) {
 		throw new Error("Could not fetch workout data");
 	}
@@ -11,7 +11,7 @@ export async function fetchWorkoutData(workoutId) {
 }
 
 export async function fetchRoutinesData(workoutId) {
-	const response = await fetch(`${SERVERURL}workouts/${workoutId}/routines`, { credentials: "include" });
+	const response = await fetch(`${SERVERURL}${workoutId}/routines`, { credentials: "include" });
 	if (!response.ok) {
 		throw new Error("Could not fetch routines data");
 	}
@@ -20,7 +20,7 @@ export async function fetchRoutinesData(workoutId) {
 }
 
 export async function fetchWorkouts() {
-	const response = await fetch(`${SERVERURL}workouts`, {
+	const response = await fetch(`${SERVERURL}`, {
 		credentials: "include",
 	});
 	if (!response.ok) {
@@ -30,13 +30,8 @@ export async function fetchWorkouts() {
 	return response.json();
 }
 
-export async function addExercise(exercise, workoutId) {
-	console.log(exercise);
-	// const response = await fetch(`${SERVERURL}workouts/${workoutId}.json`)
-}
-
 export async function addNewWorkout() {
-	const response = await fetch(`${SERVERURL}workouts/create-workout`, {
+	const response = await fetch(`${SERVERURL}create-workout`, {
 		method: "POST",
 		body: JSON.stringify({
 			name: "",
@@ -50,7 +45,6 @@ export async function addNewWorkout() {
 	if (!response.ok) {
 		throw new Error("Could not send workout data");
 	}
-
 	return response.json();
 }
 

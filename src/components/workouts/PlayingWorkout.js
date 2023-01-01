@@ -71,6 +71,7 @@ function PlayingWorkout(props) {
 
 	return (
 		<>
+			<h2>{props.workout.name}</h2>
 			<PlayingExercise
 				name={currentExercise.name}
 				setTime={currentExercise.set_time}

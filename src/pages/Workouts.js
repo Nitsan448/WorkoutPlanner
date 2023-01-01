@@ -19,13 +19,19 @@ function Workouts(props) {
 	const {
 		sendRequest: sendAddNewWorkoutRequest,
 		status: addNewWorkoutStatus,
-		data: adddWorkoutId,
+		data: createdWorkoutId,
 		error: addNewWorkoutError,
 	} = useHttp(addNewWorkout, false);
 
 	useEffect(() => {
 		sendFetchWorkoutsRequest();
 	}, [sendFetchWorkoutsRequest]);
+
+	useEffect(() => {
+		if (addNewWorkoutStatus === "completed" && !addNewWorkoutError) {
+			goToWorkoutHandler(createdWorkoutId, "edit");
+		}
+	}, [addNewWorkoutStatus, addNewWorkoutError]);
 
 	function goToWorkoutHandler(workoutIndex, mode) {
 		navigate(`${location.pathname}/${workoutIndex}?mode=${mode}`);
@@ -38,21 +44,21 @@ function Workouts(props) {
 	if (fetchWorkoutsStatus === "pending") {
 		return <h2>Fetching Workout Names data...</h2>;
 	}
-	if (fetchWorkoutsError) {
+	if (fetchWorkoutsError || addNewWorkoutError) {
 		return (
 			<div>
-				<h2>There was an error fetching workout data</h2>
-				<p>{fetchWorkoutsError}</p>
+				<h2>There was an error connecting to the server</h2>
+				<p>{fetchWorkoutsError ? fetchWorkoutsError : addNewWorkoutError}</p>
 			</div>
 		);
 	}
-
 	return (
 		<div className={classes.workouts}>
 			<div className={classes.gridContainer}>
 				{workouts.map((workout) => (
 					<div key={workout.workout_id}>
 						<Button onClick={() => goToWorkoutHandler(workout.workout_id, "view")} text={workout.name} />
+						<Button onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} text="Edit" />
 						<Button onClick={() => goToWorkoutHandler(workout.workout_id, "play")} text="Play" />
 						<h3>{workout.description}</h3>
 					</div>

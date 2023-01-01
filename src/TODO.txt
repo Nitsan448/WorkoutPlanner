@@ -1,15 +1,15 @@
-clean code - dependencies, etc.
+clean code
 
 Add choice between set time and repetitions
-
-Add user authentication
-
 
 
 After learning node.js:
 
-Add option to edit workouts
+add workouts
+edit workouts
+delete workouts
+add Exercises
+edit exercises
+delete exercises
 
-Work on workouts page - add workouts
-
-Fix add exercise
+when adding workout - go to edit page for that workout, if the user did not add a unique name and at least one exercise. Delete the workout when he leaves (after telling him it will happen)

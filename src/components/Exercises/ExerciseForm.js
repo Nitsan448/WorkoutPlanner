@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./ExerciseForm.module.css";
 import Button from "../UI/Button";
 import useInput from "../../hooks/use-input";
 import { isPositiveNumber } from "../../helpers/helpers";
+import { useParams } from "react-router-dom";
+import { addExercise } from "../../lib/exercisesApi";
+import { addRoutine } from "../../lib/routinesApi";
+import useHttp from "../../hooks/use-http";
+import { getTimeInSeconds } from "../../helpers/time";
 
 function ExerciseForm(props) {
+	const params = useParams();
+	const { workoutId } = params;
+
 	const [isFormOpen, setIsFormOpen] = useState(false);
 
 	const nameInput = useInput((value) => value.trim() !== "");
@@ -15,6 +23,8 @@ function ExerciseForm(props) {
 
 	const restTimeInput = useInput((value) => validateTimeInput(value), "00:00");
 
+	const [orderInWorkout, setOrderInWorkout] = useState(props.orderInWorkout);
+
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
 			return false;
@@ -23,13 +33,12 @@ function ExerciseForm(props) {
 		return isPositiveNumber(minutes) && isPositiveNumber(seconds);
 	}
 
-	const descriptionInput = useInput((value) => value.trim() !== "");
+	const descriptionInput = useInput((value) => true);
 
 	const nameInputClasses = nameInput.hasError ? classes.invalid : "";
 	const setsInputClasses = setsInput.hasError ? classes.invalid : "";
 	const setTimeInputClasses = setTimeInput.hasError ? classes.invalid : "";
 	const restTimeInputClasses = restTimeInput.hasError ? classes.invalid : "";
-	const descriptionInputClasses = descriptionInput.hasError ? classes.invalid : "";
 
 	const formIsValid =
 		nameInput.isValid &&
@@ -38,21 +47,50 @@ function ExerciseForm(props) {
 		descriptionInput.isValid &&
 		setsInput.isValid;
 
+	const {
+		sendRequest: sendAddExerciseRequest,
+		status: addExerciseStatus,
+		data: exerciseId,
+		error: addExerciseError,
+	} = useHttp(addExercise, true);
+
+	const {
+		sendRequest: sendAddRoutineRequest,
+		status: addRoutineStatus,
+		data: routineData,
+		error: addRoutineError,
+	} = useHttp(addRoutine, true);
+
+	useEffect(() => {
+		if (addExerciseStatus === "completed" && !addExerciseError) {
+			const routine = {
+				workout_id: workoutId,
+				exercise_id: exerciseId,
+				name: nameInput.value,
+				description: descriptionInput.value,
+				sets: setsInput.value,
+				time_or_repetitions: 1,
+				set_time: getTimeInSeconds(setTimeInput.value),
+				repetitions: 10,
+				rest_time: getTimeInSeconds(restTimeInput.value),
+				break_after_routine: 30,
+				order_in_workout: orderInWorkout,
+			};
+			sendAddRoutineRequest(routine);
+			props.addToWorkout(routine);
+			setOrderInWorkout(orderInWorkout + 1);
+			resetInputFields();
+		}
+	}, [addExerciseError, addExerciseStatus]);
+
 	function addNewExerciseHandler(event) {
 		event.preventDefault();
-		resetInputFields();
 		setIsFormOpen(false);
 
-		// dispatch(
-		// 	workoutActions.addExercise({
-		// 		key: nameInput.value,
-		// 		name: nameInput.value,
-		// 		setTime: getTimeInSeconds(setTimeInput.value),
-		// 		sets: setsInput.value,
-		// 		restTime: getTimeInSeconds(restTimeInput.value),
-		// 		description: descriptionInput.value,
-		// 	})
-		// );
+		sendAddExerciseRequest({
+			name: nameInput.value,
+			description: descriptionInput.value,
+		});
 	}
 
 	function resetInputFields() {
@@ -129,12 +167,10 @@ function ExerciseForm(props) {
 				<div className={classes.form_group}>
 					<label>Description:</label>
 					<textarea
-						className={descriptionInputClasses}
 						name="description"
 						value={descriptionInput.value}
 						onChange={descriptionInput.valueChangeHandler}
 						onBlur={descriptionInput.inputBlurHandler}></textarea>
-					{descriptionInput.hasError && <p className={classes.invalid}>Description cannot be empty</p>}
 				</div>
 				<Button disabled={!formIsValid} text="Add exercise"></Button>
 			</form>
