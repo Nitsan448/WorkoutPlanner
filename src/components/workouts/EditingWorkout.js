@@ -3,7 +3,7 @@ import useInput from "../../hooks/use-input";
 import ExerciseForm from "../Exercises/ExerciseForm";
 import classes from "../Exercises/ExerciseForm.module.css";
 import Button from "../UI/Button";
-import Exercise from "../Exercises/Exercise";
+import EditingExercise from "../Exercises/EditingExercise";
 
 function EditingWorkout(props) {
 	let workout = props.workout;
@@ -23,7 +23,9 @@ function EditingWorkout(props) {
 
 	function getExerciseAsComponent(exercise) {
 		return (
-			<Exercise
+			<EditingExercise
+				deleteFromWorkout={deleteExercise}
+				orderInWorkout={exercise.order_in_workout}
 				key={exercise.exercise_id}
 				name={exercise.name}
 				setTime={exercise.set_time}
@@ -34,9 +36,15 @@ function EditingWorkout(props) {
 		);
 	}
 
-	function addExerciseToWorkout(exercise) {
+	function addExercise(exercise) {
 		setExercises([...exercises, exercise]);
 	}
+
+	function deleteExercise(orderInWorkout) {
+		console.log(orderInWorkout);
+		setExercises((exercises) => exercises.filter((exercise) => exercise.order_in_workout != orderInWorkout));
+	}
+
 	return (
 		<>
 			<div className={classes.form}>
@@ -62,7 +70,7 @@ function EditingWorkout(props) {
 				</form>
 				<ul>{exercises.map((exercise) => getExerciseAsComponent(exercise))}</ul>
 			</div>
-			<ExerciseForm addToWorkout={addExerciseToWorkout} orderInWorkout={workout.exercises.length + 1} />
+			<ExerciseForm addToWorkout={addExercise} orderInWorkout={workout.exercises.length + 1} />
 		</>
 	);
 }

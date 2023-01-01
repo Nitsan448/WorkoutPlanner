@@ -24,3 +24,17 @@ export async function addRoutine(routine) {
 	}
 	return response.json();
 }
+
+export async function deleteRoutine(routine) {
+	const response = await fetch(`${SERVERURL}${routine.workoutId}/${routine.orderInWorkout}`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		credentials: "include",
+	});
+	if (!response.ok) {
+		throw new Error("Could not delete routine");
+	}
+	return response.json();
+}
