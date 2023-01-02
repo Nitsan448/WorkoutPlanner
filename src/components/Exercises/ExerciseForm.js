@@ -52,9 +52,10 @@ function ExerciseForm(props) {
 	const {
 		sendRequest: sendAddRoutineRequest,
 		status: addRoutineStatus,
-		data: routineData,
 		error: addRoutineError,
 	} = useHttp(addRoutineRequest, true);
+
+	const addToWorkout = props.addToWorkout;
 
 	useEffect(() => {
 		if (addExerciseStatus === "completed" && !addExerciseError) {
@@ -72,11 +73,32 @@ function ExerciseForm(props) {
 				order_in_workout: orderInWorkout,
 			};
 			sendAddRoutineRequest(routine);
-			props.addToWorkout(routine);
-			setOrderInWorkout(orderInWorkout + 1);
+			addToWorkout(routine);
+			setOrderInWorkout((orderInWorkout) => orderInWorkout + 1);
+
+			function resetInputFields() {
+				nameInput.reset();
+				setTimeInput.reset();
+				setsInput.reset();
+				restTimeInput.reset();
+				descriptionInput.reset();
+			}
 			resetInputFields();
 		}
-	}, [addExerciseError, addExerciseStatus]);
+	}, [
+		addExerciseError,
+		addExerciseStatus,
+		addToWorkout,
+		descriptionInput,
+		exerciseId,
+		nameInput,
+		orderInWorkout,
+		restTimeInput,
+		sendAddRoutineRequest,
+		setTimeInput,
+		setsInput,
+		workoutId,
+	]);
 
 	function addNewExerciseHandler(event) {
 		event.preventDefault();
@@ -88,30 +110,24 @@ function ExerciseForm(props) {
 		});
 	}
 
-	function resetInputFields() {
-		nameInput.reset();
-		setTimeInput.reset();
-		setsInput.reset();
-		restTimeInput.reset();
-		descriptionInput.reset();
-	}
-
-	return isFormOpen ? (
-		<div className={classes.form}>
-			<form onSubmit={addNewExerciseHandler}>
-				<h3>New Exercise</h3>
-				<div className={classes.form_group}>
-					<label>Name:</label>
-					<input
-						className={nameInputClasses}
-						type="text"
-						value={nameInput.value}
-						onChange={nameInput.valueChangeHandler}
-						onBlur={nameInput.inputBlurHandler}
-					/>
-					{nameInput.hasError && <p className={classes.invalid}>Name cannot be empty</p>}
-				</div>
-				{/* 
+	return (
+		<>
+			{isFormOpen ? (
+				<div className={classes.form}>
+					<form onSubmit={addNewExerciseHandler}>
+						<h3>New Exercise</h3>
+						<div className={classes.form_group}>
+							<label>Name:</label>
+							<input
+								className={nameInputClasses}
+								type="text"
+								value={nameInput.value}
+								onChange={nameInput.valueChangeHandler}
+								onBlur={nameInput.inputBlurHandler}
+							/>
+							{nameInput.hasError && <p className={classes.invalid}>Name cannot be empty</p>}
+						</div>
+						{/* 
 				<div
 					className={classes.form_group}
 					onChange={(event) => {
@@ -123,55 +139,63 @@ function ExerciseForm(props) {
 					<input type="radio" value="repetitions" name="set settings" />
 				</div> */}
 
-				<div className={classes.form_group}>
-					<label>setTime:</label>
-					<input
-						className={setTimeInputClasses}
-						type="text"
-						value={setTimeInput.value}
-						onChange={setTimeInput.valueChangeHandler}
-						onBlur={setTimeInput.inputBlurHandler}
-					/>
-					{setTimeInput.hasError && <p className={classes.invalid}>Set time must be in xx:xx format</p>}
-				</div>
+						<div className={classes.form_group}>
+							<label>setTime:</label>
+							<input
+								className={setTimeInputClasses}
+								type="text"
+								value={setTimeInput.value}
+								onChange={setTimeInput.valueChangeHandler}
+								onBlur={setTimeInput.inputBlurHandler}
+							/>
+							{setTimeInput.hasError && (
+								<p className={classes.invalid}>Set time must be in xx:xx format</p>
+							)}
+						</div>
 
-				<div className={classes.form_group}>
-					<label>Sets:</label>
-					<input
-						className={setsInputClasses}
-						type="number"
-						value={setsInput.value}
-						onChange={setsInput.valueChangeHandler}
-						onBlur={setsInput.inputBlurHandler}
-					/>
-					{setsInput.hasError && <p className={classes.invalid}>Sets must be larger than 0</p>}
-				</div>
+						<div className={classes.form_group}>
+							<label>Sets:</label>
+							<input
+								className={setsInputClasses}
+								type="number"
+								value={setsInput.value}
+								onChange={setsInput.valueChangeHandler}
+								onBlur={setsInput.inputBlurHandler}
+							/>
+							{setsInput.hasError && <p className={classes.invalid}>Sets must be larger than 0</p>}
+						</div>
 
-				<div className={classes.form_group}>
-					<label>Rest time:</label>
-					<input
-						className={restTimeInputClasses}
-						type="text"
-						value={restTimeInput.value}
-						onChange={restTimeInput.valueChangeHandler}
-						onBlur={restTimeInput.inputBlurHandler}
-					/>
-					{restTimeInput.hasError && <p className={classes.invalid}>Rest time must be in xx:xx format</p>}
-				</div>
+						<div className={classes.form_group}>
+							<label>Rest time:</label>
+							<input
+								className={restTimeInputClasses}
+								type="text"
+								value={restTimeInput.value}
+								onChange={restTimeInput.valueChangeHandler}
+								onBlur={restTimeInput.inputBlurHandler}
+							/>
+							{restTimeInput.hasError && (
+								<p className={classes.invalid}>Rest time must be in xx:xx format</p>
+							)}
+						</div>
 
-				<div className={classes.form_group}>
-					<label>Description:</label>
-					<textarea
-						name="description"
-						value={descriptionInput.value}
-						onChange={descriptionInput.valueChangeHandler}
-						onBlur={descriptionInput.inputBlurHandler}></textarea>
+						<div className={classes.form_group}>
+							<label>Description:</label>
+							<textarea
+								name="description"
+								value={descriptionInput.value}
+								onChange={descriptionInput.valueChangeHandler}
+								onBlur={descriptionInput.inputBlurHandler}></textarea>
+						</div>
+						<Button disabled={!formIsValid} text="Add exercise"></Button>
+					</form>
 				</div>
-				<Button disabled={!formIsValid} text="Add exercise"></Button>
-			</form>
-		</div>
-	) : (
-		<Button onClick={() => setIsFormOpen(true)} text="Add new exercise"></Button>
+			) : (
+				<Button onClick={() => setIsFormOpen(true)} text="Add new exercise"></Button>
+			)}
+			{addRoutineStatus !== "completed" || addExerciseStatus !== "completed" ? <h3>Adding exercise...</h3> : ""}
+			{addRoutineError || addExerciseError ? <h3>There was an error adding the exercise</h3> : ""}
+		</>
 	);
 }
 
