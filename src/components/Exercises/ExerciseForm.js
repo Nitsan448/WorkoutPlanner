@@ -47,13 +47,13 @@ function ExerciseForm(props) {
 		status: addExerciseStatus,
 		data: exerciseId,
 		error: addExerciseError,
-	} = useHttp(addExerciseRequest, true);
+	} = useHttp(addExerciseRequest, false);
 
 	const {
 		sendRequest: sendAddRoutineRequest,
 		status: addRoutineStatus,
 		error: addRoutineError,
-	} = useHttp(addRoutineRequest, true);
+	} = useHttp(addRoutineRequest, false);
 
 	const addToWorkout = props.addToWorkout;
 
@@ -85,20 +85,7 @@ function ExerciseForm(props) {
 			}
 			resetInputFields();
 		}
-	}, [
-		addExerciseError,
-		addExerciseStatus,
-		addToWorkout,
-		descriptionInput,
-		exerciseId,
-		nameInput,
-		orderInWorkout,
-		restTimeInput,
-		sendAddRoutineRequest,
-		setTimeInput,
-		setsInput,
-		workoutId,
-	]);
+	}, [addExerciseError, addExerciseStatus]);
 
 	function addNewExerciseHandler(event) {
 		event.preventDefault();
@@ -193,7 +180,7 @@ function ExerciseForm(props) {
 			) : (
 				<Button onClick={() => setIsFormOpen(true)} text="Add new exercise"></Button>
 			)}
-			{addRoutineStatus !== "completed" || addExerciseStatus !== "completed" ? <h3>Adding exercise...</h3> : ""}
+			{addRoutineStatus === "pending" || addExerciseStatus === "pending" ? <h3>Adding exercise...</h3> : ""}
 			{addRoutineError || addExerciseError ? <h3>There was an error adding the exercise</h3> : ""}
 		</>
 	);

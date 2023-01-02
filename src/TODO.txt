@@ -8,6 +8,8 @@ Add all missing fields - public, likes, image, etc.
 
 Add logout to navigation bar
 
+Change exercise form - first add exercise, press ok, then add routine
+
 edit workouts
 delete workouts
 edit exercises
