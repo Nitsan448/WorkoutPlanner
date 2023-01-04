@@ -1,5 +1,5 @@
 import useTimer from "../../hooks/use-timer";
-import Timer from "../Timer";
+import Timer from "../Timer/Timer";
 import { getTimeInMinutesAndSeconds } from "../../helpers/time";
 import { useCallback, useState, useEffect } from "react";
 import PlayingExercise from "../Exercises/PlayingExercise";

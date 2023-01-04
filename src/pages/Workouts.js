@@ -17,7 +17,6 @@ function Workouts(props) {
 	} = useGetWorkoutsQuery();
 
 	const [addWorkout] = useAddWorkoutMutation();
-	const [deleteWorkout] = useDeleteWorkoutMutation();
 
 	const goToWorkoutHandler = useCallback(
 		(workoutIndex, mode) => {
@@ -38,25 +37,16 @@ function Workouts(props) {
 		}
 	}
 
-	async function onDeleteWorkoutClicked(workout_id) {
-		try {
-			deleteWorkout({ workout_id });
-		} catch (error) {
-			console.log("failed to delete workout", error);
-		}
-	}
-
 	let content;
 	if (isWorkoutsRequestLoading) {
 		content = <h1>Loading...</h1>;
 	} else if (isWorkoutsRequestSuccess) {
 		content = workouts.map((workout) => (
 			<div key={workout.workout_id}>
-				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "view")} text={workout.name} />
+				<h2>{workout.name}</h2>
+				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "view")} text={"View"} />
 				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} text="Edit" />
 				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "play")} text="Play" />
-				<Button onClick={() => onDeleteWorkoutClicked(workout.workout_id)} text="Delete" />
-				<h3>{workout.description}</h3>
 			</div>
 		));
 	} else if (isWorkoutsRequestError) {

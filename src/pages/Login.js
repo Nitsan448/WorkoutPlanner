@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useInput from "../hooks/use-input";
 import classes from "../components/Exercises/ExerciseForm.module.css";
 import Button from "../components/UI/Button";
-import { loginRequest } from "../lib/authApi";
-import useHttp from "../hooks/use-http";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../store/apiSlice";
 
 function Login(props) {
 	const navigate = useNavigate();
@@ -17,25 +16,16 @@ function Login(props) {
 
 	const formIsValid = emailInput.isValid && passwordInput.isValid;
 
-	const {
-		sendRequest: sendloginRequest,
-		status: loginRequestStatus,
-		error: loginRequestError,
-	} = useHttp(loginRequest, false);
+	const [login] = useLoginMutation();
 
-	function loginHandler(event) {
+	async function loginHandler(event) {
 		event.preventDefault();
-		sendloginRequest({
+		login({
 			email: emailInput.value,
 			password: passwordInput.value,
 		});
+		navigate(`/workouts`);
 	}
-
-	useEffect(() => {
-		if (loginRequestStatus === "completed" && !loginRequestError) {
-			navigate(`/workouts`);
-		}
-	}, [loginRequestError, loginRequestStatus, navigate]);
 
 	return (
 		<div className={classes.form}>
@@ -66,8 +56,6 @@ function Login(props) {
 				</div>
 				<Button text="Login" disabled={!formIsValid} />
 			</form>
-			{loginRequestStatus === "pending" ? <h3>Logging in...</h3> : ""}
-			{loginRequestError ? <h3>{loginRequestError}</h3> : ""}
 		</div>
 	);
 }

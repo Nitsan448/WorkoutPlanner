@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useInput from "../hooks/use-input";
 import classes from "../components/Exercises/ExerciseForm.module.css";
 import Button from "../components/UI/Button";
-import { registerRequest } from "../lib/authApi";
-import useHttp from "../hooks/use-http";
 import { useNavigate, Link } from "react-router-dom";
+import { useRegisterMutation } from "../store/apiSlice";
 
 function Register(props) {
 	const navigate = useNavigate();
@@ -22,26 +21,17 @@ function Register(props) {
 	const formIsValid =
 		userNameInput.isValid && emailInput.isValid && passwordInput.isValid && verifyPasswordInput.isValid;
 
-	const {
-		sendRequest: sendRegisterRequest,
-		status: registerRequestStatus,
-		error: registerRequestError,
-	} = useHttp(registerRequest, false);
+	const [register] = useRegisterMutation();
 
-	function registerHandler(event) {
+	async function registerHandler(event) {
 		event.preventDefault();
-		sendRegisterRequest({
-			userName: userNameInput.value,
+		await register({
+			user_name: userNameInput.value,
 			email: emailInput.value,
 			password: passwordInput.value,
 		});
+		navigate(`/workouts`);
 	}
-
-	useEffect(() => {
-		if (registerRequestStatus === "completed" && !registerRequestError) {
-			navigate(`/workouts`);
-		}
-	}, [registerRequestError, registerRequestStatus, navigate]);
 
 	return (
 		<div className={classes.form}>
@@ -94,8 +84,6 @@ function Register(props) {
 				</div>
 				<Button text="Register" disabled={!formIsValid} />
 			</form>
-			{registerRequestStatus === "pending" ? <h3>Registering...</h3> : ""}
-			{registerRequestError ? <h3>{registerRequestError}</h3> : ""}
 			<Link to="/Login">Login</Link>
 		</div>
 	);

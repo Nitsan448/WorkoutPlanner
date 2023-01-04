@@ -5,7 +5,7 @@ import classes from "../Exercises/ExerciseForm.module.css";
 import Button from "../UI/Button";
 import EditingExercise from "../Exercises/EditingExercise";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEditWorkoutMutation } from "../../store/apiSlice";
+import { useEditWorkoutMutation, useDeleteWorkoutMutation } from "../../store/apiSlice";
 
 function EditingWorkout(props) {
 	const location = useLocation();
@@ -17,6 +17,17 @@ function EditingWorkout(props) {
 	const workoutNameInputClasses = workoutNameInput.hasError ? classes.invalid : "";
 
 	const [updateWorkout] = useEditWorkoutMutation();
+
+	const [deleteWorkout] = useDeleteWorkoutMutation();
+
+	async function onDeleteWorkoutClicked(workout_id) {
+		try {
+			await deleteWorkout({ workout_id });
+			navigate(`/workouts`);
+		} catch (error) {
+			console.log("failed to delete workout", error);
+		}
+	}
 
 	function getExerciseAsComponent(exercise) {
 		return (
@@ -56,6 +67,7 @@ function EditingWorkout(props) {
 							onChange={workoutNameInput.valueChangeHandler}
 							onBlur={workoutNameInput.inputBlurHandler}></input>
 					</div>
+
 					<div className={classes.form_group}>
 						<label>Description</label>
 						<textarea
@@ -75,6 +87,7 @@ function EditingWorkout(props) {
 				/>
 			</div>
 			<Button onClick={onSaveWorkoutClicked} text="Save workout" />
+			<Button onClick={() => onDeleteWorkoutClicked(props.workout.workout_id)} text="Delete" />
 		</>
 	);
 }
