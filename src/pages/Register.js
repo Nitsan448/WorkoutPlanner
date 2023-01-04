@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useInput from "../hooks/use-input";
 import classes from "../components/Exercises/ExerciseForm.module.css";
 import Button from "../components/UI/Button";
@@ -7,6 +7,12 @@ import { useRegisterMutation } from "../store/apiSlice";
 
 function Register(props) {
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (document.cookie.indexOf("token=") !== -1) {
+			navigate(`/workouts`);
+		}
+	}, [navigate]);
 
 	const userNameInput = useInput((value) => value.trim() !== "");
 	const emailInput = useInput((value) => /\S+@\S+\.\S+/.test(value));

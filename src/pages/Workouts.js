@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import classes from "./Workouts.module.css";
-import { useGetWorkoutsQuery, useAddWorkoutMutation, useDeleteWorkoutMutation } from "../store/apiSlice";
+import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlice";
 
 function Workouts(props) {
 	const navigate = useNavigate();

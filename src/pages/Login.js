@@ -4,6 +4,7 @@ import classes from "../components/Exercises/ExerciseForm.module.css";
 import Button from "../components/UI/Button";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../store/apiSlice";
+import { Link } from "react-router-dom";
 
 function Login(props) {
 	const navigate = useNavigate();
@@ -56,6 +57,7 @@ function Login(props) {
 				</div>
 				<Button text="Login" disabled={!formIsValid} />
 			</form>
+			<Link to="/Register">Register</Link>
 		</div>
 	);
 }

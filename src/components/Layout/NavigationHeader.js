@@ -1,7 +1,18 @@
 import { NavLink } from "react-router-dom";
 import classes from "./NavigationHeader.module.css";
+import Button from "../UI/Button";
+import { useLogoutMutation } from "../../store/apiSlice";
+import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 const MainNavigation = () => {
+	const [logout] = useLogoutMutation();
+	const navigate = useNavigate();
+	async function onLogoutClickHandler() {
+		await logout();
+		navigate("/login");
+	}
+
 	return (
 		<header className={classes.header}>
 			<nav className={classes.nav}>
@@ -11,11 +22,9 @@ const MainNavigation = () => {
 							All Workouts
 						</NavLink>
 					</li>
-					{/* <li>
-						<NavLink to="/workouts/:0" className={(navData) => (navData.isActive ? classes.active : "")}>
-							Current Workout
-						</NavLink>
-					</li> */}
+					<li>
+						<Button text="Logout" onClick={onLogoutClickHandler} />
+					</li>
 				</ul>
 			</nav>
 		</header>

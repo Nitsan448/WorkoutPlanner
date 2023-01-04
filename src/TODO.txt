@@ -6,7 +6,9 @@ Go straight to home page when user is already logged in
 
 Add all missing fields - public, likes, image, etc.
 
-Add logout to navigation bar
+Change navigation bar state according to user logged in status.
+
+Fix not authenticated bug on log in/register
 
 edit exercises
 

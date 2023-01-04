@@ -62,6 +62,9 @@ export const apiSlice = createApi({
 			query: (user) => ({ url: "/auth/login", method: "POST", body: user }),
 			invalidatesTags: ["Workout"],
 		}),
+		logout: builder.mutation({
+			query: () => ({ url: "/auth/logout", method: "POST" }),
+		}),
 	}),
 });
 
@@ -75,4 +78,5 @@ export const {
 	useDeleteRoutineMutation,
 	useRegisterMutation,
 	useLoginMutation,
+	useLogoutMutation,
 } = apiSlice;
