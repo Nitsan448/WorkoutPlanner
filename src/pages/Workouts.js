@@ -1,27 +1,23 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import classes from "./Workouts.module.css";
-import useHttp from "../hooks/use-http";
-import { addWorkoutRequest, fetchWorkoutsRequest } from "../lib/workoutsApi";
+import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlice";
 
 function Workouts(props) {
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const {
-		sendRequest: sendFetchWorkoutsRequest,
-		status: fetchWorkoutsStatus,
 		data: workouts,
-		error: fetchWorkoutsError,
-	} = useHttp(fetchWorkoutsRequest, true);
+		isLoading: isWorkoutsRequestLoading,
+		isSuccess: isWorkoutsRequestSuccess,
+		isError: isWorkoutsRequestError,
+		error: workoutsRequestError,
+		refetch: refetchWorkouts,
+	} = useGetWorkoutsQuery();
 
-	const {
-		sendRequest: sendAddNewWorkoutRequest,
-		status: addNewWorkoutStatus,
-		data: createdWorkoutId,
-		error: addNewWorkoutError,
-	} = useHttp(addWorkoutRequest, false);
+	const [addWorkout, { isLoading: isAddWorkoutRequestLoading }] = useAddWorkoutMutation();
 
 	const goToWorkoutHandler = useCallback(
 		(workoutIndex, mode) => {
@@ -30,44 +26,37 @@ function Workouts(props) {
 		[navigate, location]
 	);
 
-	useEffect(() => {
-		sendFetchWorkoutsRequest();
-	}, [sendFetchWorkoutsRequest]);
-
-	useEffect(() => {
-		if (addNewWorkoutStatus === "completed" && !addNewWorkoutError) {
-			goToWorkoutHandler(createdWorkoutId, "edit");
+	async function onAddWorkoutClicked() {
+		try {
+			await addWorkout({
+				name: "",
+				description: "",
+			});
+		} catch (error) {
+			console.log("failed to add workout", error);
 		}
-	}, [addNewWorkoutStatus, addNewWorkoutError, createdWorkoutId, goToWorkoutHandler]);
-
-	function createNewWorkout() {
-		sendAddNewWorkoutRequest();
 	}
 
-	if (fetchWorkoutsStatus === "pending") {
-		return <h2>Fetching Workout Names data...</h2>;
-	}
-	if (fetchWorkoutsError || addNewWorkoutError) {
-		return (
-			<div>
-				<h2>There was an error connecting to the server</h2>
-				<p>{fetchWorkoutsError ? fetchWorkoutsError : addNewWorkoutError}</p>
+	let content;
+	if (isWorkoutsRequestLoading) {
+		content = <h1>Loading...</h1>;
+	} else if (isWorkoutsRequestSuccess) {
+		content = workouts.map((workout) => (
+			<div key={workout.workout_id}>
+				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "view")} text={workout.name} />
+				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} text="Edit" />
+				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "play")} text="Play" />
+				<h3>{workout.description}</h3>
 			</div>
-		);
+		));
+	} else if (isWorkoutsRequestError) {
+		content = <div>{workoutsRequestError.toString()}</div>;
 	}
+
 	return (
 		<div className={classes.workouts}>
-			<div className={classes.gridContainer}>
-				{workouts.map((workout) => (
-					<div key={workout.workout_id}>
-						<Button onClick={() => goToWorkoutHandler(workout.workout_id, "view")} text={workout.name} />
-						<Button onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} text="Edit" />
-						<Button onClick={() => goToWorkoutHandler(workout.workout_id, "play")} text="Play" />
-						<h3>{workout.description}</h3>
-					</div>
-				))}
-			</div>
-			<Button onClick={createNewWorkout} text="Add workout" />
+			<div className={classes.gridContainer}>{content}</div>
+			<Button onClick={onAddWorkoutClicked} text="Add workout" />
 		</div>
 	);
 }

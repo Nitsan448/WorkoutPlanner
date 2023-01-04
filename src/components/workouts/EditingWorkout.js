@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useInput from "../../hooks/use-input";
 import ExerciseForm from "../Exercises/ExerciseForm";
 import classes from "../Exercises/ExerciseForm.module.css";
 import Button from "../UI/Button";
 import EditingExercise from "../Exercises/EditingExercise";
+import { editWorkoutRequest } from "../../lib/workoutsApi";
+import useHttp from "../../hooks/use-http";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { workoutActions } from "../../store/workout-slice";
 
 function EditingWorkout(props) {
-	const workout = props.workout ? props.workout : { name: "", description: "", exercises: [] };
+	const location = useLocation();
+	const navigate = useNavigate();
 
-	const [exercises, setExercises] = useState(workout.exercises);
+	const dispatch = useDispatch();
+	const workout = useSelector((state) => state.workout);
+	const [workoutDryData, setWorkoutDryData] = useState();
 
 	const workoutNameInput = useInput((value) => value.trim().length > 0, workout.name);
 	const workoutDescriptionInput = useInput((value) => true, workout.description);
@@ -18,9 +27,8 @@ function EditingWorkout(props) {
 	function getExerciseAsComponent(exercise) {
 		return (
 			<EditingExercise
-				deleteFromWorkout={deleteExercise}
 				orderInWorkout={exercise.order_in_workout}
-				key={exercise.exercise_id}
+				key={exercise.order_in_workout}
 				name={exercise.name}
 				setTime={exercise.set_time}
 				sets={exercise.sets}
@@ -31,12 +39,35 @@ function EditingWorkout(props) {
 	}
 
 	function addExercise(exercise) {
-		setExercises([...exercises, exercise]);
+		dispatch(workoutActions.addExercise(exercise));
 	}
 
-	function deleteExercise(orderInWorkout) {
-		setExercises((exercises) => exercises.filter((exercise) => exercise.order_in_workout !== orderInWorkout));
+	const {
+		sendRequest: sendEditWorkoutRequest,
+		status: editWorkoutStatus,
+		error: editWorkoutError,
+	} = useHttp(editWorkoutRequest, false);
+
+	function finishEditingHandler() {
+		setWorkoutDryData({
+			name: workoutNameInput.value,
+			description: workoutDescriptionInput.value,
+			workout_id: workout.workoutId,
+		});
+		sendEditWorkoutRequest(workoutDryData);
 	}
+
+	useEffect(() => {
+		if (editWorkoutStatus === "completed" && !editWorkoutError) {
+			dispatch(
+				workoutActions.replaceWorkout({
+					...workoutDryData,
+					exercises: workout.exercises,
+				})
+			);
+			navigate(`${location.pathname}?mode=view`);
+		}
+	}, [editWorkoutStatus, editWorkoutError, navigate, location.pathname]);
 
 	return (
 		<>
@@ -59,12 +90,10 @@ function EditingWorkout(props) {
 							onBlur={workoutDescriptionInput.inputBlurHandler}></textarea>
 					</div>
 				</form>
-				<ul>{exercises.map((exercise) => getExerciseAsComponent(exercise))}</ul>
+				<ul>{workout.exercises.map((exercise) => getExerciseAsComponent(exercise))}</ul>
 				<ExerciseForm addToWorkout={addExercise} orderInWorkout={workout.exercises.length + 1} />
 			</div>
-
-			{/* TODO: send workout name and description to server and update components on button click */}
-			<Button text="Finish editing" />
+			<Button onClick={finishEditingHandler} text="Finish editing" />
 		</>
 	);
 }

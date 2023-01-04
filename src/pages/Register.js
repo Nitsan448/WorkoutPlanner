@@ -39,7 +39,7 @@ function Register(props) {
 
 	useEffect(() => {
 		if (registerRequestStatus === "completed" && !registerRequestError) {
-			navigate(`/login`);
+			navigate(`/workouts`);
 		}
 	}, [registerRequestError, registerRequestStatus, navigate]);
 

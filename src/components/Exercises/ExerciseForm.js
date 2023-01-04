@@ -3,16 +3,13 @@ import classes from "./ExerciseForm.module.css";
 import Button from "../UI/Button";
 import useInput from "../../hooks/use-input";
 import { isPositiveNumber } from "../../helpers/helpers";
-import { useParams } from "react-router-dom";
-import { addExerciseRequest } from "../../lib/exercisesApi";
 import { addRoutineRequest } from "../../lib/routinesApi";
 import useHttp from "../../hooks/use-http";
 import { getTimeInSeconds } from "../../helpers/time";
+import { useSelector } from "react-redux";
 
 function ExerciseForm(props) {
-	const params = useParams();
-	const { workoutId } = params;
-
+	const workoutId = useSelector((state) => state.workout.workoutId);
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [orderInWorkout, setOrderInWorkout] = useState(props.orderInWorkout);
 
@@ -43,37 +40,14 @@ function ExerciseForm(props) {
 		setsInput.isValid;
 
 	const {
-		sendRequest: sendAddExerciseRequest,
-		status: addExerciseStatus,
-		data: exerciseId,
-		error: addExerciseError,
-	} = useHttp(addExerciseRequest, false);
-
-	const {
 		sendRequest: sendAddRoutineRequest,
 		status: addRoutineStatus,
 		error: addRoutineError,
 	} = useHttp(addRoutineRequest, false);
 
-	const addToWorkout = props.addToWorkout;
-
 	useEffect(() => {
-		if (addExerciseStatus === "completed" && !addExerciseError) {
-			const routine = {
-				workout_id: workoutId,
-				exercise_id: exerciseId,
-				name: nameInput.value,
-				description: descriptionInput.value,
-				sets: setsInput.value,
-				time_or_repetitions: 1,
-				set_time: getTimeInSeconds(setTimeInput.value),
-				repetitions: 10,
-				rest_time: getTimeInSeconds(restTimeInput.value),
-				break_after_routine: 30,
-				order_in_workout: orderInWorkout,
-			};
-			sendAddRoutineRequest(routine);
-			addToWorkout(routine);
+		//TODO: Fix dependencies
+		if (addRoutineStatus === "completed" && !addRoutineError) {
 			setOrderInWorkout((orderInWorkout) => orderInWorkout + 1);
 
 			function resetInputFields() {
@@ -85,16 +59,35 @@ function ExerciseForm(props) {
 			}
 			resetInputFields();
 		}
-	}, [addExerciseError, addExerciseStatus]);
+	}, [addRoutineError, addRoutineStatus]);
 
+	const addToWorkout = props.addToWorkout;
 	function addNewExerciseHandler(event) {
 		event.preventDefault();
 		setIsFormOpen(false);
-
-		sendAddExerciseRequest({
+		const exercise = {
 			name: nameInput.value,
 			description: descriptionInput.value,
-		});
+		};
+		const routine = {
+			workout_id: +workoutId,
+			name: nameInput.value,
+			description: descriptionInput.value,
+			sets: setsInput.value,
+			time_or_repetitions: 1,
+			set_time: getTimeInSeconds(setTimeInput.value),
+			repetitions: 10,
+			rest_time: getTimeInSeconds(restTimeInput.value),
+			break_after_routine: 30,
+			order_in_workout: orderInWorkout,
+		};
+		const exerciseToAdd = {
+			...exercise,
+			...routine,
+		};
+
+		sendAddRoutineRequest(exerciseToAdd);
+		addToWorkout(routine);
 	}
 
 	return (
@@ -180,8 +173,8 @@ function ExerciseForm(props) {
 			) : (
 				<Button onClick={() => setIsFormOpen(true)} text="Add new exercise"></Button>
 			)}
-			{addRoutineStatus === "pending" || addExerciseStatus === "pending" ? <h3>Adding exercise...</h3> : ""}
-			{addRoutineError || addExerciseError ? <h3>There was an error adding the exercise</h3> : ""}
+			{addRoutineStatus === "pending" ? <h3>Adding exercise...</h3> : ""}
+			{addRoutineError ? <h3>There was an error adding the exercise</h3> : ""}
 		</>
 	);
 }

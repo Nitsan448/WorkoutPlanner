@@ -34,7 +34,7 @@ function useTimer(initialTime, timerFinishedHandler) {
 			} else {
 				clearInterval(timerInterval);
 			}
-		}, 1000 / 10);
+		}, 1000);
 
 		return () => clearInterval(timerInterval);
 	}, [paused]);
