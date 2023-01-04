@@ -14,7 +14,6 @@ function Workouts(props) {
 		isSuccess: isWorkoutsRequestSuccess,
 		isError: isWorkoutsRequestError,
 		error: workoutsRequestError,
-		refetch: refetchWorkouts,
 	} = useGetWorkoutsQuery();
 
 	const [addWorkout, { isLoading: isAddWorkoutRequestLoading }] = useAddWorkoutMutation();
@@ -28,10 +27,11 @@ function Workouts(props) {
 
 	async function onAddWorkoutClicked() {
 		try {
-			await addWorkout({
+			const workoutId = await addWorkout({
 				name: "",
 				description: "",
 			});
+			goToWorkoutHandler(workoutId.data, "edit");
 		} catch (error) {
 			console.log("failed to add workout", error);
 		}

@@ -3,21 +3,21 @@ import classes from "./ExerciseForm.module.css";
 import Button from "../UI/Button";
 import useInput from "../../hooks/use-input";
 import { isPositiveNumber } from "../../helpers/helpers";
-import { addRoutineRequest } from "../../lib/routinesApi";
-import useHttp from "../../hooks/use-http";
 import { getTimeInSeconds } from "../../helpers/time";
-import { useSelector } from "react-redux";
+import { useAddRoutineMutation } from "../../store/apiSlice";
 
 function ExerciseForm(props) {
-	const workoutId = useSelector((state) => state.workout.workoutId);
 	const [isFormOpen, setIsFormOpen] = useState(false);
-	const [orderInWorkout, setOrderInWorkout] = useState(props.orderInWorkout);
 
 	const nameInput = useInput((value) => value.trim() !== "");
 	const setTimeInput = useInput((value) => validateTimeInput(value), "00:00");
 	const setsInput = useInput((value) => value > 0, 1);
 	const restTimeInput = useInput((value) => validateTimeInput(value), "00:00");
 	const descriptionInput = useInput(() => true);
+
+	const [orderInWorkout, setOrderInWorkout] = useState(props.orderInWorkout);
+
+	const [addRoutine, { isLoading: isAddRoutineRequestLoading }] = useAddRoutineMutation();
 
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
@@ -39,29 +39,14 @@ function ExerciseForm(props) {
 		descriptionInput.isValid &&
 		setsInput.isValid;
 
-	const {
-		sendRequest: sendAddRoutineRequest,
-		status: addRoutineStatus,
-		error: addRoutineError,
-	} = useHttp(addRoutineRequest, false);
+	function resetInputFields() {
+		nameInput.reset();
+		setTimeInput.reset();
+		setsInput.reset();
+		restTimeInput.reset();
+		descriptionInput.reset();
+	}
 
-	useEffect(() => {
-		//TODO: Fix dependencies
-		if (addRoutineStatus === "completed" && !addRoutineError) {
-			setOrderInWorkout((orderInWorkout) => orderInWorkout + 1);
-
-			function resetInputFields() {
-				nameInput.reset();
-				setTimeInput.reset();
-				setsInput.reset();
-				restTimeInput.reset();
-				descriptionInput.reset();
-			}
-			resetInputFields();
-		}
-	}, [addRoutineError, addRoutineStatus]);
-
-	const addToWorkout = props.addToWorkout;
 	function addNewExerciseHandler(event) {
 		event.preventDefault();
 		setIsFormOpen(false);
@@ -70,7 +55,7 @@ function ExerciseForm(props) {
 			description: descriptionInput.value,
 		};
 		const routine = {
-			workout_id: +workoutId,
+			workout_id: +props.workoutId,
 			name: nameInput.value,
 			description: descriptionInput.value,
 			sets: setsInput.value,
@@ -79,15 +64,15 @@ function ExerciseForm(props) {
 			repetitions: 10,
 			rest_time: getTimeInSeconds(restTimeInput.value),
 			break_after_routine: 30,
-			order_in_workout: orderInWorkout,
+			order_in_workout: props.orderInWorkout,
 		};
-		const exerciseToAdd = {
+		const routineToAdd = {
 			...exercise,
 			...routine,
 		};
-
-		sendAddRoutineRequest(exerciseToAdd);
-		addToWorkout(routine);
+		addRoutine(routineToAdd);
+		setOrderInWorkout((orderInWorkout) => orderInWorkout + 1);
+		resetInputFields();
 	}
 
 	return (
@@ -173,8 +158,6 @@ function ExerciseForm(props) {
 			) : (
 				<Button onClick={() => setIsFormOpen(true)} text="Add new exercise"></Button>
 			)}
-			{addRoutineStatus === "pending" ? <h3>Adding exercise...</h3> : ""}
-			{addRoutineError ? <h3>There was an error adding the exercise</h3> : ""}
 		</>
 	);
 }

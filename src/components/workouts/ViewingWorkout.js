@@ -2,12 +2,10 @@ import React from "react";
 import Exercise from "../Exercises/Exercise";
 import Button from "../../components/UI/Button";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 function ViewingWorkout(props) {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const workout = useSelector((state) => state.workout);
 
 	function StartWorkoutHandler() {
 		navigate(`${location.pathname}?mode=play`);
@@ -19,18 +17,21 @@ function ViewingWorkout(props) {
 
 	return (
 		<>
-			<h2>{workout.name}</h2>
+			<h1>{props.workout.name}</h1>
+			<h4>{props.workout.description}</h4>
 			<ul>
-				{workout.exercises.map((exercise) => (
-					<Exercise
-						key={exercise.exercise_id}
-						name={exercise.name}
-						setTime={exercise.set_time}
-						sets={exercise.sets}
-						restTime={exercise.rest_time}
-						description={exercise.description}
-					/>
-				))}
+				{props.workout.routines
+					? props.workout.routines.map((routine) => (
+							<Exercise
+								key={routine.exercise_id}
+								name={routine.name}
+								setTime={routine.set_time}
+								sets={routine.sets}
+								restTime={routine.rest_time}
+								description={routine.description}
+							/>
+					  ))
+					: ""}
 			</ul>
 			<div style={{ display: "flex", justifyContent: "center" }}>
 				<Button onClick={EditWorkoutHandler} text="Edit workout"></Button>
