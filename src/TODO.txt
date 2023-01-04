@@ -8,11 +8,8 @@ Add all missing fields - public, likes, image, etc.
 
 Add logout to navigation bar
 
-Change exercise form - first add exercise, press ok, then add routine
-
-edit workouts
-delete workouts
 edit exercises
-delete exercises (delete routine, and delete exercise if it there are no more routines with this exercise id)
 
 when adding workout - go to edit page for that workout, if the user did not add a unique name and at least one exercise. Delete the workout when he leaves (after telling him it will happen)
+
+Handle loading and error for all api calls

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useInput from "../../hooks/use-input";
 import ExerciseForm from "../Exercises/ExerciseForm";
 import classes from "../Exercises/ExerciseForm.module.css";
@@ -16,11 +16,12 @@ function EditingWorkout(props) {
 
 	const workoutNameInputClasses = workoutNameInput.hasError ? classes.invalid : "";
 
-	const [updateWorkout, { isUpdateWorkoutRequestLoading }] = useEditWorkoutMutation();
+	const [updateWorkout] = useEditWorkoutMutation();
 
 	function getExerciseAsComponent(exercise) {
 		return (
 			<EditingExercise
+				workoutId={props.workout.workout_id}
 				orderInWorkout={exercise.order_in_workout}
 				key={exercise.order_in_workout}
 				name={exercise.name}
@@ -38,6 +39,7 @@ function EditingWorkout(props) {
 			description: workoutDescriptionInput.value,
 			workout_id: props.workout.workout_id,
 		});
+		//TODO: only navigate after workout finished updating
 		navigate(`${location.pathname}?mode=view`);
 	}
 

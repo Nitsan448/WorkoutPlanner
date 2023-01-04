@@ -30,8 +30,8 @@ export const apiSlice = createApi({
 			invalidatesTags: ["Workout", "Workouts"],
 		}),
 		deleteWorkout: builder.mutation({
-			query: (workoutId) => ({
-				url: `/workouts/${workoutId}`,
+			query: (workout) => ({
+				url: `/workouts/${workout.workout_id}`,
 				method: "DELETE",
 			}),
 			invalidatesTags: ["Workouts"],
@@ -45,8 +45,8 @@ export const apiSlice = createApi({
 			invalidatesTags: ["Workout"],
 		}),
 		deleteRoutine: builder.mutation({
-			query: (workoutId, orderInWorkout) => ({
-				url: `/routines/${workoutId}/${orderInWorkout}`,
+			query: (routine) => ({
+				url: `/routines/${routine.workout_id}/${routine.order_in_workout}`,
 				method: "DELETE",
 			}),
 			invalidatesTags: ["Workout"],

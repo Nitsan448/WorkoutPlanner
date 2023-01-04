@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import classes from "./ExerciseForm.module.css";
 import Button from "../UI/Button";
 import useInput from "../../hooks/use-input";
@@ -15,9 +15,7 @@ function ExerciseForm(props) {
 	const restTimeInput = useInput((value) => validateTimeInput(value), "00:00");
 	const descriptionInput = useInput(() => true);
 
-	const [orderInWorkout, setOrderInWorkout] = useState(props.orderInWorkout);
-
-	const [addRoutine, { isLoading: isAddRoutineRequestLoading }] = useAddRoutineMutation();
+	const [addRoutine] = useAddRoutineMutation();
 
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
@@ -71,7 +69,6 @@ function ExerciseForm(props) {
 			...routine,
 		};
 		addRoutine(routineToAdd);
-		setOrderInWorkout((orderInWorkout) => orderInWorkout + 1);
 		resetInputFields();
 	}
 

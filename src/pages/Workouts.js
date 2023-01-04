@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import classes from "./Workouts.module.css";
-import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlice";
+import { useGetWorkoutsQuery, useAddWorkoutMutation, useDeleteWorkoutMutation } from "../store/apiSlice";
 
 function Workouts(props) {
 	const navigate = useNavigate();
@@ -16,7 +16,8 @@ function Workouts(props) {
 		error: workoutsRequestError,
 	} = useGetWorkoutsQuery();
 
-	const [addWorkout, { isLoading: isAddWorkoutRequestLoading }] = useAddWorkoutMutation();
+	const [addWorkout] = useAddWorkoutMutation();
+	const [deleteWorkout] = useDeleteWorkoutMutation();
 
 	const goToWorkoutHandler = useCallback(
 		(workoutIndex, mode) => {
@@ -37,6 +38,14 @@ function Workouts(props) {
 		}
 	}
 
+	async function onDeleteWorkoutClicked(workout_id) {
+		try {
+			deleteWorkout({ workout_id });
+		} catch (error) {
+			console.log("failed to delete workout", error);
+		}
+	}
+
 	let content;
 	if (isWorkoutsRequestLoading) {
 		content = <h1>Loading...</h1>;
@@ -46,6 +55,7 @@ function Workouts(props) {
 				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "view")} text={workout.name} />
 				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} text="Edit" />
 				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "play")} text="Play" />
+				<Button onClick={() => onDeleteWorkoutClicked(workout.workout_id)} text="Delete" />
 				<h3>{workout.description}</h3>
 			</div>
 		));

@@ -13,7 +13,7 @@ function PlayingWorkout(props) {
 	const [inSet, setInSet] = useState(true);
 	const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 	const [workoutFinished, setWorkoutFinished] = useState(false);
-	const [currentExercise, setCurrentExercise] = useState(props.workout.exercises[currentExerciseIndex]);
+	const [currentExercise, setCurrentExercise] = useState(props.workout.routines[currentExerciseIndex]);
 
 	const getNewTimerTime = useCallback(() => {
 		if (inSet) {
@@ -44,7 +44,7 @@ function PlayingWorkout(props) {
 	}
 
 	function finishExercise() {
-		if (currentExerciseIndex < props.workout.exercises.length - 1) {
+		if (currentExerciseIndex < props.workout.routines.length - 1) {
 			goToNextExercise();
 		} else {
 			setWorkoutFinished(true);
@@ -53,7 +53,7 @@ function PlayingWorkout(props) {
 
 	function goToNextExercise() {
 		setCurrentExerciseIndex(currentExerciseIndex + 1);
-		setCurrentExercise(props.workout.exercises[currentExerciseIndex + 1]);
+		setCurrentExercise(props.workout.routines[currentExerciseIndex + 1]);
 		setCurrentSet(1);
 		setInSet(true);
 	}
