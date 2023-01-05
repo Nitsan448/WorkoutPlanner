@@ -1,20 +1,15 @@
 import React from "react";
-import useInput from "../../hooks/use-input";
 import ExerciseForm from "../Exercises/ExerciseForm";
 import classes from "../Exercises/ExerciseForm.module.css";
 import Button from "../UI/Button";
 import EditingExercise from "../Exercises/EditingExercise";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEditWorkoutMutation, useDeleteWorkoutMutation } from "../../store/apiSlice";
+import { useForm } from "react-hook-form";
 
 function EditingWorkout(props) {
 	const location = useLocation();
 	const navigate = useNavigate();
-
-	const workoutNameInput = useInput((value) => value.trim().length > 0, props.workout.name);
-	const workoutDescriptionInput = useInput((value) => true, props.workout.description);
-
-	const workoutNameInputClasses = workoutNameInput.hasError ? classes.invalid : "";
 
 	const [updateWorkout] = useEditWorkoutMutation();
 
@@ -44,36 +39,38 @@ function EditingWorkout(props) {
 		);
 	}
 
-	async function onSaveWorkoutClicked() {
-		await updateWorkout({
-			name: workoutNameInput.value,
-			description: workoutDescriptionInput.value,
-			workout_id: props.workout.workout_id,
-		});
-		//TODO: only navigate after workout finished updating
-		navigate(`${location.pathname}?mode=view`);
+	async function saveWorkoutHandler(data) {
+		console.log(data);
+		try {
+			await updateWorkout({
+				name: data.name,
+				description: data.description,
+				workout_id: props.workout.workout_id,
+			});
+			navigate(`${location.pathname}?mode=view`);
+		} catch (error) {
+			console.log(error);
+		}
 	}
+
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+	} = useForm();
 
 	return (
 		<>
 			<div className={classes.form}>
 				<form>
 					<div className={classes.form_group}>
-						<label>Workout name</label>
-						<input
-							className={workoutNameInputClasses}
-							type="text"
-							value={workoutNameInput.value}
-							onChange={workoutNameInput.valueChangeHandler}
-							onBlur={workoutNameInput.inputBlurHandler}></input>
+						<label htmlFor="name">Name:</label>
+						<input type="text" {...register("name", { required: true })} />
+						{errors.name && <p className={classes.invalid}>Workout name can not be empty</p>}
 					</div>
-
 					<div className={classes.form_group}>
-						<label>Description</label>
-						<textarea
-							value={workoutDescriptionInput.value}
-							onChange={workoutDescriptionInput.valueChangeHandler}
-							onBlur={workoutDescriptionInput.inputBlurHandler}></textarea>
+						<label htmlFor="description">Description:</label>
+						<input type="description" {...register("description")} />
 					</div>
 				</form>
 				{props.workout.routines ? (
@@ -85,8 +82,8 @@ function EditingWorkout(props) {
 					orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
 					workoutId={props.workout.workout_id}
 				/>
+				<Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
 			</div>
-			<Button onClick={onSaveWorkoutClicked} text="Save workout" />
 			<Button onClick={() => onDeleteWorkoutClicked(props.workout.workout_id)} text="Delete" />
 		</>
 	);

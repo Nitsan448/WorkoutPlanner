@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import classes from "./ExerciseForm.module.css";
 import Button from "../UI/Button";
-import useInput from "../../hooks/use-input";
 import { isPositiveNumber } from "../../helpers/helpers";
 import { getTimeInSeconds } from "../../helpers/time";
 import { useAddRoutineMutation } from "../../store/apiSlice";
+import { useForm } from "react-hook-form";
 
 function ExerciseForm(props) {
 	const [isFormOpen, setIsFormOpen] = useState(false);
-
-	const nameInput = useInput((value) => value.trim() !== "");
-	const setTimeInput = useInput((value) => validateTimeInput(value), "00:00");
-	const setsInput = useInput((value) => value > 0, 1);
-	const restTimeInput = useInput((value) => validateTimeInput(value), "00:00");
-	const descriptionInput = useInput(() => true);
 
 	const [addRoutine] = useAddRoutineMutation();
 
@@ -22,134 +16,90 @@ function ExerciseForm(props) {
 			return false;
 		}
 		const [minutes, seconds] = value.split(":");
+		// TODO: make sure this validation is working correctly (specifically for 00:00)
 		return isPositiveNumber(minutes) && isPositiveNumber(seconds);
 	}
 
-	const nameInputClasses = nameInput.hasError ? classes.invalid : "";
-	const setsInputClasses = setsInput.hasError ? classes.invalid : "";
-	const setTimeInputClasses = setTimeInput.hasError ? classes.invalid : "";
-	const restTimeInputClasses = restTimeInput.hasError ? classes.invalid : "";
-
-	const formIsValid =
-		nameInput.isValid &&
-		setTimeInput.isValid &&
-		restTimeInput.isValid &&
-		descriptionInput.isValid &&
-		setsInput.isValid;
-
-	function resetInputFields() {
-		nameInput.reset();
-		setTimeInput.reset();
-		setsInput.reset();
-		restTimeInput.reset();
-		descriptionInput.reset();
-	}
-
-	function addNewExerciseHandler(event) {
-		event.preventDefault();
-		setIsFormOpen(false);
-		const exercise = {
-			name: nameInput.value,
-			description: descriptionInput.value,
-		};
+	function addNewExerciseHandler(data) {
 		const routine = {
 			workout_id: +props.workoutId,
-			name: nameInput.value,
-			description: descriptionInput.value,
-			sets: setsInput.value,
+			name: data.name,
+			description: data.description,
+			sets: data.sets,
 			time_or_repetitions: 1,
-			set_time: getTimeInSeconds(setTimeInput.value),
+			set_time: getTimeInSeconds(data.setTime),
 			repetitions: 10,
-			rest_time: getTimeInSeconds(restTimeInput.value),
+			rest_time: getTimeInSeconds(data.restTime),
 			break_after_routine: 30,
 			order_in_workout: props.orderInWorkout,
 		};
-		const routineToAdd = {
-			...exercise,
-			...routine,
-		};
-		addRoutine(routineToAdd);
-		resetInputFields();
+		addRoutine(routine);
+		reset();
+		setIsFormOpen(false);
 	}
+
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+		reset,
+	} = useForm({
+		defaultValues: {
+			setTime: "00:00",
+			restTime: "00:00",
+			sets: 1,
+		},
+	});
 
 	return (
 		<>
 			{isFormOpen ? (
 				<div className={classes.form}>
-					<form onSubmit={addNewExerciseHandler}>
+					<form onSubmit={handleSubmit(async (data) => addNewExerciseHandler(data))}>
 						<h3>New Exercise</h3>
 						<div className={classes.form_group}>
-							<label>Name:</label>
-							<input
-								className={nameInputClasses}
-								type="text"
-								value={nameInput.value}
-								onChange={nameInput.valueChangeHandler}
-								onBlur={nameInput.inputBlurHandler}
-							/>
-							{nameInput.hasError && <p className={classes.invalid}>Name cannot be empty</p>}
+							<label htmlFor="name">Name:</label>
+							<input type="text" {...register("name", { required: true })} />
+							{errors.name && <p className={classes.invalid}>Exercise name can not be empty</p>}
 						</div>
-						{/* 
-				<div
-					className={classes.form_group}
-					onChange={(event) => {
-						console.log(event.target.value);
-					}}>
-					<label>Set time:</label>
-					<input type="radio" value="set time" name="set settings" />
-					<label>Repetitions:</label>
-					<input type="radio" value="repetitions" name="set settings" />
-				</div> */}
-
 						<div className={classes.form_group}>
-							<label>setTime:</label>
+							<label htmlFor="setTime">Set time:</label>
 							<input
-								className={setTimeInputClasses}
 								type="text"
-								value={setTimeInput.value}
-								onChange={setTimeInput.valueChangeHandler}
-								onBlur={setTimeInput.inputBlurHandler}
+								{...register("setTime", {
+									required: true,
+									validate: (value) => validateTimeInput(value),
+								})}
 							/>
-							{setTimeInput.hasError && (
-								<p className={classes.invalid}>Set time must be in xx:xx format</p>
-							)}
+							{errors.setTime && <p className={classes.invalid}>Set time must be in xx:xx format</p>}
 						</div>
-
 						<div className={classes.form_group}>
-							<label>Sets:</label>
+							<label htmlFor="sets">Sets:</label>
 							<input
-								className={setsInputClasses}
 								type="number"
-								value={setsInput.value}
-								onChange={setsInput.valueChangeHandler}
-								onBlur={setsInput.inputBlurHandler}
+								{...register("sets", {
+									required: true,
+									min: 1,
+								})}
 							/>
-							{setsInput.hasError && <p className={classes.invalid}>Sets must be larger than 0</p>}
+							{errors.sets && <p className={classes.invalid}>Sets must be larger than 0</p>}
 						</div>
-
 						<div className={classes.form_group}>
-							<label>Rest time:</label>
+							<label htmlFor="restTime">Rest time:</label>
 							<input
-								className={restTimeInputClasses}
 								type="text"
-								value={restTimeInput.value}
-								onChange={restTimeInput.valueChangeHandler}
-								onBlur={restTimeInput.inputBlurHandler}
+								{...register("restTime", {
+									required: true,
+									validate: (value) => validateTimeInput(value),
+								})}
 							/>
-							{restTimeInput.hasError && (
-								<p className={classes.invalid}>Rest time must be in xx:xx format</p>
-							)}
+							{errors.restTime && <p className={classes.invalid}>Rest time must be in xx:xx format</p>}
 						</div>
-
 						<div className={classes.form_group}>
-							<label>Description:</label>
-							<textarea
-								name="description"
-								value={descriptionInput.value}
-								onChange={descriptionInput.valueChangeHandler}
-								onBlur={descriptionInput.inputBlurHandler}></textarea>
+							<label htmlFor="description">Description:</label>
+							<textarea {...register("description")} />
 						</div>
-						<Button disabled={!formIsValid} text="Add exercise"></Button>
+						<Button text="Add exercise" />
 					</form>
 				</div>
 			) : (

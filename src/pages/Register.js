@@ -1,94 +1,65 @@
-import React, { useEffect } from "react";
-import useInput from "../hooks/use-input";
+import React from "react";
 import classes from "../components/Exercises/ExerciseForm.module.css";
-import Button from "../components/UI/Button";
 import { useNavigate, Link } from "react-router-dom";
 import { useRegisterMutation } from "../store/apiSlice";
+import { useForm } from "react-hook-form";
+import Button from "../components/UI/Button";
 
 function Register(props) {
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		if (document.cookie.indexOf("token=") !== -1) {
+	const [registerUser] = useRegisterMutation();
+
+	async function registerHandler(data) {
+		try {
+			await registerUser({
+				user_name: data.userName,
+				email: data.email,
+				password: data.password,
+			});
 			navigate(`/workouts`);
+		} catch (error) {
+			console.log(error);
 		}
-	}, [navigate]);
-
-	const userNameInput = useInput((value) => value.trim() !== "");
-	const emailInput = useInput((value) => /\S+@\S+\.\S+/.test(value));
-	const passwordInput = useInput((value) => value.length > 4);
-	const verifyPasswordInput = useInput((value) => value === passwordInput.value);
-
-	const userNameInputClasses = userNameInput.hasError ? classes.invalid : "";
-	const emailInputClasses = emailInput.hasError ? classes.invalid : "";
-	const passwordInputClasses = passwordInput.hasError ? classes.invalid : "";
-	const verifyPasswordInputClasses = verifyPasswordInput.hasError ? classes.invalid : "";
-
-	const formIsValid =
-		userNameInput.isValid && emailInput.isValid && passwordInput.isValid && verifyPasswordInput.isValid;
-
-	const [register] = useRegisterMutation();
-
-	async function registerHandler(event) {
-		event.preventDefault();
-		await register({
-			user_name: userNameInput.value,
-			email: emailInput.value,
-			password: passwordInput.value,
-		});
-		navigate(`/workouts`);
 	}
+
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+		getValues,
+	} = useForm();
 
 	return (
 		<div className={classes.form}>
-			<form onSubmit={registerHandler}>
+			<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
 				<div className={classes.form_group}>
-					<label>User name:</label>
-					<input
-						className={userNameInputClasses}
-						type="text"
-						value={userNameInput.value}
-						onChange={userNameInput.valueChangeHandler}
-						onBlur={userNameInput.inputBlurHandler}
-					/>
-					{userNameInput.hasError && <p className={classes.invalid}>Name cannot be empty</p>}
+					<label htmlFor="userName">User name:</label>
+					<input type="text" {...register("userName", { required: true })} />
+					{errors.userName && <p className={classes.invalid}>User name cannot be empty</p>}
 				</div>
 				<div className={classes.form_group}>
-					<label>Email:</label>
-					<input
-						className={emailInputClasses}
-						type="email"
-						value={emailInput.value}
-						onChange={emailInput.valueChangeHandler}
-						onBlur={emailInput.inputBlurHandler}
-					/>
-					{emailInput.hasError && <p className={classes.invalid}>Email is not valid</p>}
+					<label htmlFor="email">Email:</label>
+					<input type="text" {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} />
+					{errors.email && <p className={classes.invalid}>Email is not valid</p>}
 				</div>
 				<div className={classes.form_group}>
-					<label>Password:</label>
+					<label htmlFor="password">password:</label>
+					<input type="password" {...register("password", { required: true, minLength: 5 })} />
+					{errors.password && <p className={classes.invalid}>Password must be longer than 4 characters</p>}
+				</div>
+				<div className={classes.form_group}>
+					<label htmlFor="validatePassword">Validate password:</label>
 					<input
-						className={passwordInputClasses}
 						type="password"
-						value={passwordInput.value}
-						onChange={passwordInput.valueChangeHandler}
-						onBlur={passwordInput.inputBlurHandler}
+						{...register("validatePassword", {
+							required: true,
+							validate: (value) => value === getValues("password"),
+						})}
 					/>
-					{passwordInput.hasError && (
-						<p className={classes.invalid}>Password must be longer than 4 character</p>
-					)}
+					{errors.validatePassword && <p className={classes.invalid}>Passwords must match</p>}
 				</div>
-				<div className={classes.form_group}>
-					<label>Verify password:</label>
-					<input
-						className={verifyPasswordInputClasses}
-						type="password"
-						value={verifyPasswordInput.value}
-						onChange={verifyPasswordInput.valueChangeHandler}
-						onBlur={verifyPasswordInput.inputBlurHandler}
-					/>
-					{verifyPasswordInput.hasError && <p className={classes.invalid}>Passwords must match</p>}
-				</div>
-				<Button text="Register" disabled={!formIsValid} />
+				<Button text="Register" />
 			</form>
 			<Link to="/Login">Login</Link>
 		</div>
