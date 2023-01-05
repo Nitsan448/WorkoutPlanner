@@ -14,7 +14,7 @@ function Login(props) {
 	async function loginHandler(data) {
 		try {
 			login({
-				email: data.email,
+				email_or_user_name: data.emailOrUserName,
 				password: data.password,
 			});
 			navigate(`/workouts`);
@@ -33,9 +33,9 @@ function Login(props) {
 		<div className={classes.form}>
 			<form onSubmit={handleSubmit(async (data) => await loginHandler(data))}>
 				<div className={classes.form_group}>
-					<label htmlFor="email">Email:</label>
-					<input type="text" {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} />
-					{errors.email && <p className={classes.invalid}>Email is not valid</p>}
+					<label htmlFor="emailOrUserName">Email/User name:</label>
+					<input type="text" {...register("emailOrUserName", { required: true })} />
+					{errors.emailOrUserName && <p className={classes.invalid}>Email or user name can not be empty</p>}
 				</div>
 				<div className={classes.form_group}>
 					<label htmlFor="password">Password:</label>

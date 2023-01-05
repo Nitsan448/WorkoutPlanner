@@ -57,7 +57,12 @@ function EditingWorkout(props) {
 		register,
 		formState: { errors },
 		handleSubmit,
-	} = useForm();
+	} = useForm({
+		defaultValues: {
+			name: props.workout.name,
+			description: props.workout.description,
+		},
+	});
 
 	return (
 		<>

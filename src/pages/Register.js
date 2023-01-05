@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "../components/Exercises/ExerciseForm.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { useRegisterMutation } from "../store/apiSlice";
@@ -7,6 +7,12 @@ import Button from "../components/UI/Button";
 
 function Register(props) {
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (document.cookie.indexOf("token=") !== -1) {
+			navigate(`/workouts`);
+		}
+	}, [navigate]);
 
 	const [registerUser] = useRegisterMutation();
 
