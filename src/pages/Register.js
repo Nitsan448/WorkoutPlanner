@@ -17,16 +17,24 @@ function Register(props) {
 	const [registerUser] = useRegisterMutation();
 
 	async function registerHandler(data) {
+		console.log(data);
 		try {
-			console.log(data);
 			await registerUser({
 				user_name: data.userName,
 				email: data.email,
 				password: data.password,
-			});
+			}).unwrap();
+			clearErrors();
 			navigate(`/workouts`);
 		} catch (error) {
 			console.log(error);
+			if (error.data === "User name taken") {
+				setError("userName", { message: error.data });
+			} else if (error.data === "Email address already exists") {
+				setError("email", { message: error.data });
+			} else if (error.data === "Password must be longer then 5 characters") {
+				setError("password", { message: error.data });
+			}
 		}
 	}
 
@@ -35,6 +43,8 @@ function Register(props) {
 		formState: { errors },
 		handleSubmit,
 		getValues,
+		setError,
+		clearErrors,
 	} = useForm();
 
 	return (
@@ -42,29 +52,48 @@ function Register(props) {
 			<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
 				<div className={classes.form_group}>
 					<label htmlFor="userName">User name:</label>
-					<input type="text" {...register("userName", { required: true })} />
-					{errors.userName && <p className={classes.invalid}>User name cannot be empty</p>}
+					<input
+						type="text"
+						className={errors.userName ? classes.invalid : ""}
+						{...register("userName", { required: "Please enter your user name" })}
+					/>
+					{errors.userName && <p className={classes.invalid}>{errors.userName.message}</p>}
 				</div>
 				<div className={classes.form_group}>
 					<label htmlFor="email">Email:</label>
-					<input type="text" {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} />
-					{errors.email && <p className={classes.invalid}>Email is not valid</p>}
+					<input
+						type="text"
+						className={errors.email ? classes.invalid : ""}
+						{...register("email", {
+							required: "Please enter your email",
+							pattern: { value: /\S+@\S+\.\S+/, message: "Please enter a valid email" },
+						})}
+					/>
+					{errors.email && <p className={classes.invalid}>{errors.email.message}</p>}
 				</div>
 				<div className={classes.form_group}>
 					<label htmlFor="password">password:</label>
-					<input type="password" {...register("password", { required: true, minLength: 5 })} />
-					{errors.password && <p className={classes.invalid}>Password must be longer than 4 characters</p>}
+					<input
+						type="password"
+						className={errors.password ? classes.invalid : ""}
+						{...register("password", {
+							required: "Please enter a password",
+							minLength: { value: 5, message: "Password must be longer than 4 characters" },
+						})}
+					/>
+					{errors.password && <p className={classes.invalid}>{errors.password.message}</p>}
 				</div>
 				<div className={classes.form_group}>
 					<label htmlFor="validatePassword">Validate password:</label>
 					<input
 						type="password"
+						className={errors.validatePassword ? classes.invalid : ""}
 						{...register("validatePassword", {
-							required: true,
-							validate: (value) => value === getValues("password"),
+							required: "Please enter your password again",
+							validate: (value) => value === getValues("password") || "Passwords do not match",
 						})}
 					/>
-					{errors.validatePassword && <p className={classes.invalid}>Passwords must match</p>}
+					{errors.validatePassword && <p className={classes.invalid}>{errors.validatePassword.message}</p>}
 				</div>
 				<Button text="Register" />
 			</form>

@@ -1,19 +1,19 @@
-clean code
+Create a stored procedure for deleteWorkout instead of looping over all routines (loop over them in the stored procedure)
 
 Add choice between set time and repetitions
-
-Go straight to home page when user is already logged in
 
 Add all missing fields - public, likes, image, etc.
 
 Change navigation bar state according to user logged in status.
 
-Fix not authenticated bug on log in/register
-
 edit exercises
 
-when adding workout - go to edit page for that workout, if the user did not add a unique name and at least one exercise. Delete the workout when he leaves (after telling him it will happen)
+Warn user if he tried to leave an unsaved workout that will be deleted.
 
-Handle loading and error for all api calls
+Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 
-Require auth when user enters a page with onEnter
+Require auth when user enters a page
+
+Fix bugs in auth
+
+Add and fix css.

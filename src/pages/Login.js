@@ -13,13 +13,18 @@ function Login(props) {
 
 	async function loginHandler(data) {
 		try {
-			login({
+			await login({
 				email_or_user_name: data.emailOrUserName,
 				password: data.password,
-			});
+			}).unwrap();
+			clearErrors();
 			navigate(`/workouts`);
 		} catch (error) {
-			console.log(error);
+			if (error.data === "User could not be found") {
+				setError("emailOrUserName", { message: error.data });
+			} else if (error.data === "Wrong password") {
+				setError("password", { message: error.data });
+			}
 		}
 	}
 
@@ -27,6 +32,8 @@ function Login(props) {
 		register,
 		formState: { errors },
 		handleSubmit,
+		setError,
+		clearErrors,
 	} = useForm();
 
 	return (
@@ -34,13 +41,29 @@ function Login(props) {
 			<form onSubmit={handleSubmit(async (data) => await loginHandler(data))}>
 				<div className={classes.form_group}>
 					<label htmlFor="emailOrUserName">Email/User name:</label>
-					<input type="text" {...register("emailOrUserName", { required: true })} />
-					{errors.emailOrUserName && <p className={classes.invalid}>Email or user name can not be empty</p>}
+					<input
+						type="text"
+						className={errors.email_or_user_name ? classes.invalid : ""}
+						{...register("emailOrUserName", {
+							required: "Please enter your Email or user name",
+						})}
+					/>
+					{errors.emailOrUserName && <p className={classes.invalid}>{errors.emailOrUserName.message}</p>}
 				</div>
 				<div className={classes.form_group}>
 					<label htmlFor="password">Password:</label>
-					<input type="password" {...register("password", { required: true, minLength: 5 })} />
-					{errors.password && <p className={classes.invalid}>Password is not valid</p>}
+					<input
+						type="password"
+						className={errors.password ? classes.invalid : ""}
+						{...register("password", {
+							required: "Please enter your password",
+							minLength: {
+								value: 5,
+								message: "Password is not valid",
+							},
+						})}
+					/>
+					{errors.password && <p className={classes.invalid}>{errors.password.message}</p>}
 				</div>
 				<Button text="Login" />
 			</form>
