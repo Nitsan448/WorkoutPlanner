@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./Exercise.module.css";
 import { getTimeInTimerFormat } from "../../helpers/time";
 import Button from "../UI/Button";

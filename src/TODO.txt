@@ -15,3 +15,5 @@ edit exercises
 when adding workout - go to edit page for that workout, if the user did not add a unique name and at least one exercise. Delete the workout when he leaves (after telling him it will happen)
 
 Handle loading and error for all api calls
+
+Require auth when user enters a page with onEnter

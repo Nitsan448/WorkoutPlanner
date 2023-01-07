@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import classes from "./Workouts.module.css";
@@ -18,12 +18,9 @@ function Workouts(props) {
 
 	const [addWorkout] = useAddWorkoutMutation();
 
-	const goToWorkoutHandler = useCallback(
-		(workoutIndex, mode) => {
-			navigate(`${location.pathname}/${workoutIndex}?mode=${mode}`);
-		},
-		[navigate, location]
-	);
+	function goToWorkoutHandler(workoutIndex, mode) {
+		navigate(`${location.pathname}/${workoutIndex}?mode=${mode}`);
+	}
 
 	async function onAddWorkoutClicked() {
 		try {

@@ -18,6 +18,7 @@ function Register(props) {
 
 	async function registerHandler(data) {
 		try {
+			console.log(data);
 			await registerUser({
 				user_name: data.userName,
 				email: data.email,

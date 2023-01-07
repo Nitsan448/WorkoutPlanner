@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import ExerciseForm from "../Exercises/ExerciseForm";
 import classes from "../Exercises/ExerciseForm.module.css";
 import Button from "../UI/Button";
@@ -8,6 +8,7 @@ import { useEditWorkoutMutation, useDeleteWorkoutMutation } from "../../store/ap
 import { useForm } from "react-hook-form";
 
 function EditingWorkout(props) {
+	let deleteWorkoutOnUnmount = props.workout.name === "";
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -15,19 +16,35 @@ function EditingWorkout(props) {
 
 	const [deleteWorkout] = useDeleteWorkoutMutation();
 
-	async function onDeleteWorkoutClicked(workout_id) {
-		try {
-			await deleteWorkout({ workout_id });
-			navigate(`/workouts`);
-		} catch (error) {
-			console.log("failed to delete workout", error);
-		}
+	const workoutId = props.workout.workout_id;
+
+	const handleWorkoutDeletionOnUnmount = useCallback(
+		(event) => {
+			event && event.preventDefault();
+			if (deleteWorkoutOnUnmount) {
+				deleteWorkout({ workout_id: workoutId });
+			}
+		},
+		[deleteWorkout, deleteWorkoutOnUnmount, workoutId]
+	);
+
+	useEffect(() => {
+		window.addEventListener("beforeunload", handleWorkoutDeletionOnUnmount);
+		return () => {
+			window.removeEventListener("beforeunload", handleWorkoutDeletionOnUnmount);
+			handleWorkoutDeletionOnUnmount();
+		};
+	}, [handleWorkoutDeletionOnUnmount]);
+
+	async function onDeleteWorkoutClicked() {
+		deleteWorkoutOnUnmount = true;
+		navigate(`/workouts`);
 	}
 
 	function getExerciseAsComponent(exercise) {
 		return (
 			<EditingExercise
-				workoutId={props.workout.workout_id}
+				workoutId={workoutId}
 				orderInWorkout={exercise.order_in_workout}
 				key={exercise.order_in_workout}
 				name={exercise.name}
@@ -40,13 +57,13 @@ function EditingWorkout(props) {
 	}
 
 	async function saveWorkoutHandler(data) {
-		console.log(data);
 		try {
 			await updateWorkout({
 				name: data.name,
 				description: data.description,
-				workout_id: props.workout.workout_id,
+				workout_id: workoutId,
 			});
+			deleteWorkoutOnUnmount = false;
 			navigate(`${location.pathname}?mode=view`);
 		} catch (error) {
 			console.log(error);
@@ -85,11 +102,11 @@ function EditingWorkout(props) {
 				)}
 				<ExerciseForm
 					orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
-					workoutId={props.workout.workout_id}
+					workoutId={workoutId}
 				/>
 				<Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
 			</div>
-			<Button onClick={() => onDeleteWorkoutClicked(props.workout.workout_id)} text="Delete" />
+			<Button onClick={onDeleteWorkoutClicked} text="Delete" />
 		</>
 	);
 }

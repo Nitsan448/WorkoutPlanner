@@ -3,11 +3,12 @@ import classes from "./NavigationHeader.module.css";
 import Button from "../UI/Button";
 import { useLogoutMutation } from "../../store/apiSlice";
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const MainNavigation = () => {
 	const [logout] = useLogoutMutation();
 	const navigate = useNavigate();
+
 	async function onLogoutClickHandler() {
 		await logout();
 		navigate("/login");
