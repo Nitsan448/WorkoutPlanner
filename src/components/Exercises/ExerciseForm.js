@@ -16,11 +16,10 @@ function ExerciseForm(props) {
 			return false;
 		}
 		const [minutes, seconds] = value.split(":");
-		// TODO: make sure this validation is working correctly (specifically for 00:00)
 		return isPositiveNumber(minutes) && isPositiveNumber(seconds);
 	}
 
-	function addNewExerciseHandler(data) {
+	async function addNewExerciseHandler(data) {
 		const routine = {
 			workout_id: +props.workoutId,
 			name: data.name,
@@ -33,9 +32,12 @@ function ExerciseForm(props) {
 			break_after_routine: 30,
 			order_in_workout: props.orderInWorkout,
 		};
-		addRoutine(routine);
-		reset();
-		setIsFormOpen(false);
+		try {
+			await addRoutine(routine);
+			setIsFormOpen(false);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	const {
@@ -59,13 +61,18 @@ function ExerciseForm(props) {
 						<h3>New Exercise</h3>
 						<div className={classes.form_group}>
 							<label htmlFor="name">Name:</label>
-							<input type="text" {...register("name", { required: true })} />
+							<input
+								type="text"
+								className={errors.name ? classes.invalid : ""}
+								{...register("name", { required: true })}
+							/>
 							{errors.name && <p className={classes.invalid}>Exercise name can not be empty</p>}
 						</div>
 						<div className={classes.form_group}>
 							<label htmlFor="setTime">Set time:</label>
 							<input
 								type="text"
+								className={errors.setTime ? classes.invalid : ""}
 								{...register("setTime", {
 									required: true,
 									validate: (value) => validateTimeInput(value),
@@ -77,6 +84,7 @@ function ExerciseForm(props) {
 							<label htmlFor="sets">Sets:</label>
 							<input
 								type="number"
+								className={errors.sets ? classes.invalid : ""}
 								{...register("sets", {
 									required: true,
 									min: 1,
@@ -88,6 +96,7 @@ function ExerciseForm(props) {
 							<label htmlFor="restTime">Rest time:</label>
 							<input
 								type="text"
+								className={errors.restTime ? classes.invalid : ""}
 								{...register("restTime", {
 									required: true,
 									validate: (value) => validateTimeInput(value),

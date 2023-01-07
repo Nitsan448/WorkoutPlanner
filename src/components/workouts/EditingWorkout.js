@@ -62,11 +62,12 @@ function EditingWorkout(props) {
 				name: data.name,
 				description: data.description,
 				workout_id: workoutId,
-			});
+			}).unwrap();
 			deleteWorkoutOnUnmount = false;
+			clearErrors();
 			navigate(`${location.pathname}?mode=view`);
 		} catch (error) {
-			console.log(error);
+			setError("name", { message: "You already have a workout with the same name" });
 		}
 	}
 
@@ -74,6 +75,8 @@ function EditingWorkout(props) {
 		register,
 		formState: { errors },
 		handleSubmit,
+		setError,
+		clearErrors,
 	} = useForm({
 		defaultValues: {
 			name: props.workout.name,
@@ -87,8 +90,12 @@ function EditingWorkout(props) {
 				<form>
 					<div className={classes.form_group}>
 						<label htmlFor="name">Name:</label>
-						<input type="text" {...register("name", { required: true })} />
-						{errors.name && <p className={classes.invalid}>Workout name can not be empty</p>}
+						<input
+							type="text"
+							className={errors.name ? classes.invalid : ""}
+							{...register("name", { required: "Workout name can not be empty" })}
+						/>
+						{errors.name && <p className={classes.invalid}>{errors.name.message}</p>}
 					</div>
 					<div className={classes.form_group}>
 						<label htmlFor="description">Description:</label>
