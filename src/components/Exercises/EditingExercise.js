@@ -1,28 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import classes from "./Exercise.module.css";
 import { getTimeInTimerFormat } from "../../helpers/time";
 import Button from "../UI/Button";
-import { useDeleteRoutineMutation } from "../../store/apiSlice";
+import { useDeleteRoutineMutation, useUpdateRoutineMutation } from "../../store/apiSlice";
+import ExerciseForm from "./ExerciseForm";
 
 function EditingExercise(props) {
+	const [editingExercise, setEditingExercise] = useState(false);
+
 	const [deleteRoutine] = useDeleteRoutineMutation();
+	const [updateRoutine] = useUpdateRoutineMutation();
 
 	async function onDeleteClicked() {
-		console.log(props.workoutId);
-		deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout });
+		try {
+			await deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout }).unwrap();
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+
+	async function editExerciseHandler(routine) {
+		try {
+			await updateRoutine(routine).unwrap();
+			setEditingExercise(false);
+		} catch (error) {
+			console.log(error.message);
+		}
 	}
 
 	return (
 		<>
-			<div className={classes.exercise}>
-				<h3>{props.name}</h3>
-				<p>Set Time: {getTimeInTimerFormat(props.setTime)}</p>
-				<p>Sets: {props.sets}</p>
-				<p>Rest time: {getTimeInTimerFormat(props.restTime)}</p>
-				<p>Description: {props.description}</p>
-				<Button text="Edit" onClick={() => {}} />
-				<Button onClick={onDeleteClicked} text="Delete" />
-			</div>
+			{editingExercise ? (
+				<ExerciseForm saveExerciseHandler={editExerciseHandler} {...props} />
+			) : (
+				<div className={classes.exercise}>
+					<h3>{props.name}</h3>
+					<p>Set Time: {getTimeInTimerFormat(props.setTime)}</p>
+					<p>Sets: {props.sets}</p>
+					<p>Rest time: {getTimeInTimerFormat(props.restTime)}</p>
+					<p>Description: {props.description}</p>
+					<Button text="Edit" onClick={() => setEditingExercise(true)} />
+					<Button onClick={onDeleteClicked} text="Delete" />
+				</div>
+			)}
 		</>
 	);
 }

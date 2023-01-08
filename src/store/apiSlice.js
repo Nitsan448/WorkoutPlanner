@@ -24,7 +24,7 @@ export const apiSlice = createApi({
 			}),
 			invalidatesTags: ["Workout"],
 		}),
-		editWorkout: builder.mutation({
+		updateWorkout: builder.mutation({
 			query: (workout) => ({
 				url: `/workouts/${workout.workout_id}`,
 				method: "PATCH",
@@ -43,6 +43,14 @@ export const apiSlice = createApi({
 			query: (routine) => ({
 				url: "/routines",
 				method: "POST",
+				body: routine,
+			}),
+			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.id }],
+		}),
+		updateRoutine: builder.mutation({
+			query: (routine) => ({
+				url: `/routines/`,
+				method: "PATCH",
 				body: routine,
 			}),
 			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.id }],
@@ -72,9 +80,10 @@ export const {
 	useGetWorkoutsQuery,
 	useGetWorkoutQuery,
 	useAddWorkoutMutation,
-	useEditWorkoutMutation,
+	useUpdateWorkoutMutation,
 	useDeleteWorkoutMutation,
 	useAddRoutineMutation,
+	useUpdateRoutineMutation,
 	useDeleteRoutineMutation,
 	useRegisterMutation,
 	useLoginMutation,

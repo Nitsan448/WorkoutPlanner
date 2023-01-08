@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from "react";
-import ExerciseForm from "../Exercises/ExerciseForm";
+import NewExerciseForm from "../Exercises/NewExerciseForm";
 import classes from "../Exercises/ExerciseForm.module.css";
 import Button from "../UI/Button";
 import EditingExercise from "../Exercises/EditingExercise";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEditWorkoutMutation, useDeleteWorkoutMutation } from "../../store/apiSlice";
+import { useUpdateWorkoutMutation, useDeleteWorkoutMutation } from "../../store/apiSlice";
 import { useForm } from "react-hook-form";
 
 function EditingWorkout(props) {
@@ -12,7 +12,7 @@ function EditingWorkout(props) {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const [updateWorkout] = useEditWorkoutMutation();
+	const [updateWorkout] = useUpdateWorkoutMutation();
 
 	const [deleteWorkout] = useDeleteWorkoutMutation();
 
@@ -107,7 +107,7 @@ function EditingWorkout(props) {
 				) : (
 					""
 				)}
-				<ExerciseForm
+				<NewExerciseForm
 					orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
 					workoutId={workoutId}
 				/>

@@ -6,14 +6,10 @@ Add all missing fields - public, likes, image, etc.
 
 Change navigation bar state according to user logged in status.
 
-edit exercises
-
 Warn user if he tried to leave an unsaved workout that will be deleted.
 
 Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 
 Require auth when user enters a page
-
-Fix bugs in auth
 
 Add and fix css.
