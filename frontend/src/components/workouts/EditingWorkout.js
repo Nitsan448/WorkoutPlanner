@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import NewExerciseForm from "../Exercises/NewExerciseForm";
-import classes from "../Exercises/ExerciseForm.module.css";
+import classes from "./Workout.module.css";
 import Button from "../UI/Button";
 import EditingExercise from "../Exercises/EditingExercise";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -86,8 +86,8 @@ function EditingWorkout(props) {
 
 	return (
 		<>
-			<div className={classes.form}>
-				<form>
+			<div className={classes.container}>
+				<div>
 					<div className={classes.form_group}>
 						<label htmlFor="name">Name:</label>
 						<input
@@ -101,18 +101,18 @@ function EditingWorkout(props) {
 						<label htmlFor="description">Description:</label>
 						<input type="description" {...register("description")} />
 					</div>
-				</form>
+				</div>
 				{props.workout.routines ? (
 					<ul>{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}</ul>
 				) : (
 					""
 				)}
-				<NewExerciseForm
-					orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
-					workoutId={workoutId}
-				/>
-				<Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
 			</div>
+			<NewExerciseForm
+				orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
+				workoutId={workoutId}
+			/>
+			<Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
 			<Button onClick={onDeleteWorkoutClicked} text="Delete" />
 		</>
 	);

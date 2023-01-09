@@ -8,6 +8,6 @@
 		}
 	],
 	"settings": {
-		"emmet.showSuggestionsAsSnippets": true
+		"emmet.showSuggestionsAsSnippets": false
 	}
 }

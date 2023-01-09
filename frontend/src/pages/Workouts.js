@@ -39,7 +39,7 @@ function Workouts(props) {
 		content = <h1>Loading...</h1>;
 	} else if (isWorkoutsRequestSuccess) {
 		content = workouts.map((workout) => (
-			<div key={workout.workout_id}>
+			<div key={workout.workout_id} className={classes.workout}>
 				<h2>{workout.name}</h2>
 				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "view")} text={"View"} />
 				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} text="Edit" />

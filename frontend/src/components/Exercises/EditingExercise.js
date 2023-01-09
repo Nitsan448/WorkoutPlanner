@@ -35,10 +35,12 @@ function EditingExercise(props) {
 			) : (
 				<div className={classes.exercise}>
 					<h3>{props.name}</h3>
-					<p>Set Time: {getTimeInTimerFormat(props.setTime)}</p>
-					<p>Sets: {props.sets}</p>
-					<p>Rest time: {getTimeInTimerFormat(props.restTime)}</p>
-					<p>Description: {props.description}</p>
+					<p>{props.description}</p>
+					<div className={classes.routine}>
+						<p>Set Time: {getTimeInTimerFormat(props.setTime)}</p>
+						<p>Sets: {props.sets}</p>
+						<p>Rest time: {getTimeInTimerFormat(props.restTime)}</p>
+					</div>
 					<Button text="Edit" onClick={() => setEditingExercise(true)} />
 					<Button onClick={onDeleteClicked} text="Delete" />
 				</div>

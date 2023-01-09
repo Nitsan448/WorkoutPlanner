@@ -5,12 +5,13 @@ import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import NavigationHeader from "./components/Layout/NavigationHeader";
+import classes from "./App.module.css";
 
 function App() {
 	return (
 		<>
 			<NavigationHeader />
-			<main>
+			<main className={classes.mainContainer}>
 				<Routes>
 					<Route path="/" element={<Navigate replace to="/register" />} />
 

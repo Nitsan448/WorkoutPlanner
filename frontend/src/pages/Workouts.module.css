@@ -1,14 +1,15 @@
 .workouts {
-	background-color: rgb(207, 144, 27);
-	width: 75%;
+	width: 95%;
 	margin: auto;
-
 	padding: 1em 0;
-	margin-top: 1em;
 }
 
 .workouts .gridContainer {
 	display: grid;
-	gap: 0;
-	grid-template-columns: auto auto;
+	gap: 1em;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.workout {
+	background-color: rgb(67, 149, 204);
 }

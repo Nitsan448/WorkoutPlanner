@@ -5,6 +5,7 @@ import { useCallback, useState, useEffect } from "react";
 import PlayingExercise from "../Exercises/PlayingExercise";
 import Button from "../UI/Button";
 import { useNavigate } from "react-router-dom";
+import classes from "./PlayingWorkout.module.css";
 
 function PlayingWorkout(props) {
 	const navigate = useNavigate();
@@ -70,19 +71,16 @@ function PlayingWorkout(props) {
 	}
 
 	return (
-		<>
-			<h2>{props.workout.name}</h2>
+		<div className={classes.playingWorkout}>
 			<PlayingExercise
 				name={currentExercise.name}
 				setTime={currentExercise.set_time}
 				currentSet={currentSet}
 				sets={currentExercise.sets}
 				restTime={currentExercise.rest_time}
-				description={currentExercise.description}></PlayingExercise>
-			<div>
-				{inSet ? <h2>In set</h2> : <h2>Resting</h2>}
-				<Timer minutes={timer.minutes} seconds={timer.seconds} />
-			</div>
+				description={currentExercise.description}
+				timer={timer}
+				inSet={inSet}></PlayingExercise>
 			{workoutFinished ? (
 				<div>
 					<label>Workout finished!</label>
@@ -95,7 +93,7 @@ function PlayingWorkout(props) {
 						timer.togglePausedState();
 					}}></Button>
 			)}
-		</>
+		</div>
 	);
 }
 

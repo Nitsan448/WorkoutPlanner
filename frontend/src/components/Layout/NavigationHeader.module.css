@@ -1,11 +1,10 @@
 .header {
-	width: 100%;
 	height: 5rem;
 	display: flex;
 	padding: 0 10%;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #008080;
+	background-color: #3b72b3;
 }
 
 .nav ul {
@@ -22,12 +21,12 @@
 
 .nav a {
 	text-decoration: none;
-	color: #88dfdf;
+	color: white;
 }
 
 .nav a:hover,
 .nav a:active,
 .nav a.active {
-	color: #6dece2;
+	color: #ffa800;
 	font-weight: bold;
 }

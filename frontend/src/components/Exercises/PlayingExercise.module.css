@@ -1,12 +1,12 @@
 .playingExercise {
-	background-color: rgb(196, 55, 24);
-	width: 50%;
+	display: flex;
+	justify-content: space-between;
+	width: 75%;
 	margin: auto;
-
 	border: 5px rgb(0, 0, 0) solid;
-	border-radius: 40px;
+	border-radius: 1px;
 	margin-top: 1rem;
-	padding: 40px;
-	font-size: x-large;
+	padding: 30px;
+	font-size: 1.5rem;
 	font-weight: bold;
 }

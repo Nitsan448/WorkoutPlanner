@@ -1,10 +1,19 @@
 .exercise {
-	background-color: rgb(207, 60, 27);
-	width: 25%;
-	margin: auto;
+	border: 3px #ffa800 solid;
+	border-radius: 5px;
+	width: 97%;
+	/* padding: 5px; */
+}
 
-	border: 3px rgb(0, 0, 0) solid;
-	border-radius: 40px;
-	margin-top: 1rem;
-	padding: 10px;
+.routine {
+	display: flex;
+	justify-content: space-between;
+}
+
+/* Do these at the same line */
+.exercise h3 {
+	margin: 1em;
+}
+.exercise p {
+	margin: 1em;
 }
