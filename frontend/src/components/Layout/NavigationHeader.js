@@ -5,7 +5,7 @@ import { useLogoutMutation } from "../../store/apiSlice";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 
-const MainNavigation = () => {
+const NavigationHeader = () => {
 	const [logout] = useLogoutMutation();
 	const navigate = useNavigate();
 
@@ -32,4 +32,4 @@ const MainNavigation = () => {
 	);
 };
 
-export default MainNavigation;
+export default NavigationHeader;

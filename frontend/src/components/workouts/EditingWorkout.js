@@ -67,7 +67,7 @@ function EditingWorkout(props) {
 			clearErrors();
 			navigate(`${location.pathname}?mode=view`);
 		} catch (error) {
-			setError("name", { message: "You already have a workout with the same name" });
+			setError("name", { message: error.data });
 		}
 	}
 
