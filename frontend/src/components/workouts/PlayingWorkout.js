@@ -1,5 +1,4 @@
 import useTimer from "../../hooks/use-timer";
-import Timer from "../Timer/Timer";
 import { getTimeInMinutesAndSeconds } from "../../helpers/time";
 import { useCallback, useState, useEffect } from "react";
 import PlayingExercise from "../Exercises/PlayingExercise";
@@ -21,7 +20,7 @@ function PlayingWorkout(props) {
 			return getTimeInMinutesAndSeconds(currentExercise.set_time);
 		}
 		return getTimeInMinutesAndSeconds(currentExercise.rest_time);
-	}, [inSet, currentExercise.set_time, currentExercise.rest_time]);
+	}, [inSet, currentExercise]);
 
 	const initialTimerTime = getNewTimerTime();
 	const timer = useTimer(initialTimerTime, timerFinishedHandler);
