@@ -19,13 +19,13 @@ function NewExerciseForm(props) {
 	}
 
 	return (
-		<>
+		<div className="border">
 			{isFormOpen ? (
 				<ExerciseForm saveExerciseHandler={addExerciseHandler} {...props} />
 			) : (
-				<Button onClick={() => setIsFormOpen(true)} text="Add new exercise"></Button>
+				<Button onClick={() => setIsFormOpen(true)} text="+ New exercise"></Button>
 			)}
-		</>
+		</div>
 	);
 }
 

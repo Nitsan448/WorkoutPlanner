@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./ExerciseForm.module.css";
 import Button from "../UI/Button";
 import { isPositiveNumber } from "../../helpers/helpers";
@@ -6,6 +6,19 @@ import { useForm } from "react-hook-form";
 import { getTimeInSeconds, getTimeInTimerFormat } from "../../helpers/time";
 
 function ExerciseForm(props) {
+	const [image, setImage] = useState(null);
+	const [imageUrl, setImageUrl] = useState(null);
+
+	function onImageUpload(event) {
+		setImage(...event.target.files);
+	}
+
+	useEffect(() => {
+		if (image) {
+			setImageUrl(URL.createObjectURL(image));
+		}
+	}, [image]);
+
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
 			return false;
@@ -47,19 +60,28 @@ function ExerciseForm(props) {
 
 	return (
 		<>
-			<div className={classes.form}>
-				<form onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
-					<h3>New Exercise</h3>
+			<form className={classes.form} onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
+				<label htmlFor="image-upload" className={classes.image}>
+					Add image
+					<input id="image-upload" type="file" onChange={onImageUpload} accept=".jpg, .jpeg, .png" />
+					{image && <img src={imageUrl} width={"100px"} height={"100pxpx"} />}
+				</label>
+				<div className={classes.exercise}>
 					<div className={classes.form_group}>
-						<label htmlFor="name">Name:</label>
 						<input
 							type="text"
+							placeholder="Exercise name"
 							className={errors.name ? classes.invalid : ""}
 							{...register("name", { required: true })}
 						/>
 						{errors.name && <p className={classes.invalid}>Exercise name can not be empty</p>}
 					</div>
 					<div className={classes.form_group}>
+						<textarea placeholder="Description" {...register("description")} />
+					</div>
+				</div>
+				<div className={classes.routine}>
+					<div className={classes.routineInput}>
 						<label htmlFor="setTime">Set time:</label>
 						<input
 							type="text"
@@ -71,7 +93,7 @@ function ExerciseForm(props) {
 						/>
 						{errors.setTime && <p className={classes.invalid}>Set time must be in xx:xx format</p>}
 					</div>
-					<div className={classes.form_group}>
+					<div className={classes.routineInput}>
 						<label htmlFor="sets">Sets:</label>
 						<input
 							type="number"
@@ -83,7 +105,7 @@ function ExerciseForm(props) {
 						/>
 						{errors.sets && <p className={classes.invalid}>Sets must be larger than 0</p>}
 					</div>
-					<div className={classes.form_group}>
+					<div className={classes.routineInput}>
 						<label htmlFor="restTime">Rest time:</label>
 						<input
 							type="text"
@@ -95,13 +117,9 @@ function ExerciseForm(props) {
 						/>
 						{errors.restTime && <p className={classes.invalid}>Rest time must be in xx:xx format</p>}
 					</div>
-					<div className={classes.form_group}>
-						<label htmlFor="description">Description:</label>
-						<textarea {...register("description")} />
-					</div>
 					<Button text="Save exercise" />
-				</form>
-			</div>
+				</div>
+			</form>
 		</>
 	);
 }

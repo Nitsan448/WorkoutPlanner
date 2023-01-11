@@ -1,44 +1,62 @@
 .form {
-	/* background-color: rgb(207, 144, 27); */
-	width: 75%;
-	margin: auto;
-
+	display: grid;
+	background-color: orange;
+	grid-gap: 3px;
+	grid-template-areas:
+		"im ex ex ex"
+		"rt rt rt rt";
+	grid-template-columns: 20vh 20vh 1fr 0.5fr;
+	grid-template-rows: 20vh 10vh;
 	border: 3px #ffa800 solid;
 	border-radius: 5px;
-	margin-top: 1rem;
-	padding: 10px;
 }
 
 .form .form_group {
 	padding: 5px;
 }
 
-.form label {
-	/* display: block; */
-	float: left;
-	margin-right: 10px;
-	font-weight: bold;
-}
-
-.form input {
-	padding: 4px;
-	width: 25%;
-}
-
 .form textarea {
-	padding: 4px;
-	width: 75%;
+	width: 95%;
 }
 
 .form input.invalid {
 	border: 3px red solid;
 }
 
-.form h3 {
-	margin: 4px;
-}
-
 .form p.invalid {
 	color: rgb(184, 19, 19);
 	font-weight: bold;
 }
+
+.image {
+	grid-area: im;
+	background-color: #3b72b3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: rgb(207, 207, 207);
+}
+
+.form input[type="file"] {
+	display: none;
+}
+
+.exercise {
+	grid-area: ex;
+	background-color: #f5f5f5;
+}
+
+.routine {
+	display: flex;
+	flex-direction: row;
+	grid-area: rt;
+	background-color: #f5f5f5;
+}
+/* 
+.routineInput {
+	padding: 5px;
+}
+
+.routineInput + .routineInput {
+	border-left: 3px solid #ffa800;
+} */

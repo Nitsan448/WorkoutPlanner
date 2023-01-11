@@ -87,7 +87,7 @@ function EditingWorkout(props) {
 	return (
 		<>
 			<div className={classes.container}>
-				<div>
+				<div className={classes.workout}>
 					<div className={classes.form_group}>
 						<label htmlFor="name">Name:</label>
 						<input
@@ -102,16 +102,18 @@ function EditingWorkout(props) {
 						<input type="description" {...register("description")} />
 					</div>
 				</div>
-				{props.workout.routines ? (
-					<ul>{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}</ul>
-				) : (
-					""
-				)}
+				<div>
+					{props.workout.routines ? (
+						<ul>{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}</ul>
+					) : (
+						""
+					)}
+					<NewExerciseForm
+						orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
+						workoutId={workoutId}
+					/>
+				</div>
 			</div>
-			<NewExerciseForm
-				orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
-				workoutId={workoutId}
-			/>
 			<Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
 			<Button onClick={onDeleteWorkoutClicked} text="Delete" />
 		</>
