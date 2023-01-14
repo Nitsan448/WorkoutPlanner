@@ -1,0 +1,12 @@
+:root {
+	/* Color pallete */
+	--BLUE: #3b72b3;
+	--GRAY-BLUE: #abc1dc;
+	--ORANGE: #ffa800;
+	--WHITE: #fff;
+
+	--PADDING: 32px;
+	--ELEMENT-PADDING: 4px;
+	--BORDER: 4px var(--ORANGE) solid;
+	--BORDER-RADIUS: 5px;
+}

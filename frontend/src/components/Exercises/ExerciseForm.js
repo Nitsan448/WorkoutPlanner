@@ -61,13 +61,13 @@ function ExerciseForm(props) {
 	return (
 		<>
 			<form className={classes.form} onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
-				<label htmlFor="image-upload" className={classes.image}>
+				<label htmlFor="image-upload" className={classes.form__image}>
 					Add image
 					<input id="image-upload" type="file" onChange={onImageUpload} accept=".jpg, .jpeg, .png" />
-					{image && <img src={imageUrl} width={"100px"} height={"100pxpx"} />}
+					{image && <img src={imageUrl} alt="Exercise" />}
 				</label>
-				<div className={classes.exercise}>
-					<div className={classes.form_group}>
+				<div className={classes.form__exercise}>
+					<div>
 						<input
 							type="text"
 							placeholder="Exercise name"
@@ -76,12 +76,36 @@ function ExerciseForm(props) {
 						/>
 						{errors.name && <p className={classes.invalid}>Exercise name can not be empty</p>}
 					</div>
-					<div className={classes.form_group}>
+					<div>
 						<textarea placeholder="Description" {...register("description")} />
 					</div>
 				</div>
-				<div className={classes.routine}>
-					<div className={classes.routineInput}>
+				<div className={classes.form__routine}>
+					<label htmlFor="sets">Number of sets:</label>
+					<input
+						type="number"
+						className={errors.sets ? classes.invalid : ""}
+						{...register("sets", {
+							required: true,
+							min: 1,
+						})}
+					/>
+					{errors.sets && <p className={classes.invalid}>Number of sets must be larger than 0</p>}
+				</div>
+				<div className={classes.form__routine}>
+					<label htmlFor="restTime">Break between sets:</label>
+					<input
+						type="text"
+						className={errors.restTime ? classes.invalid : ""}
+						{...register("restTime", {
+							required: true,
+							validate: (value) => validateTimeInput(value),
+						})}
+					/>
+					{errors.restTime && <p className={classes.invalid}>Break between sets must be in xx:xx format</p>}
+				</div>
+				<div className={classes.form__repsOrSets}>
+					<div className={classes.form__routine}>
 						<label htmlFor="setTime">Set time:</label>
 						<input
 							type="text"
@@ -93,30 +117,21 @@ function ExerciseForm(props) {
 						/>
 						{errors.setTime && <p className={classes.invalid}>Set time must be in xx:xx format</p>}
 					</div>
-					<div className={classes.routineInput}>
-						<label htmlFor="sets">Sets:</label>
-						<input
-							type="number"
-							className={errors.sets ? classes.invalid : ""}
-							{...register("sets", {
-								required: true,
-								min: 1,
-							})}
-						/>
-						{errors.sets && <p className={classes.invalid}>Sets must be larger than 0</p>}
-					</div>
-					<div className={classes.routineInput}>
-						<label htmlFor="restTime">Rest time:</label>
+					<div className={classes.form__orImage}></div>
+					<div className={classes.form__routine}>
+						<label htmlFor="setTime">Set time:</label>
 						<input
 							type="text"
-							className={errors.restTime ? classes.invalid : ""}
-							{...register("restTime", {
+							className={errors.setTime ? classes.invalid : ""}
+							{...register("setTime", {
 								required: true,
 								validate: (value) => validateTimeInput(value),
 							})}
 						/>
-						{errors.restTime && <p className={classes.invalid}>Rest time must be in xx:xx format</p>}
+						{errors.setTime && <p className={classes.invalid}>Set time must be in xx:xx format</p>}
 					</div>
+				</div>
+				<div className={classes.form__routine}>
 					<Button text="Save exercise" />
 				</div>
 			</form>

@@ -1,6 +1,10 @@
 .exercise {
-	border: 3px #ffa800 solid;
-	border-radius: 5px;
+	border: var(--BORDER);
+	border-radius: var(--BORDER-RADIUS);
+	margin: 1em;
+	display: grid;
+	grid-template-columns: 1fr 5fr 1em;
+	column-gap: 1em;
 }
 
 .routine {
@@ -8,7 +12,15 @@
 	justify-content: space-between;
 }
 
-.exercise h3,
-.exercise p {
-	margin: 1em;
+.exercise button {
+	margin-right: 1em;
+	margin-bottom: 1em;
+}
+
+/* .exercise__editButton {
+	background-image: url("");
+} */
+
+.exercise__image {
+	background-color: var(--BLUE);
 }

@@ -1,15 +1,37 @@
 .workouts {
-	width: 95%;
 	margin: auto;
-	padding: 1em 0;
+	padding: var(--PADDING);
 }
 
 .workouts .gridContainer {
 	display: grid;
 	gap: 1em;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr;
 }
 
 .workout {
-	background-color: rgb(67, 149, 204);
+	background-color: var(--GRAY-BLUE);
+}
+
+@media screen and (min-width: 576px) {
+	.workouts .gridContainer {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.workouts .gridContainer {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.workouts .gridContainer {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+@media screen and (min-width: 1200px) {
+	.workouts .gridContainer {
+		grid-template-columns: repeat(4, 1fr);
+	}
 }

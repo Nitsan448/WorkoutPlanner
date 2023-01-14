@@ -4,7 +4,7 @@
 	padding: 0 10%;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #3b72b3;
+	background-color: var(--BLUE);
 }
 
 .nav ul {
@@ -21,12 +21,11 @@
 
 .nav a {
 	text-decoration: none;
-	color: white;
+	color: var(--WHITE);
 }
 
 .nav a:hover,
 .nav a:active,
 .nav a.active {
-	color: #ffa800;
-	font-weight: bold;
+	color: var(--ORANGE);
 }

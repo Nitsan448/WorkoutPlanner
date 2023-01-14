@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import NewExerciseForm from "../Exercises/NewExerciseForm";
 import classes from "./Workout.module.css";
 import Button from "../UI/Button";
-import EditingExercise from "../Exercises/EditingExercise";
+import Exercise from "../Exercises/Exercise";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateWorkoutMutation, useDeleteWorkoutMutation } from "../../store/apiSlice";
 import { useForm } from "react-hook-form";
@@ -43,7 +43,7 @@ function EditingWorkout(props) {
 
 	function getExerciseAsComponent(exercise) {
 		return (
-			<EditingExercise
+			<Exercise
 				workoutId={workoutId}
 				orderInWorkout={exercise.order_in_workout}
 				key={exercise.order_in_workout}
@@ -52,6 +52,7 @@ function EditingWorkout(props) {
 				sets={exercise.sets}
 				restTime={exercise.rest_time}
 				description={exercise.description}
+				canEdit={true}
 			/>
 		);
 	}
@@ -88,7 +89,8 @@ function EditingWorkout(props) {
 		<>
 			<div className={classes.container}>
 				<div className={classes.workout}>
-					<div className={classes.form_group}>
+					<div className={classes.container__workoutImage}></div>
+					<div>
 						<label htmlFor="name">Name:</label>
 						<input
 							type="text"
@@ -97,7 +99,7 @@ function EditingWorkout(props) {
 						/>
 						{errors.name && <p className={classes.invalid}>{errors.name.message}</p>}
 					</div>
-					<div className={classes.form_group}>
+					<div>
 						<label htmlFor="description">Description:</label>
 						<input type="description" {...register("description")} />
 					</div>

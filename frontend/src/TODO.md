@@ -8,8 +8,14 @@ Change navigation bar state according to user logged in status.
 
 Drag and drop exercises to change order, add breaks between exercises.
 
+####CSS:
 Add and fix css.
 Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
+**Organization:**
+Add variables (borders, font size, padding, etc.)
+Use comments for headers.
+Sort properties alphabetically.(Select all properties, ctrl shift p>sort>sort lines ascending)
+Follow Block Elements Modifiers (Remember class\_\_element...)
 
 ## Backlog:
 
