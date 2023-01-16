@@ -19,7 +19,7 @@ function ViewingWorkout(props) {
 	return (
 		<>
 			<div className={classes.container}>
-				<div>
+				<div className={classes.workout}>
 					<div className={classes.container__workoutImage}></div>
 					<h1>{props.workout.name}</h1>
 					<h4>{props.workout.description}</h4>

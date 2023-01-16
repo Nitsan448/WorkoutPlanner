@@ -116,8 +116,8 @@ function EditingWorkout(props) {
 					/>
 				</div>
 			</div>
-			<Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
-			<Button onClick={onDeleteWorkoutClicked} text="Delete" />
+			{/* <Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
+			<Button onClick={onDeleteWorkoutClicked} text="Delete" /> */}
 		</>
 	);
 }

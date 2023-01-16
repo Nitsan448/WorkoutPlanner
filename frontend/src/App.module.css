@@ -1,9 +1,10 @@
 .mainContainer {
+	width: 98.5%;
+	height: 87vh;
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
-	width: calc(100% - 24px);
-	height: 87vh;
+	background-color: var(--WHITE);
+	color: var(--BLUE);
 	margin: 0 auto;
 	overflow: auto;
-	outline: var(--BLUE) solid 24px;
 }

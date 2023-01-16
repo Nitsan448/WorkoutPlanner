@@ -12,10 +12,12 @@ Drag and drop exercises to change order, add breaks between exercises.
 Add and fix css.
 Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 **Organization:**
-Add variables (borders, font size, padding, etc.)
 Use comments for headers.
 Sort properties alphabetically.(Select all properties, ctrl shift p>sort>sort lines ascending)
 Follow Block Elements Modifiers (Remember class\_\_element...)
+Fix Reset:
+
+Change favicon and title
 
 ## Backlog:
 
@@ -26,3 +28,10 @@ Require auth when user enters a page
 Add option to login as a guest - Create user, delete it if the user leaves without logging out (after warning him)
 
 Add all social media missing fields - public, likes, etc.
+
+In exercise form css:
+make each grid element have a grid
+\_\_item class that contains it's border
+try to center content by making element in the grid use
+display: grid
+place-content: center

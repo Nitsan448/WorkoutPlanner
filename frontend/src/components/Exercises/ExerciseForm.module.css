@@ -1,10 +1,10 @@
 .form {
 	display: grid;
+	gap: 3px;
 	background-color: var(--ORANGE);
-	grid-gap: 3px;
-	grid-template-columns: 30vh 20vh 1.5fr 0.5fr;
-	grid-template-rows: 30vh 15vh;
 	border: var(--BORDER);
+	grid-template-columns: 15vw 15vw 1.5fr 12.5vh;
+	grid-template-rows: 25vh 12.5vh;
 	border-radius: var(--BORDER-RADIUS);
 	margin: 1em;
 }
@@ -12,28 +12,11 @@
 .form__exercise {
 	grid-column: 2/5;
 	background-color: var(--WHITE);
-	padding: var(--ELEMENT-PADDING);
+	padding: var(--PADDING-TB) var(--PADDING-SIDE);
 }
 
 .form__exercise input {
-	margin-top: 3em;
-	margin-left: 1.5em;
-}
-
-.form__exercise textarea {
-	width: 90%;
-	margin-top: 1em;
-	margin-left: 1.5em;
-}
-
-.form input.invalid {
-	border: none;
-	border-bottom: 4px red solid;
-}
-
-.form p.invalid {
-	color: rgb(184, 19, 19);
-	font-weight: bold;
+	margin: 3em 0 1em 0;
 }
 
 .form__image {
@@ -45,13 +28,19 @@
 	color: rgba(255, 255, 255, 0.7);
 }
 
+.form__image img {
+	height: 100%;
+}
+
 .form__image input[type="file"] {
 	display: none;
 }
 
 .form__routine {
+	display: grid;
+	place-content: center;
+	padding: var(--PADDING-TB) var(--PADDING-SIDE);
 	background-color: var(--WHITE);
-	padding: var(--PADDING);
 }
 
 .form__routine label {
@@ -60,12 +49,22 @@
 
 .form__repsOrSets {
 	display: flex;
+	background-color: var(--WHITE);
+	/* justify-content: center; */
 }
 
 .form__orImage {
 	background-image: url("../../Images/or.png");
-	background-size: cover;
-	width: 40px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	width: 42px;
 	height: auto;
-	background-color: white;
+}
+
+.form__checkmark {
+	background-image: url("../../Images/checkmarkHover.png");
+	/* background-repeat: no-repeat; */
+	/* background-size: contain; */
+	background-position: center;
 }

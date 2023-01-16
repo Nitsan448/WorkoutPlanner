@@ -1,12 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 :root {
-	/* Color pallete */
+	/* FONTS */
+	--FF: "Inter", sans-serif;
+	--FS: clamp(0.75rem, 2.2vh, 1.25rem);
+
+	/* COLORS */
 	--BLUE: #3b72b3;
 	--GRAY-BLUE: #abc1dc;
 	--ORANGE: #ffa800;
 	--WHITE: #fff;
 
-	--PADDING: 32px;
-	--ELEMENT-PADDING: 4px;
+	/* BORDERS */
 	--BORDER: 4px var(--ORANGE) solid;
+	--BORDER-BLUE: 4px var(--BLUE) solid;
+	--BORDER-INVALID: 4px red solid;
 	--BORDER-RADIUS: 5px;
+
+	/* STANDARD PADDING */
+	--PADDING-TB: 0.25em;
+	--PADDING-SIDE: 5%;
+
+	/* MARGIN */
+	--MARGIN: clamp(1em, 2.5vh, 1.5em) 0;
 }

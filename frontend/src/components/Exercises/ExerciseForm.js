@@ -51,6 +51,7 @@ function ExerciseForm(props) {
 	} = useForm({
 		defaultValues: {
 			setTime: props.setTime ? getTimeInTimerFormat(props.setTime) : "00:00",
+			repetitions: props.repetitions ? props.setTime : 10,
 			restTime: props.restTime ? getTimeInTimerFormat(props.restTime) : "00:00",
 			sets: props.sets ? props.sets : 1,
 			name: props.name ? props.name : "",
@@ -64,21 +65,18 @@ function ExerciseForm(props) {
 				<label htmlFor="image-upload" className={classes.form__image}>
 					Add image
 					<input id="image-upload" type="file" onChange={onImageUpload} accept=".jpg, .jpeg, .png" />
-					{image && <img src={imageUrl} alt="Exercise" />}
+					{image && <img src={imageUrl} alt="Exercise" width={"200"} height={"200"} />}
 				</label>
+
 				<div className={classes.form__exercise}>
-					<div>
-						<input
-							type="text"
-							placeholder="Exercise name"
-							className={errors.name ? classes.invalid : ""}
-							{...register("name", { required: true })}
-						/>
-						{errors.name && <p className={classes.invalid}>Exercise name can not be empty</p>}
-					</div>
-					<div>
-						<textarea placeholder="Description" {...register("description")} />
-					</div>
+					<input
+						type="text"
+						placeholder="Exercise name"
+						className={errors.name ? classes.invalid : ""}
+						{...register("name", { required: true })}
+					/>
+					{errors.name && <p className={classes.invalid}>Exercise name can not be empty</p>}
+					<textarea placeholder="Description" {...register("description")} />
 				</div>
 				<div className={classes.form__routine}>
 					<label htmlFor="sets">Number of sets:</label>
@@ -106,11 +104,11 @@ function ExerciseForm(props) {
 				</div>
 				<div className={classes.form__repsOrSets}>
 					<div className={classes.form__routine}>
-						<label htmlFor="setTime">Set time:</label>
+						<label htmlFor="repetitions">Repetitions:</label>
 						<input
-							type="text"
+							type="number"
 							className={errors.setTime ? classes.invalid : ""}
-							{...register("setTime", {
+							{...register("repetitions", {
 								required: true,
 								validate: (value) => validateTimeInput(value),
 							})}
@@ -119,7 +117,7 @@ function ExerciseForm(props) {
 					</div>
 					<div className={classes.form__orImage}></div>
 					<div className={classes.form__routine}>
-						<label htmlFor="setTime">Set time:</label>
+						<label htmlFor="setTime">Timer:</label>
 						<input
 							type="text"
 							className={errors.setTime ? classes.invalid : ""}
@@ -131,9 +129,7 @@ function ExerciseForm(props) {
 						{errors.setTime && <p className={classes.invalid}>Set time must be in xx:xx format</p>}
 					</div>
 				</div>
-				<div className={classes.form__routine}>
-					<Button text="Save exercise" />
-				</div>
+				<div className={classes.form__checkmark}>{/* <Button text="Save exercise" /> */}</div>
 			</form>
 		</>
 	);

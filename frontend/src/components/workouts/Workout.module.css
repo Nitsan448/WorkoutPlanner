@@ -1,7 +1,12 @@
 .container {
 	display: grid;
-	grid-template-columns: 30% 3fr 1em;
-	grid-template-rows: 1fr;
+	grid-template-columns: 33vw 1fr 1em;
+}
+
+.workout {
+	position: sticky;
+	top: 0;
+	align-self: start;
 }
 
 .exercises {
@@ -10,7 +15,7 @@
 }
 
 .container__workoutImage {
-	height: 50vh;
+	height: 33vw;
 	background-color: var(--BLUE);
 }
 
