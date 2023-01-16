@@ -88,7 +88,7 @@ function EditingWorkout(props) {
 	return (
 		<>
 			<div className={classes.container}>
-				<div className={classes.workout}>
+				<div className={classes.container__workout}>
 					<div className={classes.container__workoutImage}></div>
 					<div>
 						<label htmlFor="name">Name:</label>
@@ -116,8 +116,8 @@ function EditingWorkout(props) {
 					/>
 				</div>
 			</div>
-			{/* <Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
-			<Button onClick={onDeleteWorkoutClicked} text="Delete" /> */}
+			<Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
+			<Button onClick={onDeleteWorkoutClicked} text="Delete" />
 		</>
 	);
 }

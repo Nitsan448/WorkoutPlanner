@@ -40,9 +40,9 @@ function Exercise(props) {
 						<h3>{props.name}</h3>
 						<p>{props.description}</p>
 						<div className={classes.routine}>
-							{props.sets > 1 ? <p>{props.sets} Sets</p> : <p>{props.sets} Set</p>}
-							<p>Break between sets: {getTimeInTimerFormat(props.restTime)} </p>
-							<p>Set Time: {getTimeInTimerFormat(props.setTime)}</p>
+							{props.sets > 1 ? <h3>{props.sets} Sets</h3> : <h3>{props.sets} Set</h3>}
+							<h3>Break between sets: {getTimeInTimerFormat(props.restTime)} </h3>
+							<h3>Set Time: {getTimeInTimerFormat(props.setTime)}</h3>
 						</div>
 						{props.canEdit ? (
 							<>

@@ -19,12 +19,13 @@ function ViewingWorkout(props) {
 	return (
 		<>
 			<div className={classes.container}>
-				<div className={classes.workout}>
-					<div className={classes.container__workoutImage}></div>
-					<h1>{props.workout.name}</h1>
+				<div className={classes.container__workout}>
+					<div className={classes.container__workoutImage}>
+						<h1>{props.workout.name}</h1>
+					</div>
 					<h4>{props.workout.description}</h4>
 				</div>
-				<ul className={classes.exercises}>
+				<ul>
 					{props.workout.routines
 						? props.workout.routines.map((routine) => (
 								<Exercise

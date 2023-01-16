@@ -14,13 +14,13 @@ html {
 	background-color: var(--BLUE);
 }
 
-h1 {
+/* h1 {
 	font-size: 64px;
 }
 
 h2 {
 	font-size: 32px;
-}
+} */
 
 input,
 button,

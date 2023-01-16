@@ -1,6 +1,6 @@
 .workouts {
 	margin: auto;
-	padding: var(--PADDING);
+	padding: 2em 5%;
 }
 
 .workouts .gridContainer {

@@ -117,7 +117,7 @@ function ExerciseForm(props) {
 					</div>
 					<div className={classes.form__orImage}></div>
 					<div className={classes.form__routine}>
-						<label htmlFor="setTime">Timer:</label>
+						<label htmlFor="setTime">Set time:</label>
 						<input
 							type="text"
 							className={errors.setTime ? classes.invalid : ""}

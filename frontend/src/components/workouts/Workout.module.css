@@ -1,24 +1,33 @@
 .container {
+	position: relative;
 	display: grid;
 	grid-template-columns: 33vw 1fr 1em;
 }
 
-.workout {
+.container__workout {
 	position: sticky;
 	top: 0;
 	align-self: start;
 }
 
-.exercises {
-	display: flex;
-	flex-direction: column;
-}
-
 .container__workoutImage {
 	height: 33vw;
 	background-color: var(--BLUE);
+	position: relative;
 }
 
-.container h1 {
+.container__workoutImage h1 {
+	position: absolute;
+	bottom: 15px;
+	left: 15px;
 	word-wrap: break-word;
+	color: var(--WHITE);
+	font-weight: normal;
+}
+
+.container h4 {
+	position: absolute;
+	top: 33.5vw;
+	left: 15px;
+	padding-right: 1em;
 }
