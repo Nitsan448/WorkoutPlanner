@@ -27,6 +27,8 @@ Deleting an exercise in the middle of the workout messes with the workout in ord
 
 can't create new workout if user entered an empty name and then fixed it and saved.
 
+Long description of workout not word wrapping.
+
 ## Backlog
 
 Warn user if he tried to leave an unsaved workout that will be deleted.

@@ -34,7 +34,9 @@ function ViewingWorkout(props) {
 									setTime={routine.set_time}
 									sets={routine.sets}
 									restTime={routine.rest_time}
+									breakAfterExercise={routine.break_after_routine}
 									description={routine.description}
+									canEdit={false}
 								/>
 						  ))
 						: ""}

@@ -1,7 +1,7 @@
 .container {
 	position: relative;
 	display: grid;
-	grid-template-columns: 32vw 1fr 1em;
+	grid-template-columns: 32vw minmax(0, 1fr) 1em;
 }
 
 .container__workout {
@@ -9,6 +9,17 @@
 	top: 0;
 	align-self: start;
 }
+
+.container__workout h4 {
+	position: absolute;
+	top: 33.5vw;
+	left: 15px;
+	padding-right: 1em;
+	/* overflow-wrap: break-word;
+	text-overflow: clip;
+	word-wrap: break-word; */
+}
+
 .container__exercises {
 	margin-bottom: 5em;
 }
@@ -26,6 +37,20 @@
 .container__checkmark:hover {
 	background-image: url("../../Images/checkmarkHover.png");
 }
+.container__deleteButton {
+	position: sticky;
+	bottom: 0;
+	float: right;
+	background-repeat: no-repeat;
+	background-size: contain;
+	top: 10px;
+	right: 60px;
+	width: 100px;
+	height: 100px;
+	background-color: var(--WHITE);
+	border: none;
+	background-image: url("../../Images/delete.png");
+}
 
 .container__workoutImage {
 	height: 33vw;
@@ -40,11 +65,4 @@
 	word-wrap: break-word;
 	color: var(--WHITE);
 	font-weight: normal;
-}
-
-.container h4 {
-	position: absolute;
-	top: 33.5vw;
-	left: 15px;
-	padding-right: 1em;
 }

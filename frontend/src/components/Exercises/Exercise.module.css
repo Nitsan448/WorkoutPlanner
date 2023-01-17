@@ -3,7 +3,8 @@
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
 	display: grid;
-	grid-template-columns: 14vw 3fr 0.5em;
+	grid-template-columns: 14vw minmax(0, 3fr) 0.5em;
+	/* grid-template-rows: 14vw 3fr 0.5em; */
 	column-gap: 1em;
 	min-height: 20vh;
 }
@@ -11,15 +12,19 @@
 	margin: 1em;
 }
 
-.exercise h3,
 .exercise p {
-	margin: 0.75em 0 0.75em 0;
 	text-align: left;
+	overflow-wrap: break-word;
+}
+
+.exercise__name {
+	text-align: left;
+	margin: 0.75em 0 0.75em 0;
 }
 
 .routine {
-	margin-top: 0.75em;
-	padding: var(--PADDING-TB) 0;
+	margin: 3em 0em 1em 0em;
+	/* padding: var(--PADDING-TB) 0; */
 	display: flex;
 	justify-content: space-between;
 }

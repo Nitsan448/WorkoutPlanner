@@ -102,7 +102,7 @@ function EditingWorkout(props) {
 					</div>
 					<div>
 						<label htmlFor="description">Description:</label>
-						<input type="description" {...register("description")} />
+						<textarea type="description" {...register("description")} />
 					</div>
 				</div>
 				<div className={classes.container__exercises}>
@@ -121,6 +121,7 @@ function EditingWorkout(props) {
 				className={classes.container__checkmark}
 				onClick={handleSubmit(async (data) => saveWorkoutHandler(data))}
 			/>
+			<button className={classes.container__deleteButton} onClick={onDeleteWorkoutClicked} />
 			{/* <Button onClick={onDeleteWorkoutClicked} text="Delete" /> */}
 		</>
 	);
