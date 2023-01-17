@@ -1,4 +1,5 @@
 .mainContainer {
+	position: relative;
 	width: 98.5%;
 	height: 87vh;
 	border: var(--BORDER);

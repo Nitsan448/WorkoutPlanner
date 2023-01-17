@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import classes from "./ExerciseForm.module.css";
-import Button from "../UI/Button";
 import { isPositiveNumber } from "../../helpers/helpers";
 import { useForm } from "react-hook-form";
 import { getTimeInSeconds, getTimeInTimerFormat } from "../../helpers/time";
+import { useDeleteRoutineMutation } from "../../store/apiSlice";
 
 function ExerciseForm(props) {
 	const [image, setImage] = useState(null);
@@ -18,6 +18,16 @@ function ExerciseForm(props) {
 			setImageUrl(URL.createObjectURL(image));
 		}
 	}, [image]);
+
+	const [deleteRoutine] = useDeleteRoutineMutation();
+
+	async function onDeleteClicked() {
+		try {
+			await deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout }).unwrap();
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
 
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
@@ -63,11 +73,10 @@ function ExerciseForm(props) {
 		<>
 			<form className={classes.form} onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
 				<label htmlFor="image-upload" className={classes.form__image}>
-					Add image
+					{!image && "Add image"}
 					<input id="image-upload" type="file" onChange={onImageUpload} accept=".jpg, .jpeg, .png" />
 					{image && <img src={imageUrl} alt="Exercise" width={"200"} height={"200"} />}
 				</label>
-
 				<div className={classes.form__exercise}>
 					<input
 						type="text"
@@ -110,7 +119,7 @@ function ExerciseForm(props) {
 							className={errors.setTime ? classes.invalid : ""}
 							{...register("repetitions", {
 								required: true,
-								validate: (value) => validateTimeInput(value),
+								min: 1,
 							})}
 						/>
 						{errors.setTime && <p className={classes.invalid}>Set time must be in xx:xx format</p>}
@@ -129,7 +138,8 @@ function ExerciseForm(props) {
 						{errors.setTime && <p className={classes.invalid}>Set time must be in xx:xx format</p>}
 					</div>
 				</div>
-				<div className={classes.form__checkmark}>{/* <Button text="Save exercise" /> */}</div>
+				<button className={classes.form__checkmark} />
+				<button type="button" className={classes.form__deleteButton} onClick={props.deleteExerciseHandler} />
 			</form>
 		</>
 	);

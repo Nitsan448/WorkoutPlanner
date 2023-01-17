@@ -25,7 +25,7 @@ function ViewingWorkout(props) {
 					</div>
 					<h4>{props.workout.description}</h4>
 				</div>
-				<ul>
+				<ul className={classes.container__exercises}>
 					{props.workout.routines
 						? props.workout.routines.map((routine) => (
 								<Exercise
@@ -40,9 +40,9 @@ function ViewingWorkout(props) {
 						: ""}
 				</ul>
 			</div>
+			{/* <button className={classes.container__checkmark} onClick={StartWorkoutHandler} /> */}
 			<div style={{ display: "flex", justifyContent: "center" }}>
 				<Button onClick={EditWorkoutHandler} text="Edit workout"></Button>
-				<Button onClick={StartWorkoutHandler} text="Start Workout"></Button>
 			</div>
 		</>
 	);

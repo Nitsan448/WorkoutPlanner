@@ -104,7 +104,7 @@ function EditingWorkout(props) {
 						<input type="description" {...register("description")} />
 					</div>
 				</div>
-				<div>
+				<div className={classes.container__exercises}>
 					{props.workout.routines ? (
 						<ul>{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}</ul>
 					) : (
@@ -116,8 +116,11 @@ function EditingWorkout(props) {
 					/>
 				</div>
 			</div>
-			<Button text="Save workout" onClick={handleSubmit(async (data) => saveWorkoutHandler(data))} />
-			<Button onClick={onDeleteWorkoutClicked} text="Delete" />
+			<button
+				className={classes.container__checkmark}
+				onClick={handleSubmit(async (data) => saveWorkoutHandler(data))}
+			/>
+			{/* <Button onClick={onDeleteWorkoutClicked} text="Delete" /> */}
 		</>
 	);
 }

@@ -14,6 +14,7 @@
 	/* BORDERS */
 	--BORDER: 4px var(--ORANGE) solid;
 	--BORDER-BLUE: 4px var(--BLUE) solid;
+	--BORDER-GRAY-BLUE: 4px var(--GRAY-BLUE) solid;
 	--BORDER-INVALID: 4px red solid;
 	--BORDER-RADIUS: 5px;
 

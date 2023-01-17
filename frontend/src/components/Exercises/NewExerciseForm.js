@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ExerciseForm from "./ExerciseForm";
 import { useAddRoutineMutation } from "../../store/apiSlice";
 import Button from "../UI/Button";
+import classes from "./NewExerciseForm.module.css";
 
 function NewExerciseForm(props) {
 	const [isFormOpen, setIsFormOpen] = useState(false);
@@ -19,11 +20,13 @@ function NewExerciseForm(props) {
 	}
 
 	return (
-		<div className="border">
+		<div>
 			{isFormOpen ? (
 				<ExerciseForm saveExerciseHandler={addExerciseHandler} {...props} />
 			) : (
-				<Button onClick={() => setIsFormOpen(true)} text="+ New exercise"></Button>
+				<button className={classes.newExerciseButton} onClick={() => setIsFormOpen(true)}>
+					<div className={classes.newExerciseButton__addExercise}></div>
+				</button>
 			)}
 		</div>
 	);

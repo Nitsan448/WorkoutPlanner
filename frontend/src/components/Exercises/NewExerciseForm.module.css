@@ -1,0 +1,15 @@
+.newExerciseButton {
+	border: var(--BORDER-GRAY-BLUE);
+	border-radius: var(--BORDER-RADIUS);
+	margin: 1em;
+	width: 96.5%;
+	min-height: 20vh;
+	background-color: var(--WHITE);
+	background-image: url("../../Images/addExercise.png");
+	background-repeat: no-repeat;
+	background-position: 10% 50%;
+}
+.newExerciseButton:hover {
+	border: var(--BORDER-BLUE);
+	background-image: url("../../Images/addExerciseHover.png");
+}

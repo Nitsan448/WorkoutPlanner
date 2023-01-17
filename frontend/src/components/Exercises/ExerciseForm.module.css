@@ -1,9 +1,10 @@
 .form {
+	position: relative;
 	display: grid;
 	gap: 3px;
 	background-color: var(--ORANGE);
 	border: var(--BORDER);
-	grid-template-columns: 15vw 15vw 1.5fr 12.5vh;
+	grid-template-columns: 14vw 14vw 1.5fr 12.5vh;
 	grid-template-rows: 25vh 12.5vh;
 	border-radius: var(--BORDER-RADIUS);
 	margin: 1em;
@@ -27,6 +28,9 @@
 
 	color: rgba(255, 255, 255, 0.7);
 }
+.form__image:hover {
+	cursor: pointer;
+}
 
 .form__image img {
 	height: 100%;
@@ -47,10 +51,13 @@
 	display: block;
 }
 
+.form__routine input {
+	min-width: 70%;
+}
+
 .form__repsOrSets {
 	display: flex;
 	background-color: var(--WHITE);
-	/* justify-content: center; */
 }
 
 .form__orImage {
@@ -58,13 +65,25 @@
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
-	width: 42px;
-	height: auto;
+	width: 35px;
+	border: none;
 }
 
 .form__checkmark {
+	background-image: url("../../Images/checkmark.png");
+	background-size: cover;
+	border: none;
+}
+.form__checkmark:hover {
 	background-image: url("../../Images/checkmarkHover.png");
-	/* background-repeat: no-repeat; */
-	/* background-size: contain; */
-	background-position: center;
+}
+
+.form__deleteButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 26px;
+	height: 32px;
+	border: none;
+	background-image: url("../../Images/delete.png");
 }

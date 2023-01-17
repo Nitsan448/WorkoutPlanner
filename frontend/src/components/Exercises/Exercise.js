@@ -11,7 +11,7 @@ function Exercise(props) {
 	const [deleteRoutine] = useDeleteRoutineMutation();
 	const [updateRoutine] = useUpdateRoutineMutation();
 
-	async function onDeleteClicked() {
+	async function deleteExerciseHandler() {
 		try {
 			await deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout }).unwrap();
 		} catch (error) {
@@ -31,7 +31,11 @@ function Exercise(props) {
 	return (
 		<>
 			{editingExercise ? (
-				<ExerciseForm saveExerciseHandler={editExerciseHandler} {...props} />
+				<ExerciseForm
+					saveExerciseHandler={editExerciseHandler}
+					deleteExerciseHandler={deleteExerciseHandler}
+					{...props}
+				/>
 			) : (
 				<div className={classes.exercise}>
 					<div className={classes.exercise__image}></div>
@@ -47,7 +51,6 @@ function Exercise(props) {
 						{props.canEdit ? (
 							<>
 								<Button text="Edit" onClick={() => setEditingExercise(true)} />
-								<Button onClick={onDeleteClicked} text="Delete" />
 							</>
 						) : (
 							""
