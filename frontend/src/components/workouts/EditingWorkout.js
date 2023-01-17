@@ -51,6 +51,7 @@ function EditingWorkout(props) {
 				setTime={exercise.set_time}
 				sets={exercise.sets}
 				restTime={exercise.rest_time}
+				breakAfterExercise={exercise.break_after_routine}
 				description={exercise.description}
 				canEdit={true}
 			/>
@@ -94,10 +95,10 @@ function EditingWorkout(props) {
 						<label htmlFor="name">Name:</label>
 						<input
 							type="text"
-							className={errors.name ? classes.invalid : ""}
+							className={errors.name ? "invalidInput" : ""}
 							{...register("name", { required: "Workout name can not be empty" })}
 						/>
-						{errors.name && <p className={classes.invalid}>{errors.name.message}</p>}
+						{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
 					</div>
 					<div>
 						<label htmlFor="description">Description:</label>

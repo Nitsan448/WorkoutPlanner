@@ -2,7 +2,7 @@
 	border: var(--BORDER-GRAY-BLUE);
 	border-radius: var(--BORDER-RADIUS);
 	margin: 1em;
-	width: 96.5%;
+	width: 97%;
 	min-height: 20vh;
 	background-color: var(--WHITE);
 	background-image: url("../../Images/addExercise.png");

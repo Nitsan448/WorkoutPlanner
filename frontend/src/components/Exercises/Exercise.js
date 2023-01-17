@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import classes from "./Exercise.module.css";
 import { getTimeInTimerFormat } from "../../helpers/time";
-import Button from "../UI/Button";
 import { useDeleteRoutineMutation, useUpdateRoutineMutation } from "../../store/apiSlice";
 import ExerciseForm from "./ExerciseForm";
 
@@ -28,35 +27,39 @@ function Exercise(props) {
 		}
 	}
 
+	function renderExercise() {
+		const exerciseClass = !props.canEdit ? `${classes.exercise} ${classes.notInButton}` : classes.exercise;
+		return (
+			<div className={exerciseClass}>
+				<div className={classes.exercise__image}></div>
+				<div>
+					<h3>{props.name}</h3>
+					<p>{props.description}</p>
+					<div className={classes.routine}>
+						{props.sets > 1 ? <h3>{props.sets} Sets</h3> : <h3>{props.sets} Set</h3>}
+						<h3>Break between sets: {getTimeInTimerFormat(props.restTime)} </h3>
+						<h3>Set Time: {getTimeInTimerFormat(props.setTime)}</h3>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<>
 			{editingExercise ? (
 				<ExerciseForm
 					saveExerciseHandler={editExerciseHandler}
 					deleteExerciseHandler={deleteExerciseHandler}
+					cancelEditHandler={() => setEditingExercise(false)}
 					{...props}
 				/>
+			) : props.canEdit ? (
+				<button className={classes.exercise__button} onClick={() => setEditingExercise(true)}>
+					{renderExercise()}
+				</button>
 			) : (
-				<div className={classes.exercise}>
-					<div className={classes.exercise__image}></div>
-					<div>
-						{/* <button></button> */}
-						<h3>{props.name}</h3>
-						<p>{props.description}</p>
-						<div className={classes.routine}>
-							{props.sets > 1 ? <h3>{props.sets} Sets</h3> : <h3>{props.sets} Set</h3>}
-							<h3>Break between sets: {getTimeInTimerFormat(props.restTime)} </h3>
-							<h3>Set Time: {getTimeInTimerFormat(props.setTime)}</h3>
-						</div>
-						{props.canEdit ? (
-							<>
-								<Button text="Edit" onClick={() => setEditingExercise(true)} />
-							</>
-						) : (
-							""
-						)}
-					</div>
-				</div>
+				renderExercise()
 			)}
 		</>
 	);

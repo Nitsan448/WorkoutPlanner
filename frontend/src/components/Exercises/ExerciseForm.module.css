@@ -4,20 +4,29 @@
 	gap: 3px;
 	background-color: var(--ORANGE);
 	border: var(--BORDER);
-	grid-template-columns: 14vw 14vw 1.5fr 12.5vh;
+	grid-template-columns: 14vw 10vw 20vw 10vw 12.5vh;
 	grid-template-rows: 25vh 12.5vh;
 	border-radius: var(--BORDER-RADIUS);
 	margin: 1em;
 }
 
 .form__exercise {
-	grid-column: 2/5;
+	grid-column: 2/6;
 	background-color: var(--WHITE);
 	padding: var(--PADDING-TB) var(--PADDING-SIDE);
 }
 
 .form__exercise input {
-	margin: 3em 0 1em 0;
+	margin-top: 3em;
+}
+
+.form__exercise textarea {
+	margin-top: 1em;
+}
+
+.form p.invalid {
+	color: rgb(184, 19, 19);
+	font-weight: bold;
 }
 
 .form__image {
@@ -80,10 +89,22 @@
 
 .form__deleteButton {
 	position: absolute;
+	background-repeat: no-repeat;
 	top: 10px;
-	right: 10px;
-	width: 26px;
-	height: 32px;
+	right: 60px;
+	width: 42px;
+	height: 42px;
 	border: none;
 	background-image: url("../../Images/delete.png");
+}
+.form__cancelButton {
+	position: absolute;
+	background-repeat: no-repeat;
+	background-position: center;
+	top: 10px;
+	right: 10px;
+	width: 42px;
+	height: 42px;
+	border: none;
+	background-image: url("../../Images/Cancel.png");
 }

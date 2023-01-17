@@ -1,16 +1,20 @@
 .exercise {
+	position: relative;
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
-	margin: 1em;
 	display: grid;
-	grid-template-columns: 14vw 3fr 1em;
+	grid-template-columns: 14vw 3fr 0.5em;
 	column-gap: 1em;
 	min-height: 20vh;
+}
+.notInButton {
+	margin: 1em;
 }
 
 .exercise h3,
 .exercise p {
 	margin: 0.75em 0 0.75em 0;
+	text-align: left;
 }
 
 .routine {
@@ -20,19 +24,18 @@
 	justify-content: space-between;
 }
 
-/* .exercise__edit {
-	background-image: url("../../Images/or.png");
-} */
-
-/* .exercise button {
-	margin-right: 1em;
-	margin-bottom: 1em;
-} */
-
-/* .exercise__editButton {
-	background-image: url("");
-} */
-
 .exercise__image {
 	background-color: var(--BLUE);
+}
+
+.exercise__button {
+	width: 97%;
+	background-color: var(--WHITE);
+	outline: none;
+	border: none;
+	margin: 1em 1em 0em 1em;
+	color: var(--BLUE);
+}
+.exercise__button:hover {
+	background-color: var(--LIGHT-GRAY);
 }

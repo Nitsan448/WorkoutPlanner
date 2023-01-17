@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 @import url(./vars.css);
 
 * {
@@ -14,14 +13,6 @@ html {
 	background-color: var(--BLUE);
 }
 
-/* h1 {
-	font-size: 64px;
-}
-
-h2 {
-	font-size: 32px;
-} */
-
 input,
 button,
 textarea {
@@ -30,7 +21,7 @@ textarea {
 
 input,
 textarea {
-	padding: 0.2em;
+	padding: 0.1em;
 	outline: none;
 	width: 90%;
 	background-color: var(--WHITE);
@@ -40,7 +31,7 @@ input {
 	border: none;
 	border-bottom: var(--BORDER-BLUE);
 }
-input:invalid {
+.invalidInput {
 	border-bottom: var(--BORDER-INVALID);
 }
 
@@ -51,17 +42,18 @@ textarea:invalid {
 	border: var(--BORDER-INVALID);
 }
 
+button:hover {
+	cursor: pointer;
+}
+
 img {
 	display: block;
 	max-width: 100%;
 	height: auto;
 }
 
-P.invalid {
+.invalidParagraph {
 	color: rgb(184, 19, 19);
+	font-size: 0.75em;
 	font-weight: bold;
-}
-
-button:hover {
-	cursor: pointer;
 }
