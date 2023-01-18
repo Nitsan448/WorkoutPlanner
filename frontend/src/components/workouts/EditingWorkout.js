@@ -1,16 +1,26 @@
-import React, { useCallback, useEffect } from "react";
-import NewExerciseForm from "../Exercises/NewExerciseForm";
+import React, { useCallback, useEffect, useState } from "react";
+import NewExercise from "../Exercises/NewExercise";
 import classes from "./Workout.module.css";
-import Button from "../UI/Button";
 import Exercise from "../Exercises/Exercise";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateWorkoutMutation, useDeleteWorkoutMutation } from "../../store/apiSlice";
 import { useForm } from "react-hook-form";
 
 function EditingWorkout(props) {
-	let deleteWorkoutOnUnmount = props.workout.name === "";
+	const [deleteWorkoutOnUnmount, setDeleteWorkoutOnUnmount] = useState(props.workout.name === "");
+	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.workout.description !== "");
 	const location = useLocation();
 	const navigate = useNavigate();
+	const [inEditMode, setInEditMode] = useState(props.inEditMode);
+
+	function StartWorkoutHandler() {
+		navigate(`${location.pathname}?mode=play`);
+	}
+
+	function EditWorkoutHandler() {
+		setInEditMode(true);
+		setDescriptionTextAreaOpen(props.workout.description !== "");
+	}
 
 	const [updateWorkout] = useUpdateWorkoutMutation();
 
@@ -21,15 +31,17 @@ function EditingWorkout(props) {
 	const handleWorkoutDeletionOnUnmount = useCallback(
 		(event) => {
 			event && event.preventDefault();
+			console.log(deleteWorkoutOnUnmount);
 			if (deleteWorkoutOnUnmount) {
 				deleteWorkout({ workout_id: workoutId });
 			}
 		},
-		[deleteWorkout, deleteWorkoutOnUnmount, workoutId]
+		[workoutId, deleteWorkoutOnUnmount, deleteWorkout]
 	);
 
 	useEffect(() => {
 		window.addEventListener("beforeunload", handleWorkoutDeletionOnUnmount);
+
 		return () => {
 			window.removeEventListener("beforeunload", handleWorkoutDeletionOnUnmount);
 			handleWorkoutDeletionOnUnmount();
@@ -37,7 +49,7 @@ function EditingWorkout(props) {
 	}, [handleWorkoutDeletionOnUnmount]);
 
 	async function onDeleteWorkoutClicked() {
-		deleteWorkoutOnUnmount = true;
+		deleteWorkout({ workout_id: workoutId });
 		navigate(`/workouts`);
 	}
 
@@ -53,7 +65,7 @@ function EditingWorkout(props) {
 				restTime={exercise.rest_time}
 				breakAfterExercise={exercise.break_after_routine}
 				description={exercise.description}
-				canEdit={true}
+				canEdit={inEditMode}
 			/>
 		);
 	}
@@ -65,9 +77,10 @@ function EditingWorkout(props) {
 				description: data.description,
 				workout_id: workoutId,
 			}).unwrap();
-			deleteWorkoutOnUnmount = false;
 			clearErrors();
-			navigate(`${location.pathname}?mode=view`);
+			setDescriptionTextAreaOpen(false);
+			setInEditMode(false);
+			setDeleteWorkoutOnUnmount(false);
 		} catch (error) {
 			setError("name", { message: error.data });
 		}
@@ -86,44 +99,84 @@ function EditingWorkout(props) {
 		},
 	});
 
-	return (
-		<>
-			<div className={classes.container}>
-				<div className={classes.container__workout}>
-					<div className={classes.container__workoutImage}></div>
-					<div>
-						<label htmlFor="name">Name:</label>
-						<input
-							type="text"
-							className={errors.name ? "invalidInput" : ""}
-							{...register("name", { required: "Workout name can not be empty" })}
-						/>
-						{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
-					</div>
-					<div>
-						<label htmlFor="description">Description:</label>
-						<textarea type="description" {...register("description")} />
-					</div>
-				</div>
-				<div className={classes.container__exercises}>
-					{props.workout.routines ? (
-						<ul>{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}</ul>
-					) : (
-						""
-					)}
-					<NewExerciseForm
+	function renderWorkout() {
+		return (
+			<div className={classes.container__workout}>
+				{inEditMode ? (
+					<>
+						<div className={classes.container__workoutImage}>
+							<input
+								type="text"
+								className={
+									errors.name
+										? `invalidInput ${classes.container__workoutNameInput}`
+										: classes.container__workoutNameInput
+								}
+								{...register("name", { required: "Workout name can not be empty" })}
+							/>
+							{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
+						</div>
+						{descriptionTextAreaOpen ? (
+							<textarea type="description" {...register("description")} />
+						) : (
+							<button
+								className={classes.container__addDescriptionButton}
+								onClick={() => setDescriptionTextAreaOpen(true)}
+							/>
+						)}
+					</>
+				) : (
+					<>
+						<div className={classes.container__workoutImage}>
+							<h1>{props.workout.name}</h1>
+						</div>
+						<h4>{props.workout.description}</h4>
+					</>
+				)}
+			</div>
+		);
+	}
+
+	function renderExercises() {
+		return (
+			<div className={classes.container__exercises}>
+				{props.workout.routines ? (
+					<ul>{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}</ul>
+				) : (
+					""
+				)}
+				{inEditMode && (
+					<NewExercise
 						orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
 						workoutId={workoutId}
 					/>
-				</div>
+				)}
 			</div>
-			<button
-				className={classes.container__checkmark}
-				onClick={handleSubmit(async (data) => saveWorkoutHandler(data))}
-			/>
-			<button className={classes.container__deleteButton} onClick={onDeleteWorkoutClicked} />
-			{/* <Button onClick={onDeleteWorkoutClicked} text="Delete" /> */}
-		</>
+		);
+	}
+
+	return (
+		<div>
+			<div className={classes.container}>
+				{renderWorkout()}
+				{renderExercises()}
+			</div>
+			{inEditMode ? (
+				<>
+					<button
+						className={classes.checkmark}
+						onClick={handleSubmit(async (data) => saveWorkoutHandler(data))}
+					/>
+					<button className={classes.deleteButton} onClick={onDeleteWorkoutClicked} />
+				</>
+			) : (
+				<>
+					<button className={classes.play} onClick={StartWorkoutHandler} />
+
+					<button className={classes.edit} onClick={EditWorkoutHandler}></button>
+				</>
+			)}
+		</div>
 	);
 }
 

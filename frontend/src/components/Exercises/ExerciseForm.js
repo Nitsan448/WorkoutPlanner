@@ -3,11 +3,11 @@ import classes from "./ExerciseForm.module.css";
 import { isPositiveNumber } from "../../helpers/helpers";
 import { useForm } from "react-hook-form";
 import { getTimeInSeconds, getTimeInTimerFormat } from "../../helpers/time";
-import { useDeleteRoutineMutation } from "../../store/apiSlice";
 
 function ExerciseForm(props) {
 	const [image, setImage] = useState(null);
 	const [imageUrl, setImageUrl] = useState(null);
+	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.description !== "");
 
 	function onImageUpload(event) {
 		setImage(...event.target.files);
@@ -18,16 +18,6 @@ function ExerciseForm(props) {
 			setImageUrl(URL.createObjectURL(image));
 		}
 	}, [image]);
-
-	const [deleteRoutine] = useDeleteRoutineMutation();
-
-	async function onDeleteClicked() {
-		try {
-			await deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout }).unwrap();
-		} catch (error) {
-			console.log(error.message);
-		}
-	}
 
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
@@ -86,7 +76,14 @@ function ExerciseForm(props) {
 						{...register("name", { required: true })}
 					/>
 					{errors.name && <p className={"invalidParagraph"}>Can not be empty</p>}
-					<textarea placeholder="Description" {...register("description")} />
+					{descriptionTextAreaOpen ? (
+						<textarea placeholder="Description" {...register("description")} />
+					) : (
+						<button
+							className={classes.form__addDescriptionButton}
+							onClick={() => setDescriptionTextAreaOpen(true)}
+						/>
+					)}
 				</div>
 				<div className={classes.form__routine}>
 					<label htmlFor="sets">Number of sets:</label>
@@ -101,7 +98,7 @@ function ExerciseForm(props) {
 					{errors.sets && <p className={"invalidParagraph"}>Must be larger than 0</p>}
 				</div>
 				<div className={classes.form__routine}>
-					<label htmlFor="restTime">Break between sets:</label>
+					<label htmlFor="restTime">Rests:</label>
 					<input
 						type="text"
 						className={errors.restTime ? "invalidInput" : ""}
@@ -140,7 +137,7 @@ function ExerciseForm(props) {
 					</div>
 				</div>
 				<div className={classes.form__routine}>
-					<label htmlFor="setTime">Break after exercise:</label>
+					<label htmlFor="setTime">Break after:</label>
 					<input
 						type="text"
 						className={errors.breakAfterExercise ? "invalidInput" : ""}

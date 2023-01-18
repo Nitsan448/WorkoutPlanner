@@ -41,6 +41,7 @@
 	margin: 1em 1em 0em 1em;
 	color: var(--BLUE);
 }
-.exercise__button:hover {
-	background-color: var(--LIGHT-GRAY);
+
+.exercise__button:hover .exercise {
+	border: var(--BORDER-BLUE);
 }

@@ -6,11 +6,20 @@ Change navigation bar state according to user logged in status.
 
 Drag and drop exercises to change order, add breaks between exercises.
 
+Send images uploaded to backend
+
 Change favicon and title
 
 ### CSS
 
-Add and fix css.
+Add/Fix css for sign up, login
+
+Add/Fix for playWorkout pages,
+
+Add queries for mobile use
+
+Include images for each workout in workouts page.
+
 Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 
 ## Backend

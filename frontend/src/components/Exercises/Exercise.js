@@ -39,7 +39,7 @@ function Exercise(props) {
 						{props.sets > 1 ? <h3>{props.sets} Sets</h3> : <h3>{props.sets} Set</h3>}
 						<h3>Rests: {getTimeInTimerFormat(props.restTime)} </h3>
 						<h3>Set Time: {getTimeInTimerFormat(props.setTime)}</h3>
-						<h3>Break after exercise: {getTimeInTimerFormat(props.breakAfterExercise)}</h3>
+						<h3>Break after: {getTimeInTimerFormat(props.breakAfterExercise)}</h3>
 					</div>
 				</div>
 			</div>
@@ -48,7 +48,7 @@ function Exercise(props) {
 
 	return (
 		<>
-			{editingExercise ? (
+			{editingExercise && props.canEdit ? (
 				<ExerciseForm
 					saveExerciseHandler={editExerciseHandler}
 					deleteExerciseHandler={deleteExerciseHandler}

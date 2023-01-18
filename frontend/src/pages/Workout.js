@@ -2,7 +2,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import PlayingWorkout from "../components/workouts/PlayingWorkout";
-import ViewingWorkout from "../components/workouts/ViewingWorkout";
 import EditingWorkout from "../components/workouts/EditingWorkout";
 import { useGetWorkoutQuery } from "../store/apiSlice";
 
@@ -28,9 +27,11 @@ function Workout(props) {
 	} else if (isWorkoutRequestSuccess) {
 		content = (
 			<>
-				{workoutMode === "view" && <ViewingWorkout workout={workout} />}
-				{workoutMode === "play" && <PlayingWorkout workout={workout} />}
-				{workoutMode === "edit" && <EditingWorkout workout={workout} />}
+				{workoutMode === "play" ? (
+					<PlayingWorkout workout={workout} />
+				) : (
+					<EditingWorkout workout={workout} inEditMode={workoutMode === "edit"} />
+				)}
 			</>
 		);
 	} else if (isWorkoutRequestError) {

@@ -17,11 +17,24 @@
 }
 
 .form__exercise input {
-	margin-top: 3em;
+	margin-top: 2em;
 }
 
 .form__exercise textarea {
-	margin-top: 1em;
+	margin-top: 0.75em;
+	height: 40%;
+}
+
+.form__addDescriptionButton {
+	background-image: url("../../Images/addDescriptionButton.png");
+	margin-top: 0.75em;
+	/* margin: 15px 15px 0 15px; */
+	width: 10em;
+	height: 2em;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: var(--WHITE);
+	border: none;
 }
 
 .form p.invalid {
@@ -43,6 +56,7 @@
 
 .form__image img {
 	height: 100%;
+	width: 100%;
 }
 
 .form__image input[type="file"] {
@@ -95,11 +109,11 @@
 	width: 42px;
 	height: 42px;
 	border: none;
-	background-image: url("../../Images/delete.png");
+	background-image: url("../../Images/deleteSmall.png");
 	background-color: var(--WHITE);
 }
 .form__deleteButton:hover {
-	background-image: url("../../Images/deleteHover.png");
+	background-image: url("../../Images/deleteSmallHover.png");
 }
 .form__cancelButton {
 	position: absolute;

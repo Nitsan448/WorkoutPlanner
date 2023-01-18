@@ -68,6 +68,7 @@ router.patch("/:workoutId", validateNameIsNotEmpty(), validate, async (req, res,
 
 router.delete("/:workoutId", async (req, res, next) => {
 	const workoutId = req.params.workoutId;
+	console.log("deleting");
 	try {
 		const [workout] = await Workout.findById(workoutId);
 		checkIfRowCanBeManipulated(workout, req.userId);

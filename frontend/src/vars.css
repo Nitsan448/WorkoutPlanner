@@ -9,13 +9,13 @@
 	--BLUE: #3b72b3;
 	--GRAY-BLUE: #abc1dc;
 	--ORANGE: #ffa800;
-	--LIGHT-GRAY: rgb(245, 245, 245);
 	--WHITE: #fff;
 
 	/* BORDERS */
 	--BORDER: 4px var(--ORANGE) solid;
 	--BORDER-BLUE: 4px var(--BLUE) solid;
 	--BORDER-GRAY-BLUE: 4px var(--GRAY-BLUE) solid;
+	--BORDER-WHITE: 4px var(--WHITE) solid;
 	--BORDER-INVALID: 4px red solid;
 	--BORDER-RADIUS: 5px;
 

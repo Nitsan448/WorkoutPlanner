@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ExerciseForm from "./ExerciseForm";
 import { useAddRoutineMutation } from "../../store/apiSlice";
-import classes from "./NewExerciseForm.module.css";
+import classes from "./NewExercise.module.css";
 
 function NewExerciseForm(props) {
 	const [isFormOpen, setIsFormOpen] = useState(false);
