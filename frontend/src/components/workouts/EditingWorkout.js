@@ -6,12 +6,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateWorkoutMutation, useDeleteWorkoutMutation } from "../../store/apiSlice";
 import { useForm } from "react-hook-form";
 
+let deleteWorkoutOnUnmount = true;
 function EditingWorkout(props) {
-	let deleteWorkoutOnUnmount = props.workout.name === "";
+	let newWorkout = props.workout.name === "";
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.workout.description !== "");
+	const [inEditMode, setInEditMode] = useState(props.inEditMode);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const [inEditMode, setInEditMode] = useState(props.inEditMode);
+
+	// The component rerenders when I try to save it when the name is empty, which messes something up
 
 	function StartWorkoutHandler() {
 		navigate(`${location.pathname}?mode=play`);
@@ -31,8 +34,7 @@ function EditingWorkout(props) {
 	const handleWorkoutDeletionOnUnmount = useCallback(
 		(event) => {
 			event && event.preventDefault();
-			console.log(deleteWorkoutOnUnmount);
-			if (deleteWorkoutOnUnmount) {
+			if (deleteWorkoutOnUnmount && newWorkout) {
 				deleteWorkout({ workout_id: workoutId });
 			}
 		},
@@ -50,6 +52,7 @@ function EditingWorkout(props) {
 
 	async function onDeleteWorkoutClicked() {
 		deleteWorkoutOnUnmount = true;
+		newWorkout = true;
 		navigate(`/workouts`);
 	}
 
@@ -80,7 +83,9 @@ function EditingWorkout(props) {
 			clearErrors();
 			setDescriptionTextAreaOpen(false);
 			setInEditMode(false);
+			console.log(deleteWorkoutOnUnmount);
 			deleteWorkoutOnUnmount = false;
+			console.log(deleteWorkoutOnUnmount);
 		} catch (error) {
 			setError("name", { message: error.data });
 		}
