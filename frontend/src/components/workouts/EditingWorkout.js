@@ -5,6 +5,7 @@ import Exercise from "../Exercises/Exercise";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateWorkoutMutation, useDeleteWorkoutMutation } from "../../store/apiSlice";
 import { useForm } from "react-hook-form";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 let deleteWorkoutOnUnmount = true;
 function EditingWorkout(props) {
@@ -13,8 +14,6 @@ function EditingWorkout(props) {
 	const [inEditMode, setInEditMode] = useState(props.inEditMode);
 	const location = useLocation();
 	const navigate = useNavigate();
-
-	// The component rerenders when I try to save it when the name is empty, which messes something up
 
 	function StartWorkoutHandler() {
 		navigate(`${location.pathname}?mode=play`);
@@ -38,7 +37,7 @@ function EditingWorkout(props) {
 				deleteWorkout({ workout_id: workoutId });
 			}
 		},
-		[workoutId, deleteWorkoutOnUnmount, deleteWorkout]
+		[workoutId, deleteWorkout, newWorkout]
 	);
 
 	useEffect(() => {
@@ -54,23 +53,6 @@ function EditingWorkout(props) {
 		deleteWorkoutOnUnmount = true;
 		newWorkout = true;
 		navigate(`/workouts`);
-	}
-
-	function getExerciseAsComponent(exercise) {
-		return (
-			<Exercise
-				workoutId={workoutId}
-				orderInWorkout={exercise.order_in_workout}
-				key={exercise.order_in_workout}
-				name={exercise.name}
-				setTime={exercise.set_time}
-				sets={exercise.sets}
-				restTime={exercise.rest_time}
-				breakAfterExercise={exercise.break_after_routine}
-				description={exercise.description}
-				canEdit={inEditMode}
-			/>
-		);
 	}
 
 	async function saveWorkoutHandler(data) {
@@ -103,6 +85,44 @@ function EditingWorkout(props) {
 			description: props.workout.description,
 		},
 	});
+
+	function getExerciseAsComponent(exercise) {
+		return inEditMode ? (
+			<Draggable
+				draggableId={exercise.order_in_workout.toString()}
+				index={exercise.order_in_workout}
+				key={exercise.order_in_workout}>
+				{(provided) => (
+					<Exercise
+						provided={provided}
+						innerRef={provided.innerRef}
+						workoutId={workoutId}
+						orderInWorkout={exercise.order_in_workout}
+						name={exercise.name}
+						setTime={exercise.set_time}
+						sets={exercise.sets}
+						restTime={exercise.rest_time}
+						breakAfterExercise={exercise.break_after_routine}
+						description={exercise.description}
+						canEdit={inEditMode}></Exercise>
+				)}
+			</Draggable>
+		) : (
+			<Exercise
+				workoutId={workoutId}
+				orderInWorkout={exercise.order_in_workout}
+				key={exercise.order_in_workout}
+				name={exercise.name}
+				setTime={exercise.set_time}
+				sets={exercise.sets}
+				restTime={exercise.rest_time}
+				breakAfterExercise={exercise.break_after_routine}
+				description={exercise.description}
+				canEdit={inEditMode}></Exercise>
+		);
+	}
+
+	function onDragEnd(result) {}
 
 	function renderWorkout() {
 		return (
@@ -144,19 +164,28 @@ function EditingWorkout(props) {
 
 	function renderExercises() {
 		return (
-			<div className={classes.container__exercises}>
-				{props.workout.routines ? (
-					<ul>{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}</ul>
-				) : (
-					""
-				)}
-				{inEditMode && (
-					<NewExercise
-						orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
-						workoutId={workoutId}
-					/>
-				)}
-			</div>
+			<DragDropContext onDragEnd={onDragEnd}>
+				<div className={classes.container__exercises}>
+					{props.workout.routines ? (
+						<Droppable droppableId={"1"}>
+							{(provided) => (
+								<ul ref={provided.innerRef} {...provided.droppableProps}>
+									{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}
+									{provided.placeholder}
+								</ul>
+							)}
+						</Droppable>
+					) : (
+						""
+					)}
+					{inEditMode && (
+						<NewExercise
+							orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
+							workoutId={workoutId}
+						/>
+					)}
+				</div>
+			</DragDropContext>
 		);
 	}
 

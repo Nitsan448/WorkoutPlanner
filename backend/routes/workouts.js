@@ -31,7 +31,6 @@ router.get("/:workoutId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
 	//Validate image
-	console.log("creating");
 	try {
 		const [results] = await Workout.addWorkout({
 			name: req.body.name,
@@ -49,7 +48,6 @@ router.post("/", async (req, res, next) => {
 
 router.patch("/:workoutId", validateNameIsNotEmpty(), validate, async (req, res, next) => {
 	//Validate image
-	console.log("updating");
 	try {
 		const [workout] = await Workout.findById(req.params.workoutId);
 		checkIfRowCanBeManipulated(workout, req.userId);
@@ -70,7 +68,6 @@ router.patch("/:workoutId", validateNameIsNotEmpty(), validate, async (req, res,
 
 router.delete("/:workoutId", async (req, res, next) => {
 	const workoutId = req.params.workoutId;
-	console.log("deleting");
 	try {
 		const [workout] = await Workout.findById(workoutId);
 		checkIfRowCanBeManipulated(workout, req.userId);

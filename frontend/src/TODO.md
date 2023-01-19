@@ -32,11 +32,7 @@ Fix token security and expiry date
 
 Changing an exercise image sometimes changes the image of a different exercise.
 
-Deleting an exercise in the middle of the workout messes with the workout in order and does not allow adding new exercises after.
-
-can't create new workout if user entered an empty name and then fixed it and saved.
-
-Long description of workout not word wrapping.
+Deleting an exercise in the middle of the workout messes with the workout in order and does not allow adding new exercises after. (first implement drag and drop with methods to change order in workout for everything)
 
 ## Backlog
 

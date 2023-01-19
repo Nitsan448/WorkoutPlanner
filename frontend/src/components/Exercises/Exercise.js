@@ -29,9 +29,25 @@ function Exercise(props) {
 
 	function renderExercise() {
 		const exerciseClass = !props.canEdit ? `${classes.exercise} ${classes.notInButton}` : classes.exercise;
+		return props.canEdit ? (
+			<button className={classes.exercise__button} onClick={() => setEditingExercise(true)}>
+				<div
+					className={exerciseClass}
+					ref={props.innerRef}
+					{...props.provided.draggableProps}
+					{...props.provided.dragHandleProps}>
+					{renderExerciseInformation()}
+				</div>
+			</button>
+		) : (
+			<div className={exerciseClass}>{renderExerciseInformation()}</div>
+		);
+	}
+
+	function renderExerciseInformation() {
 		return (
-			<div className={exerciseClass}>
-				<div className={classes.exercise__image}></div>
+			<>
+				<div className={classes.exercise__image} />
 				<div>
 					<h3 className={classes.exercise__name}>{props.name}</h3>
 					<p>{props.description}</p>
@@ -42,7 +58,7 @@ function Exercise(props) {
 						<h3>Break after: {getTimeInTimerFormat(props.breakAfterExercise)}</h3>
 					</div>
 				</div>
-			</div>
+			</>
 		);
 	}
 
@@ -55,10 +71,6 @@ function Exercise(props) {
 					cancelEditHandler={() => setEditingExercise(false)}
 					{...props}
 				/>
-			) : props.canEdit ? (
-				<button className={classes.exercise__button} onClick={() => setEditingExercise(true)}>
-					{renderExercise()}
-				</button>
 			) : (
 				renderExercise()
 			)}
