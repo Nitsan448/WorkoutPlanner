@@ -7,7 +7,7 @@ import { useUpdateWorkoutMutation, useDeleteWorkoutMutation } from "../../store/
 import { useForm } from "react-hook-form";
 
 function EditingWorkout(props) {
-	const [deleteWorkoutOnUnmount, setDeleteWorkoutOnUnmount] = useState(props.workout.name === "");
+	let deleteWorkoutOnUnmount = props.workout.name === "";
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.workout.description !== "");
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -49,7 +49,7 @@ function EditingWorkout(props) {
 	}, [handleWorkoutDeletionOnUnmount]);
 
 	async function onDeleteWorkoutClicked() {
-		deleteWorkout({ workout_id: workoutId });
+		deleteWorkoutOnUnmount = true;
 		navigate(`/workouts`);
 	}
 
@@ -80,7 +80,7 @@ function EditingWorkout(props) {
 			clearErrors();
 			setDescriptionTextAreaOpen(false);
 			setInEditMode(false);
-			setDeleteWorkoutOnUnmount(false);
+			deleteWorkoutOnUnmount = false;
 		} catch (error) {
 			setError("name", { message: error.data });
 		}
