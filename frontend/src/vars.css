@@ -3,7 +3,7 @@
 :root {
 	/* FONTS */
 	--FF: "Inter", sans-serif;
-	--FS: clamp(1rem, 2.2vh, 1.5rem);
+	--FS: clamp(0.8rem, 2.2vh, 1.5rem);
 
 	/* COLORS */
 	--BLUE: #3b72b3;

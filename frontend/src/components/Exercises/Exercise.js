@@ -74,9 +74,9 @@ function Exercise(props) {
 					<p>{props.description}</p>
 					<div className={classes.routine}>
 						{props.sets > 1 ? <h3>{props.sets} Sets</h3> : <h3>{props.sets} Set</h3>}
-						<h3>Rests: {getTimeInTimerFormat(props.restTime)} </h3>
+						<h3>Rest time: {getTimeInTimerFormat(props.restTime)} </h3>
 						<h3>Set Time: {getTimeInTimerFormat(props.setTime)}</h3>
-						<h3>Break after: {getTimeInTimerFormat(props.breakAfterExercise)}</h3>
+						<h3>Break after exercise: {getTimeInTimerFormat(props.breakAfterExercise)}</h3>
 					</div>
 				</div>
 			</>

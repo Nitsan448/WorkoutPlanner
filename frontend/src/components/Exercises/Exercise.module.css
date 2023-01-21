@@ -3,7 +3,7 @@
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
 	display: grid;
-	grid-template-columns: 14vw minmax(0, 3fr) 0.5em;
+	grid-template-columns: 14vw minmax(0, 3fr);
 	/* grid-template-rows: 14vw 3fr 0.5em; */
 	column-gap: 1em;
 	min-height: 20vh;
@@ -24,9 +24,14 @@
 
 .routine {
 	margin: 3em 0em 1em 0em;
-	/* padding: var(--PADDING-TB) 0; */
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2em 2em 2em 2em;
+	text-align: left;
+}
+
+.routine h3 {
+	padding: 0em 1em 0em 0em;
 }
 
 .exercise__image {
@@ -44,4 +49,11 @@
 
 .exercise__button:hover .exercise {
 	border: var(--BORDER-BLUE);
+}
+
+@media screen and (min-width: 1200px) {
+	.routine {
+		display: flex;
+		justify-content: space-between;
+	}
 }
