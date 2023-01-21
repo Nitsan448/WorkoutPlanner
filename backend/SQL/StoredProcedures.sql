@@ -83,3 +83,54 @@ BEGIN
     routines.rest_time=rest_time, routines.break_after_routine=break_after_routine, routines.order_in_workout=order_in_workout
     WHERE routines.workout_id=workout_id AND routines.order_in_workout=order_in_workout;
 END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_workout`(
+IN workout_id INT)
+BEGIN
+	DECLARE number_of_routines INT;
+    DECLARE current_routine INT;
+    SELECT COUNT(*) FROM routines INNER JOIN exercises ON routines.exercise_id=exercises.exercise_id 
+    WHERE routines.workout_id=workout_id INTO number_of_routines;
+    
+    SET current_routine = 1;
+    delete_routines: LOOP
+		IF current_routine>number_of_routines THEN
+			LEAVE delete_routines;
+		END IF;
+        SELECT current_routine;
+        call delete_routine(workout_id, current_routine);
+        SET current_routine = current_routine + 1;
+	END LOOP;
+    DELETE FROM workouts WHERE workouts.workout_id = workout_id;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_routines_order`(
+IN workout_id INT,
+IN old_routine_index INT,
+IN new_routine_index INT
+)
+BEGIN
+	DECLARE current_routine_index INT;
+    DECLARE direction INT;
+    SET current_routine_index = old_routine_index;
+    IF (old_routine_index > new_routine_index) THEN
+		SET direction = -1;
+	ELSE
+		SET direction = 1;
+	END IF;
+    UPDATE routines SET order_in_workout = (-1) 
+	WHERE routines.workout_id = workout_id and order_in_workout = old_routine_index;
+    
+    update_routines_order: LOOP
+		SET current_routine_index = current_routine_index + direction;
+		IF (current_routine_index>new_routine_index AND direction=1) OR (current_routine_index<new_routine_index AND direction=-1) THEN
+			LEAVE update_routines_order;
+		END IF;
+        UPDATE routines SET order_in_workout = (current_routine_index - direction) 
+        WHERE routines.workout_id = workout_id and order_in_workout = current_routine_index;
+	END LOOP;
+    
+	UPDATE routines SET order_in_workout = (new_routine_index) 
+	WHERE routines.workout_id = workout_id and order_in_workout = -1;
+END

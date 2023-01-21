@@ -72,12 +72,21 @@ router.delete("/:workoutId", async (req, res, next) => {
 		const [workout] = await Workout.findById(workoutId);
 		checkIfRowCanBeManipulated(workout, req.userId);
 
-		await Workout.deleteRoutines(workoutId);
 		await Workout.deleteWorkout(workoutId);
 		res.status(200).json("Workout deleted");
 	} catch (error) {
 		console.log(error.message);
 		res.status(500).json("Could not delete workout");
+	}
+});
+
+router.post("/update_routines_order", async (req, res, next) => {
+	try {
+		await Workout.updateRoutinesOrder(req.body.workout_id, req.body.old_routine_index, req.body.new_routine_index);
+		res.status(200).json("Routines order updated");
+	} catch (error) {
+		console.log(error.message);
+		res.status(500).json("Could not create workout");
 	}
 });
 

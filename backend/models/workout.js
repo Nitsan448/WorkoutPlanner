@@ -24,7 +24,7 @@ module.exports = class Workout {
 	}
 
 	static deleteWorkout(workoutId) {
-		const query = "DELETE FROM workouts WHERE workout_id = ?";
+		const query = "call delete_workout(?)";
 		return database.execute(query, [workoutId]);
 	}
 
@@ -33,15 +33,13 @@ module.exports = class Workout {
 		return database.execute(query, Object.values(workout));
 	}
 
-	static async deleteRoutines(workoutId) {
-		//TODO: Fix performance, find a way to do this without looping
-		const [routines] = await Workout.getRoutines(workoutId);
-		routines.forEach(async (routine) => {
-			await Routine.deleteRoutine(workoutId, routine.order_in_workout);
-		});
+	static updateRoutinesOrder(workoutId, oldRoutineIndex, newRoutineIndex) {
+		const query = "call update_routines_order(?, ?, ?)";
+		return database.execute(query, [workoutId, oldRoutineIndex, newRoutineIndex]);
 	}
 
 	static getRoutines(workoutId) {
+		// Order by order in workout
 		const query =
 			"SELECT * FROM routines INNER JOIN exercises ON routines.exercise_id=exercises.exercise_id WHERE workout_id=?";
 		return database.execute(query, [workoutId]);

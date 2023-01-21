@@ -3,7 +3,11 @@ import NewExercise from "../Exercises/NewExercise";
 import classes from "./Workout.module.css";
 import Exercise from "../Exercises/Exercise";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useUpdateWorkoutMutation, useDeleteWorkoutMutation } from "../../store/apiSlice";
+import {
+	useUpdateWorkoutMutation,
+	useDeleteWorkoutMutation,
+	useUpdateRoutinesOrderMutation,
+} from "../../store/apiSlice";
 import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -12,6 +16,7 @@ function EditingWorkout(props) {
 	let newWorkout = props.workout.name === "";
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.workout.description !== "");
 	const [inEditMode, setInEditMode] = useState(props.inEditMode);
+	const [routines, setRoutines] = useState(props.workout.routines);
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -24,9 +29,15 @@ function EditingWorkout(props) {
 		setDescriptionTextAreaOpen(props.workout.description !== "");
 	}
 
+	useEffect(() => {
+		setRoutines(props.workout.routines);
+	}, [props.workout.routines]);
+
 	const [updateWorkout] = useUpdateWorkoutMutation();
 
 	const [deleteWorkout] = useDeleteWorkoutMutation();
+
+	const [updateRoutinesOrder] = useUpdateRoutinesOrderMutation();
 
 	const workoutId = props.workout.workout_id;
 
@@ -50,8 +61,7 @@ function EditingWorkout(props) {
 	}, [handleWorkoutDeletionOnUnmount]);
 
 	async function onDeleteWorkoutClicked() {
-		deleteWorkoutOnUnmount = true;
-		newWorkout = true;
+		deleteWorkout({ workout_id: workoutId });
 		navigate(`/workouts`);
 	}
 
@@ -122,7 +132,30 @@ function EditingWorkout(props) {
 		);
 	}
 
-	function onDragEnd(result) {}
+	async function onDragEnd(result) {
+		const { destination, source } = result;
+		if (!destination || destination.index === source.index) {
+			return;
+		}
+		const newRoutines = [...routines];
+		const [movedRoutine] = newRoutines.splice(source.index, 1);
+		newRoutines.splice(destination.index, 0, movedRoutine);
+		setRoutines(newRoutines);
+
+		sendUpdateRoutinesOrderRequest(source.index, destination.index);
+	}
+
+	async function sendUpdateRoutinesOrderRequest(old_routine_index, new_routine_index) {
+		try {
+			await updateRoutinesOrder({
+				workout_id: workoutId,
+				old_routine_index,
+				new_routine_index,
+			}).unwrap();
+		} catch (error) {
+			console.log(error.data);
+		}
+	}
 
 	function renderWorkout() {
 		return (
@@ -166,11 +199,11 @@ function EditingWorkout(props) {
 		return (
 			<DragDropContext onDragEnd={onDragEnd}>
 				<div className={classes.container__exercises}>
-					{props.workout.routines ? (
+					{routines ? (
 						<Droppable droppableId={"1"}>
 							{(provided) => (
 								<ul ref={provided.innerRef} {...provided.droppableProps}>
-									{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}
+									{routines.map((routine) => getExerciseAsComponent(routine))}
 									{provided.placeholder}
 								</ul>
 							)}
@@ -179,10 +212,7 @@ function EditingWorkout(props) {
 						""
 					)}
 					{inEditMode && (
-						<NewExercise
-							orderInWorkout={props.workout.routines ? props.workout.routines.length + 1 : 0}
-							workoutId={workoutId}
-						/>
+						<NewExercise orderInWorkout={routines ? routines.length : 0} workoutId={workoutId} />
 					)}
 				</div>
 			</DragDropContext>
