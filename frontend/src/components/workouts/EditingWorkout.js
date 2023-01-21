@@ -9,22 +9,30 @@ import {
 	useUpdateRoutinesOrderMutation,
 } from "../../store/apiSlice";
 import { useForm } from "react-hook-form";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 let deleteWorkoutOnUnmount = true;
 function EditingWorkout(props) {
+	const location = useLocation();
+	const navigate = useNavigate();
+	const workoutId = props.workout.workout_id;
 	let newWorkout = props.workout.name === "";
+
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.workout.description !== "");
 	const [inEditMode, setInEditMode] = useState(props.inEditMode);
 	const [routines, setRoutines] = useState(props.workout.routines);
-	const location = useLocation();
-	const navigate = useNavigate();
+	const [numberOfExerciseFormsOpen, setNumberOfExerciseFormsOpen] = useState(0);
+
+	const [updateWorkout] = useUpdateWorkoutMutation();
+	const [deleteWorkout] = useDeleteWorkoutMutation();
+	const [updateRoutinesOrder] = useUpdateRoutinesOrderMutation();
 
 	function StartWorkoutHandler() {
 		navigate(`${location.pathname}?mode=play`);
 	}
 
 	function EditWorkoutHandler() {
+		navigate(`${location.pathname}?mode=edit`);
 		setInEditMode(true);
 		setDescriptionTextAreaOpen(props.workout.description !== "");
 	}
@@ -32,14 +40,6 @@ function EditingWorkout(props) {
 	useEffect(() => {
 		setRoutines(props.workout.routines);
 	}, [props.workout.routines]);
-
-	const [updateWorkout] = useUpdateWorkoutMutation();
-
-	const [deleteWorkout] = useDeleteWorkoutMutation();
-
-	const [updateRoutinesOrder] = useUpdateRoutinesOrderMutation();
-
-	const workoutId = props.workout.workout_id;
 
 	const handleWorkoutDeletionOnUnmount = useCallback(
 		(event) => {
@@ -96,42 +96,6 @@ function EditingWorkout(props) {
 		},
 	});
 
-	function getExerciseAsComponent(exercise) {
-		return inEditMode ? (
-			<Draggable
-				draggableId={exercise.order_in_workout.toString()}
-				index={exercise.order_in_workout}
-				key={exercise.order_in_workout}>
-				{(provided) => (
-					<Exercise
-						provided={provided}
-						innerRef={provided.innerRef}
-						workoutId={workoutId}
-						orderInWorkout={exercise.order_in_workout}
-						name={exercise.name}
-						setTime={exercise.set_time}
-						sets={exercise.sets}
-						restTime={exercise.rest_time}
-						breakAfterExercise={exercise.break_after_routine}
-						description={exercise.description}
-						canEdit={inEditMode}></Exercise>
-				)}
-			</Draggable>
-		) : (
-			<Exercise
-				workoutId={workoutId}
-				orderInWorkout={exercise.order_in_workout}
-				key={exercise.order_in_workout}
-				name={exercise.name}
-				setTime={exercise.set_time}
-				sets={exercise.sets}
-				restTime={exercise.rest_time}
-				breakAfterExercise={exercise.break_after_routine}
-				description={exercise.description}
-				canEdit={inEditMode}></Exercise>
-		);
-	}
-
 	async function onDragEnd(result) {
 		const { destination, source } = result;
 		if (!destination || destination.index === source.index) {
@@ -142,19 +106,34 @@ function EditingWorkout(props) {
 		newRoutines.splice(destination.index, 0, movedRoutine);
 		setRoutines(newRoutines);
 
-		sendUpdateRoutinesOrderRequest(source.index, destination.index);
-	}
-
-	async function sendUpdateRoutinesOrderRequest(old_routine_index, new_routine_index) {
 		try {
 			await updateRoutinesOrder({
 				workout_id: workoutId,
-				old_routine_index,
-				new_routine_index,
+				old_routine_index: source.index,
+				new_routine_index: destination.index,
 			}).unwrap();
 		} catch (error) {
 			console.log(error.data);
 		}
+	}
+
+	function getExerciseAsComponent(exercise) {
+		return (
+			<Exercise
+				workoutId={workoutId}
+				orderInWorkout={exercise.order_in_workout}
+				key={exercise.order_in_workout}
+				name={exercise.name}
+				setTime={exercise.set_time}
+				sets={exercise.sets}
+				restTime={exercise.rest_time}
+				breakAfterExercise={exercise.break_after_routine}
+				description={exercise.description}
+				inEditMode={inEditMode}
+				setNumberOfExerciseFormsOpen={setNumberOfExerciseFormsOpen}
+				numberOfExerciseFormsOpen={numberOfExerciseFormsOpen}
+			/>
+		);
 	}
 
 	function renderWorkout() {

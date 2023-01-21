@@ -31,21 +31,19 @@ Create a stored procedure for deleteWorkout instead of looping over all routines
 
 Fix token security and expiry date
 
-Make sure routines are sorted according to order_in_workout
+Make it impossible to change an exercise name to an already existing exercise.
 
 ## Bugs
 
 Changing an exercise image sometimes changes the image of a different exercise.
 
-Deleting an exercise in the middle of the workout messes with the workout in order and does not allow adding new exercises after. (first implement drag and drop with methods to change order in workout for everything)
-
 Changing an exercise name changes the name of other exercises with the same name.
-
-react beautiful dnd Error when finishing editing an exercise.
 
 ## Backlog
 
 Warn user if he tried to leave an unsaved workout that will be deleted.
+
+Remove loop from delete_routine stored procedure (do something similar to update_routines_order).
 
 Require auth when user enters a page
 

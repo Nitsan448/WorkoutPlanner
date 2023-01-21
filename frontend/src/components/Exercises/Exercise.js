@@ -3,6 +3,7 @@ import classes from "./Exercise.module.css";
 import { getTimeInTimerFormat } from "../../helpers/time";
 import { useDeleteRoutineMutation, useUpdateRoutineMutation } from "../../store/apiSlice";
 import ExerciseForm from "./ExerciseForm";
+import { Draggable } from "react-beautiful-dnd";
 
 function Exercise(props) {
 	const [editingExercise, setEditingExercise] = useState(false);
@@ -11,33 +12,53 @@ function Exercise(props) {
 	const [updateRoutine] = useUpdateRoutineMutation();
 
 	async function deleteExerciseHandler() {
+		setEditingExercise(false);
 		try {
 			await deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout }).unwrap();
 		} catch (error) {
-			console.log(error.message);
+			console.log(error.data);
 		}
 	}
 
 	async function editExerciseHandler(routine) {
 		try {
 			await updateRoutine(routine).unwrap();
-			setEditingExercise(false);
+			toggleExerciseFormOpenState(false);
 		} catch (error) {
-			console.log(error.message);
+			console.log(error.data);
+		}
+	}
+
+	function toggleExerciseFormOpenState(startEditing) {
+		if (startEditing) {
+			setEditingExercise(true);
+			props.setNumberOfExerciseFormsOpen((numberOfExerciseFormsOpen) => numberOfExerciseFormsOpen + 1);
+		} else {
+			setEditingExercise(false);
+			props.setNumberOfExerciseFormsOpen((numberOfExerciseFormsOpen) => numberOfExerciseFormsOpen - 1);
 		}
 	}
 
 	function renderExercise() {
-		const exerciseClass = !props.canEdit ? `${classes.exercise} ${classes.notInButton}` : classes.exercise;
-		return props.canEdit ? (
-			<button className={classes.exercise__button} onClick={() => setEditingExercise(true)}>
-				<div
-					className={exerciseClass}
-					ref={props.innerRef}
-					{...props.provided.draggableProps}
-					{...props.provided.dragHandleProps}>
-					{renderExerciseInformation()}
-				</div>
+		const exerciseClass = !props.inEditMode ? `${classes.exercise} ${classes.notInButton}` : classes.exercise;
+		return props.inEditMode ? (
+			<button className={classes.exercise__button} onClick={() => toggleExerciseFormOpenState(true)}>
+				{
+					<Draggable
+						draggableId={props.orderInWorkout.toString()}
+						index={props.orderInWorkout}
+						isDragDisabled={props.numberOfExerciseFormsOpen > 0}>
+						{(provided) => (
+							<div
+								className={exerciseClass}
+								ref={provided.innerRef}
+								{...provided.draggableProps}
+								{...provided.dragHandleProps}>
+								{renderExerciseInformation()}
+							</div>
+						)}
+					</Draggable>
+				}
 			</button>
 		) : (
 			<div className={exerciseClass}>{renderExerciseInformation()}</div>
@@ -64,11 +85,11 @@ function Exercise(props) {
 
 	return (
 		<>
-			{editingExercise && props.canEdit ? (
+			{editingExercise && props.inEditMode ? (
 				<ExerciseForm
 					saveExerciseHandler={editExerciseHandler}
 					deleteExerciseHandler={deleteExerciseHandler}
-					cancelEditHandler={() => setEditingExercise(false)}
+					cancelEditHandler={() => toggleExerciseFormOpenState(false)}
 					{...props}
 				/>
 			) : (
