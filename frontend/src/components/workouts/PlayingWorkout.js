@@ -1,26 +1,35 @@
 import useTimer from "../../hooks/use-timer";
-import { getTimeInMinutesAndSeconds } from "../../helpers/time";
+import { getTimeInMinutesAndSeconds, getTimeInTimerFormat } from "../../helpers/time";
 import { useCallback, useState, useEffect } from "react";
 import PlayingExercise from "../Exercises/PlayingExercise";
 import Button from "../UI/Button";
 import { useNavigate } from "react-router-dom";
 import classes from "./PlayingWorkout.module.css";
 
+const Activity = {
+	InSet: "InSet",
+	Resting: "Resting",
+	Break: "Break",
+};
+
 function PlayingWorkout(props) {
 	const navigate = useNavigate();
+	const exercises = props.workout.routines;
 
 	const [currentSet, setCurrentSet] = useState(1);
-	const [inSet, setInSet] = useState(true);
+	const [currentActivity, setCurrentActivity] = useState(Activity.InSet);
 	const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 	const [workoutFinished, setWorkoutFinished] = useState(false);
-	const [currentExercise, setCurrentExercise] = useState(props.workout.routines[currentExerciseIndex]);
 
 	const getNewTimerTime = useCallback(() => {
-		if (inSet) {
-			return getTimeInMinutesAndSeconds(currentExercise.set_time);
+		if (currentActivity === Activity.InSet) {
+			return getTimeInMinutesAndSeconds(exercises[currentExerciseIndex].set_time);
+		} else if (currentActivity === Activity.Resting) {
+			return getTimeInMinutesAndSeconds(exercises[currentExerciseIndex].rest_time);
+		} else {
+			return getTimeInMinutesAndSeconds(exercises[currentExerciseIndex].break_after_routine);
 		}
-		return getTimeInMinutesAndSeconds(currentExercise.rest_time);
-	}, [inSet, currentExercise]);
+	}, [currentActivity, currentExerciseIndex, exercises]);
 
 	const initialTimerTime = getNewTimerTime();
 	const timer = useTimer(initialTimerTime, timerFinishedHandler);
@@ -34,9 +43,17 @@ function PlayingWorkout(props) {
 	}, [getNewTimerTime, currentSet]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	function timerFinishedHandler() {
-		const exerciseFinished = inSet && currentSet === +currentExercise.sets;
+		const exerciseFinished =
+			currentActivity !== Activity.Resting && currentSet === +exercises[currentExerciseIndex].sets;
 
-		if (exerciseFinished) {
+		const goToBreak =
+			exerciseFinished &&
+			currentActivity !== Activity.Break &&
+			exercises[currentExerciseIndex].break_after_routine > 0;
+
+		if (goToBreak) {
+			setCurrentActivity(Activity.Break);
+		} else if (exerciseFinished) {
 			finishExercise();
 		} else {
 			updateCurrentSetState();
@@ -53,33 +70,56 @@ function PlayingWorkout(props) {
 
 	function goToNextExercise() {
 		setCurrentExerciseIndex(currentExerciseIndex + 1);
-		setCurrentExercise(props.workout.routines[currentExerciseIndex + 1]);
 		setCurrentSet(1);
-		setInSet(true);
+		setCurrentActivity(Activity.InSet);
 	}
 
 	function updateCurrentSetState() {
-		if (inSet && currentExercise.rest_time > 0) {
-			setInSet(false);
-		} else if (inSet && currentExercise.rest_time === 0) {
+		if (currentActivity === Activity.InSet && exercises[currentExerciseIndex].rest_time > 0) {
+			setCurrentActivity(Activity.Resting);
+		} else if (currentActivity === Activity.InSet && exercises[currentExerciseIndex].rest_time === 0) {
 			setCurrentSet(currentSet + 1);
 		} else {
-			setInSet(true);
+			setCurrentActivity(Activity.InSet);
 			setCurrentSet(currentSet + 1);
 		}
 	}
 
+	function renderPlayingExercise(exerciseIndex, currentlyPlaying) {
+		const inBreak = currentActivity === Activity.Break;
+		console.log();
+		const renderBreakAfterExercise =
+			exercises[exerciseIndex].break_after_routine > 0 &&
+			((!inBreak && currentlyPlaying) || (inBreak && !currentlyPlaying));
+		return (
+			<>
+				<PlayingExercise
+					name={exercises[exerciseIndex].name}
+					setTime={exercises[exerciseIndex].set_time}
+					currentSet={currentSet}
+					sets={exercises[exerciseIndex].sets}
+					restTime={exercises[exerciseIndex].rest_time}
+					description={exercises[exerciseIndex].description}
+					timer={timer}
+					currentActivity={currentActivity}
+					currentlyPlaying={currentlyPlaying}></PlayingExercise>
+
+				{renderBreakAfterExercise && (
+					<div className={classes.break}>
+						<p>{getTimeInTimerFormat(exercises[exerciseIndex].break_after_routine)} Break</p>
+					</div>
+				)}
+			</>
+		);
+	}
+
 	return (
-		<div className={classes.playingWorkout}>
-			<PlayingExercise
-				name={currentExercise.name}
-				setTime={currentExercise.set_time}
-				currentSet={currentSet}
-				sets={currentExercise.sets}
-				restTime={currentExercise.rest_time}
-				description={currentExercise.description}
-				timer={timer}
-				inSet={inSet}></PlayingExercise>
+		<div id="playingWorkout" className={classes.playingWorkout}>
+			{renderPlayingExercise(currentExerciseIndex, true)}
+
+			{currentExerciseIndex < props.workout.routines.length - 1 &&
+				renderPlayingExercise(currentExerciseIndex + 1, false)}
+
 			{workoutFinished ? (
 				<div>
 					<label>Workout finished!</label>

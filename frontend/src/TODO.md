@@ -47,3 +47,5 @@ Add option to login as a guest - Create user, delete it if the user leaves witho
 Add all social media missing fields - public, likes, etc.
 
 Make drag and drop work on mobile.
+
+Add option to choose from current exercises and routines when creating a new exercise.

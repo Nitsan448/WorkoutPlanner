@@ -75,9 +75,7 @@ function EditingWorkout(props) {
 			clearErrors();
 			setDescriptionTextAreaOpen(false);
 			setInEditMode(false);
-			console.log(deleteWorkoutOnUnmount);
 			deleteWorkoutOnUnmount = false;
-			console.log(deleteWorkoutOnUnmount);
 		} catch (error) {
 			setError("name", { message: error.data });
 		}

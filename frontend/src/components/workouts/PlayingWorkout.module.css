@@ -1,7 +1,17 @@
-.playingWorkout {
-}
-
 .playingWorkout button {
 	display: block;
 	margin: auto;
+}
+
+.break {
+	display: flex;
+	justify-content: space-between;
+	width: 75%;
+	margin: auto;
+	border: var(--BORDER);
+	border-radius: var(--BORDER-RADIUS);
+	margin-top: 0.5em;
+	padding: 0.5em 0em 0.5em 1em;
+	font-size: 1.5rem;
+	font-weight: bold;
 }

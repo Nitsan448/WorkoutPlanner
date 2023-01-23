@@ -3,17 +3,34 @@ import classes from "./PlayingExercise.module.css";
 import Timer from "../Timer/Timer";
 
 function PlayingExercise(props) {
+	const currentSet = props.currentlyPlaying ? props.currentSet : 1;
+	const playingExerciseClasses = props.currentlyPlaying
+		? `${classes.playingExercise} ${classes.currentlyPlaying}`
+		: `${classes.playingExercise}`;
+
 	return (
-		<div className={classes.playingExercise}>
-			<div>
-				<h2>{props.name}</h2>
-				<p>{`${props.currentSet}/${props.sets}`}</p>
-			</div>
-			<div>
-				<p>{props.description}</p>
-				{props.inSet ? <p>In set</p> : <p>Resting</p>}
-				<Timer minutes={props.timer.minutes} seconds={props.timer.seconds} />
-			</div>
+		<div className={playingExerciseClasses}>
+			{props.currentActivity === "Break" && props.currentlyPlaying ? (
+				<div>
+					<p>{props.currentActivity}</p>
+					<Timer minutes={props.timer.minutes} seconds={props.timer.seconds} />
+				</div>
+			) : (
+				<>
+					<div>
+						<h2>{props.name}</h2>
+						<p>{`${currentSet}/${props.sets}`}</p>
+						{props.currentlyPlaying && <p>{props.description}</p>}
+					</div>
+
+					{props.currentlyPlaying && (
+						<div>
+							<p>{props.currentActivity}</p>
+							<Timer minutes={props.timer.minutes} seconds={props.timer.seconds} />
+						</div>
+					)}
+				</>
+			)}
 		</div>
 	);
 }
