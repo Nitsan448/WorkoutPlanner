@@ -1,38 +1,34 @@
 ## Frontend
 
-Add missing fields: setTime/repetition etc.
+1. Change navigation bar state according to user logged in status.
 
-Change navigation bar state according to user logged in status.
+2. Send images uploaded to server
 
-Add breaks between exercises when playing a workout. (use enum? inSet, inRest, inBreak)
-
-Send images uploaded to backend
-
-Change favicon and title
+3. Add remember me field in sign up
 
 ### CSS
 
-Add/Fix css for sign up, login
+1. Add/Fix css for sign up, login
 
-Add/Fix for playWorkout pages,
+2. Add/Fix for playWorkout pages,
 
-Add queries for mobile use
+3. Add queries for mobile use
 
-Include images for each workout in workouts page.
+4. Include images for each workout in workouts page.
 
-Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
+5. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 
 ## Backend
 
-Fix token security and expiry date
-
-Make it impossible to change an exercise name to an already existing exercise.
+1. Fix token security and expiry date
 
 ## Bugs
 
-Changing an exercise image sometimes changes the image of a different exercise.
+1. Changing an exercise image sometimes changes the image of a different exercise.
 
-## Backlog
+# Backlog
+
+Add missing fields: setTime/repetition etc.
 
 Warn user if he tried to leave an unsaved workout that will be deleted.
 
@@ -49,3 +45,6 @@ Add all social media missing fields - public, likes, etc.
 Make drag and drop work on mobile.
 
 Add option to choose from current exercises and routines when creating a new exercise.
+Make it impossible to change an exercise name to an already existing exercise.
+
+Change favicon and title

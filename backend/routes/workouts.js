@@ -37,7 +37,6 @@ router.post("/", async (req, res, next) => {
 			description: req.body.description,
 			userId: req.userId,
 			image: req.body.image === undefined ? null : req.body.image,
-			isPublic: req.body.is_public !== undefined && req.body.is_public ? 1 : 0,
 		});
 		res.status(201).json(results.insertId);
 	} catch (error) {
@@ -56,7 +55,6 @@ router.patch("/:workoutId", validateNameIsNotEmpty(), validate, async (req, res,
 			name: req.body.name,
 			description: req.body.description,
 			image: req.body.image === undefined ? null : req.body.image,
-			isPublic: req.body.is_public !== undefined && req.body.is_public ? 1 : 0,
 			workoutId: req.params.workoutId,
 		});
 		res.status(200).json("Workout updated");

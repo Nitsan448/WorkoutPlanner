@@ -19,7 +19,7 @@ module.exports = class Workout {
 	}
 
 	static addWorkout(workout) {
-		const query = "INSERT INTO workouts (name, description, user_id, image, is_public) VALUES (?, ?, ?, ?, ?)";
+		const query = "INSERT INTO workouts (name, description, user_id, image) VALUES (?, ?, ?, ?)";
 		return database.execute(query, Object.values(workout));
 	}
 
@@ -29,7 +29,7 @@ module.exports = class Workout {
 	}
 
 	static updateWorkout(workout) {
-		const query = "UPDATE workouts SET name=?, description=?, image=?, is_public=? WHERE workout_id=?";
+		const query = "UPDATE workouts SET name=?, description=?, image=? WHERE workout_id=?";
 		return database.execute(query, Object.values(workout));
 	}
 

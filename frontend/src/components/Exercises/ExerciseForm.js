@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import classes from "./ExerciseForm.module.css";
 import { isPositiveNumber } from "../../helpers/helpers";
 import { useForm } from "react-hook-form";
 import { getTimeInSeconds, getTimeInTimerFormat } from "../../helpers/time";
+import useImageUpload from "../../hooks/use-image-upload";
 
 function ExerciseForm(props) {
-	const [image, setImage] = useState(null);
-	const [imageUrl, setImageUrl] = useState(null);
+	const exerciseImage = useImageUpload();
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.description !== "");
-
-	function onImageUpload(event) {
-		setImage(...event.target.files);
-	}
-
-	useEffect(() => {
-		if (image) {
-			setImageUrl(URL.createObjectURL(image));
-		}
-	}, [image]);
 
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
@@ -32,6 +22,7 @@ function ExerciseForm(props) {
 			workout_id: +props.workoutId,
 			name: data.name,
 			description: data.description,
+			image: exerciseImage.imageUrl,
 			sets: data.sets,
 			time_or_repetitions: 1,
 			set_time: getTimeInSeconds(data.setTime),
@@ -60,13 +51,20 @@ function ExerciseForm(props) {
 		},
 	});
 
+	const image = exerciseImage.imageUrl || props.image;
+
 	return (
 		<>
 			<form className={classes.form} onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
 				<label htmlFor="image-upload" className={classes.form__image}>
 					{!image && "Add image"}
-					<input id="image-upload" type="file" onChange={onImageUpload} accept=".jpg, .jpeg, .png" />
-					{image && <img src={imageUrl} alt="Exercise" width={"200"} height={"200"} />}
+					<input
+						id="image-upload"
+						type="file"
+						onChange={exerciseImage.onImageUpload}
+						accept=".jpg, .jpeg, .png"
+					/>
+					{Image && <img src={image} alt="Exercise" width={"200"} height={"200"} />}
 				</label>
 				<div className={classes.form__exercise}>
 					<input

@@ -10,9 +10,11 @@ import {
 } from "../../store/apiSlice";
 import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import useImageUpload from "../../hooks/use-image-upload";
 
 let deleteWorkoutOnUnmount = true;
 function EditingWorkout(props) {
+	const workoutImage = useImageUpload();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const workoutId = props.workout.workout_id;
@@ -122,11 +124,12 @@ function EditingWorkout(props) {
 				orderInWorkout={exercise.order_in_workout}
 				key={exercise.order_in_workout}
 				name={exercise.name}
+				description={exercise.description}
+				image={exercise.image}
 				setTime={exercise.set_time}
 				sets={exercise.sets}
 				restTime={exercise.rest_time}
 				breakAfterExercise={exercise.break_after_routine}
-				description={exercise.description}
 				inEditMode={inEditMode}
 				setNumberOfExerciseFormsOpen={setNumberOfExerciseFormsOpen}
 				numberOfExerciseFormsOpen={numberOfExerciseFormsOpen}
@@ -134,12 +137,23 @@ function EditingWorkout(props) {
 		);
 	}
 
+	const image = workoutImage.imageUrl || props.image;
+
 	function renderWorkout() {
 		return (
 			<div className={classes.container__workout}>
 				{inEditMode ? (
 					<>
-						<div className={classes.container__workoutImage}>
+						<label htmlFor="image-upload" className={classes.container__editingWorkoutImage}>
+							{!image && "Add image"}
+							<input
+								id="image-upload"
+								type="file"
+								onChange={workoutImage.onImageUpload}
+								accept=".jpg, .jpeg, .png"
+								className={classes.container__workoutImageInput}
+							/>
+							{Image && <img src={image} alt="Exercise" width={"200"} height={"200"} />}
 							<input
 								type="text"
 								className={
@@ -150,7 +164,7 @@ function EditingWorkout(props) {
 								{...register("name", { required: "Workout name can not be empty" })}
 							/>
 							{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
-						</div>
+						</label>
 						{descriptionTextAreaOpen ? (
 							<textarea type="description" {...register("description")} />
 						) : (

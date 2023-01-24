@@ -9,10 +9,33 @@
 	align-self: start;
 }
 
+.container__workout img {
+	height: 100%;
+	width: 100%;
+}
+
 .container__workoutImage {
 	height: 33vw;
 	background-color: var(--BLUE);
 	position: relative;
+}
+
+.container__editingWorkoutImage {
+	height: 33vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: var(--BLUE);
+	position: relative;
+}
+
+.container__editingWorkoutImage:hover {
+	cursor: pointer;
+}
+
+.container__workoutImageInput {
+	display: none;
 }
 
 .container__workoutImage h1,
