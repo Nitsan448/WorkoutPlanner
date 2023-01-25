@@ -75,6 +75,7 @@ function EditingWorkout(props) {
 
 		// TODO: send old image if no new image
 		formData.append("image", workoutImage.image);
+
 		try {
 			await updateWorkout(formData).unwrap();
 			clearErrors();
@@ -140,7 +141,9 @@ function EditingWorkout(props) {
 		);
 	}
 
-	const image = workoutImage.imageUrl || props.workout.image;
+	const image = props.workout.image
+		? workoutImage.imageUrl || `http://localhost:8000/${props.workout.image}`
+		: workoutImage.imageUrl;
 
 	function renderWorkout() {
 		return (
@@ -159,7 +162,7 @@ function EditingWorkout(props) {
 								accept=".jpg, .jpeg, .png"
 								className={classes.container__workoutImageInput}
 							/>
-							{Image && <img src={image} alt="Exercise" width={"200"} height={"200"} />}
+							{Image && <img src={image} alt="Workout" width={"200"} height={"200"} />}
 
 							<input
 								type="text"
@@ -185,6 +188,7 @@ function EditingWorkout(props) {
 				) : (
 					<>
 						<div className={classes.container__workoutImage}>
+							{Image && <img src={image} alt="Workout" width={"200"} height={"200"} />}
 							<h1>{props.workout.name}</h1>
 						</div>
 						<h4>{props.workout.description}</h4>

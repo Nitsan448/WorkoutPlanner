@@ -56,12 +56,20 @@ router.patch("/", validateNameIsNotEmpty(), validate, async (req, res, next) => 
 		// Don't update image if it already exists or is undefined
 		const image = req.file === undefined ? null : req.file.path;
 
-		await Workout.updateWorkout({
-			name: req.body.name,
-			description: req.body.description,
-			image,
-			workoutId: req.body.workout_id,
-		});
+		if (image) {
+			await Workout.updateWorkoutWithImage({
+				name: req.body.name,
+				description: req.body.description,
+				image,
+				workoutId: req.body.workout_id,
+			});
+		} else {
+			await Workout.updateWorkoutWithoutImage({
+				name: req.body.name,
+				description: req.body.description,
+				workoutId: req.body.workout_id,
+			});
+		}
 		res.status(200).json("Workout updated");
 	} catch (error) {
 		console.log(error.message);

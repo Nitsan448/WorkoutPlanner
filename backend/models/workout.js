@@ -28,8 +28,13 @@ module.exports = class Workout {
 		return database.execute(query, [workoutId]);
 	}
 
-	static updateWorkout(workout) {
+	static updateWorkoutWithImage(workout) {
+		//TODO: merge with updateWorkoutWithoutImage
 		const query = "UPDATE workouts SET name=?, description=?, image=? WHERE workout_id=?";
+		return database.execute(query, Object.values(workout));
+	}
+	static updateWorkoutWithoutImage(workout) {
+		const query = "UPDATE workouts SET name=?, description=? WHERE workout_id=?";
 		return database.execute(query, Object.values(workout));
 	}
 
