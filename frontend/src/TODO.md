@@ -2,7 +2,7 @@
 
 1. Change navigation bar state according to user logged in status.
 
-2. Send images uploaded to server
+2. Send exercise images uploaded to server
 
 3. Add remember me field in sign up
 
@@ -14,7 +14,7 @@
 
 3. Add queries for mobile use
 
-4. Include images for each workout in workouts page.
+4. Include images for each workout in workouts page and change buttons.
 
 5. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 

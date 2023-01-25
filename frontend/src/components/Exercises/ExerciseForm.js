@@ -4,10 +4,15 @@ import { isPositiveNumber } from "../../helpers/helpers";
 import { useForm } from "react-hook-form";
 import { getTimeInSeconds, getTimeInTimerFormat } from "../../helpers/time";
 import useImageUpload from "../../hooks/use-image-upload";
+import ImageInput from "../UI/ImageInput";
 
 function ExerciseForm(props) {
-	const exerciseImage = useImageUpload();
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.description !== "");
+
+	const exerciseImage = useImageUpload();
+	const image = props.image
+		? exerciseImage.imageUrl || `http://localhost:8000/${props.image}`
+		: exerciseImage.imageUrl;
 
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
@@ -51,19 +56,13 @@ function ExerciseForm(props) {
 		},
 	});
 
-	const image = exerciseImage.imageUrl || props.image;
-
 	return (
 		<>
 			<form
 				encType="multipart/form-data"
 				className={classes.form}
 				onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
-				<label htmlFor="image" className={classes.form__image}>
-					{!image && "Add image"}
-					<input id="image" type="file" onChange={exerciseImage.onImageUpload} accept=".jpg, .jpeg, .png" />
-					{Image && <img src={image} alt="Exercise" width={"200"} height={"200"} />}
-				</label>
+				<ImageInput onChange={exerciseImage.onImageUpload} image={image} />
 				<div className={classes.form__exercise}>
 					<input
 						type="text"

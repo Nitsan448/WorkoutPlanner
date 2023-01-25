@@ -11,10 +11,10 @@ import {
 import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import useImageUpload from "../../hooks/use-image-upload";
+import ImageInput from "../UI/ImageInput";
 
 let deleteWorkoutOnUnmount = true;
 function EditingWorkout(props) {
-	const workoutImage = useImageUpload();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const workoutId = props.workout.workout_id;
@@ -28,6 +28,11 @@ function EditingWorkout(props) {
 	const [updateWorkout] = useUpdateWorkoutMutation();
 	const [deleteWorkout] = useDeleteWorkoutMutation();
 	const [updateRoutinesOrder] = useUpdateRoutinesOrderMutation();
+
+	const workoutImage = useImageUpload();
+	const image = props.workout.image
+		? workoutImage.imageUrl || `http://localhost:8000/${props.workout.image}`
+		: workoutImage.imageUrl;
 
 	function StartWorkoutHandler() {
 		navigate(`${location.pathname}?mode=play`);
@@ -139,10 +144,6 @@ function EditingWorkout(props) {
 		);
 	}
 
-	const image = props.workout.image
-		? workoutImage.imageUrl || `http://localhost:8000/${props.workout.image}`
-		: workoutImage.imageUrl;
-
 	function renderWorkout() {
 		return (
 			<div className={classes.container__workout}>
@@ -150,29 +151,20 @@ function EditingWorkout(props) {
 					<form
 						encType="multipart/form-data"
 						onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
-						{/*TODO: Extract image upload input to component */}
-						<label htmlFor="image" className={classes.container__editingWorkoutImage}>
-							{!image && "Add image"}
-							<input
-								id="image"
-								type="file"
-								onChange={workoutImage.onImageUpload}
-								accept=".jpg, .jpeg, .png"
-								className={classes.container__workoutImageInput}
-							/>
-							{image && <img src={image} alt="Workout" width={"200"} height={"200"} />}
-
-							<input
-								type="text"
-								className={
-									errors.name
-										? `invalidInput ${classes.container__workoutNameInput}`
-										: classes.container__workoutNameInput
-								}
-								{...register("name", { required: "Workout name can not be empty" })}
-							/>
-							{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
-						</label>
+						<div className={classes.imageAspectRatio}>
+							<ImageInput onChange={workoutImage.onImageUpload} image={image}>
+								<input
+									type="text"
+									className={
+										errors.name
+											? `invalidInput ${classes.container__workoutNameInput}`
+											: classes.container__workoutNameInput
+									}
+									{...register("name", { required: "Workout name can not be empty" })}
+								/>
+								{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
+							</ImageInput>
+						</div>
 						{descriptionTextAreaOpen ? (
 							<textarea type="description" {...register("description")} />
 						) : (

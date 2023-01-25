@@ -1,0 +1,17 @@
+.imageInput {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: var(--BLUE);
+	position: relative;
+}
+
+.imageInput:hover {
+	cursor: pointer;
+}
+
+.imageInput input[type="file"] {
+	display: none;
+}
