@@ -68,12 +68,15 @@ function EditingWorkout(props) {
 	}
 
 	async function saveWorkoutHandler(data) {
+		const formData = new FormData();
+		formData.append("name", data.name);
+		formData.append("description", data.description);
+		formData.append("workout_id", workoutId);
+
+		// TODO: send old image if no new image
+		formData.append("image", workoutImage.image);
 		try {
-			await updateWorkout({
-				name: data.name,
-				description: data.description,
-				workout_id: workoutId,
-			}).unwrap();
+			await updateWorkout(formData).unwrap();
 			clearErrors();
 			setDescriptionTextAreaOpen(false);
 			setInEditMode(false);
@@ -137,23 +140,27 @@ function EditingWorkout(props) {
 		);
 	}
 
-	const image = workoutImage.imageUrl || props.image;
+	const image = workoutImage.imageUrl || props.workout.image;
 
 	function renderWorkout() {
 		return (
 			<div className={classes.container__workout}>
 				{inEditMode ? (
-					<>
-						<label htmlFor="image-upload" className={classes.container__editingWorkoutImage}>
+					<form
+						encType="multipart/form-data"
+						onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
+						{/*TODO: Extract image upload input to component */}
+						<label htmlFor="image" className={classes.container__editingWorkoutImage}>
 							{!image && "Add image"}
 							<input
-								id="image-upload"
+								id="image"
 								type="file"
 								onChange={workoutImage.onImageUpload}
 								accept=".jpg, .jpeg, .png"
 								className={classes.container__workoutImageInput}
 							/>
 							{Image && <img src={image} alt="Exercise" width={"200"} height={"200"} />}
+
 							<input
 								type="text"
 								className={
@@ -173,7 +180,8 @@ function EditingWorkout(props) {
 								onClick={() => setDescriptionTextAreaOpen(true)}
 							/>
 						)}
-					</>
+						<button className={classes.checkmark} />
+					</form>
 				) : (
 					<>
 						<div className={classes.container__workoutImage}>
@@ -191,7 +199,7 @@ function EditingWorkout(props) {
 			<DragDropContext onDragEnd={onDragEnd}>
 				<div className={classes.container__exercises}>
 					{routines ? (
-						<Droppable droppableId={"1"}>
+						<Droppable droppableId={"0"}>
 							{(provided) => (
 								<ul ref={provided.innerRef} {...provided.droppableProps}>
 									{routines.map((routine) => getExerciseAsComponent(routine))}
@@ -218,10 +226,10 @@ function EditingWorkout(props) {
 			</div>
 			{inEditMode ? (
 				<>
-					<button
+					{/* <button
 						className={classes.checkmark}
 						onClick={handleSubmit(async (data) => saveWorkoutHandler(data))}
-					/>
+					/> */}
 					<button className={classes.deleteButton} onClick={onDeleteWorkoutClicked} />
 				</>
 			) : (

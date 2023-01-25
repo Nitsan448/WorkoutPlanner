@@ -14,11 +14,10 @@ function useImageUpload() {
 		}
 	}, [image]);
 
-	function getImageAsBlob() {}
-
 	return {
 		onImageUpload,
 		imageUrl,
+		image,
 	};
 }
 

@@ -26,7 +26,7 @@ export const apiSlice = createApi({
 		}),
 		updateWorkout: builder.mutation({
 			query: (workout) => ({
-				url: `/workouts/${workout.workout_id}`,
+				url: `/workouts`,
 				method: "PATCH",
 				body: workout,
 			}),

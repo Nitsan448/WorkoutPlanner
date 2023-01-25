@@ -55,15 +55,13 @@ function ExerciseForm(props) {
 
 	return (
 		<>
-			<form className={classes.form} onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
-				<label htmlFor="image-upload" className={classes.form__image}>
+			<form
+				encType="multipart/form-data"
+				className={classes.form}
+				onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
+				<label htmlFor="image" className={classes.form__image}>
 					{!image && "Add image"}
-					<input
-						id="image-upload"
-						type="file"
-						onChange={exerciseImage.onImageUpload}
-						accept=".jpg, .jpeg, .png"
-					/>
+					<input id="image" type="file" onChange={exerciseImage.onImageUpload} accept=".jpg, .jpeg, .png" />
 					{Image && <img src={image} alt="Exercise" width={"200"} height={"200"} />}
 				</label>
 				<div className={classes.form__exercise}>

@@ -21,6 +21,7 @@ router.get("/:workoutId", async (req, res, next) => {
 		const [workout] = await Workout.findById(workoutId);
 		const [routines] = await Workout.getRoutines(workoutId);
 		res.status(200).json({
+			image: workout[0].image,
 			...workout[0],
 			routines: routines,
 		});
@@ -31,12 +32,13 @@ router.get("/:workoutId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
 	//Validate image
+	const image = req.file === undefined ? null : req.file.path;
 	try {
 		const [results] = await Workout.addWorkout({
 			name: req.body.name,
 			description: req.body.description,
 			userId: req.userId,
-			image: req.body.image === undefined ? null : req.body.image,
+			image,
 		});
 		res.status(201).json(results.insertId);
 	} catch (error) {
@@ -45,17 +47,20 @@ router.post("/", async (req, res, next) => {
 	}
 });
 
-router.patch("/:workoutId", validateNameIsNotEmpty(), validate, async (req, res, next) => {
-	//Validate image
+router.patch("/", validateNameIsNotEmpty(), validate, async (req, res, next) => {
+	//TODO: Validate image
 	try {
-		const [workout] = await Workout.findById(req.params.workoutId);
+		const [workout] = await Workout.findById(req.body.workout_id);
 		checkIfRowCanBeManipulated(workout, req.userId);
+
+		// Don't update image if it already exists or is undefined
+		const image = req.file === undefined ? null : req.file.path;
 
 		await Workout.updateWorkout({
 			name: req.body.name,
 			description: req.body.description,
-			image: req.body.image === undefined ? null : req.body.image,
-			workoutId: req.params.workoutId,
+			image,
+			workoutId: req.body.workout_id,
 		});
 		res.status(200).json("Workout updated");
 	} catch (error) {
