@@ -52,12 +52,15 @@ router.patch("/", validateNameIsNotEmpty(), validate, async (req, res, next) => 
 		const [workout] = await Workout.findById(req.body.workout_id);
 		checkIfRowCanBeManipulated(workout, req.userId);
 
-		let image = req.file.path;
+		let image;
 
 		if (req.file === undefined) {
 			image = workout[0].image;
 		} else if (workout[0].image) {
 			fileHelper.deleteFile(workout[0].image);
+			image = req.file.path;
+		} else {
+			image = req.file.path;
 		}
 
 		await Workout.updateWorkout({

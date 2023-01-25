@@ -160,7 +160,7 @@ function EditingWorkout(props) {
 								accept=".jpg, .jpeg, .png"
 								className={classes.container__workoutImageInput}
 							/>
-							{Image && <img src={image} alt="Workout" width={"200"} height={"200"} />}
+							{image && <img src={image} alt="Workout" width={"200"} height={"200"} />}
 
 							<input
 								type="text"
@@ -186,7 +186,7 @@ function EditingWorkout(props) {
 				) : (
 					<>
 						<div className={classes.container__workoutImage}>
-							{Image && <img src={image} alt="Workout" width={"200"} height={"200"} />}
+							{image && <img src={image} alt="Workout" width={"200"} height={"200"} />}
 							<h1>{props.workout.name}</h1>
 						</div>
 						<h4>{props.workout.description}</h4>
