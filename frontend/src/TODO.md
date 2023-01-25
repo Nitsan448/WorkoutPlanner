@@ -48,3 +48,5 @@ Add option to choose from current exercises and routines when creating a new exe
 Make it impossible to change an exercise name to an already existing exercise.
 
 Change favicon and title
+
+Add tests

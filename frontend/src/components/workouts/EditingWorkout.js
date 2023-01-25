@@ -72,8 +72,6 @@ function EditingWorkout(props) {
 		formData.append("name", data.name);
 		formData.append("description", data.description);
 		formData.append("workout_id", workoutId);
-
-		// TODO: send old image if no new image
 		formData.append("image", workoutImage.image);
 
 		try {

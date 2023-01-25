@@ -1,13 +1,12 @@
 const jsonWebToken = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
-	//TODO: refactor
 	const token = req.cookies.token;
 	if (!token) {
 		throw new Error("Not authenticated");
 	}
 
-	//TODO: put secret in process.env (research)
+	//TODO: change secret and put it in process.env
 	let decodedToken;
 	try {
 		decodedToken = jsonWebToken.verify(token, "secret");

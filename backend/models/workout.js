@@ -15,7 +15,6 @@ module.exports = class Workout {
 	static getWorkouts(userId) {
 		const query = "SELECT * FROM workouts WHERE user_id = ?";
 		return database.execute(query, [userId]);
-		// return database.execute("SELECT name FROM workouts ORDER BY id");
 	}
 
 	static addWorkout(workout) {
@@ -28,13 +27,8 @@ module.exports = class Workout {
 		return database.execute(query, [workoutId]);
 	}
 
-	static updateWorkoutWithImage(workout) {
-		//TODO: merge with updateWorkoutWithoutImage
+	static updateWorkout(workout) {
 		const query = "UPDATE workouts SET name=?, description=?, image=? WHERE workout_id=?";
-		return database.execute(query, Object.values(workout));
-	}
-	static updateWorkoutWithoutImage(workout) {
-		const query = "UPDATE workouts SET name=?, description=? WHERE workout_id=?";
 		return database.execute(query, Object.values(workout));
 	}
 
@@ -44,7 +38,7 @@ module.exports = class Workout {
 	}
 
 	static getRoutines(workoutId) {
-		// Order by order in workout
+		//TODO: Order by order in workout
 		const query =
 			"SELECT * FROM routines INNER JOIN exercises ON routines.exercise_id=exercises.exercise_id WHERE workout_id=?";
 		return database.execute(query, [workoutId]);

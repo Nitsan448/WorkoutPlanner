@@ -2,6 +2,7 @@ const express = require("express");
 const Workout = require("../models/workout");
 const { validateNameIsNotEmpty, validate } = require("../middleware/validation");
 const { checkIfRowCanBeManipulated } = require("../helpers/validation");
+const fileHelper = require("../helpers/file");
 
 const router = express.Router();
 
@@ -31,7 +32,6 @@ router.get("/:workoutId", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-	//Validate image
 	const image = req.file === undefined ? null : req.file.path;
 	try {
 		const [results] = await Workout.addWorkout({
@@ -48,28 +48,24 @@ router.post("/", async (req, res, next) => {
 });
 
 router.patch("/", validateNameIsNotEmpty(), validate, async (req, res, next) => {
-	//TODO: Validate image
 	try {
 		const [workout] = await Workout.findById(req.body.workout_id);
 		checkIfRowCanBeManipulated(workout, req.userId);
 
-		// Don't update image if it already exists or is undefined
-		const image = req.file === undefined ? null : req.file.path;
+		let image = req.file.path;
 
-		if (image) {
-			await Workout.updateWorkoutWithImage({
-				name: req.body.name,
-				description: req.body.description,
-				image,
-				workoutId: req.body.workout_id,
-			});
-		} else {
-			await Workout.updateWorkoutWithoutImage({
-				name: req.body.name,
-				description: req.body.description,
-				workoutId: req.body.workout_id,
-			});
+		if (req.file === undefined) {
+			image = workout[0].image;
+		} else if (workout[0].image) {
+			fileHelper.deleteFile(workout[0].image);
 		}
+
+		await Workout.updateWorkout({
+			name: req.body.name,
+			description: req.body.description,
+			image: image,
+			workoutId: req.body.workout_id,
+		});
 		res.status(200).json("Workout updated");
 	} catch (error) {
 		console.log(error.message);
@@ -82,6 +78,10 @@ router.delete("/:workoutId", async (req, res, next) => {
 	try {
 		const [workout] = await Workout.findById(workoutId);
 		checkIfRowCanBeManipulated(workout, req.userId);
+
+		if (workout[0].image) {
+			fileHelper.deleteFile(workout[0].image);
+		}
 
 		await Workout.deleteWorkout(workoutId);
 		res.status(200).json("Workout deleted");
