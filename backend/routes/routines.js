@@ -6,6 +6,8 @@ const Routine = require("../models/routine");
 const router = express.Router();
 
 router.post("/", async (req, res, next) => {
+	console.log(req.body);
+	console.log(req.files);
 	const routine = getRoutineFromRequest(req);
 	try {
 		await Routine.addRoutine(routine);
@@ -16,12 +18,12 @@ router.post("/", async (req, res, next) => {
 	}
 });
 
-function getRoutineFromRequest(req) {
+async function getRoutineFromRequest(req) {
 	return {
 		userId: req.userId,
 		name: req.body.name,
 		description: req.body.description,
-		image: req.body.image === undefined ? null : req.body.image,
+		image: req.file === undefined ? null : req.file.path,
 		workoutId: req.body.workout_id,
 		sets: req.body.sets,
 		timeOrRepetitions: req.body.time_or_repetitions !== undefined && req.body.time_or_repetitions ? 1 : 0,

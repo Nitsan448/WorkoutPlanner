@@ -10,6 +10,7 @@ function ExerciseForm(props) {
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.description !== "");
 
 	const exerciseImage = useImageUpload();
+	//TODO: switch http://localhost:8000/ concatination to backend
 	const image = props.image
 		? exerciseImage.imageUrl || `http://localhost:8000/${props.image}`
 		: exerciseImage.imageUrl;
@@ -27,7 +28,7 @@ function ExerciseForm(props) {
 			workout_id: +props.workoutId,
 			name: data.name,
 			description: data.description,
-			image: exerciseImage.imageUrl,
+			image: image,
 			sets: data.sets,
 			time_or_repetitions: 1,
 			set_time: getTimeInSeconds(data.setTime),
@@ -62,7 +63,11 @@ function ExerciseForm(props) {
 				encType="multipart/form-data"
 				className={classes.form}
 				onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
-				<ImageInput onChange={exerciseImage.onImageUpload} image={image} />
+				<ImageInput
+					inputId={`exercise_image${props.orderInWorkout}`}
+					onChange={exerciseImage.onImageUpload}
+					image={image}
+				/>
 				<div className={classes.form__exercise}>
 					<input
 						type="text"

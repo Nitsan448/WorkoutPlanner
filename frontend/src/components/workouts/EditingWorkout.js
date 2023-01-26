@@ -73,14 +73,14 @@ function EditingWorkout(props) {
 	}
 
 	async function saveWorkoutHandler(data) {
-		const formData = new FormData();
-		formData.append("name", data.name);
-		formData.append("description", data.description);
-		formData.append("workout_id", workoutId);
-		formData.append("image", workoutImage.image);
+		const workoutData = new FormData();
+		workoutData.append("name", data.name);
+		workoutData.append("description", data.description);
+		workoutData.append("workout_id", workoutId);
+		workoutData.append("image", workoutImage.image);
 
 		try {
-			await updateWorkout(formData).unwrap();
+			await updateWorkout(workoutData).unwrap();
 			clearErrors();
 			setDescriptionTextAreaOpen(false);
 			setInEditMode(false);
@@ -152,7 +152,7 @@ function EditingWorkout(props) {
 						encType="multipart/form-data"
 						onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
 						<div className={classes.imageAspectRatio}>
-							<ImageInput onChange={workoutImage.onImageUpload} image={image}>
+							<ImageInput inputId="workout_image" onChange={workoutImage.onImageUpload} image={image}>
 								<input
 									type="text"
 									className={

@@ -9,8 +9,13 @@ function NewExerciseForm(props) {
 	const [addRoutine] = useAddRoutineMutation();
 
 	async function addExerciseHandler(routine, resetForm) {
+		const routineData = new FormData();
+		for (var key in routine) {
+			routineData.append(key, routine[key]);
+		}
+
 		try {
-			await addRoutine(routine);
+			await addRoutine(routineData);
 			resetForm();
 			setIsFormOpen(false);
 		} catch (error) {

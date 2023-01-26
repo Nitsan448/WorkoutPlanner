@@ -49,7 +49,6 @@ router.post("/", async (req, res, next) => {
 
 router.patch("/", validateNameIsNotEmpty(), validate, async (req, res, next) => {
 	try {
-		console.log(req.file);
 		const [workout] = await Workout.findById(req.body.workout_id);
 		checkIfRowCanBeManipulated(workout, req.userId);
 

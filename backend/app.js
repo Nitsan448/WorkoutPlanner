@@ -28,7 +28,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 app.use(express.json());
-app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("image"));
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("workout_image"));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 const corsOptions = {

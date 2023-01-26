@@ -21,8 +21,13 @@ function Exercise(props) {
 	}
 
 	async function editExerciseHandler(routine) {
+		const routineData = new FormData();
+		for (var key in routine) {
+			routineData.append(key, routine[key]);
+		}
+
 		try {
-			await updateRoutine(routine).unwrap();
+			await updateRoutine(routineData).unwrap();
 			toggleExerciseFormOpenState(false);
 		} catch (error) {
 			console.log(error.data);
