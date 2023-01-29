@@ -4,7 +4,6 @@ function deleteFile(filePath) {
 	fs.unlink(filePath, (error) => {
 		if (error) {
 			console.log(error);
-			throw error;
 		}
 	});
 }

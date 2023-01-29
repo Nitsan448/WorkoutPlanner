@@ -32,7 +32,7 @@ router.get("/:workoutId", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-	const image = req.file === undefined ? null : req.file.path;
+	const image = req.files.length === 0 ? null : req.files[0].path;
 	try {
 		const [results] = await Workout.addWorkout({
 			name: req.body.name,
@@ -53,14 +53,13 @@ router.patch("/", validateNameIsNotEmpty(), validate, async (req, res, next) => 
 		checkIfRowCanBeManipulated(workout, req.userId);
 
 		let image;
-
-		if (req.file === undefined) {
+		if (req.files.length === 0) {
 			image = workout[0].image;
 		} else if (workout[0].image) {
 			fileHelper.deleteFile(workout[0].image);
-			image = req.file.path;
+			image = req.files[0].path;
 		} else {
-			image = req.file.path;
+			image = req.files[0].path;
 		}
 
 		await Workout.updateWorkout({

@@ -10,10 +10,7 @@ function ExerciseForm(props) {
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.description !== "");
 
 	const exerciseImage = useImageUpload();
-	//TODO: switch http://localhost:8000/ concatination to backend
-	const image = props.image
-		? exerciseImage.imageUrl || `http://localhost:8000/${props.image}`
-		: exerciseImage.imageUrl;
+	const image = props.exerciseImage ? exerciseImage.imageUrl || props.exerciseImage : exerciseImage.imageUrl;
 
 	function validateTimeInput(value) {
 		if (value.split(":").length !== 2) {
@@ -22,13 +19,12 @@ function ExerciseForm(props) {
 		const [minutes, seconds] = value.split(":");
 		return isPositiveNumber(minutes) && isPositiveNumber(seconds) && seconds < 60 && minutes < 60;
 	}
-
-	function saveRoutine(data) {
+	async function saveRoutine(data) {
 		const routine = {
 			workout_id: +props.workoutId,
 			name: data.name,
 			description: data.description,
-			image: image,
+			image: exerciseImage.image,
 			sets: data.sets,
 			time_or_repetitions: 1,
 			set_time: getTimeInSeconds(data.setTime),
@@ -37,6 +33,7 @@ function ExerciseForm(props) {
 			break_after_routine: getTimeInSeconds(data.breakAfterExercise),
 			order_in_workout: props.orderInWorkout,
 		};
+
 		props.saveExerciseHandler(routine, reset);
 	}
 
@@ -67,6 +64,8 @@ function ExerciseForm(props) {
 					inputId={`exercise_image${props.orderInWorkout}`}
 					onChange={exerciseImage.onImageUpload}
 					image={image}
+					allowImageChange={true}
+					alt="Exercise"
 				/>
 				<div className={classes.form__exercise}>
 					<input

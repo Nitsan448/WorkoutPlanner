@@ -55,3 +55,7 @@ img {
 	font-size: 0.75em;
 	font-weight: bold;
 }
+
+.pointerCursor {
+	cursor: pointer;
+}

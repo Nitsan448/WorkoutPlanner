@@ -152,7 +152,12 @@ function EditingWorkout(props) {
 						encType="multipart/form-data"
 						onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
 						<div className={classes.imageAspectRatio}>
-							<ImageInput inputId="workout_image" onChange={workoutImage.onImageUpload} image={image}>
+							<ImageInput
+								inputId="workout_image"
+								onChange={workoutImage.onImageUpload}
+								image={image}
+								alt="Workout"
+								allowImageChange={true}>
 								<input
 									type="text"
 									className={
@@ -177,10 +182,9 @@ function EditingWorkout(props) {
 					</form>
 				) : (
 					<>
-						<div className={classes.container__workoutImage}>
-							{image && <img src={image} alt="Workout" width={"200"} height={"200"} />}
+						<ImageInput image={image} alt="Workout" allowImageChange={false}>
 							<h1>{props.workout.name}</h1>
-						</div>
+						</ImageInput>
 						<h4>{props.workout.description}</h4>
 					</>
 				)}

@@ -4,12 +4,16 @@ import { getTimeInTimerFormat } from "../../helpers/time";
 import { useDeleteRoutineMutation, useUpdateRoutineMutation } from "../../store/apiSlice";
 import ExerciseForm from "./ExerciseForm";
 import { Draggable } from "react-beautiful-dnd";
+import ImageInput from "../UI/ImageInput";
 
 function Exercise(props) {
 	const [editingExercise, setEditingExercise] = useState(false);
 
 	const [deleteRoutine] = useDeleteRoutineMutation();
 	const [updateRoutine] = useUpdateRoutineMutation();
+
+	//TODO: switch http://localhost:8000/ concatination to backend
+	const image = props.image ? `http://localhost:8000/${props.image}` : "";
 
 	async function deleteExerciseHandler() {
 		setEditingExercise(false);
@@ -73,7 +77,7 @@ function Exercise(props) {
 	function renderExerciseInformation() {
 		return (
 			<>
-				<div className={classes.exercise__image} />
+				<ImageInput image={image} alt={props.name} allowImageChange={false} />
 				<div>
 					<h3 className={classes.exercise__name}>{props.name}</h3>
 					<p>{props.description}</p>
@@ -95,6 +99,7 @@ function Exercise(props) {
 					saveExerciseHandler={editExerciseHandler}
 					deleteExerciseHandler={deleteExerciseHandler}
 					cancelEditHandler={() => toggleExerciseFormOpenState(false)}
+					exerciseImage={image}
 					{...props}
 				/>
 			) : (
