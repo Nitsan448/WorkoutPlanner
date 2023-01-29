@@ -32,7 +32,7 @@ router.get("/:workoutId", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-	const image = req.files.length === 0 ? null : req.files[0].path;
+	const image = req.files === undefined || req.files.length === 0 ? null : req.files[0].path;
 	try {
 		const [results] = await Workout.addWorkout({
 			name: req.body.name,
