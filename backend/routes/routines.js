@@ -1,7 +1,7 @@
 const express = require("express");
 const { checkIfRowCanBeManipulated } = require("../helpers/validation");
 const Routine = require("../models/routine");
-// const { validateNameIsNotEmpty, validateWorkoutPost, validate } = require("../middleware/validation");
+// const { validateNameIsNotEmpty, validate } = require("../middleware/validation");
 const fileHelper = require("../helpers/file");
 
 const router = express.Router();

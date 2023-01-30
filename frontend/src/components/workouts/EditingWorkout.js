@@ -152,6 +152,7 @@ function EditingWorkout(props) {
 						encType="multipart/form-data"
 						onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
 						<ImageInput
+							workoutImage={true}
 							inputId="workout_image"
 							onChange={workoutImage.onImageUpload}
 							image={image}
@@ -188,7 +189,7 @@ function EditingWorkout(props) {
 					</form>
 				) : (
 					<>
-						<ImageInput image={image} alt="Workout" allowImageChange={false}>
+						<ImageInput workoutImage={true} image={image} alt="Workout" allowImageChange={false}>
 							<h1>{props.workout.name}</h1>
 						</ImageInput>
 						<h4>{props.workout.description}</h4>

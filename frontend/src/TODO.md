@@ -6,13 +6,13 @@
 
 ### CSS
 
-1. Add/Fix css for sign up, login
+1. Sign up, login pages
 
-2. Add/Fix for playWorkout pages,
+2. playWorkout page
 
 3. Add queries for mobile use
 
-4. Include images for each workout in workouts page and change buttons.
+4. workouts page (image size should not be responsive).
 
 5. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 
@@ -24,25 +24,25 @@
 
 # Backlog
 
-Add missing fields: setTime/repetition etc.
+1. Add missing fields: setTime/repetition etc.
 
-Warn user if he tried to leave an unsaved workout that will be deleted.
+2. Warn user if he tried to leave an unsaved workout that will be deleted.
 
-Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise).
+3. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise).
 
-Remove loop from delete_routine stored procedure (do something similar to update_routines_order).
+4. Remove loop from delete_routine stored procedure (do something similar to update_routines_order).
 
-Require auth when user enters a page
+5. Require auth when user enters a page
 
-Add option to login as a guest - Create user, delete it if the user leaves without logging out (after warning him)
+6. Add option to login as a guest - Create user, delete it if the user leaves without logging out (after warning him)
 
-Add all social media missing fields - public, likes, etc.
+7. Add social media features
 
-Make drag and drop work on mobile.
+8. Make drag and drop work on mobile.
 
-Add option to choose from current exercises and routines when creating a new exercise.
-Make it impossible to change an exercise name to an already existing exercise.
+9. Add option to choose from current exercises and routines when creating a new exercise.
+   Make it impossible to change an exercise name to an already existing exercise.
 
-Change favicon and title
+10. Change favicon and title
 
-Add tests
+11. Add tests

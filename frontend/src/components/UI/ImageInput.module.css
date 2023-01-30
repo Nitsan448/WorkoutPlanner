@@ -5,8 +5,16 @@
 	align-items: center;
 	background-color: var(--BLUE);
 	position: relative;
-	color: rgba(255, 255, 255, 0.8);
+	color: rgba(255, 255, 255, 0.7);
 	overflow: hidden;
+}
+
+.imageInput p {
+	z-index: 2;
+}
+
+.workoutImageInput {
+	height: 30vw;
 }
 
 .imageOverlay {
