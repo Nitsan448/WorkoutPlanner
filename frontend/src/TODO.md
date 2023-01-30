@@ -2,9 +2,7 @@
 
 1. Change navigation bar state according to user logged in status.
 
-2. Send exercise images uploaded to server
-
-3. Add remember me field in sign up
+2. Add remember me field in sign up
 
 ### CSS
 
@@ -23,8 +21,6 @@
 1. Fix token security and expiry date
 
 ## Bugs
-
-1. Changing an exercise image sometimes changes the image of a different exercise.
 
 # Backlog
 

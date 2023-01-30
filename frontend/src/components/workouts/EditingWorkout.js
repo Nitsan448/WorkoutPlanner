@@ -151,25 +151,24 @@ function EditingWorkout(props) {
 					<form
 						encType="multipart/form-data"
 						onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
-						<div className={classes.imageAspectRatio}>
-							<ImageInput
-								inputId="workout_image"
-								onChange={workoutImage.onImageUpload}
-								image={image}
-								alt="Workout"
-								allowImageChange={true}>
-								<input
-									type="text"
-									className={
-										errors.name
-											? `invalidInput ${classes.container__workoutNameInput}`
-											: classes.container__workoutNameInput
-									}
-									{...register("name", { required: "Workout name can not be empty" })}
-								/>
-								{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
-							</ImageInput>
-						</div>
+						<ImageInput
+							inputId="workout_image"
+							onChange={workoutImage.onImageUpload}
+							image={image}
+							alt="Workout"
+							allowImageChange={true}>
+							<input
+								type="text"
+								className={
+									errors.name
+										? `invalidInput ${classes.container__workoutNameInput}`
+										: classes.container__workoutNameInput
+								}
+								{...register("name", { required: "Workout name can not be empty" })}
+							/>
+							{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
+						</ImageInput>
+
 						{descriptionTextAreaOpen ? (
 							<textarea type="description" {...register("description")} />
 						) : (
@@ -178,7 +177,14 @@ function EditingWorkout(props) {
 								onClick={() => setDescriptionTextAreaOpen(true)}
 							/>
 						)}
-						<button className={classes.checkmark} />
+						<div>
+							<button className={`${classes.checkmark} ${classes.imageButton}`} />
+
+							<button
+								className={`${classes.delete} ${classes.imageButton}`}
+								onClick={onDeleteWorkoutClicked}
+							/>
+						</div>
 					</form>
 				) : (
 					<>
@@ -186,6 +192,16 @@ function EditingWorkout(props) {
 							<h1>{props.workout.name}</h1>
 						</ImageInput>
 						<h4>{props.workout.description}</h4>
+						<div>
+							<button
+								className={`${classes.play} ${classes.imageButton}`}
+								onClick={StartWorkoutHandler}
+							/>
+
+							<button
+								className={`${classes.edit} ${classes.imageButton}`}
+								onClick={EditWorkoutHandler}></button>
+						</div>
 					</>
 				)}
 			</div>
@@ -222,21 +238,6 @@ function EditingWorkout(props) {
 				{renderWorkout()}
 				{renderExercises()}
 			</div>
-			{inEditMode ? (
-				<>
-					{/* <button
-						className={classes.checkmark}
-						onClick={handleSubmit(async (data) => saveWorkoutHandler(data))}
-					/> */}
-					<button className={classes.deleteButton} onClick={onDeleteWorkoutClicked} />
-				</>
-			) : (
-				<>
-					<button className={classes.play} onClick={StartWorkoutHandler} />
-
-					<button className={classes.edit} onClick={EditWorkoutHandler}></button>
-				</>
-			)}
 		</div>
 	);
 }

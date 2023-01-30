@@ -9,8 +9,18 @@
 	grid-template-columns: 1fr;
 }
 
-.workout {
-	background-color: var(--GRAY-BLUE);
+.workouts__workoutBackground {
+	background-color: var(--BLUE);
+	height: 20vw;
+	width: 20vw;
+}
+
+.workouts__workoutBackground img {
+	display: block;
+	aspect-ratio: 1/1;
+	min-width: 100%;
+	min-height: 100%;
+	object-fit: cover;
 }
 
 @media screen and (min-width: 576px) {
