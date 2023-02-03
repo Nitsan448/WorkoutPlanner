@@ -1,0 +1,10 @@
+{
+	"env": {
+		"DB_HOST": "localhost",
+		"DB_USER": "root",
+		"DB_PASSWORD": "Ni1475369",
+		"DB": "workout-planner",
+
+		"JWT_SECRET": "dsaDSAD__SADSADAWdawasdWAD7654SADasdfvxcgfgjh0980gjkhgjhgkjlKLKLJI-9=0_OJdsadsabgfhjhhgjkifgdsuvivxchvgxhjkvgdxkuvjdxjhkvgx__hdjvgdxyuvxdjhgvxjhdvg43534dxjhv"
+	}
+}

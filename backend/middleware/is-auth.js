@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 	//TODO: change secret and put it in process.env
 	let decodedToken;
 	try {
-		decodedToken = jsonWebToken.verify(token, "secret");
+		decodedToken = jsonWebToken.verify(token, process.env.JWT_SECRET);
 	} catch (error) {
 		console.log(error.message);
 		throw error;

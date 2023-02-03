@@ -43,4 +43,4 @@ app.use("/workouts", isAuth, workoutsRoutes);
 app.use("/routines", isAuth, routinesRoutes);
 app.use("/auth", authRoutes);
 
-app.listen(8000);
+app.listen(process.env.PORT || 8000);
