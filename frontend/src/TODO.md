@@ -22,6 +22,10 @@
 
 ## Bugs
 
+1. Registering adds a @ before user name
+
+2. No User name must be unique constraint in database.
+
 # Backlog
 
 1. Add missing fields: setTime/repetition etc.

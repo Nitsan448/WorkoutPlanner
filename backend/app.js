@@ -31,9 +31,24 @@ app.use(express.json());
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).any());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
+const whitelist = [
+	"http://localhost:3000",
+	"https://main.d2r6jbd1qycb1j.amplifyapp.com/MyWebAppEnvironment.eba-8zsnz3f3.eu-west-3.elasticbeanstalk.com",
+	"https://main.d2r6jbd1qycb1j.amplifyapp.com",
+	"MyWebAppEnvironment.eba-8zsnz3f3.eu-west-3.elasticbeanstalk.com",
+];
+
 const corsOptions = {
+	origin: function (origin, callback) {
+		if (whitelist.indexOf(origin) !== -1 || !origin) {
+			callback(null, true);
+		} else {
+			callback(new Error("Not allowed by CORS"));
+		}
+	},
 	credentials: true,
-	origin: true,
+	methods: "GET,PUT,DELETE,HEAD,POST,PATCH",
+	allowdHeaders: "Content-Type",
 };
 app.use(cors(corsOptions));
 
