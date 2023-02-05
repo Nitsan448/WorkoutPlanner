@@ -12,7 +12,7 @@
 
 3. Add queries for mobile use
 
-4. workouts page (image size should not be responsive).
+4. workouts page.
 
 5. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 
@@ -22,9 +22,9 @@
 
 ## Bugs
 
-1. Registering adds a @ before user name
+1. Token cookie not saved between sessions on build
 
-2. No User name must be unique constraint in database.
+2. Add nodemon.json to .gitignore
 
 # Backlog
 
@@ -50,3 +50,5 @@
 10. Change favicon and title
 
 11. Add tests
+
+12. Fix snippets not working
