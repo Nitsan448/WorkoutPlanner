@@ -26,6 +26,8 @@
 
 2. Add nodemon.json to .gitignore
 
+3. Change frontend base url to be dynamic
+
 # Backlog
 
 1. Add missing fields: setTime/repetition etc.
