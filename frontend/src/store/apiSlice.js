@@ -4,7 +4,8 @@ export const apiSlice = createApi({
 	reducerPath: "api",
 	// baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000", credentials: "include" }),
 	baseQuery: fetchBaseQuery({
-		baseUrl: "https://MyWebAppEnvironment.eba-8zsnz3f3.eu-west-3.elasticbeanstalk.com",
+		// baseUrl: "https://MyWebAppEnvironment.eba-8zsnz3f3.eu-west-3.elasticbeanstalk.com",
+		baseUrl: "https://api.workoutscreator.com",
 		credentials: "include",
 	}),
 	tagTypes: ["Workout"],
