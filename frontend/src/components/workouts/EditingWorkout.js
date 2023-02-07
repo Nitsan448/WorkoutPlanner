@@ -30,9 +30,7 @@ function EditingWorkout(props) {
 	const [updateRoutinesOrder] = useUpdateRoutinesOrderMutation();
 
 	const workoutImage = useImageUpload();
-	const image = props.workout.image
-		? workoutImage.imageUrl || `http://localhost:8000/${props.workout.image}`
-		: workoutImage.imageUrl;
+	const image = props.workout.image ? workoutImage.imageUrl || `${props.workout.image}` : workoutImage.imageUrl;
 
 	function StartWorkoutHandler() {
 		navigate(`${location.pathname}?mode=play`);

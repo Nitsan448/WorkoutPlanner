@@ -12,8 +12,7 @@ function Exercise(props) {
 	const [deleteRoutine] = useDeleteRoutineMutation();
 	const [updateRoutine] = useUpdateRoutineMutation();
 
-	//TODO: switch http://localhost:8000/ concatination to backend
-	const image = props.image ? `http://localhost:8000/${props.image}` : "";
+	const image = props.image ? `${props.image}` : "";
 
 	async function deleteExerciseHandler() {
 		setEditingExercise(false);

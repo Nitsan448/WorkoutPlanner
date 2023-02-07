@@ -40,13 +40,8 @@ function Workouts(props) {
 	} else if (isWorkoutsRequestSuccess) {
 		content = workouts.map((workout) => (
 			<div key={workout.workout_id} className={classes.workout}>
-				{console.log(workout)}
 				{workout.image ? (
-					<img
-						className={classes.workouts__workoutBackground}
-						src={`http://localhost:8000/${workout.image}`}
-						alt="workout"
-					/>
+					<img className={classes.workouts__workoutBackground} src={`${workout.image}`} alt="workout" />
 				) : (
 					<div className={classes.workouts__workoutBackground}></div>
 				)}

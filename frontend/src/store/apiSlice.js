@@ -3,11 +3,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
 	reducerPath: "api",
 	baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL, credentials: "include" }),
-	// baseQuery: fetchBaseQuery({
-	// baseUrl: "https://MyWebAppEnvironment.eba-8zsnz3f3.eu-west-3.elasticbeanstalk.com",
-	// baseUrl: "https://api.workoutscreator.com",
-	// credentials: "include",
-	// }),
 	tagTypes: ["Workout"],
 	endpoints: (builder) => ({
 		getWorkouts: builder.query({

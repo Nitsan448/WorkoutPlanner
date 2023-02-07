@@ -4,6 +4,8 @@
 
 2. Add remember me field in sign up
 
+3. Change favicon and title
+
 ### CSS
 
 1. Sign up, login pages
@@ -18,39 +20,37 @@
 
 ## Backend
 
-1. Fix token security and expiry date
+1. Upload images to amazon s3 instead of images folder
+
+2. Playing a workout when the workout has no exercises gives blank page
 
 ## Bugs
 
-1. Token cookie not saved between sessions on build
-
-2. Add nodemon.json to .gitignore
-
-3. Change frontend base url to be dynamic
-
 # Backlog
 
-1. Add missing fields: setTime/repetition etc.
+1. Token cookie not saved between sessions on deployment
 
-2. Warn user if he tried to leave an unsaved workout that will be deleted.
+2. Add missing fields: setTime/repetition etc.
 
-3. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise).
+3. Warn user if he tried to leave an unsaved workout that will be deleted.
 
-4. Remove loop from delete_routine stored procedure (do something similar to update_routines_order).
+4. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise).
 
-5. Require auth when user enters a page
+5. Remove loop from delete_routine stored procedure (do something similar to update_routines_order).
 
-6. Add option to login as a guest - Create user, delete it if the user leaves without logging out (after warning him)
+6. Require auth when user enters a page
 
-7. Add social media features
+7. Add option to login as a guest - Create user, delete it if the user leaves without logging out (after warning him)
 
-8. Make drag and drop work on mobile.
+8. Add social media features
 
-9. Add option to choose from current exercises and routines when creating a new exercise.
-   Make it impossible to change an exercise name to an already existing exercise.
+9. Make drag and drop work on mobile.
 
-10. Change favicon and title
+10. Add option to choose from current exercises and routines when creating a new exercise.
+    Make it impossible to change an exercise name to an already existing exercise.
 
 11. Add tests
 
 12. Fix snippets not working
+
+13. Switch to cloudfront for accessing images from s3 and make them private
