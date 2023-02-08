@@ -18,6 +18,7 @@ router.post(
 	validatePasswordOnRegister(),
 	validate,
 	async (req, res, next) => {
+		console.log(req.body);
 		try {
 			const encryptedPassword = await bcrypt.hash(req.body.password, 12);
 			const [results] = await User.register({

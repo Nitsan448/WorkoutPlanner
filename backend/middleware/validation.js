@@ -16,14 +16,12 @@ function validateNameIsNotEmpty() {
 }
 
 function validateUserNameDoesNotExist() {
-	return body("user_name")
-		.custom(async (userName) => {
-			const [user] = await User.findByUserName(userName);
-			if (user.length > 0) {
-				return Promise.reject("User name taken");
-			}
-		})
-		.normalizeEmail();
+	return body("user_name").custom(async (userName) => {
+		const [user] = await User.findByUserName(userName);
+		if (user.length > 0) {
+			return Promise.reject("User name taken");
+		}
+	});
 }
 
 function validateEmailOnRegister() {

@@ -7,14 +7,28 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
+const multerS3 = require("multer-s3");
+
+var AWS = require("aws-sdk");
+
+AWS.config.update({
+	region: "eu-west-3",
+	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
+
+const s3 = new AWS.S3();
 
 const app = express();
 
-const fileStorage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, "images");
+const fileStorage = multerS3({
+	s3: s3,
+	bucket: process.env.AWS_BUCKET_NAME,
+	acl: "public-read",
+	metadata: function (req, file, cb) {
+		cb(null, { fieldName: file.fieldname });
 	},
-	filename: (req, file, cb) => {
+	key: function (req, file, cb) {
 		cb(null, new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname);
 	},
 });
@@ -29,14 +43,9 @@ const fileFilter = (req, file, cb) => {
 
 app.use(express.json());
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).any());
-app.use("/images", express.static(path.join(__dirname, "images")));
+// app.use("/images", express.static(path.join(__dirname, "images")));
 
-const whitelist = [
-	"http://localhost:3000",
-	"https://main.d2r6jbd1qycb1j.amplifyapp.com/MyWebAppEnvironment.eba-8zsnz3f3.eu-west-3.elasticbeanstalk.com",
-	"https://main.d2r6jbd1qycb1j.amplifyapp.com",
-	"MyWebAppEnvironment.eba-8zsnz3f3.eu-west-3.elasticbeanstalk.com",
-];
+const whitelist = ["http://localhost:3000", "https://www.workoutscreator.com"];
 
 const corsOptions = {
 	origin: function (origin, callback) {
@@ -59,3 +68,5 @@ app.use("/routines", isAuth, routinesRoutes);
 app.use("/auth", authRoutes);
 
 app.listen(process.env.PORT || 8000);
+
+module.exports = s3;

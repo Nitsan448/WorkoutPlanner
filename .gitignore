@@ -1,5 +1,9 @@
 .DS_STORE
 node_modules
+nodemon.json
+backend/nodemon.json
+.env
+frontend/.env
 scripts/flow/*/.flowconfig
 .flowconfig
 *~
