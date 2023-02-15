@@ -22,6 +22,14 @@
 
 1. workout image not deleting sometimes when deleting the workout (in Hagar's computer)
 
+2. Images not uploading to buckets in other computers/phones
+
+3. Workout with no name not deleted when leaving the page.
+
+## Other
+
+1. Add Readme to git
+
 # Backlog
 
 1. Token cookie not saved between sessions on deployment (seems it is saved but only appears when user goes to all workouts)
