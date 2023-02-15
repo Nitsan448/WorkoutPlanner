@@ -28,7 +28,11 @@ function Workout(props) {
 		content = (
 			<>
 				{workoutMode === "play" ? (
-					<PlayingWorkout workout={workout} />
+					workout.routines.length > 0 ? (
+						<PlayingWorkout workout={workout} />
+					) : (
+						<h2>You cannot play a workout with no exercises</h2>
+					)
 				) : (
 					<EditingWorkout workout={workout} inEditMode={workoutMode === "edit"} />
 				)}

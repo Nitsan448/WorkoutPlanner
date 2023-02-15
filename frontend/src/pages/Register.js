@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import classes from "../components/Exercises/ExerciseForm.module.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
 import Button from "../components/UI/Button";

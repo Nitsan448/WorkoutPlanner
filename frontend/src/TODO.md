@@ -1,10 +1,6 @@
 ## Frontend
 
-1. Change navigation bar state according to user logged in status
-
-2. Change favicon and title
-
-3. Fix setTime/repetition field
+1. Fix setTime/repetition field
 
 ### CSS
 
@@ -56,3 +52,5 @@
 12. Fix snippets not working
 
 13. Switch to cloudfront for accessing images from s3 and make them private
+
+14. Change favicon
