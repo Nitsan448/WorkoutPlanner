@@ -4,15 +4,19 @@ import { useNavigate, Link } from "react-router-dom";
 import { useRegisterMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
 import Button from "../components/UI/Button";
+import { useDispatch } from "react-redux";
+import { setLoggedInState } from "../store/userSlice";
 
 function Register(props) {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (document.cookie.indexOf("token=") !== -1) {
+			dispatch(setLoggedInState(true));
 			navigate(`/workouts`);
 		}
-	}, [navigate]);
+	}, [navigate, dispatch]);
 
 	const [registerUser] = useRegisterMutation();
 
@@ -25,6 +29,7 @@ function Register(props) {
 				password: data.password,
 			}).unwrap();
 			clearErrors();
+			dispatch(setLoggedInState(true));
 			navigate(`/workouts`);
 		} catch (error) {
 			console.log(error);
@@ -97,7 +102,7 @@ function Register(props) {
 				</div>
 				<Button text="Register" />
 			</form>
-			<Link to="/Login">Login</Link>
+			{/* <Link to="/Login">Login</Link> */}
 		</div>
 	);
 }

@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../store/apiSlice";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { setLoggedInState } from "../store/userSlice";
 
 function Login(props) {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [login] = useLoginMutation();
 
@@ -18,6 +21,7 @@ function Login(props) {
 				password: data.password,
 			}).unwrap();
 			clearErrors();
+			dispatch(setLoggedInState(true));
 			navigate(`/workouts`);
 		} catch (error) {
 			if (error.data === "User could not be found") {
@@ -67,7 +71,7 @@ function Login(props) {
 				</div>
 				<Button text="Login" />
 			</form>
-			<Link to="/Register">Register</Link>
+			{/* <Link to="/Register">Register</Link> */}
 		</div>
 	);
 }
