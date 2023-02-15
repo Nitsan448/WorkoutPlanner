@@ -18,8 +18,6 @@
 
 ## Backend
 
-1. Playing a workout when it has no exercises gives blank page
-
 ## Bugs
 
 1. workout image not deleting sometimes when deleting the workout (in Hagar's computer)
@@ -42,15 +40,13 @@
 
 8. Add social media features
 
-9. Make drag and drop work on mobile
+9. Add option to choose from current exercises and routines when creating a new exercise.
+   Make it impossible to change an exercise name to an already existing exercise.
 
-10. Add option to choose from current exercises and routines when creating a new exercise.
-    Make it impossible to change an exercise name to an already existing exercise.
+10. Add tests
 
-11. Add tests
+11. Fix snippets not working
 
-12. Fix snippets not working
+12. Switch to cloudfront for accessing images from s3 and make them private
 
-13. Switch to cloudfront for accessing images from s3 and make them private
-
-14. Change favicon
+13. Change favicon

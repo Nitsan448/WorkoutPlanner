@@ -8,6 +8,7 @@ import ImageInput from "../UI/ImageInput";
 
 function ExerciseForm(props) {
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.description !== "");
+	const [repetitionsFieldActive, setRepetitionsFieldActive] = useState(false);
 
 	const exerciseImage = useImageUpload();
 	const image = props.exerciseImage ? exerciseImage.imageUrl || props.exerciseImage : exerciseImage.imageUrl;
@@ -26,7 +27,7 @@ function ExerciseForm(props) {
 			description: data.description,
 			image: exerciseImage.image,
 			sets: data.sets,
-			time_or_repetitions: 1,
+			time_or_repetitions: repetitionsFieldActive ? 0 : 1,
 			set_time: getTimeInSeconds(data.setTime),
 			repetitions: 10,
 			rest_time: getTimeInSeconds(data.restTime),
@@ -109,7 +110,7 @@ function ExerciseForm(props) {
 					{errors.restTime && <p className={"invalidParagraph"}>Must be in xx:xx format</p>}
 				</div>
 				<div className={classes.form__repsOrSets}>
-					<div className={classes.form__routine}>
+					<div className={repetitionsFieldActive ? classes.form__routine : classes.form__greyRoutine}>
 						<label htmlFor="repetitions">Repetitions:</label>
 						<input
 							type="number"
@@ -118,11 +119,12 @@ function ExerciseForm(props) {
 								required: true,
 								min: 1,
 							})}
+							onSelect={() => setRepetitionsFieldActive(true)}
 						/>
 						{errors.repetitions && <p className={"invalidParagraph"}>Must be larger than 0</p>}
 					</div>
 					<div className={classes.form__orImage}></div>
-					<div className={classes.form__routine}>
+					<div className={!repetitionsFieldActive ? classes.form__routine : classes.form__greyRoutine}>
 						<label htmlFor="setTime">Set time:</label>
 						<input
 							type="text"
@@ -131,6 +133,7 @@ function ExerciseForm(props) {
 								required: true,
 								validate: (value) => validateTimeInput(value),
 							})}
+							onSelect={() => setRepetitionsFieldActive(false)}
 						/>
 						{errors.setTime && <p className={"invalidParagraph"}>Must be in xx:xx format</p>}
 					</div>

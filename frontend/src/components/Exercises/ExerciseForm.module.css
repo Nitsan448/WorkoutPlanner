@@ -78,6 +78,24 @@
 	min-width: 60%;
 }
 
+.form__greyRoutine {
+	display: grid;
+	place-content: center;
+	padding: var(--PADDING-TB) var(--PADDING-SIDE);
+	background-color: var(--WHITE);
+}
+
+.form__greyRoutine label {
+	display: block;
+	color: var(--GRAY-BLUE);
+}
+
+.form__greyRoutine input {
+	min-width: 60%;
+	color: var(--GRAY-BLUE);
+	border-color: var(--GRAY-BLUE);
+}
+
 .form__repsOrSets {
 	display: flex;
 	background-color: var(--WHITE);
