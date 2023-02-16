@@ -2,6 +2,8 @@
 
 1. Fix setTime/repetition field
 
+2. When page is refereshed navigation header changes (make default logged in, and changed logged in to false when starting from register or login pages)
+
 ### CSS
 
 1. Sign up, login pages
@@ -22,9 +24,9 @@
 
 1. workout image not deleting sometimes when deleting the workout (in Hagar's computer)
 
-2. Images not uploading to buckets in other computers/phones
+2. Images sometimes not uploading to buckets in other computers/phones
 
-3. Workout with no name not deleted when leaving the page.
+3. Cors policy problem in Hagar's computer
 
 ## Other
 

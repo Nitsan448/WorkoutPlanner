@@ -1,6 +1,5 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../components/UI/Button";
 import classes from "./Workouts.module.css";
 import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlice";
 
@@ -39,16 +38,24 @@ function Workouts(props) {
 		content = <h1>Loading...</h1>;
 	} else if (isWorkoutsRequestSuccess) {
 		content = workouts.map((workout) => (
-			<div key={workout.workout_id} className={classes.workout}>
-				{workout.image ? (
-					<img className={classes.workouts__workoutBackground} src={`${workout.image}`} alt="workout" />
-				) : (
-					<div className={classes.workouts__workoutBackground}></div>
-				)}
-				{/* <h2>{workout.name}</h2> */}
-				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "view")} text={"View"} />
-				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} text="Edit" />
-				<Button onClick={() => goToWorkoutHandler(workout.workout_id, "play")} text="Play" />
+			<div className={classes.workouts__workout}>
+				<button key={workout.workout_id} onClick={() => goToWorkoutHandler(workout.workout_id, "view")}>
+					{workout.image ? (
+						<div>
+							<img className={classes.workouts__workoutImage} src={`${workout.image}`} alt="workout" />
+							<div className={classes.workouts__imageFilter}></div>
+						</div>
+					) : (
+						<div className={classes.workouts__workoutImage} />
+					)}
+					<div>
+						<h2 className={classes.workouts__workoutName}>{workout.name}</h2>
+						<p className={classes.workouts__workoutDescription}>{workout.description}</p>
+					</div>
+					{/* <Button onClick={() => goToWorkoutHandler(workout.workout_id, "play")} text="Play" /> */}
+				</button>
+				<button className={classes.edit} onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} />
+				<button className={classes.play} onClick={() => goToWorkoutHandler(workout.workout_id, "play")} />
 			</div>
 		));
 	} else if (isWorkoutsRequestError) {
@@ -57,8 +64,10 @@ function Workouts(props) {
 
 	return (
 		<div className={classes.workouts}>
-			<div className={classes.gridContainer}>{content}</div>
-			<Button onClick={onAddWorkoutClicked} text="Add workout" />
+			<h2>My workouts</h2>
+			<div className={classes.workouts__gridContainer}>
+				{content} <button className={classes.workouts__newWorkout} onClick={onAddWorkoutClicked} />
+			</div>
 		</div>
 	);
 }
