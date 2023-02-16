@@ -2,8 +2,6 @@
 
 1. Fix setTime/repetition field
 
-2. When page is refereshed navigation header changes (make default logged in, and changed logged in to false when starting from register or login pages)
-
 ### CSS
 
 1. Sign up, login pages
@@ -12,7 +10,7 @@
 
 3. Add queries for mobile use
 
-4. workouts page
+4. workouts page (Ask Hagar about filter, workout name length and size, buttons color when hovering, etc.)
 
 5. Navigation bar
 

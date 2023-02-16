@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import classes from "../components/Exercises/ExerciseForm.module.css";
+import classes from "./RegisterAndLogin.module.css";
 import { useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
@@ -53,56 +53,61 @@ function Register(props) {
 	} = useForm();
 
 	return (
-		<div className={classes.form}>
-			<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
-				<div className={classes.form_group}>
-					<label htmlFor="userName">User name:</label>
-					<input
-						type="text"
-						className={errors.userName ? classes.invalid : ""}
-						{...register("userName", { required: "Please enter your user name" })}
-					/>
-					{errors.userName && <p className={classes.invalid}>{errors.userName.message}</p>}
-				</div>
-				<div className={classes.form_group}>
-					<label htmlFor="email">Email:</label>
-					<input
-						type="text"
-						className={errors.email ? classes.invalid : ""}
-						{...register("email", {
-							required: "Please enter your email",
-							pattern: { value: /\S+@\S+\.\S+/, message: "Please enter a valid email" },
-						})}
-					/>
-					{errors.email && <p className={classes.invalid}>{errors.email.message}</p>}
-				</div>
-				<div className={classes.form_group}>
-					<label htmlFor="password">password:</label>
-					<input
-						type="password"
-						className={errors.password ? classes.invalid : ""}
-						{...register("password", {
-							required: "Please enter a password",
-							minLength: { value: 5, message: "Password must be longer than 4 characters" },
-						})}
-					/>
-					{errors.password && <p className={classes.invalid}>{errors.password.message}</p>}
-				</div>
-				<div className={classes.form_group}>
-					<label htmlFor="validatePassword">Validate password:</label>
-					<input
-						type="password"
-						className={errors.validatePassword ? classes.invalid : ""}
-						{...register("validatePassword", {
-							required: "Please enter your password again",
-							validate: (value) => value === getValues("password") || "Passwords do not match",
-						})}
-					/>
-					{errors.validatePassword && <p className={classes.invalid}>{errors.validatePassword.message}</p>}
-				</div>
-				<Button text="Register" />
-			</form>
-			{/* <Link to="/Login">Login</Link> */}
+		<div className={classes.container}>
+			<h1>Register</h1>
+			<div className={classes.form}>
+				<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
+					<div className={classes.form_group}>
+						<label htmlFor="userName">User name:</label>
+						<input
+							type="text"
+							className={errors.userName ? classes.invalid : ""}
+							{...register("userName", { required: "Please enter your user name" })}
+						/>
+						{errors.userName && <p className={classes.invalid}>{errors.userName.message}</p>}
+					</div>
+					<div className={classes.form_group}>
+						<label htmlFor="email">Email:</label>
+						<input
+							type="text"
+							className={errors.email ? classes.invalid : ""}
+							{...register("email", {
+								required: "Please enter your email",
+								pattern: { value: /\S+@\S+\.\S+/, message: "Please enter a valid email" },
+							})}
+						/>
+						{errors.email && <p className={classes.invalid}>{errors.email.message}</p>}
+					</div>
+					<div className={classes.form_group}>
+						<label htmlFor="password">password:</label>
+						<input
+							type="password"
+							className={errors.password ? classes.invalid : ""}
+							{...register("password", {
+								required: "Please enter a password",
+								minLength: { value: 5, message: "Password must be longer than 4 characters" },
+							})}
+						/>
+						{errors.password && <p className={classes.invalid}>{errors.password.message}</p>}
+					</div>
+					<div className={classes.form_group}>
+						<label htmlFor="validatePassword">Validate password:</label>
+						<input
+							type="password"
+							className={errors.validatePassword ? classes.invalid : ""}
+							{...register("validatePassword", {
+								required: "Please enter your password again",
+								validate: (value) => value === getValues("password") || "Passwords do not match",
+							})}
+						/>
+						{errors.validatePassword && (
+							<p className={classes.invalid}>{errors.validatePassword.message}</p>
+						)}
+					</div>
+					<Button text="Register" />
+				</form>
+				{/* <Link to="/Login">Login</Link> */}
+			</div>
 		</div>
 	);
 }

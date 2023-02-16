@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "../components/Exercises/ExerciseForm.module.css";
+import classes from "./RegisterAndLogin.module.css";
 import Button from "../components/UI/Button";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../store/apiSlice";
@@ -41,37 +41,40 @@ function Login(props) {
 	} = useForm();
 
 	return (
-		<div className={classes.form}>
-			<form onSubmit={handleSubmit(async (data) => await loginHandler(data))}>
-				<div className={classes.form_group}>
-					<label htmlFor="emailOrUserName">Email/User name:</label>
-					<input
-						type="text"
-						className={errors.email_or_user_name ? classes.invalid : ""}
-						{...register("emailOrUserName", {
-							required: "Please enter your Email or user name",
-						})}
-					/>
-					{errors.emailOrUserName && <p className={classes.invalid}>{errors.emailOrUserName.message}</p>}
-				</div>
-				<div className={classes.form_group}>
-					<label htmlFor="password">Password:</label>
-					<input
-						type="password"
-						className={errors.password ? classes.invalid : ""}
-						{...register("password", {
-							required: "Please enter your password",
-							minLength: {
-								value: 5,
-								message: "Password is not valid",
-							},
-						})}
-					/>
-					{errors.password && <p className={classes.invalid}>{errors.password.message}</p>}
-				</div>
-				<Button text="Login" />
-			</form>
-			{/* <Link to="/Register">Register</Link> */}
+		<div className={classes.container}>
+			<h1>Login</h1>
+			<div className={classes.form}>
+				<form onSubmit={handleSubmit(async (data) => await loginHandler(data))}>
+					<div className={classes.form_group}>
+						<label htmlFor="emailOrUserName">Email/User name:</label>
+						<input
+							type="text"
+							className={errors.email_or_user_name ? classes.invalid : ""}
+							{...register("emailOrUserName", {
+								required: "Please enter your Email or user name",
+							})}
+						/>
+						{errors.emailOrUserName && <p className={classes.invalid}>{errors.emailOrUserName.message}</p>}
+					</div>
+					<div className={classes.form_group}>
+						<label htmlFor="password">Password:</label>
+						<input
+							type="password"
+							className={errors.password ? classes.invalid : ""}
+							{...register("password", {
+								required: "Please enter your password",
+								minLength: {
+									value: 5,
+									message: "Password is not valid",
+								},
+							})}
+						/>
+						{errors.password && <p className={classes.invalid}>{errors.password.message}</p>}
+					</div>
+					<Button text="Login" />
+				</form>
+				{/* <Link to="/Register">Register</Link> */}
+			</div>
 		</div>
 	);
 }

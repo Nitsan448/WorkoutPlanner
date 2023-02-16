@@ -36,7 +36,7 @@ const NavigationHeader = () => {
 								end
 								to="/workouts"
 								className={(navData) => (navData.isActive ? classes.active : "")}>
-								All Workouts
+								My Workouts
 							</NavLink>
 						</li>
 						<li>

@@ -1,9 +1,11 @@
 .header {
 	height: 5rem;
 	display: flex;
-	padding: 0 10%;
-	justify-content: space-between;
+	padding: 0 3%;
+
+	justify-content: right;
 	align-items: center;
+	/* align-items: right; */
 	background-color: var(--BLUE);
 }
 
@@ -15,8 +17,7 @@
 }
 
 .nav li {
-	margin-left: 1.5em;
-	font-size: 1.25rem;
+	margin-left: 2.5em;
 }
 
 .nav a {
