@@ -142,9 +142,8 @@ function EditingWorkout(props) {
 										? `invalidInput ${classes.container__workoutNameInput}`
 										: classes.container__workoutNameInput
 								}
-								{...register("name", { required: "Workout name can not be empty" })}
+								{...register("name")}
 							/>
-							{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
 						</ImageInput>
 
 						{descriptionTextAreaOpen ? (
