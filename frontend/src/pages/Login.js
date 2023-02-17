@@ -49,18 +49,20 @@ function Login(props) {
 						<label htmlFor="emailOrUserName">Email/User name:</label>
 						<input
 							type="text"
-							className={errors.email_or_user_name ? classes.invalid : ""}
+							className={errors.email_or_user_name ? "invalidParagraph" : ""}
 							{...register("emailOrUserName", {
 								required: "Please enter your Email or user name",
 							})}
 						/>
-						{errors.emailOrUserName && <p className={classes.invalid}>{errors.emailOrUserName.message}</p>}
+						{errors.emailOrUserName && (
+							<p className={"invalidParagraph"}>{errors.emailOrUserName.message}</p>
+						)}
 					</div>
 					<div className={classes.form_group}>
 						<label htmlFor="password">Password:</label>
 						<input
 							type="password"
-							className={errors.password ? classes.invalid : ""}
+							className={errors.password ? "invalidParagraph" : ""}
 							{...register("password", {
 								required: "Please enter your password",
 								minLength: {
@@ -69,7 +71,7 @@ function Login(props) {
 								},
 							})}
 						/>
-						{errors.password && <p className={classes.invalid}>{errors.password.message}</p>}
+						{errors.password && <p className={"invalidParagraph"}>{errors.password.message}</p>}
 					</div>
 					<Button text="Login" />
 				</form>

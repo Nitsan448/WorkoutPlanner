@@ -61,47 +61,47 @@ function Register(props) {
 						<label htmlFor="userName">User name:</label>
 						<input
 							type="text"
-							className={errors.userName ? classes.invalid : ""}
+							className={errors.userName ? "invalidParagraph" : ""}
 							{...register("userName", { required: "Please enter your user name" })}
 						/>
-						{errors.userName && <p className={classes.invalid}>{errors.userName.message}</p>}
+						{errors.userName && <p className={"invalidParagraph"}>{errors.userName.message}</p>}
 					</div>
 					<div className={classes.form_group}>
 						<label htmlFor="email">Email:</label>
 						<input
 							type="text"
-							className={errors.email ? classes.invalid : ""}
+							className={errors.email ? "invalidParagraph" : ""}
 							{...register("email", {
 								required: "Please enter your email",
 								pattern: { value: /\S+@\S+\.\S+/, message: "Please enter a valid email" },
 							})}
 						/>
-						{errors.email && <p className={classes.invalid}>{errors.email.message}</p>}
+						{errors.email && <p className={"invalidParagraph"}>{errors.email.message}</p>}
 					</div>
 					<div className={classes.form_group}>
 						<label htmlFor="password">password:</label>
 						<input
 							type="password"
-							className={errors.password ? classes.invalid : ""}
+							className={errors.password ? "invalidParagraph" : ""}
 							{...register("password", {
 								required: "Please enter a password",
 								minLength: { value: 5, message: "Password must be longer than 4 characters" },
 							})}
 						/>
-						{errors.password && <p className={classes.invalid}>{errors.password.message}</p>}
+						{errors.password && <p className={"invalidParagraph"}>{errors.password.message}</p>}
 					</div>
 					<div className={classes.form_group}>
 						<label htmlFor="validatePassword">Validate password:</label>
 						<input
 							type="password"
-							className={errors.validatePassword ? classes.invalid : ""}
+							className={errors.validatePassword ? "invalidParagraph" : ""}
 							{...register("validatePassword", {
 								required: "Please enter your password again",
 								validate: (value) => value === getValues("password") || "Passwords do not match",
 							})}
 						/>
 						{errors.validatePassword && (
-							<p className={classes.invalid}>{errors.validatePassword.message}</p>
+							<p className={"invalidParagraph"}>{errors.validatePassword.message}</p>
 						)}
 					</div>
 					<Button text="Register" />

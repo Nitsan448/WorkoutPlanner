@@ -67,6 +67,7 @@
 	top: 65%;
 	left: 5%;
 	right: 5%;
+	width: 100%;
 }
 
 .workouts__workoutDescription {
@@ -76,10 +77,12 @@
 	z-index: 2;
 	overflow-wrap: break-word;
 	text-align: left;
-	font-size: 0.8em;
+	font-size: 0.7em;
 	top: 75%;
 	right: 25%;
 	left: 5%;
+	overflow: hidden;
+	max-height: 22%;
 }
 
 .workouts__newWorkout {

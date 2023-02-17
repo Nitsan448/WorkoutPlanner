@@ -138,12 +138,31 @@ function EditingWorkout(props) {
 								type="text"
 								placeholder="Workout name"
 								className={classes.container__workoutNameInput}
-								{...register("name")}
+								{...register("name", {
+									maxLength: {
+										value: 20,
+										message: "Workout name cannot be longer than 20 characters",
+									},
+								})}
 							/>
 						</ImageInput>
+						{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
 
 						{descriptionTextAreaOpen ? (
-							<textarea type="description" {...register("description")} />
+							<>
+								<textarea
+									type="description"
+									{...register("description", {
+										maxLength: {
+											value: 500,
+											message: "Workout description cannot be longer than 500 characters",
+										},
+									})}
+								/>
+								{errors.description && (
+									<p className={"invalidParagraph"}>{errors.description.message}</p>
+								)}
+							</>
 						) : (
 							<button
 								className={classes.container__addDescriptionButton}
