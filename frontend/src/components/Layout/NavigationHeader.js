@@ -28,6 +28,7 @@ const NavigationHeader = () => {
 
 	return (
 		<header className={classes.header}>
+			<div className={classes.logo} />
 			<nav className={classes.nav}>
 				{loggedIn ? (
 					<ul>

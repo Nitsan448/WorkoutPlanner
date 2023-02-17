@@ -1,19 +1,17 @@
 .header {
+	position: relative;
 	height: 5rem;
 	display: flex;
 	padding: 0 3%;
 
 	justify-content: right;
 	align-items: center;
-	/* align-items: right; */
 	background-color: var(--BLUE);
 }
 
 .nav ul {
 	list-style-type: none;
 	display: flex;
-	margin: 0;
-	padding: 0;
 }
 
 .nav li {
@@ -29,4 +27,29 @@
 .nav a:active,
 .nav a.active {
 	color: var(--ORANGE);
+}
+
+.logo {
+	background-image: url("../../Images/logo.png");
+	width: 303px;
+	height: 36px;
+	/* background-position: 0%; */
+	background-size: contain;
+	position: absolute;
+	left: 3%;
+	/* background-repeat: no-repeat; */
+	/* background-size: 100% 100%; */
+}
+
+@media screen and (max-width: 576px) {
+	.logo {
+		width: 151px;
+		height: 18px;
+		background-size: contain;
+	}
+
+	.nav li {
+		margin-left: 1em;
+		font-size: 0.8em;
+	}
 }
