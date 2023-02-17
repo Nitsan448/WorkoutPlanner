@@ -69,12 +69,7 @@ function ExerciseForm(props) {
 					alt="Exercise"
 				/>
 				<div className={classes.form__exercise}>
-					<input
-						type="text"
-						placeholder="Exercise name"
-						className={errors.name ? "invalidInput" : ""}
-						{...register("name", { required: true })}
-					/>
+					<input type="text" placeholder="Exercise name" {...register("name", { required: true })} />
 					{errors.name && <p className={"invalidParagraph"}>Can not be empty</p>}
 					{descriptionTextAreaOpen ? (
 						<textarea placeholder="Description" {...register("description")} />
@@ -89,7 +84,6 @@ function ExerciseForm(props) {
 					<label htmlFor="sets">Number of sets:</label>
 					<input
 						type="number"
-						className={errors.sets ? "invalidInput" : ""}
 						{...register("sets", {
 							required: true,
 							min: 1,
@@ -101,7 +95,6 @@ function ExerciseForm(props) {
 					<label htmlFor="restTime">Rests:</label>
 					<input
 						type="text"
-						className={errors.restTime ? "invalidInput" : ""}
 						{...register("restTime", {
 							required: true,
 							validate: (value) => validateTimeInput(value),
@@ -114,7 +107,6 @@ function ExerciseForm(props) {
 						<label htmlFor="repetitions">Repetitions:</label>
 						<input
 							type="number"
-							className={errors.repetitions ? "invalidInput" : ""}
 							{...register("repetitions", {
 								required: true,
 								min: 1,
@@ -128,7 +120,6 @@ function ExerciseForm(props) {
 						<label htmlFor="setTime">Set time:</label>
 						<input
 							type="text"
-							className={errors.setTime ? "invalidInput" : ""}
 							{...register("setTime", {
 								required: true,
 								validate: (value) => validateTimeInput(value),
@@ -142,7 +133,6 @@ function ExerciseForm(props) {
 					<label htmlFor="setTime">Break after:</label>
 					<input
 						type="text"
-						className={errors.breakAfterExercise ? "invalidInput" : ""}
 						{...register("breakAfterExercise", {
 							required: true,
 							validate: (value) => validateTimeInput(value),

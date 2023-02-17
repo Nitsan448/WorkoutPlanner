@@ -21,7 +21,13 @@
 	margin: 0.75em 0 0.75em 0em;
 }
 
+.exercise__Description {
+	margin-bottom: 4em;
+}
+
 .routine {
+	position: absolute;
+	bottom: 0;
 	display: flex;
 	justify-content: space-between;
 	margin: 3em 0em 1em 0em;

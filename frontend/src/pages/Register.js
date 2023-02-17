@@ -59,18 +59,13 @@ function Register(props) {
 				<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
 					<div className={classes.form_group}>
 						<label htmlFor="userName">User name:</label>
-						<input
-							type="text"
-							className={errors.userName ? "invalidParagraph" : ""}
-							{...register("userName", { required: "Please enter your user name" })}
-						/>
+						<input type="text" {...register("userName", { required: "Please enter your user name" })} />
 						{errors.userName && <p className={"invalidParagraph"}>{errors.userName.message}</p>}
 					</div>
 					<div className={classes.form_group}>
 						<label htmlFor="email">Email:</label>
 						<input
 							type="text"
-							className={errors.email ? "invalidParagraph" : ""}
 							{...register("email", {
 								required: "Please enter your email",
 								pattern: { value: /\S+@\S+\.\S+/, message: "Please enter a valid email" },
@@ -82,7 +77,6 @@ function Register(props) {
 						<label htmlFor="password">password:</label>
 						<input
 							type="password"
-							className={errors.password ? "invalidParagraph" : ""}
 							{...register("password", {
 								required: "Please enter a password",
 								minLength: { value: 5, message: "Password must be longer than 4 characters" },
@@ -94,7 +88,6 @@ function Register(props) {
 						<label htmlFor="validatePassword">Validate password:</label>
 						<input
 							type="password"
-							className={errors.validatePassword ? "invalidParagraph" : ""}
 							{...register("validatePassword", {
 								required: "Please enter your password again",
 								validate: (value) => value === getValues("password") || "Passwords do not match",

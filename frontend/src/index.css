@@ -37,9 +37,6 @@ input {
 	border: none;
 	border-bottom: var(--BORDER-BLUE);
 }
-.invalidInput {
-	border-bottom: var(--BORDER-INVALID);
-}
 
 textarea {
 	border: var(--BORDER-BLUE);

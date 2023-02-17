@@ -79,7 +79,7 @@ function Exercise(props) {
 				<ImageInput image={image} alt={props.name} allowImageChange={false} />
 				<div className={classes.exerciseInformation}>
 					<h3 className={classes.exercise__name}>{props.name}</h3>
-					<p>{props.description}</p>
+					<p className={classes.exercise__Description}>{props.description}</p>
 					<div className={classes.routine}>
 						{props.sets > 1 ? <h3>{props.sets} Sets</h3> : <h3>{props.sets} Set</h3>}
 						<h3>Rest time: {getTimeInTimerFormat(props.restTime)} </h3>

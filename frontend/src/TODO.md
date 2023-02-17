@@ -14,9 +14,7 @@
 
 5. workouts page - buttons color when hovering
 
-6. Different background and navigation bar according to page
-
-7. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
+6. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 
 ## Backend
 
@@ -28,39 +26,45 @@
 
 3. Cors policy problem in Hagar's computer
 
-4. Empty workout sometimes not deleting (remove unique from workouts table?)
-
 ## Other
 
 1. Add Readme to git
 
 # Backlog
 
+### Frontend
+
+1. Add remember me field in sign up
+2. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise)
+3. Add sound effect when current activity finished
+
+#### CSS
+
+1. Different background and navigation bar according to page
+
+### Backend
+
 1. Token cookie not saved between sessions on deployment (seems it is saved but only appears when user goes to all workouts)
 
-2. Add remember me field in sign up
+2. Remove loop from delete_routine stored procedure (do something similar to update_routines_order).
 
-3. Warn user if he tried to leave an unsaved workout that will be deleted.
+3. Require auth when user enters a page
 
-4. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise)
+4. Add tests
 
-5. Remove loop from delete_routine stored procedure (do something similar to update_routines_order).
+### Bugs
 
-6. Require auth when user enters a page
+### Other
 
-7. Add option to login as a guest - Create user, delete it if the user leaves without logging out (after warning him)
+1. Add option to login as a guest - Create user, delete it if the user leaves without logging out (after warning him)
 
-8. Add social media features
+2. Add social media features
 
-9. Add option to choose from current exercises and routines when creating a new exercise.
+3. Add option to choose from current exercises and routines when creating a new exercise.
    Make it impossible to change an exercise name to an already existing exercise.
 
-10. Add tests
+4. Switch to cloudfront for accessing images from s3 and make them private
 
-11. Fix snippets not working
+5. Change favicon
 
-12. Switch to cloudfront for accessing images from s3 and make them private
-
-13. Change favicon
-
-14. Add sound effect when current activity finished
+6. Find ways to reduce expanses in aws
