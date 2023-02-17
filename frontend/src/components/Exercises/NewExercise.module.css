@@ -1,15 +1,17 @@
 .newExerciseButton {
-	border: var(--BORDER-GRAY-BLUE);
+	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
 	margin: 1em;
 	width: 97%;
 	min-height: 20vh;
 	background-color: var(--WHITE);
-	background-image: url("../../Images/addExercise.png");
+	/* background-image: url("../../Images/addExercise.png"); */
+	background-image: url("../../Images/addExerciseHover.png");
 	background-repeat: no-repeat;
 	background-position: 10% 50%;
 }
 .newExerciseButton:hover {
-	border: var(--BORDER-BLUE);
+	transform: scale(0.9);
+
 	background-image: url("../../Images/addExerciseHover.png");
 }

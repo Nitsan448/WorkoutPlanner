@@ -35,12 +35,16 @@
 ### Frontend
 
 1. Add remember me field in sign up
+
 2. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise)
+
 3. Add sound effect when current activity finished
 
 #### CSS
 
 1. Different background and navigation bar according to page
+
+2. Keep hover area the same size when making something smaller on hover
 
 ### Backend
 

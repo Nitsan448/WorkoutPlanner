@@ -20,17 +20,15 @@
 	border-radius: var(--BORDER-RADIUS);
 }
 
+.workouts__workout:hover {
+	transform: scale(0.9);
+}
+
 .workouts__viewWorkoutButton {
 	width: 100%;
 	height: 100%;
 	background-color: var(--BLUE);
 	border: none;
-}
-
-.workouts__workout:hover {
-	margin: auto;
-	width: 90%;
-	height: 90%;
 }
 
 .workouts__workoutImageContainer {
@@ -95,7 +93,7 @@
 }
 
 .workouts__newWorkout:hover {
-	background-image: url(../Images/newWorkoutHover.png);
+	transform: scale(0.9);
 }
 
 .edit {
