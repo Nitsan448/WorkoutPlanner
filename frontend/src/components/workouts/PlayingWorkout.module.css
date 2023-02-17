@@ -3,6 +3,11 @@
 	margin: auto;
 }
 
+.playingWorkout__utilityButtons {
+	margin-top: 0.5em;
+	display: flex;
+}
+
 .break {
 	display: flex;
 	justify-content: space-between;

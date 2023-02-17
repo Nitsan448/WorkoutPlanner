@@ -127,20 +127,20 @@ function PlayingWorkout(props) {
 					<Button onClick={() => navigate("/workouts")} text="Back to home page" />
 				</>
 			) : (
-				<>
+				<div className={classes.playingWorkout__utilityButtons}>
 					{currentActivity === Activity.InSet && !lastSet && (
-						<Button text="Finish set" onClick={activityFinishedHandler}></Button>
+						<Button text="Finish Set" onClick={activityFinishedHandler}></Button>
 					)}
 					{currentActivity === Activity.Resting && (
-						<Button text="Next set" onClick={activityFinishedHandler}></Button>
+						<Button text="Next Set" onClick={activityFinishedHandler}></Button>
 					)}
 					<Button
-						text="Pause"
+						text="Pause Timer"
 						onClick={() => {
 							timer.togglePausedState();
 						}}></Button>
 					<Button text="Next Exercise" onClick={goToNextExercise}></Button>
-				</>
+				</div>
 			)}
 		</div>
 	);

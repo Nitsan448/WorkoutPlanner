@@ -62,3 +62,5 @@
 12. Switch to cloudfront for accessing images from s3 and make them private
 
 13. Change favicon
+
+14. Add sound effect when current activity finished

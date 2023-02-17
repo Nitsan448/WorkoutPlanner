@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import NewExercise from "../Exercises/NewExercise";
 import classes from "./Workout.module.css";
 import Exercise from "../Exercises/Exercise";
@@ -13,12 +13,10 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import useImageUpload from "../../hooks/use-image-upload";
 import ImageInput from "../UI/ImageInput";
 
-let deleteWorkoutOnUnmount = true;
 function EditingWorkout(props) {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const workoutId = props.workout.workout_id;
-	let newWorkout = props.workout.name === "";
 
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.workout.description !== "");
 	const [inEditMode, setInEditMode] = useState(props.inEditMode);
@@ -46,25 +44,6 @@ function EditingWorkout(props) {
 		setRoutines(props.workout.routines);
 	}, [props.workout.routines]);
 
-	const handleWorkoutDeletionOnUnmount = useCallback(
-		(event) => {
-			event && event.preventDefault();
-			if (deleteWorkoutOnUnmount && newWorkout) {
-				deleteWorkout({ workout_id: workoutId });
-			}
-		},
-		[workoutId, deleteWorkout, newWorkout]
-	);
-
-	useEffect(() => {
-		window.addEventListener("beforeunload", handleWorkoutDeletionOnUnmount);
-
-		return () => {
-			window.removeEventListener("beforeunload", handleWorkoutDeletionOnUnmount);
-			handleWorkoutDeletionOnUnmount();
-		};
-	}, [handleWorkoutDeletionOnUnmount]);
-
 	async function onDeleteWorkoutClicked() {
 		deleteWorkout({ workout_id: workoutId });
 		navigate(`/workouts`);
@@ -82,7 +61,6 @@ function EditingWorkout(props) {
 			clearErrors();
 			setDescriptionTextAreaOpen(false);
 			setInEditMode(false);
-			deleteWorkoutOnUnmount = false;
 		} catch (error) {
 			setError("name", { message: error.data });
 		}
