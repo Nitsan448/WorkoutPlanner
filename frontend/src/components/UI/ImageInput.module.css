@@ -14,7 +14,7 @@
 }
 
 .workoutImageInput {
-	height: 30vw;
+	height: 50vh;
 }
 
 .imageOverlay {
@@ -46,4 +46,10 @@
 	word-wrap: break-word;
 	color: var(--WHITE);
 	font-weight: normal;
+}
+
+@media screen and (max-width: 576px) {
+	.imageInput {
+		min-height: 20vh;
+	}
 }

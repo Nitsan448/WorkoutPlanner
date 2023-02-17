@@ -18,14 +18,13 @@
 
 .exercise__name {
 	text-align: left;
-	margin: 0.75em 0 0.75em 0;
+	margin: 0.75em 0 0.75em 0em;
 }
 
 .routine {
+	display: flex;
+	justify-content: space-between;
 	margin: 3em 0em 1em 0em;
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 2em 2em 2em 2em;
 	text-align: left;
 }
 
@@ -46,9 +45,22 @@
 	border: var(--BORDER-BLUE);
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (max-width: 1200px) {
 	.routine {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 2em 2em 2em 2em;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.exercise {
+		width: 95%;
 		display: flex;
-		justify-content: space-between;
+		flex-direction: column;
+	}
+
+	.exerciseInformation {
+		margin-left: 1em;
 	}
 }

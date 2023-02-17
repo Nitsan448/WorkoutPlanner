@@ -12,9 +12,9 @@
 
 4. Add queries for mobile use
 
-5. workouts page (Ask Hagar about filter, workout name length and size, buttons color when hovering, etc.)
+5. workouts page - buttons color when hovering
 
-6. Different backgorund and navigation bar according to page
+6. Different background and navigation bar according to page
 
 7. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 

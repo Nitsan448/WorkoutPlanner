@@ -77,7 +77,7 @@ function Exercise(props) {
 		return (
 			<>
 				<ImageInput image={image} alt={props.name} allowImageChange={false} />
-				<div>
+				<div className={classes.exerciseInformation}>
 					<h3 className={classes.exercise__name}>{props.name}</h3>
 					<p>{props.description}</p>
 					<div className={classes.routine}>

@@ -38,10 +38,9 @@ function Workouts(props) {
 		content = <h1>Loading...</h1>;
 	} else if (isWorkoutsRequestSuccess) {
 		content = workouts.map((workout) => (
-			<div className={classes.workouts__workout}>
+			<div className={classes.workouts__workout} key={workout.workout_id}>
 				<button
 					className={classes.workouts__viewWorkoutButton}
-					key={workout.workout_id}
 					onClick={() => goToWorkoutHandler(workout.workout_id, "view")}>
 					{workout.image ? (
 						<div className={classes.workouts__workoutImageContainer}>

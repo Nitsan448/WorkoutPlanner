@@ -42,27 +42,6 @@
 	font-weight: bold;
 }
 
-.form__image {
-	background-color: var(--BLUE);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	color: rgba(255, 255, 255, 0.7);
-}
-.form__image:hover {
-	cursor: pointer;
-}
-
-.form__image img {
-	height: 100%;
-	width: 100%;
-}
-
-.form__image input[type="file"] {
-	display: none;
-}
-
 .form__routine {
 	display: grid;
 	place-content: center;
@@ -128,7 +107,7 @@
 	height: 42px;
 	border: none;
 	background-image: url("../../Images/deleteSmall.png");
-	background-color: var(--WHITE);
+	background-color: transparent;
 }
 .form__deleteButton:hover {
 	background-image: url("../../Images/deleteSmallHover.png");
@@ -142,10 +121,60 @@
 	width: 42px;
 	height: 42px;
 	border: none;
-	background-color: var(--WHITE);
+	background-color: transparent;
 	background-image: url("../../Images/Cancel.png");
 }
 
 .form__cancelButton:hover {
 	background-image: url("../../Images/CancelHover.png");
+}
+
+@media screen and (max-width: 768px) {
+	.form {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.form__exercise input {
+		margin-top: 0.5em;
+	}
+
+	.form__checkmark {
+		position: relative;
+		background-repeat: no-repeat;
+		margin: auto;
+		width: 10vh;
+		height: 10vh;
+	}
+
+	.form__deleteButton {
+		position: absolute;
+		background-repeat: no-repeat;
+		top: 15px;
+		right: 50px;
+		width: 42px;
+		height: 42px;
+		border: none;
+		background-image: url("../../Images/deleteSmall.png");
+		z-index: 1;
+	}
+	.form__deleteButton:hover {
+		background-image: url("../../Images/deleteSmallHover.png");
+	}
+	.form__cancelButton {
+		position: absolute;
+		background-repeat: no-repeat;
+		background-position: center;
+		top: 10px;
+		right: 10px;
+		width: 42px;
+		height: 42px;
+		border: none;
+		background-image: url("../../Images/Cancel.png");
+		z-index: 1;
+	}
+
+	.form__cancelButton:hover {
+		background-image: url("../../Images/CancelHover.png");
+	}
 }

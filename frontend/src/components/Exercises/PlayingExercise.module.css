@@ -9,6 +9,7 @@
 	margin-top: 0.5em;
 	font-size: 1.5rem;
 	font-weight: bold;
+	overflow: hidden;
 }
 
 .currentlyPlaying {
