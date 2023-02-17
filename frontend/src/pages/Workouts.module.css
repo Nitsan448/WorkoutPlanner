@@ -16,9 +16,15 @@
 .workouts__workout {
 	position: relative;
 	height: 60vh;
-	background-color: var(--BLUE);
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
+}
+
+.workouts__viewWorkoutButton {
+	width: 100%;
+	height: 100%;
+	background-color: var(--BLUE);
+	border: none;
 }
 
 .workouts__workout:hover {
@@ -51,6 +57,7 @@
 	height: 100%;
 	bottom: 0;
 }
+
 .workouts__workoutName {
 	position: absolute;
 	color: white;

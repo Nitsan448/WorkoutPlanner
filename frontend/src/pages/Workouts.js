@@ -39,7 +39,10 @@ function Workouts(props) {
 	} else if (isWorkoutsRequestSuccess) {
 		content = workouts.map((workout) => (
 			<div className={classes.workouts__workout}>
-				<button key={workout.workout_id} onClick={() => goToWorkoutHandler(workout.workout_id, "view")}>
+				<button
+					className={classes.workouts__viewWorkoutButton}
+					key={workout.workout_id}
+					onClick={() => goToWorkoutHandler(workout.workout_id, "view")}>
 					{workout.image ? (
 						<div className={classes.workouts__workoutImageContainer}>
 							<img className={classes.workouts__workoutImage} src={`${workout.image}`} alt="workout" />
@@ -52,7 +55,6 @@ function Workouts(props) {
 						<h2 className={classes.workouts__workoutName}>{workout.name}</h2>
 						<p className={classes.workouts__workoutDescription}>{workout.description}</p>
 					</div>
-					{/* <Button onClick={() => goToWorkoutHandler(workout.workout_id, "play")} text="Play" /> */}
 				</button>
 				<button className={classes.edit} onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} />
 				<button className={classes.play} onClick={() => goToWorkoutHandler(workout.workout_id, "play")} />
