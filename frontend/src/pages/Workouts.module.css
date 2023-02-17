@@ -27,27 +27,30 @@
 	height: 90%;
 }
 
-.workouts__workoutImage {
-	background-color: var(--BLUE);
+.workouts__workoutImageContainer {
 	position: absolute;
-	top: 0;
-	left: 0;
 	width: 100%;
 	height: 76.6%;
+	top: 0;
+	left: 0;
+}
+
+.workouts__workoutImage {
+	background-color: var(--BLUE);
+	width: 100%;
+	height: 100%;
 	object-fit: cover;
 }
 
 .workouts__imageFilter {
 	background-image: url("../Images/imageFilter.png");
 	position: absolute;
-	display: block;
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: cover;
 	width: 100%;
 	height: 100%;
-	top: 6.5%;
+	bottom: 0;
 }
-
 .workouts__workoutName {
 	position: absolute;
 	color: white;

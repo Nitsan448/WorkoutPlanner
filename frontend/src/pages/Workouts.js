@@ -41,7 +41,7 @@ function Workouts(props) {
 			<div className={classes.workouts__workout}>
 				<button key={workout.workout_id} onClick={() => goToWorkoutHandler(workout.workout_id, "view")}>
 					{workout.image ? (
-						<div>
+						<div className={classes.workouts__workoutImageContainer}>
 							<img className={classes.workouts__workoutImage} src={`${workout.image}`} alt="workout" />
 							<div className={classes.workouts__imageFilter}></div>
 						</div>

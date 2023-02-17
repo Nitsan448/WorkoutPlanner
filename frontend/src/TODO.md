@@ -8,13 +8,15 @@
 
 2. playWorkout page
 
-3. Add queries for mobile use
+3. Editing/Viewing workout - Fix image filter
 
-4. workouts page (Ask Hagar about filter, workout name length and size, buttons color when hovering, etc.)
+4. Add queries for mobile use
 
-5. Navigation bar
+5. workouts page (Ask Hagar about filter, workout name length and size, buttons color when hovering, etc.)
 
-6. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
+6. Different backgorund and navigation bar according to page
+
+7. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
 
 ## Backend
 
@@ -25,6 +27,8 @@
 2. Images sometimes not uploading to buckets in other computers/phones
 
 3. Cors policy problem in Hagar's computer
+
+4. Empty workout sometimes not deleting (remove unique from workouts table?)
 
 ## Other
 

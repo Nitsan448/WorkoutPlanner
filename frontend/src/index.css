@@ -27,6 +27,12 @@ textarea {
 	background-color: var(--WHITE);
 }
 
+input::placeholder,
+textarea::placeholder {
+	color: var(--ORANGE);
+	opacity: 1;
+}
+
 input {
 	border: none;
 	border-bottom: var(--BORDER-BLUE);
