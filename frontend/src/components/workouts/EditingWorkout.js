@@ -137,11 +137,7 @@ function EditingWorkout(props) {
 							<input
 								type="text"
 								placeholder="Workout name"
-								className={
-									errors.name
-										? `invalidInput ${classes.container__workoutNameInput}`
-										: classes.container__workoutNameInput
-								}
+								className={classes.container__workoutNameInput}
 								{...register("name")}
 							/>
 						</ImageInput>

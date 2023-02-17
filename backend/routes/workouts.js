@@ -57,7 +57,7 @@ router.post("/", async (req, res, next) => {
 	}
 });
 
-router.patch("/", validateNameIsNotEmpty(), validate, async (req, res, next) => {
+router.patch("/", async (req, res, next) => {
 	try {
 		const [workout] = await Workout.findById(req.body.workout_id);
 		checkIfRowCanBeManipulated(workout, req.userId);
