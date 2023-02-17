@@ -121,16 +121,19 @@ function PlayingWorkout(props) {
 				renderPlayingExercise(currentExerciseIndex + 1, false)}
 
 			{workoutFinished ? (
-				<div>
+				<>
 					<label>Workout finished!</label>
 					<Button onClick={() => navigate("/workouts")} text="Back to home page" />
-				</div>
+				</>
 			) : (
-				<Button
-					text="Pause"
-					onClick={() => {
-						timer.togglePausedState();
-					}}></Button>
+				<>
+					<Button
+						text="Pause"
+						onClick={() => {
+							timer.togglePausedState();
+						}}></Button>
+					<Button text="Next Exercise" onClick={goToNextExercise}></Button>
+				</>
 			)}
 		</div>
 	);
