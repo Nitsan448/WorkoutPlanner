@@ -21,6 +21,8 @@ function PlayingWorkout(props) {
 	const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 	const [workoutFinished, setWorkoutFinished] = useState(false);
 
+	const lastSet = currentSet === +exercises[currentExerciseIndex].sets;
+
 	const getNewTimerTime = useCallback(() => {
 		if (currentActivity === Activity.InSet) {
 			return getTimeInMinutesAndSeconds(exercises[currentExerciseIndex].set_time);
@@ -32,7 +34,7 @@ function PlayingWorkout(props) {
 	}, [currentActivity, currentExerciseIndex, exercises]);
 
 	const initialTimerTime = getNewTimerTime();
-	const timer = useTimer(initialTimerTime, timerFinishedHandler);
+	const timer = useTimer(initialTimerTime, activityFinishedHandler);
 
 	useEffect(() => {
 		function setNewTimerTime() {
@@ -42,9 +44,8 @@ function PlayingWorkout(props) {
 		setNewTimerTime();
 	}, [getNewTimerTime, currentSet]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	function timerFinishedHandler() {
-		const exerciseFinished =
-			currentActivity !== Activity.Resting && currentSet === +exercises[currentExerciseIndex].sets;
+	function activityFinishedHandler() {
+		const exerciseFinished = currentActivity !== Activity.Resting && lastSet;
 
 		const goToBreak =
 			exerciseFinished &&
@@ -127,6 +128,12 @@ function PlayingWorkout(props) {
 				</>
 			) : (
 				<>
+					{currentActivity === Activity.InSet && !lastSet && (
+						<Button text="Finish set" onClick={activityFinishedHandler}></Button>
+					)}
+					{currentActivity === Activity.Resting && (
+						<Button text="Next set" onClick={activityFinishedHandler}></Button>
+					)}
 					<Button
 						text="Pause"
 						onClick={() => {
