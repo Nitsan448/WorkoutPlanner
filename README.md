@@ -14,6 +14,10 @@ You can visit the web app here - https://www.workoutscreator.com/
 
 A web application where users can easily create highly customizable workouts, edit, and play them.
 
+#### Frontend
+
+The Frontend uses redux and rtk querys to send requests to the backend, handle and cache the response data.
+
 #### Backend
 
 The backend is a REST API designed in the following way: <br /> 
@@ -34,18 +38,14 @@ The database structure is the following:
 |               |                |             | rest_time
 |               |                |             | break_after_routine
 
-Exercises information are split into two parts, the constant data - data that remains the same whenever the exercise appears <br /> 
-And the dynamic data - this data may be different every time the exercise appears. <br /> 
-For example, push ups will always have the same image and description, <br />but they may appear in different workouts, once as 3 sets of 14 repetitions, and once as 1 set of 20 repetitions.
+Exercise information is split into two parts: <br />
+Exercise data - constant data that remains the same whenever the exercise appears <br /> 
+Routine data - dynammic data that may be different every time the exercise appears.
 
-The database is structured this wat to avoid data duplication - when the user uses the same exercise 5 times in different workouts, some of it's data (specifically the image) is only saved once.
+The database is structured this way to avoid data duplication - when the user uses the same exercise a few times in different workouts, <br />
+but with a different number of sets and repetitions in each one,<br /> some of it's data (and specifically the image) is only saved once.
 
-<!-- TODO: Add a screenshot of the live project.
-    1. Link to a 'live demo.'
-    2. Describe your overall experience in a couple of sentences.
-    3. List a few specific technical things that you learned or improved on.
-    4. Share any other tips or guidance for others attempting this or something similar.
- --> 
+<!-- TODO: Add a screenshot of the live project. --> 
 
 ### Built With
 
@@ -63,16 +63,23 @@ Javascript 1.5, Node.js 16.15, MySQL 8.0.
 Main libraries used: <br /> 
 express 4.18, aws-sdk 2.1309, multer 1.4, mysql2 2.3
 
+#### Deployment
+
+AWS amplify (frontend), elastic beanstalk (backend), RDS (MySQL database) and S3 buckets (For saving uploaded images).
+
 ## Features
 
-<!-- TODO: List what specific 'user problems' that this application solves. -->
+* User system, each user has his own workouts and exercises.
+* Workout creation system allowing users to easily create, edit and play custom workouts.
+* Drag and drop functionality for rearanging exercises within a workout.
+* Image uploading.
+* A Timer to automatically switch between sets, exercises and rest periods when playing a workout, <br />
+and additional options for the user, such as finishing a set/exercise and pausing the timer.
 
 #### Coming soon
 
 * Allowing users to add previously created exercises to workout, without having to refill all the details.
-
 * Option to login as a guest.
-
 * Social media features: Sharing workouts, workouts feed, favorite workouts from other users, etc.
 
 ## Contact
