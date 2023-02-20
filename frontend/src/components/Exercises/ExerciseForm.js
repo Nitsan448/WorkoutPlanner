@@ -22,7 +22,6 @@ function ExerciseForm(props) {
 	}
 
 	async function saveRoutine(data) {
-		console.log(repetitionsFieldActive ? 0 : 1);
 		const routine = {
 			workout_id: +props.workoutId,
 			name: data.name,
@@ -31,7 +30,7 @@ function ExerciseForm(props) {
 			sets: data.sets,
 			time_or_repetitions: repetitionsFieldActive ? 0 : 1,
 			set_time: getTimeInSeconds(data.setTime),
-			repetitions: 10,
+			repetitions: data.repetitions,
 			rest_time: getTimeInSeconds(data.restTime),
 			break_after_routine: getTimeInSeconds(data.breakAfterExercise),
 			order_in_workout: props.orderInWorkout,
@@ -47,15 +46,21 @@ function ExerciseForm(props) {
 		reset,
 	} = useForm({
 		defaultValues: {
-			setTime: props.setTime ? getTimeInTimerFormat(props.setTime) : "00:00",
-			repetitions: props.repetitions ? props.setTime : 10,
-			restTime: props.restTime ? getTimeInTimerFormat(props.restTime) : "00:00",
-			breakAfterExercise: props.breakAfterExercise ? getTimeInTimerFormat(props.breakAfterExercise) : "00:00",
-			sets: props.sets ? props.sets : 1,
+			setTime: isDefinedAndPositive(props.setTime) ? getTimeInTimerFormat(props.setTime) : "00:30",
+			restTime: isDefinedAndPositive(props.restTime) ? getTimeInTimerFormat(props.restTime) : "00:30",
+			breakAfterExercise: isDefinedAndPositive(props.breakAfterExercise)
+				? getTimeInTimerFormat(props.breakAfterExercise)
+				: "01:00",
+			repetitions: props.repetitions ? props.repetitions : 10,
+			sets: props.sets ? props.sets : 3,
 			name: props.name ? props.name : "",
 			description: props.description ? props.description : "",
 		},
 	});
+
+	function isDefinedAndPositive(value) {
+		return value && value > 0;
+	}
 
 	return (
 		<>

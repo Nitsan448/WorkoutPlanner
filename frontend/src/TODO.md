@@ -1,7 +1,5 @@
 ## Frontend
 
-1. Delete Image.js and change ImageInput.js name to Image.js.
-
 ### CSS
 
 1. Sign up, login pages
