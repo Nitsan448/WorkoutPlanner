@@ -8,7 +8,7 @@ import ImageInput from "../UI/ImageInput";
 
 function ExerciseForm(props) {
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.description !== "");
-	const [repetitionsFieldActive, setRepetitionsFieldActive] = useState(false);
+	const [repetitionsFieldActive, setRepetitionsFieldActive] = useState(!props.usingTimer);
 
 	const exerciseImage = useImageUpload();
 	const image = props.exerciseImage ? exerciseImage.imageUrl || props.exerciseImage : exerciseImage.imageUrl;
@@ -20,7 +20,9 @@ function ExerciseForm(props) {
 		const [minutes, seconds] = value.split(":");
 		return isPositiveNumber(minutes) && isPositiveNumber(seconds) && seconds < 60 && minutes < 60;
 	}
+
 	async function saveRoutine(data) {
+		console.log(repetitionsFieldActive ? 0 : 1);
 		const routine = {
 			workout_id: +props.workoutId,
 			name: data.name,

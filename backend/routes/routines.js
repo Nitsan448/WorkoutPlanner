@@ -35,7 +35,7 @@ function getRoutineFromRequest(req, image) {
 		image: image,
 		workoutId: req.body.workout_id,
 		sets: req.body.sets,
-		timeOrRepetitions: req.body.time_or_repetitions !== undefined && req.body.time_or_repetitions ? 1 : 0,
+		timeOrRepetitions: +req.body.time_or_repetitions,
 		setTime: req.body.set_time === undefined ? 0 : req.body.set_time,
 		repetitions: req.body.repetitions === undefined ? 0 : req.body.repetitions,
 		restTime: req.body.rest_time,

@@ -109,7 +109,9 @@ function EditingWorkout(props) {
 				name={exercise.name}
 				description={exercise.description}
 				image={exercise.image}
+				usingTimer={exercise.time_or_repetitions.data[0] === 1 ? true : false}
 				setTime={exercise.set_time}
+				repetitions={exercise.repetitions}
 				sets={exercise.sets}
 				restTime={exercise.rest_time}
 				breakAfterExercise={exercise.break_after_routine}

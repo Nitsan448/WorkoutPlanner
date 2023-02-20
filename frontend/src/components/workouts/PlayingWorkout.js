@@ -21,17 +21,19 @@ function PlayingWorkout(props) {
 	const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 	const [workoutFinished, setWorkoutFinished] = useState(false);
 
-	const lastSet = currentSet === +exercises[currentExerciseIndex].sets;
+	const currentExercise = exercises[currentExerciseIndex];
+
+	const lastSet = currentSet === +currentExercise.sets;
 
 	const getNewTimerTime = useCallback(() => {
 		if (currentActivity === Activity.InSet) {
-			return getTimeInMinutesAndSeconds(exercises[currentExerciseIndex].set_time);
+			return getTimeInMinutesAndSeconds(currentExercise.set_time);
 		} else if (currentActivity === Activity.Resting) {
-			return getTimeInMinutesAndSeconds(exercises[currentExerciseIndex].rest_time);
+			return getTimeInMinutesAndSeconds(currentExercise.rest_time);
 		} else {
-			return getTimeInMinutesAndSeconds(exercises[currentExerciseIndex].break_after_routine);
+			return getTimeInMinutesAndSeconds(currentExercise.break_after_routine);
 		}
-	}, [currentActivity, currentExerciseIndex, exercises]);
+	}, [currentActivity, currentExercise]);
 
 	const initialTimerTime = getNewTimerTime();
 	const timer = useTimer(initialTimerTime, activityFinishedHandler);
@@ -48,9 +50,7 @@ function PlayingWorkout(props) {
 		const exerciseFinished = currentActivity !== Activity.Resting && lastSet;
 
 		const goToBreak =
-			exerciseFinished &&
-			currentActivity !== Activity.Break &&
-			exercises[currentExerciseIndex].break_after_routine > 0;
+			exerciseFinished && currentActivity !== Activity.Break && currentExercise.break_after_routine > 0;
 
 		if (goToBreak) {
 			setCurrentActivity(Activity.Break);
@@ -76,9 +76,9 @@ function PlayingWorkout(props) {
 	}
 
 	function updateCurrentSetState() {
-		if (currentActivity === Activity.InSet && exercises[currentExerciseIndex].rest_time > 0) {
+		if (currentActivity === Activity.InSet && currentExercise.rest_time > 0) {
 			setCurrentActivity(Activity.Resting);
-		} else if (currentActivity === Activity.InSet && exercises[currentExerciseIndex].rest_time === 0) {
+		} else if (currentActivity === Activity.InSet && currentExercise.rest_time === 0) {
 			setCurrentSet(currentSet + 1);
 		} else {
 			setCurrentActivity(Activity.InSet);
@@ -88,7 +88,6 @@ function PlayingWorkout(props) {
 
 	function renderPlayingExercise(exerciseIndex, currentlyPlaying) {
 		const inBreak = currentActivity === Activity.Break;
-		console.log();
 		const renderBreakAfterExercise =
 			exercises[exerciseIndex].break_after_routine > 0 &&
 			((!inBreak && currentlyPlaying) || (inBreak && !currentlyPlaying));
@@ -99,9 +98,11 @@ function PlayingWorkout(props) {
 					setTime={exercises[exerciseIndex].set_time}
 					currentSet={currentSet}
 					sets={exercises[exerciseIndex].sets}
+					repetitions={exercises[exerciseIndex].repetitions}
 					restTime={exercises[exerciseIndex].rest_time}
 					description={exercises[exerciseIndex].description}
 					timer={timer}
+					usingTimer={currentExercise.time_or_repetitions.data[0] === 1 ? true : false}
 					currentActivity={currentActivity}
 					currentlyPlaying={currentlyPlaying}></PlayingExercise>
 
@@ -128,7 +129,7 @@ function PlayingWorkout(props) {
 				</>
 			) : (
 				<div className={classes.playingWorkout__utilityButtons}>
-					{currentActivity === Activity.InSet && !lastSet && (
+					{currentActivity === Activity.InSet && (
 						<Button text="Finish Set" onClick={activityFinishedHandler}></Button>
 					)}
 					{currentActivity === Activity.Resting && (

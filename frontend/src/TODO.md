@@ -2,6 +2,8 @@
 
 1. Fix setTime/repetition field
 
+2. Delete Image.js and change ImageInput.js name to Image.js.
+
 ### CSS
 
 1. Sign up, login pages
@@ -45,6 +47,8 @@
 1. Different background and navigation bar according to page
 
 2. Keep hover area the same size when making something smaller on hover
+
+3. New lines in textfields don't become new lines after edit
 
 ### Backend
 

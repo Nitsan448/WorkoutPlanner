@@ -30,6 +30,7 @@ function NewExerciseForm(props) {
 					saveExerciseHandler={addExerciseHandler}
 					cancelEditHandler={() => setIsFormOpen(false)}
 					deleteExerciseHandler={() => setIsFormOpen(false)}
+					usingTimer={true}
 					{...props}
 				/>
 			) : (

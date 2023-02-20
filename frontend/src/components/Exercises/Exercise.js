@@ -14,6 +14,8 @@ function Exercise(props) {
 
 	const image = props.image ? `${props.image}` : "";
 
+	console.log(props.usingTimer);
+
 	async function deleteExerciseHandler() {
 		setEditingExercise(false);
 		try {
@@ -83,7 +85,11 @@ function Exercise(props) {
 					<div className={classes.routine}>
 						{props.sets > 1 ? <h3>{props.sets} Sets</h3> : <h3>{props.sets} Set</h3>}
 						<h3>Rest time: {getTimeInTimerFormat(props.restTime)} </h3>
-						<h3>Set Time: {getTimeInTimerFormat(props.setTime)}</h3>
+						{props.usingTimer ? (
+							<h3>Set Time: {getTimeInTimerFormat(props.setTime)}</h3>
+						) : (
+							<h3>Repetitions: {props.repetitions}</h3>
+						)}
 						<h3>Break after exercise: {getTimeInTimerFormat(props.breakAfterExercise)}</h3>
 					</div>
 				</div>
