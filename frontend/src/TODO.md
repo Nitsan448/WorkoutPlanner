@@ -1,8 +1,6 @@
 ## Frontend
 
-1. Fix setTime/repetition field
-
-2. Delete Image.js and change ImageInput.js name to Image.js.
+1. Delete Image.js and change ImageInput.js name to Image.js.
 
 ### CSS
 

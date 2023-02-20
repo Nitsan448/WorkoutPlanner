@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Image.module.css";
 
 function Image(props) {
-	let containerClasses = props.allowImageChange ? `${classes.Image} pointerCursor` : classes.Image;
+	let containerClasses = props.allowImageChange ? `${classes.image} pointerCursor` : classes.image;
 
 	containerClasses = props.workoutImage ? `${containerClasses} ${classes.workoutImage}` : containerClasses;
 

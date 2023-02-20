@@ -4,7 +4,7 @@ import { getTimeInTimerFormat } from "../../helpers/time";
 import { useDeleteRoutineMutation, useUpdateRoutineMutation } from "../../store/apiSlice";
 import ExerciseForm from "./ExerciseForm";
 import { Draggable } from "react-beautiful-dnd";
-import ImageInput from "../UI/ImageInput";
+import Image from "../UI/Image";
 
 function Exercise(props) {
 	const [editingExercise, setEditingExercise] = useState(false);
@@ -13,8 +13,6 @@ function Exercise(props) {
 	const [updateRoutine] = useUpdateRoutineMutation();
 
 	const image = props.image ? `${props.image}` : "";
-
-	console.log(props.usingTimer);
 
 	async function deleteExerciseHandler() {
 		setEditingExercise(false);
@@ -78,7 +76,7 @@ function Exercise(props) {
 	function renderExerciseInformation() {
 		return (
 			<>
-				<ImageInput image={image} alt={props.name} allowImageChange={false} />
+				<Image image={image} alt={props.name} allowImageChange={false} />
 				<div className={classes.exerciseInformation}>
 					<h3 className={classes.exercise__name}>{props.name}</h3>
 					<p className={classes.exercise__Description}>{props.description}</p>

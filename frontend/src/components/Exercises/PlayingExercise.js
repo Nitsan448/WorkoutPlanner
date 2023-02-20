@@ -7,7 +7,6 @@ function PlayingExercise(props) {
 	const playingExerciseClasses = props.currentlyPlaying
 		? `${classes.playingExercise} ${classes.currentlyPlaying}`
 		: `${classes.playingExercise}`;
-	console.log(props.usingTimer);
 	return (
 		<div className={playingExerciseClasses}>
 			{props.currentActivity === "Break" && props.currentlyPlaying ? (

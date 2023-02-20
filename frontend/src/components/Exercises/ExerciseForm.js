@@ -4,7 +4,7 @@ import { isPositiveNumber } from "../../helpers/helpers";
 import { useForm } from "react-hook-form";
 import { getTimeInSeconds, getTimeInTimerFormat } from "../../helpers/time";
 import useImageUpload from "../../hooks/use-image-upload";
-import ImageInput from "../UI/ImageInput";
+import Image from "../UI/Image";
 
 function ExerciseForm(props) {
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.description !== "");
@@ -63,7 +63,7 @@ function ExerciseForm(props) {
 				encType="multipart/form-data"
 				className={classes.form}
 				onSubmit={handleSubmit(async (data) => saveRoutine(data))}>
-				<ImageInput
+				<Image
 					inputId={`exercise_image${props.orderInWorkout}`}
 					onChange={exerciseImage.onImageUpload}
 					image={image}

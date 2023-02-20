@@ -11,7 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import useImageUpload from "../../hooks/use-image-upload";
-import ImageInput from "../UI/ImageInput";
+import Image from "../UI/Image";
 
 function EditingWorkout(props) {
 	const location = useLocation();
@@ -129,7 +129,7 @@ function EditingWorkout(props) {
 					<form
 						encType="multipart/form-data"
 						onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
-						<ImageInput
+						<Image
 							workoutImage={true}
 							inputId="workout_image"
 							onChange={workoutImage.onImageUpload}
@@ -147,7 +147,7 @@ function EditingWorkout(props) {
 									},
 								})}
 							/>
-						</ImageInput>
+						</Image>
 						{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
 
 						{descriptionTextAreaOpen ? (
@@ -182,9 +182,9 @@ function EditingWorkout(props) {
 					</form>
 				) : (
 					<>
-						<ImageInput workoutImage={true} image={image} alt="Workout" allowImageChange={false}>
+						<Image workoutImage={true} image={image} alt="Workout" allowImageChange={false}>
 							<h1>{props.workout.name}</h1>
-						</ImageInput>
+						</Image>
 						<h4>{props.workout.description}</h4>
 						<div>
 							<button

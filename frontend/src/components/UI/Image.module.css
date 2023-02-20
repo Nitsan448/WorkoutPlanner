@@ -1,4 +1,4 @@
-.imageInput {
+.image {
 	max-height: 100%;
 	display: flex;
 	justify-content: center;
@@ -9,11 +9,11 @@
 	overflow: hidden;
 }
 
-.imageInput p {
+.image p {
 	z-index: 2;
 }
 
-.workoutImageInput {
+.workoutImage {
 	height: 50vh;
 }
 
@@ -26,7 +26,7 @@
 	z-index: 1;
 }
 
-.imageInput img {
+.image img {
 	display: block;
 	aspect-ratio: 1/1;
 	min-width: 100%;
@@ -34,11 +34,11 @@
 	object-fit: cover;
 }
 
-.imageInput input[type="file"] {
+.image input[type="file"] {
 	display: none;
 }
 
-.imageInput h1 {
+.image h1 {
 	z-index: 2;
 	position: absolute;
 	bottom: 15px;
@@ -49,7 +49,7 @@
 }
 
 @media screen and (max-width: 576px) {
-	.imageInput {
+	.image {
 		min-height: 20vh;
 	}
 }
