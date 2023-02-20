@@ -63,8 +63,8 @@
 	font-weight: 400;
 	z-index: 2;
 	top: 65%;
-	left: 5%;
-	right: 5%;
+	left: 4%;
+	right: 4%;
 	width: 100%;
 }
 
@@ -74,12 +74,12 @@
 	font-weight: 400;
 	z-index: 2;
 	overflow-wrap: break-word;
+	overflow: hidden;
 	text-align: left;
 	font-size: 0.7em;
 	top: 75%;
 	right: 25%;
 	left: 5%;
-	overflow: hidden;
 	max-height: 22%;
 }
 
@@ -107,12 +107,12 @@
 	background-size: contain;
 	background-color: rgba(255, 255, 255, 0);
 	border: none;
-	z-index: 10;
+	z-index: 5;
 }
 
 .edit:hover {
 	background-image: url("../Images/editSmallHover.png");
-	z-index: 10;
+	z-index: 5;
 }
 
 .play {
@@ -126,7 +126,7 @@
 	background-size: contain;
 	background-color: rgba(255, 255, 255, 0);
 	border: none;
-	z-index: 10;
+	z-index: 5;
 }
 
 .play:hover {

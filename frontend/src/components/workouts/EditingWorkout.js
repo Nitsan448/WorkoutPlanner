@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NewExercise from "../Exercises/NewExercise";
-import classes from "./Workout.module.css";
+import classes from "./EditingWorkout.module.css";
 import Exercise from "../Exercises/Exercise";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -142,8 +142,8 @@ function EditingWorkout(props) {
 								className={classes.container__workoutNameInput}
 								{...register("name", {
 									maxLength: {
-										value: 20,
-										message: "Workout name cannot be longer than 20 characters",
+										value: 24,
+										message: "Workout name cannot be longer than 24 characters",
 									},
 								})}
 							/>

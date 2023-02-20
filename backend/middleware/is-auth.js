@@ -6,7 +6,6 @@ module.exports = (req, res, next) => {
 		throw new Error("Not authenticated");
 	}
 
-	//TODO: change secret and put it in process.env
 	let decodedToken;
 	try {
 		decodedToken = jsonWebToken.verify(token, process.env.JWT_SECRET);

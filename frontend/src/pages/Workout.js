@@ -4,9 +4,13 @@ import { useLocation } from "react-router-dom";
 import PlayingWorkout from "../components/workouts/PlayingWorkout";
 import EditingWorkout from "../components/workouts/EditingWorkout";
 import { useGetWorkoutQuery } from "../store/apiSlice";
+import { useDispatch } from "react-redux";
+import { showModal } from "../store/errorModalSlice";
+import { useState, useEffect } from "react";
 
 function Workout(props) {
 	const location = useLocation();
+	const dispatch = useDispatch();
 	const queryParams = new URLSearchParams(location.search);
 	const workoutMode = queryParams.get("mode");
 
@@ -21,6 +25,12 @@ function Workout(props) {
 		error: workoutRequestError,
 	} = useGetWorkoutQuery(workoutId);
 
+	useEffect(() => {
+		if (isWorkoutRequestError) {
+			dispatch(showModal(workoutRequestError.error.toString()));
+		}
+	}, [isWorkoutRequestError]);
+
 	let content;
 	if (isWorkoutRequestLoading) {
 		content = <h1>Loading...</h1>;
@@ -31,7 +41,10 @@ function Workout(props) {
 					workout.routines.length > 0 ? (
 						<PlayingWorkout workout={workout} />
 					) : (
-						<h2>You cannot play a workout with no exercises</h2>
+						<>
+							<h1>This workout is empty</h1>
+							<h3>Add some exercises and then try playing it again.</h3>
+						</>
 					)
 				) : (
 					<EditingWorkout workout={workout} inEditMode={workoutMode === "edit"} />
@@ -39,7 +52,7 @@ function Workout(props) {
 			</>
 		);
 	} else if (isWorkoutRequestError) {
-		content = <div>{workoutRequestError.toString()}</div>;
+		content = "";
 	}
 
 	return <>{content}</>;

@@ -39,7 +39,6 @@ router.post(
 );
 
 function setUserToken(res, userData) {
-	//TODO: change secret and put it in process.env
 	const token = jsonWebToken.sign(userData, process.env.JWT_SECRET);
 	const now = new Date();
 	const tokenExpiryDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);

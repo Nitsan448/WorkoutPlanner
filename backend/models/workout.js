@@ -38,7 +38,6 @@ module.exports = class Workout {
 	}
 
 	static getRoutines(workoutId) {
-		//TODO: Order by order in workout
 		const query =
 			"SELECT * FROM routines INNER JOIN exercises ON routines.exercise_id=exercises.exercise_id WHERE workout_id=?";
 		return database.execute(query, [workoutId]);

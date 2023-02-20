@@ -6,11 +6,13 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import NavigationHeader from "./components/Layout/NavigationHeader";
 import classes from "./App.module.css";
+import ErrorModal from "./components/UI/ErrorModal";
 
 function App() {
 	return (
 		<>
 			<NavigationHeader />
+			<ErrorModal />
 			<main className={classes.mainContainer}>
 				<Routes>
 					<Route path="/" element={<Navigate replace to="/register" />} />
