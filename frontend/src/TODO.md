@@ -1,18 +1,22 @@
 ## Frontend
 
+1. Change error handling to use error modal in all requests:
+
+-   Logout
+
 ### CSS
 
-1. Sign up, login pages
+1. Sign up, login pages buttons
 
 2. playWorkout page
 
-3. Editing/Viewing workout - Fix image filter
+3. Editing/Viewing workout - Fix image filter, add footer and header
 
-4. Add queries for mobile use
+4. New lines in textfields don't become new lines after edit
 
 5. workouts page - buttons color when hovering
 
-6. Handle UI for loading (spinner next to button?) and errors (pop up?) for all api calls
+6. Handle UI for loading (spinner next to button?) for all api calls
 
 ## Backend
 
@@ -26,8 +30,6 @@
 
 ## Other
 
-1. Add Readme to git
-
 # Backlog
 
 ### Frontend
@@ -38,13 +40,21 @@
 
 3. Add sound effect when current activity finished
 
+4. Delete workout error modal
+
+5. Add prefetching on hovers, etc.
+
 #### CSS
 
 1. Different background and navigation bar according to page
 
 2. Keep hover area the same size when making something smaller on hover
 
-3. New lines in textfields don't become new lines after edit
+3. Improve mobile querys
+
+4. Error modal
+
+5. Make create new workout not stretch
 
 ### Backend
 
@@ -70,5 +80,3 @@
 4. Switch to cloudfront for accessing images from s3 and make them private
 
 5. Change favicon
-
-6. Find ways to reduce expanses in aws

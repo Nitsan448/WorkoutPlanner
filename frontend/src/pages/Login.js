@@ -3,10 +3,10 @@ import classes from "./RegisterAndLogin.module.css";
 import Button from "../components/UI/Button";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../store/apiSlice";
-// import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setLoggedInState } from "../store/userSlice";
+import { showModal } from "../store/errorModalSlice";
 
 function Login(props) {
 	const navigate = useNavigate();
@@ -28,6 +28,8 @@ function Login(props) {
 				setError("emailOrUserName", { message: error.data });
 			} else if (error.data === "Wrong password") {
 				setError("password", { message: error.data });
+			} else {
+				dispatch(showModal(error.data));
 			}
 		}
 	}

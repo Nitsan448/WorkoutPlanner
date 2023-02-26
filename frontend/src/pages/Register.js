@@ -5,6 +5,7 @@ import { useRegisterMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
 import Button from "../components/UI/Button";
 import { useDispatch } from "react-redux";
+import { showModal } from "../store/errorModalSlice";
 import { setLoggedInState } from "../store/userSlice";
 
 function Register(props) {
@@ -39,6 +40,8 @@ function Register(props) {
 				setError("email", { message: error.data });
 			} else if (error.data === "Password must be longer then 5 characters") {
 				setError("password", { message: error.data });
+			} else {
+				dispatch(showModal(error.data));
 			}
 		}
 	}

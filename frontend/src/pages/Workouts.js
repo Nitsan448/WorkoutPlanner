@@ -2,10 +2,14 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import classes from "./Workouts.module.css";
 import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlice";
+import { useDispatch } from "react-redux";
+import { showModal } from "../store/errorModalSlice";
+import { useEffect } from "react";
 
 function Workouts(props) {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const dispatch = useDispatch();
 
 	const {
 		data: workouts,
@@ -14,6 +18,12 @@ function Workouts(props) {
 		isError: isWorkoutsRequestError,
 		error: workoutsRequestError,
 	} = useGetWorkoutsQuery();
+
+	useEffect(() => {
+		if (isWorkoutsRequestError) {
+			dispatch(showModal(workoutsRequestError.error.toString()));
+		}
+	}, [isWorkoutsRequestError, dispatch, workoutsRequestError]);
 
 	const [addWorkout] = useAddWorkoutMutation();
 
@@ -26,10 +36,11 @@ function Workouts(props) {
 			const workoutId = await addWorkout({
 				name: "",
 				description: "",
-			});
-			goToWorkoutHandler(workoutId.data, "edit");
+			}).unwrap();
+			console.log(workoutId);
+			goToWorkoutHandler(workoutId, "edit");
 		} catch (error) {
-			console.log("failed to add workout", error);
+			dispatch(showModal(error.data));
 		}
 	}
 

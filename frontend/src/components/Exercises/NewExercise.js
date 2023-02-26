@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import ExerciseForm from "./ExerciseForm";
 import { useAddRoutineMutation } from "../../store/apiSlice";
 import classes from "./NewExercise.module.css";
+import { useDispatch } from "react-redux";
+import { showModal } from "../../store/errorModalSlice";
 
 function NewExerciseForm(props) {
+	const dispatch = useDispatch();
 	const [isFormOpen, setIsFormOpen] = useState(false);
 
 	const [addRoutine] = useAddRoutineMutation();
@@ -15,11 +18,11 @@ function NewExerciseForm(props) {
 		}
 
 		try {
-			await addRoutine(routineData);
+			await addRoutine(routineData).unwrap();
 			resetForm();
 			setIsFormOpen(false);
 		} catch (error) {
-			console.log(error);
+			dispatch(showModal(error.data));
 		}
 	}
 

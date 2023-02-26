@@ -6,7 +6,7 @@ import EditingWorkout from "../components/workouts/EditingWorkout";
 import { useGetWorkoutQuery } from "../store/apiSlice";
 import { useDispatch } from "react-redux";
 import { showModal } from "../store/errorModalSlice";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function Workout(props) {
 	const location = useLocation();
@@ -29,7 +29,7 @@ function Workout(props) {
 		if (isWorkoutRequestError) {
 			dispatch(showModal(workoutRequestError.error.toString()));
 		}
-	}, [isWorkoutRequestError]);
+	}, [isWorkoutRequestError, dispatch, workoutRequestError]);
 
 	let content;
 	if (isWorkoutRequestLoading) {

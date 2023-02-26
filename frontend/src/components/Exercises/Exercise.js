@@ -5,8 +5,11 @@ import { useDeleteRoutineMutation, useUpdateRoutineMutation } from "../../store/
 import ExerciseForm from "./ExerciseForm";
 import { Draggable } from "react-beautiful-dnd";
 import Image from "../UI/Image";
+import { useDispatch } from "react-redux";
+import { showModal } from "../../store/errorModalSlice";
 
 function Exercise(props) {
+	const dispatch = useDispatch();
 	const [editingExercise, setEditingExercise] = useState(false);
 
 	const [deleteRoutine] = useDeleteRoutineMutation();
@@ -19,7 +22,7 @@ function Exercise(props) {
 		try {
 			await deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout }).unwrap();
 		} catch (error) {
-			console.log(error.data);
+			dispatch(showModal(error.data));
 		}
 	}
 
@@ -33,7 +36,7 @@ function Exercise(props) {
 			await updateRoutine(routineData).unwrap();
 			toggleExerciseFormOpenState(false);
 		} catch (error) {
-			console.log(error.data);
+			dispatch(showModal(error.data));
 		}
 	}
 

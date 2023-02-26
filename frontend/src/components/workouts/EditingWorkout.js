@@ -11,11 +11,14 @@ import {
 import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import useImageUpload from "../../hooks/use-image-upload";
+import { useDispatch } from "react-redux";
+import { showModal } from "../../store/errorModalSlice";
 import Image from "../UI/Image";
 
 function EditingWorkout(props) {
 	const location = useLocation();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const workoutId = props.workout.workout_id;
 
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.workout.description !== "");
@@ -44,9 +47,10 @@ function EditingWorkout(props) {
 		setRoutines(props.workout.routines);
 	}, [props.workout.routines]);
 
-	async function onDeleteWorkoutClicked() {
+	async function onDeleteWorkoutClicked(event) {
+		event.preventDefault();
 		deleteWorkout({ workout_id: workoutId });
-		navigate(`/workouts`);
+		navigate(`/workouts`, { replace: true });
 	}
 
 	async function saveWorkoutHandler(data) {
@@ -62,7 +66,7 @@ function EditingWorkout(props) {
 			setDescriptionTextAreaOpen(false);
 			setInEditMode(false);
 		} catch (error) {
-			setError("name", { message: error.data });
+			dispatch(showModal(error.data));
 		}
 	}
 
@@ -70,7 +74,6 @@ function EditingWorkout(props) {
 		register,
 		formState: { errors },
 		handleSubmit,
-		setError,
 		clearErrors,
 	} = useForm({
 		defaultValues: {
@@ -96,7 +99,7 @@ function EditingWorkout(props) {
 				new_routine_index: destination.index,
 			}).unwrap();
 		} catch (error) {
-			console.log(error.data);
+			dispatch(showModal(error.data));
 		}
 	}
 

@@ -9,7 +9,7 @@ export const apiSlice = createApi({
 			query: () => "/workouts/",
 			providesTags: (result = [], error, arg) => [
 				"Workout",
-				...result.map(({ id }) => ({ type: "Workout", id })),
+				...result.map(({ workout_id }) => ({ type: "Workout", workout_id })),
 			],
 		}),
 		getWorkout: builder.query({
@@ -30,14 +30,14 @@ export const apiSlice = createApi({
 				method: "PATCH",
 				body: workout,
 			}),
-			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.id }],
+			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.workout_id }],
 		}),
 		deleteWorkout: builder.mutation({
 			query: (workout) => ({
 				url: `/workouts/${workout.workout_id}`,
 				method: "DELETE",
 			}),
-			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.id }],
+			invalidatesTags: ["Workout"],
 		}),
 		updateRoutinesOrder: builder.mutation({
 			query: (workout) => ({
@@ -45,7 +45,7 @@ export const apiSlice = createApi({
 				method: "POST",
 				body: workout,
 			}),
-			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.id }],
+			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.workout_id }],
 		}),
 		addRoutine: builder.mutation({
 			query: (routine) => ({
@@ -53,7 +53,7 @@ export const apiSlice = createApi({
 				method: "POST",
 				body: routine,
 			}),
-			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.id }],
+			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.workout_id }],
 		}),
 		updateRoutine: builder.mutation({
 			query: (routine) => ({
@@ -61,14 +61,14 @@ export const apiSlice = createApi({
 				method: "PATCH",
 				body: routine,
 			}),
-			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.id }],
+			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.workout_id }],
 		}),
 		deleteRoutine: builder.mutation({
 			query: (routine) => ({
 				url: `/routines/${routine.workout_id}/${routine.order_in_workout}`,
 				method: "DELETE",
 			}),
-			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.id }],
+			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.workout_id }],
 		}),
 		register: builder.mutation({
 			query: (user) => ({ url: "/auth/register", method: "POST", body: user }),
