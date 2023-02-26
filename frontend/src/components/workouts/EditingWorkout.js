@@ -155,8 +155,8 @@ function EditingWorkout(props) {
 							type="description"
 							{...register("description", {
 								maxLength: {
-									value: 500,
-									message: "Workout description cannot be longer than 500 characters",
+									value: 400,
+									message: "Workout description cannot be longer than 400 characters",
 								},
 							})}
 						/>

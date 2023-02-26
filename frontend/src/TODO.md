@@ -6,13 +6,11 @@
 
 2. playWorkout page
 
-3. Editing/Viewing workout - Fix image filter, add footer and header
+3. Editing/Viewing workout - add footer and header
 
-4. New lines in textfields don't become new lines after edit
+4. workouts page - buttons color when hovering
 
-5. workouts page - buttons color when hovering
-
-6. Handle UI for loading (spinner next to button?) for all api calls
+5. Handle UI for loading (spinner next to button?) for all api calls
 
 ## Backend
 
