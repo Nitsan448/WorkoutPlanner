@@ -66,13 +66,13 @@
 
 .form__greyRoutine label {
 	display: block;
-	color: var(--GRAY-BLUE);
+	color: var(--BLUE-BRIGHT);
 }
 
 .form__greyRoutine input {
 	min-width: 60%;
-	color: var(--GRAY-BLUE);
-	border-color: var(--GRAY-BLUE);
+	color: var(--BLUE-BRIGHT);
+	border-color: var(--BLUE-BRIGHT);
 }
 
 .form__repsOrSets {

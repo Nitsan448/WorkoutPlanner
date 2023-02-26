@@ -125,83 +125,71 @@ function EditingWorkout(props) {
 		);
 	}
 
+	function renderWorkoutForm() {
+		return (
+			<form encType="multipart/form-data" onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
+				<Image
+					workoutImage={true}
+					inputId="workout_image"
+					onChange={workoutImage.onImageUpload}
+					image={image}
+					alt="Workout"
+					allowImageChange={true}>
+					<input
+						type="text"
+						placeholder="Workout name"
+						className={classes.container__workoutNameInput}
+						{...register("name", {
+							maxLength: {
+								value: 24,
+								message: "Workout name cannot be longer than 24 characters",
+							},
+						})}
+					/>
+				</Image>
+				{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
+
+				{descriptionTextAreaOpen ? (
+					<>
+						<textarea
+							type="description"
+							{...register("description", {
+								maxLength: {
+									value: 500,
+									message: "Workout description cannot be longer than 500 characters",
+								},
+							})}
+						/>
+						{errors.description && <p className={"invalidParagraph"}>{errors.description.message}</p>}
+					</>
+				) : (
+					<button
+						className={classes.container__addDescriptionButton}
+						onClick={() => setDescriptionTextAreaOpen(true)}
+					/>
+				)}
+				<div>
+					<button className={`${classes.checkmark} ${classes.imageButton}`} />
+
+					<button className={`${classes.delete} ${classes.imageButton}`} onClick={onDeleteWorkoutClicked} />
+				</div>
+			</form>
+		);
+	}
+
 	function renderWorkout() {
 		return (
-			<div className={classes.container__workout}>
-				{inEditMode ? (
-					<form
-						encType="multipart/form-data"
-						onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
-						<Image
-							workoutImage={true}
-							inputId="workout_image"
-							onChange={workoutImage.onImageUpload}
-							image={image}
-							alt="Workout"
-							allowImageChange={true}>
-							<input
-								type="text"
-								placeholder="Workout name"
-								className={classes.container__workoutNameInput}
-								{...register("name", {
-									maxLength: {
-										value: 24,
-										message: "Workout name cannot be longer than 24 characters",
-									},
-								})}
-							/>
-						</Image>
-						{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
+			<>
+				<Image workoutImage={true} image={image} alt="Workout" allowImageChange={false}>
+					<h1>{props.workout.name}</h1>
+				</Image>
+				<p className={classes.container__workoutDescription}>{props.workout.description}</p>
+				<div>
+					<button className={`${classes.play} ${classes.imageButton}`} onClick={StartWorkoutHandler} />
 
-						{descriptionTextAreaOpen ? (
-							<>
-								<textarea
-									type="description"
-									{...register("description", {
-										maxLength: {
-											value: 500,
-											message: "Workout description cannot be longer than 500 characters",
-										},
-									})}
-								/>
-								{errors.description && (
-									<p className={"invalidParagraph"}>{errors.description.message}</p>
-								)}
-							</>
-						) : (
-							<button
-								className={classes.container__addDescriptionButton}
-								onClick={() => setDescriptionTextAreaOpen(true)}
-							/>
-						)}
-						<div>
-							<button className={`${classes.checkmark} ${classes.imageButton}`} />
-
-							<button
-								className={`${classes.delete} ${classes.imageButton}`}
-								onClick={onDeleteWorkoutClicked}
-							/>
-						</div>
-					</form>
-				) : (
-					<>
-						<Image workoutImage={true} image={image} alt="Workout" allowImageChange={false}>
-							<h1>{props.workout.name}</h1>
-						</Image>
-						<h4>{props.workout.description}</h4>
-						<div>
-							<button
-								className={`${classes.play} ${classes.imageButton}`}
-								onClick={StartWorkoutHandler}
-							/>
-
-							<button
-								className={`${classes.edit} ${classes.imageButton}`}
-								onClick={EditWorkoutHandler}></button>
-						</div>
-					</>
-				)}
-			</div>
+					<button className={`${classes.edit} ${classes.imageButton}`} onClick={EditWorkoutHandler}></button>
+				</div>
+			</>
 		);
 	}
 
@@ -232,7 +220,7 @@ function EditingWorkout(props) {
 	return (
 		<div>
 			<div className={classes.container}>
-				{renderWorkout()}
+				<div className={classes.container__workout}>{inEditMode ? renderWorkoutForm() : renderWorkout()}</div>
 				{renderExercises()}
 			</div>
 		</div>

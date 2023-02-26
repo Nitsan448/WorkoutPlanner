@@ -5,6 +5,7 @@ import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlice";
 import { useDispatch } from "react-redux";
 import { showModal } from "../store/errorModalSlice";
 import { useEffect } from "react";
+import ImageOverlay from "../components/UI/ImageOverlay";
 
 function Workouts(props) {
 	const navigate = useNavigate();
@@ -56,10 +57,13 @@ function Workouts(props) {
 					{workout.image ? (
 						<div className={classes.workouts__workoutImageContainer}>
 							<img className={classes.workouts__workoutImage} src={`${workout.image}`} alt="workout" />
-							<div className={classes.workouts__imageFilter}></div>
+							<ImageOverlay />
 						</div>
 					) : (
-						<div className={classes.workouts__workoutImage} />
+						<div className={classes.workouts__workoutImageContainer}>
+							<div className={classes.workouts__workoutImage} />
+							<ImageOverlay />
+						</div>
 					)}
 					<div>
 						<h2 className={classes.workouts__workoutName}>{workout.name}</h2>

@@ -20,14 +20,15 @@
 	background-color: rgba(255, 255, 255, 0);
 	border-bottom: var(--BORDER-WHITE);
 }
-.container__workout h4 {
+
+.container__workoutDescription {
 	margin: 15px 15px 0 15px;
 	overflow-wrap: break-word;
 }
 
 .container__workout textarea {
 	margin: 15px 15px 0 15px;
-	height: calc(40vh - 11vw);
+	height: calc(30vh);
 	width: 93%;
 }
 

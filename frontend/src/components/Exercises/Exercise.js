@@ -79,7 +79,7 @@ function Exercise(props) {
 	function renderExerciseInformation() {
 		return (
 			<>
-				<Image image={image} alt={props.name} allowImageChange={false} />
+				<Image image={image} alt={props.name} allowImageChange={false} exerciseImage={true} />
 				<div className={classes.exerciseInformation}>
 					<h3 className={classes.exercise__name}>{props.name}</h3>
 					<p className={classes.exercise__Description}>{props.description}</p>

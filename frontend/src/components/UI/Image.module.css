@@ -3,7 +3,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: var(--BLUE);
+	background-color: var(--BLUE-SECONDARY);
 	position: relative;
 	color: rgba(255, 255, 255, 0.7);
 	overflow: hidden;
@@ -15,15 +15,6 @@
 
 .workoutImage {
 	height: 50vh;
-}
-
-.imageOverlay {
-	display: block;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background-color: #3b71b3b0;
-	z-index: 1;
 }
 
 .image img {

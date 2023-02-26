@@ -74,6 +74,7 @@ function ExerciseForm(props) {
 					image={image}
 					allowImageChange={true}
 					alt="Exercise"
+					exerciseImage={true}
 				/>
 				<div className={classes.form__exercise}>
 					<input type="text" placeholder="Exercise name" {...register("name", { required: true })} />

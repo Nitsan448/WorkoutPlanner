@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Image.module.css";
+import ImageOverlay from "./ImageOverlay";
 
 function Image(props) {
 	let containerClasses = props.allowImageChange ? `${classes.image} pointerCursor` : classes.image;
@@ -11,13 +12,13 @@ function Image(props) {
 			{!props.image && <p>+ Photo</p>}
 			<input id={props.inputId} type="file" onChange={props.onChange} accept=".jpg, .jpeg, .png" />
 			{props.image && <img src={props.image} alt={props.alt} />}
-			<div className={classes.imageOverlay}></div>
+			<ImageOverlay />
 			{props.children}
 		</label>
 	) : (
 		<div className={containerClasses}>
 			{props.image && <img src={props.image} alt={props.alt} />}
-			<div className={classes.imageOverlay}></div>
+			<ImageOverlay exerciseImage={props.exerciseImage} />
 			{props.children}
 		</div>
 	);

@@ -16,7 +16,7 @@
 
 .form input {
 	width: 250px;
-	border-color: var(--GRAY-BLUE);
+	border-color: var(--BLUE-BRIGHT);
 	color: var(--BLUE);
 	font-weight: 500;
 	font-size: 1.1em;

@@ -1,9 +1,5 @@
 ## Frontend
 
-1. Change error handling to use error modal in all requests:
-
--   Logout
-
 ### CSS
 
 1. Sign up, login pages buttons
@@ -46,15 +42,13 @@
 
 #### CSS
 
-1. Different background and navigation bar according to page
+1. Keep hover area the same size when making something smaller on hover
 
-2. Keep hover area the same size when making something smaller on hover
+2. Improve mobile querys
 
-3. Improve mobile querys
+3. Error modal
 
-4. Error modal
-
-5. Make create new workout not stretch
+4. Make create new workout not stretch
 
 ### Backend
 
@@ -70,7 +64,7 @@
 
 ### Other
 
-1. Add option to login as a guest - Create user, delete it if the user leaves without logging out (after warning him)
+1. Add option to login as a guest
 
 2. Add social media features
 

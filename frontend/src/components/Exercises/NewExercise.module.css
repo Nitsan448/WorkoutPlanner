@@ -15,3 +15,9 @@
 
 	background-image: url("../../Images/addExerciseHover.png");
 }
+
+@media screen and (max-width: 768px) {
+	.newExerciseButton {
+		width: 90%;
+	}
+}

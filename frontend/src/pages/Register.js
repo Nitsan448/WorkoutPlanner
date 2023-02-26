@@ -60,12 +60,12 @@ function Register(props) {
 			<h1>Sign up</h1>
 			<div className={classes.form}>
 				<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
-					<div className={classes.form_group}>
+					<div>
 						<label htmlFor="userName">User name:</label>
 						<input type="text" {...register("userName", { required: "Please enter your user name" })} />
 						{errors.userName && <p className={"invalidParagraph"}>{errors.userName.message}</p>}
 					</div>
-					<div className={classes.form_group}>
+					<div>
 						<label htmlFor="email">Email:</label>
 						<input
 							type="text"
@@ -76,7 +76,7 @@ function Register(props) {
 						/>
 						{errors.email && <p className={"invalidParagraph"}>{errors.email.message}</p>}
 					</div>
-					<div className={classes.form_group}>
+					<div>
 						<label htmlFor="password">password:</label>
 						<input
 							type="password"
@@ -87,7 +87,7 @@ function Register(props) {
 						/>
 						{errors.password && <p className={"invalidParagraph"}>{errors.password.message}</p>}
 					</div>
-					<div className={classes.form_group}>
+					<div>
 						<label htmlFor="validatePassword">Validate password:</label>
 						<input
 							type="password"

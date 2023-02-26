@@ -47,7 +47,7 @@ function Login(props) {
 			<h1>Log in</h1>
 			<div className={classes.form}>
 				<form onSubmit={handleSubmit(async (data) => await loginHandler(data))}>
-					<div className={classes.form_group}>
+					<div>
 						<label htmlFor="emailOrUserName">Email/User name:</label>
 						<input
 							type="text"
@@ -59,7 +59,7 @@ function Login(props) {
 							<p className={"invalidParagraph"}>{errors.emailOrUserName.message}</p>
 						)}
 					</div>
-					<div className={classes.form_group}>
+					<div>
 						<label htmlFor="password">Password:</label>
 						<input
 							type="password"
