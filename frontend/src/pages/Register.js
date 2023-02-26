@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import classes from "./RegisterAndLogin.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useRegisterMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
 import Button from "../components/UI/Button";
@@ -57,7 +57,7 @@ function Register(props) {
 
 	return (
 		<div className={classes.container}>
-			<h1>Register</h1>
+			<h1>Sign up</h1>
 			<div className={classes.form}>
 				<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
 					<div className={classes.form_group}>
@@ -100,10 +100,12 @@ function Register(props) {
 							<p className={"invalidParagraph"}>{errors.validatePassword.message}</p>
 						)}
 					</div>
-					<Button text="Register" />
+					<Button text="Sign up" />
 				</form>
-				{/* <Link to="/Login">Login</Link> */}
 			</div>
+			<Link className={classes.link} to="/Login">
+				Already have an account? Click here!
+			</Link>
 		</div>
 	);
 }

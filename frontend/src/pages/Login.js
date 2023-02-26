@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./RegisterAndLogin.module.css";
 import Button from "../components/UI/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useLoginMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -44,7 +44,7 @@ function Login(props) {
 
 	return (
 		<div className={classes.container}>
-			<h1>Login</h1>
+			<h1>Log in</h1>
 			<div className={classes.form}>
 				<form onSubmit={handleSubmit(async (data) => await loginHandler(data))}>
 					<div className={classes.form_group}>
@@ -73,10 +73,13 @@ function Login(props) {
 						/>
 						{errors.password && <p className={"invalidParagraph"}>{errors.password.message}</p>}
 					</div>
-					<Button text="Login" />
+					<Button text="Log in" />
 				</form>
 				{/* <Link to="/Register">Register</Link> */}
 			</div>
+			<Link className={classes.link} to="/Register">
+				Don't have an account? Click here!
+			</Link>
 		</div>
 	);
 }

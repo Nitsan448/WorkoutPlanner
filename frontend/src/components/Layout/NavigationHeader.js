@@ -41,7 +41,7 @@ const NavigationHeader = () => {
 							</NavLink>
 						</li>
 						<li>
-							<NavLink onClick={onLogoutClickHandler}>Logout</NavLink>
+							<NavLink onClick={onLogoutClickHandler}>Log out</NavLink>
 						</li>
 					</ul>
 				) : (
@@ -51,12 +51,12 @@ const NavigationHeader = () => {
 								end
 								to="/register"
 								className={(navData) => (navData.isActive ? classes.active : "")}>
-								Register
+								Sign up
 							</NavLink>
 						</li>
 						<li>
 							<NavLink end to="/login" className={(navData) => (navData.isActive ? classes.active : "")}>
-								Login
+								Log in
 							</NavLink>
 						</li>
 					</ul>
