@@ -54,6 +54,7 @@ function Register(props) {
 		setError,
 		clearErrors,
 	} = useForm();
+	console.log(process.env.REACT_APP_API_URL);
 
 	return (
 		<div className={classes.container}>
