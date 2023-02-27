@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import classes from "./Workouts.module.css";
-import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlice";
+import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlices/workoutsApi";
 import { useDispatch } from "react-redux";
 import { showModal } from "../store/errorModalSlice";
 import { useEffect } from "react";

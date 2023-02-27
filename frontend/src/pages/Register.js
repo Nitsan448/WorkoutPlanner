@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import classes from "./RegisterAndLogin.module.css";
 import { useNavigate, Link } from "react-router-dom";
-import { useRegisterMutation } from "../store/apiSlice";
+import { useRegisterMutation } from "../store/apiSlices/authApi";
 import { useForm } from "react-hook-form";
 import Button from "../components/UI/Button";
 import { useDispatch } from "react-redux";

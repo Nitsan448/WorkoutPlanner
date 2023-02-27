@@ -5,7 +5,6 @@
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
 	background-color: var(--WHITE);
-	color: var(--BLUE);
 	margin: 0 auto;
 	overflow: auto;
 }

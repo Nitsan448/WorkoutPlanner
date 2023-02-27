@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import classes from "./NavigationHeader.module.css";
-import { useLogoutMutation } from "../../store/apiSlice";
+import { useLogoutMutation } from "../../store/apiSlices/authApi";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

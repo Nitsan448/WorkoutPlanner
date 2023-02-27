@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./RegisterAndLogin.module.css";
 import Button from "../components/UI/Button";
 import { useNavigate, Link } from "react-router-dom";
-import { useLoginMutation } from "../store/apiSlice";
+import { useLoginMutation } from "../store/apiSlices/authApi";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setLoggedInState } from "../store/userSlice";

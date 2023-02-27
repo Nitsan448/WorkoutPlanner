@@ -7,7 +7,7 @@ import {
 	useUpdateWorkoutMutation,
 	useDeleteWorkoutMutation,
 	useUpdateRoutinesOrderMutation,
-} from "../../store/apiSlice";
+} from "../../store/apiSlices/workoutsApi";
 import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import useImageUpload from "../../hooks/use-image-upload";
