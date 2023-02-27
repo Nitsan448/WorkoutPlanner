@@ -5,7 +5,9 @@ import ImageOverlay from "./ImageOverlay";
 function Image(props) {
 	let containerClasses = props.allowImageChange ? `${classes.image} pointerCursor` : classes.image;
 
-	containerClasses = props.workoutImage ? `${containerClasses} ${classes.workoutImage}` : containerClasses;
+	containerClasses = props.workoutImage
+		? `${containerClasses} ${classes.workoutImage}`
+		: `${containerClasses} ${classes.exerciseImage}`;
 
 	return props.allowImageChange ? (
 		<label htmlFor={props.inputId} className={containerClasses}>

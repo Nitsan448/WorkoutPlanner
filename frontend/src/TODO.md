@@ -1,5 +1,11 @@
 ## Frontend
 
+1. Loading component
+
+2. Make a warning when someone leaves the page without saving the workout or it's exercises.
+
+3. Clean code
+
 ### CSS
 
 1. Sign up, login pages buttons
@@ -11,6 +17,14 @@
 4. workouts page - buttons color when hovering
 
 5. Handle UI for loading (spinner next to button?) for all api calls
+
+6. Update blue secondary
+
+7. Make + and create new workout smaller.
+
+8. Move filter and name bit down in workouts and increase each workout height
+
+9. export all images as svg
 
 ## Backend
 
@@ -24,7 +38,11 @@
 
 ## Other
 
-1. Clean code
+1. Add an example workout for all new users in the my workouts page.
+
+2. Maybe make a delete workout button in workouts?
+
+3. Add Gif to readme file.
 
 # Backlog
 
@@ -38,6 +56,8 @@
 
 4. Add prefetching on hovers, etc.
 
+5. Make logo a button that takes to home page.
+
 #### CSS
 
 1. Keep hover area the same size when making something smaller on hover
@@ -45,6 +65,12 @@
 2. Improve mobile querys
 
 3. Improve error modal
+
+4. Make workout container in workout page blue with orange border to the right
+
+5. Add animations
+
+6. Make container margin in width and height the same
 
 ### Backend
 

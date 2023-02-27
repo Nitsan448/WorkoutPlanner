@@ -11,7 +11,7 @@
 	background-position: 10% 50%;
 }
 .newExerciseButton:hover {
-	transform: scale(0.9);
+	transform: scale(0.95);
 
 	background-image: url("../../Images/addExerciseHover.png");
 }

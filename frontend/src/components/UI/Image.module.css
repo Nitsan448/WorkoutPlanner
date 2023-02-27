@@ -5,16 +5,19 @@
 	align-items: center;
 	background-color: var(--BLUE-SECONDARY);
 	position: relative;
-	color: rgba(255, 255, 255, 0.7);
 	overflow: hidden;
 }
 
 .image p {
-	z-index: 2;
+	color: rgba(255, 255, 255, 1);
 }
 
 .workoutImage {
 	height: 50vh;
+}
+
+.exerciseImage {
+	border-right: var(--BORDER);
 }
 
 .image img {

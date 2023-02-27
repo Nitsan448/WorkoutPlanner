@@ -69,8 +69,14 @@ function Workouts(props) {
 						<p className={classes.workouts__workoutDescription}>{workout.description}</p>
 					</div>
 				</button>
-				<button className={classes.edit} onClick={() => goToWorkoutHandler(workout.workout_id, "edit")} />
-				<button className={classes.play} onClick={() => goToWorkoutHandler(workout.workout_id, "play")} />
+				<button
+					className={`${classes.edit} ${classes.imageButton}`}
+					onClick={() => goToWorkoutHandler(workout.workout_id, "edit")}
+				/>
+				<button
+					className={`${classes.play} ${classes.imageButton}`}
+					onClick={() => goToWorkoutHandler(workout.workout_id, "play")}
+				/>
 			</div>
 		));
 	} else if (isWorkoutsRequestError) {

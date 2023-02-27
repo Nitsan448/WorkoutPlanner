@@ -4,13 +4,13 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	color: var(--BLUE);
 }
 
 html {
 	scroll-behavior: smooth;
 	font-size: var(--FS);
 	font-family: var(--FF);
+	color: var(--BLUE);
 	background-color: var(--BLUE);
 }
 

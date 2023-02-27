@@ -21,7 +21,7 @@
 }
 
 .workouts__workout:hover {
-	transform: scale(0.9);
+	transform: scale(0.95);
 }
 
 .workouts__viewWorkoutButton {
@@ -51,7 +51,6 @@
 	color: white;
 	text-align: left;
 	font-weight: 400;
-	z-index: 2;
 	top: 65%;
 	left: 4%;
 	right: 4%;
@@ -62,13 +61,13 @@
 	position: absolute;
 	color: white;
 	font-weight: 400;
-	z-index: 2;
 	overflow-wrap: break-word;
 	overflow: hidden;
 	text-align: left;
-	font-size: 0.7em;
+	font-size: 0.68em;
+	line-height: 1.2em;
 	top: 75%;
-	right: 25%;
+	right: 28%;
 	left: 5%;
 	max-height: 22%;
 }
@@ -84,40 +83,35 @@
 }
 
 .workouts__newWorkout:hover {
-	transform: scale(0.9);
+	transform: scale(0.95);
 }
 
-.edit {
-	background-image: url("../Images/editSmall.png");
-	width: 42px;
-	height: 42px;
+.imageButton {
 	position: absolute;
-	top: 0;
-	right: 0;
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-color: rgba(255, 255, 255, 0);
 	border: none;
-	z-index: 5;
+}
+
+.edit {
+	background-image: url("../Images/editSmall.png");
+	width: 35px;
+	height: 35px;
+	top: 1%;
+	right: 1%;
 }
 
 .edit:hover {
 	background-image: url("../Images/editSmallHover.png");
-	z-index: 5;
 }
 
 .play {
 	background-image: url("../Images/play.png");
 	width: 66px;
 	height: 66px;
-	position: absolute;
 	bottom: 11%;
 	right: 4%;
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-color: rgba(255, 255, 255, 0);
-	border: none;
-	z-index: 5;
 }
 
 .play:hover {
