@@ -75,11 +75,12 @@
 
 .workouts__newWorkout {
 	background-image: url(../Images/newWorkout.png);
-	border: none;
+	background-color: var(--WHITE);
+	border: var(--BORDER);
+	border-radius: var(--BORDER-RADIUS);
 	background-repeat: no-repeat;
+	background-position: 50% 40%;
 	height: 60vh;
-	background-size: 100% 100%;
-	background-color: rgba(255, 255, 255, 0);
 }
 
 .workouts__newWorkout:hover {

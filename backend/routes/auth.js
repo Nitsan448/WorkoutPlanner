@@ -18,7 +18,6 @@ router.post(
 	validatePasswordOnRegister(),
 	validate,
 	async (req, res, next) => {
-		console.log(req.body);
 		try {
 			const encryptedPassword = await bcrypt.hash(req.body.password, 12);
 			const [results] = await User.register({
@@ -32,7 +31,6 @@ router.post(
 
 			res.status(200).json({ token, userId: userData.userId });
 		} catch (error) {
-			console.log(error.message);
 			res.status(500).json(error.message);
 		}
 	}
@@ -59,7 +57,6 @@ router.post("/login", async (req, res, next) => {
 		}
 		const loadedUser = user[0];
 		const isPasswordValid = await bcrypt.compare(req.body.password, loadedUser.password);
-		console.log(isPasswordValid);
 		if (!isPasswordValid) {
 			throw new Error("Wrong password");
 		}
@@ -69,7 +66,6 @@ router.post("/login", async (req, res, next) => {
 
 		res.status(200).json({ token, userId: userData.userId });
 	} catch (error) {
-		console.log(error.message);
 		res.status(500).json(error.message);
 	}
 });

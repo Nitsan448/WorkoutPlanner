@@ -1,18 +1,8 @@
 const express = require("express");
 const { checkIfRowCanBeManipulated } = require("../helpers/validation");
 const Routine = require("../models/routine");
-// const { validateNameIsNotEmpty, validate } = require("../middleware/validation");
-const getImageKey = require("../helpers/s3");
+const { replaceImage, deleteImage } = require("../helpers/fileManagement");
 
-var AWS = require("aws-sdk");
-
-AWS.config.update({
-	region: "eu-west-3",
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
-
-const s3 = new AWS.S3();
 const router = express.Router();
 
 router.post("/", async (req, res, next) => {
@@ -36,8 +26,8 @@ function getRoutineFromRequest(req, image) {
 		workoutId: req.body.workout_id,
 		sets: req.body.sets,
 		timeOrRepetitions: +req.body.time_or_repetitions,
-		setTime: req.body.set_time === undefined ? 0 : req.body.set_time,
-		repetitions: req.body.repetitions === undefined ? 0 : req.body.repetitions,
+		setTime: req.body.set_time,
+		repetitions: req.body.repetitions,
 		restTime: req.body.rest_time,
 		breakAfterRoutine: req.body.break_after_routine,
 		orderInWorkout: req.body.order_in_workout,
@@ -51,18 +41,9 @@ router.patch("/", async (req, res, next) => {
 			req.body.order_in_workout
 		);
 
-		let image;
-		if (req.files.length === 0) {
-			image = oldRoutine[0].image;
-		} else if (oldRoutine[0].image) {
-			const params = { Bucket: process.env.AWS_BUCKET_NAME, Key: getImageKey(routine[0].image) };
-			await s3.deleteObject(params).promise();
-			image = req.files[0].location;
-		} else {
-			image = req.files[0].location;
-		}
-		const routine = getRoutineFromRequest(req, image);
+		const image = await replaceImage(req.files, oldRoutine[0].image);
 
+		const routine = getRoutineFromRequest(req, image);
 		await Routine.updateRoutine(routine);
 		res.status(201).json("Routine edited");
 	} catch (error) {
@@ -80,8 +61,7 @@ router.delete("/:workoutId/:orderInWorkout", async (req, res, next) => {
 		checkIfRowCanBeManipulated(routine, req.userId);
 
 		if (routine[0].image) {
-			const params = { Bucket: process.env.AWS_BUCKET_NAME, Key: getImageKey(routine[0].image) };
-			await s3.deleteObject(params).promise();
+			await deleteImage(routine[0].image);
 		}
 
 		await Routine.deleteRoutine(req.params.workoutId, req.params.orderInWorkout, req.userId);

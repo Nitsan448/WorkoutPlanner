@@ -22,7 +22,6 @@ function Register(props) {
 	const [registerUser] = useRegisterMutation();
 
 	async function registerHandler(data) {
-		console.log(data);
 		try {
 			await registerUser({
 				user_name: data.userName,
@@ -33,7 +32,6 @@ function Register(props) {
 			dispatch(setLoggedInState(true));
 			navigate(`/workouts`);
 		} catch (error) {
-			console.log(error);
 			if (error.data === "User name taken") {
 				setError("userName", { message: error.data });
 			} else if (error.data === "Email address already exists") {
@@ -54,7 +52,6 @@ function Register(props) {
 		setError,
 		clearErrors,
 	} = useForm();
-	console.log(process.env.REACT_APP_API_URL);
 
 	return (
 		<div className={classes.container}>

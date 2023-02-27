@@ -38,7 +38,6 @@ function Workouts(props) {
 				name: "",
 				description: "",
 			}).unwrap();
-			console.log(workoutId);
 			goToWorkoutHandler(workoutId, "edit");
 		} catch (error) {
 			dispatch(showModal(error.data));

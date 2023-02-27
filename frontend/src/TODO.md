@@ -18,11 +18,13 @@
 
 1. workout image not deleting sometimes when deleting the workout (in Hagar's computer)
 
-2. Images sometimes not uploading to buckets in other computers/phones
+2. Images sometimes not uploading to buckets in other computers/phones - check if fixed
 
-3. Cors policy problem in Hagar's computer
+3. Cors policy problem in Hagar's computer - check if fixed
 
 ## Other
+
+1. Clean code
 
 # Backlog
 
@@ -34,9 +36,7 @@
 
 3. Add sound effect when current activity finished
 
-4. Delete workout error modal
-
-5. Add prefetching on hovers, etc.
+4. Add prefetching on hovers, etc.
 
 #### CSS
 
@@ -44,9 +44,7 @@
 
 2. Improve mobile querys
 
-3. Error modal
-
-4. Make create new workout not stretch
+3. Improve error modal
 
 ### Backend
 
@@ -57,6 +55,8 @@
 3. Require auth when user enters a page
 
 4. Add tests
+
+5. Add more validations (workout name and description length, etc.)
 
 ### Bugs
 

@@ -1,18 +1,7 @@
 const express = require("express");
 const Workout = require("../models/workout");
-const { validateNameIsNotEmpty, validate } = require("../middleware/validation");
 const { checkIfRowCanBeManipulated } = require("../helpers/validation");
-const getImageKey = require("../helpers/s3");
-
-var AWS = require("aws-sdk");
-
-AWS.config.update({
-	region: "eu-west-3",
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
-
-const s3 = new AWS.S3();
+const { replaceImage, deleteImage } = require("../helpers/fileManagement");
 
 const router = express.Router();
 
@@ -62,17 +51,7 @@ router.patch("/", async (req, res, next) => {
 		const [workout] = await Workout.findById(req.body.workout_id);
 		checkIfRowCanBeManipulated(workout, req.userId);
 
-		let image;
-		if (req.files.length === 0) {
-			image = workout[0].image;
-		} else if (workout[0].image) {
-			const params = { Bucket: process.env.AWS_BUCKET_NAME, Key: getImageKey(workout[0].image) };
-			await s3.deleteObject(params).promise();
-			image = req.files[0].location;
-		} else {
-			image = req.files[0].location;
-		}
-
+		const image = await replaceImage(req.files, workout[0].image);
 		await Workout.updateWorkout({
 			name: req.body.name,
 			description: req.body.description,
@@ -93,11 +72,11 @@ router.delete("/:workoutId", async (req, res, next) => {
 		checkIfRowCanBeManipulated(workout, req.userId);
 
 		if (workout[0].image) {
-			const params = { Bucket: process.env.AWS_BUCKET_NAME, Key: getImageKey(workout[0].image) };
-			await s3.deleteObject(params).promise();
+			await deleteImage(workout[0].image);
 		}
 
 		await Workout.deleteWorkout(workoutId);
+
 		res.status(200).json("Workout deleted");
 	} catch (error) {
 		console.log(error.message);
