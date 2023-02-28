@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import classes from "./NavigationHeader.module.css";
-import { useLogoutMutation } from "../../store/apiSlices/authApi";
+import { useLogoutMutation } from "../../store/apiSlice";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +28,7 @@ const NavigationHeader = () => {
 
 	return (
 		<header className={classes.header}>
-			<button className={classes.logo} onClick={navigate("/workouts")} />
+			{/* <button className={classes.logo} onClick={navigate("/workouts")} /> */}
 			<nav className={classes.nav}>
 				{loggedIn ? (
 					<ul>

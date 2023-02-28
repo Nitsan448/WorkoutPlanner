@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import PlayingWorkout from "../components/workouts/PlayingWorkout";
 import EditingWorkout from "../components/workouts/EditingWorkout";
-import { useGetWorkoutQuery } from "../store/apiSlices/workoutsApi";
+import { useGetWorkoutQuery } from "../store/apiSlice";
 import { useDispatch } from "react-redux";
 import { showModal } from "../store/errorModalSlice";
 import { useEffect } from "react";

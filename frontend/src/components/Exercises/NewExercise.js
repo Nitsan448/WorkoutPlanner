@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ExerciseForm from "./ExerciseForm";
-import { useAddRoutineMutation } from "../../store/apiSlices/routinesApi";
+import { useAddRoutineMutation } from "../../store/apiSlice";
 import classes from "./NewExercise.module.css";
 import { useDispatch } from "react-redux";
 import { showModal } from "../../store/errorModalSlice";

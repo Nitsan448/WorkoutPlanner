@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { mainApiSlice } from "./mainApiSlice";
+import { apiSlice } from "./apiSlice";
 import errorModalReducer from "./errorModalSlice";
 import userReducer from "./userSlice";
 
 const store = configureStore({
-	reducer: { [mainApiSlice.reducerPath]: mainApiSlice.reducer, user: userReducer, errorModal: errorModalReducer },
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(mainApiSlice.middleware),
+	reducer: { [apiSlice.reducerPath]: apiSlice.reducer, user: userReducer, errorModal: errorModalReducer },
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 export default store;

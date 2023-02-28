@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from "./Exercise.module.css";
 import { getTimeInTimerFormat } from "../../helpers/time";
-import { useDeleteRoutineMutation, useUpdateRoutineMutation } from "../../store/apiSlices/routinesApi";
+import { useDeleteRoutineMutation, useUpdateRoutineMutation } from "../../store/apiSlice";
 import ExerciseForm from "./ExerciseForm";
 import { Draggable } from "react-beautiful-dnd";
 import Image from "../UI/Image";

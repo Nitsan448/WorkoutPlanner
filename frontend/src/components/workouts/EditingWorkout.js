@@ -7,7 +7,7 @@ import {
 	useUpdateWorkoutMutation,
 	useDeleteWorkoutMutation,
 	useUpdateRoutinesOrderMutation,
-} from "../../store/apiSlices/workoutsApi";
+} from "../../store/apiSlice";
 import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import useImageUpload from "../../hooks/use-image-upload";
@@ -50,7 +50,7 @@ function EditingWorkout(props) {
 	async function onDeleteWorkoutClicked(event) {
 		event.preventDefault();
 		deleteWorkout({ workout_id: workoutId });
-		navigate(`/workouts`, { replace: true });
+		navigate(`/workouts`);
 	}
 
 	async function saveWorkoutHandler(data) {
