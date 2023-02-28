@@ -21,7 +21,7 @@
 }
 
 .workouts__workout:hover {
-	transform: scale(0.95);
+	transform: scale(0.97);
 }
 
 .workouts__viewWorkoutButton {
@@ -73,7 +73,7 @@
 }
 
 .workouts__newWorkout {
-	background-image: url(../Images/newWorkout.png);
+	background-image: url(../Images/newWorkout.svg);
 	background-color: var(--WHITE);
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
@@ -83,7 +83,7 @@
 }
 
 .workouts__newWorkout:hover {
-	transform: scale(0.95);
+	transform: scale(0.97);
 }
 
 .imageButton {
@@ -95,19 +95,20 @@
 }
 
 .edit {
-	background-image: url("../Images/editSmall.png");
+	background-image: url("../Images/edit.svg");
 	width: 35px;
 	height: 35px;
-	top: 1%;
-	right: 1%;
+	top: 2%;
+	right: 2%;
 }
 
 .edit:hover {
-	background-image: url("../Images/editSmallHover.png");
+	transform: scale(1.1);
+	background-image: url("../Images/editHover.svg");
 }
 
 .play {
-	background-image: url("../Images/play.png");
+	background-image: url("../Images/play.svg");
 	width: 66px;
 	height: 66px;
 	bottom: 11%;
@@ -115,8 +116,8 @@
 }
 
 .play:hover {
-	background-color: orange;
-	/* background-image: url("../Images/playHover.png"); */
+	transform: scale(1.1);
+	/* background-image: url("../Images/playHover.svg"); */
 }
 
 @media screen and (min-width: 576px) {

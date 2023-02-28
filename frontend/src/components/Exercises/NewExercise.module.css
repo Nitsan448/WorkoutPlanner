@@ -5,15 +5,12 @@
 	width: 97%;
 	min-height: 20vh;
 	background-color: var(--WHITE);
-	/* background-image: url("../../Images/addExercise.png"); */
-	background-image: url("../../Images/addExerciseHover.png");
+	background-image: url("../../Images/addExercise.svg");
 	background-repeat: no-repeat;
 	background-position: 10% 50%;
 }
 .newExerciseButton:hover {
-	transform: scale(0.95);
-
-	background-image: url("../../Images/addExerciseHover.png");
+	transform: scale(0.97);
 }
 
 @media screen and (max-width: 768px) {

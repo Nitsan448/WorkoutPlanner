@@ -49,7 +49,8 @@
 }
 
 .exercise__button:hover .exercise {
-	border: var(--BORDER-BLUE);
+	transform: scale(0.97);
+	/* border: var(--BORDER-BLUE); */
 }
 
 @media screen and (max-width: 1200px) {

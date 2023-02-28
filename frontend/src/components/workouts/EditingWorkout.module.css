@@ -33,7 +33,7 @@
 }
 
 .container__addDescriptionButton {
-	background-image: url("../../Images/addDescriptionButton.png");
+	background-image: url("../../Images/addDescriptionBlue.svg");
 	margin: 15px 15px 0 15px;
 	width: 10em;
 	height: 2em;
@@ -41,6 +41,10 @@
 	background-size: contain;
 	background-color: var(--WHITE);
 	border: none;
+}
+
+.container__addDescriptionButton:hover {
+	transform: scale(1.1);
 }
 
 .container__exercises {
@@ -60,33 +64,40 @@
 }
 
 .checkmark {
-	background-image: url("../../Images/checkmark.png");
+	background-image: url("../../Images/checkmark.svg");
+	background-color: var(--ORANGE);
+	background-position: center;
+	background-size: 40%;
 }
 .checkmark:hover {
-	background-image: url("../../Images/checkmarkHover.png");
+	transform: scale(0.9);
+	/* background-image: url("../../Images/checkmarkHover.svg"); */
 }
 
 .delete {
 	left: 100px;
-	background-image: url("../../Images/delete.png");
+	background-image: url("../../Images/delete.svg");
 }
 .delete:hover {
-	background-image: url("../../Images/deleteHover.png");
+	transform: scale(0.9);
+	/* background-image: url("../../Images/deleteHover.svg"); */
+}
+
+.edit {
+	background-image: url("../../Images/edit.svg");
+}
+.edit:hover {
+	transform: scale(0.9);
+	background-image: url("../../Images/editHover.svg");
 }
 
 .play {
 	left: 100px;
-	background-image: url("../../Images/play.png");
+	background-image: url("../../Images/play.svg");
 }
 .play:hover {
-	background-image: url("../../Images/playHover.png");
-}
-
-.edit {
-	background-image: url("../../Images/edit.png");
-}
-.edit:hover {
-	background-image: url("../../Images/editHover.png");
+	transform: scale(0.9);
+	/* background-image: url("../../Images/playHover.svg"); */
 }
 
 @media screen and (max-width: 768px) {

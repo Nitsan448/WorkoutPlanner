@@ -12,7 +12,7 @@ function Image(props) {
 	return props.allowImageChange ? (
 		<label htmlFor={props.inputId} className={containerClasses}>
 			{!props.image && <p>+ Photo</p>}
-			<input id={props.inputId} type="file" onChange={props.onChange} accept=".jpg, .jpeg, .png" />
+			<input id={props.inputId} type="file" onChange={props.onChange} accept=".jpg, .jpeg, .svg" />
 			{props.image && <img src={props.image} alt={props.alt} />}
 			<ImageOverlay />
 			{props.children}
