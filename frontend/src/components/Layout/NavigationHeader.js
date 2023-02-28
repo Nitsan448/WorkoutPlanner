@@ -14,6 +14,10 @@ const NavigationHeader = () => {
 
 	const loggedIn = useSelector((state) => state.user.loggedIn);
 
+	function navigateToMainPage() {
+		loggedIn ? navigate("/workouts") : navigate("/register");
+	}
+
 	useEffect(() => {
 		if (document.cookie.indexOf("token=") !== -1) {
 			dispatch(setLoggedInState(true));
@@ -28,7 +32,7 @@ const NavigationHeader = () => {
 
 	return (
 		<header className={classes.header}>
-			{/* <button className={classes.logo} onClick={navigate("/workouts")} /> */}
+			<button className={classes.logo} onClick={navigateToMainPage} />
 			<nav className={classes.nav}>
 				{loggedIn ? (
 					<ul>
