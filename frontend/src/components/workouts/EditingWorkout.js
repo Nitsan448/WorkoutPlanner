@@ -12,8 +12,9 @@ import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import useImageUpload from "../../hooks/use-image-upload";
 import { useDispatch } from "react-redux";
-import { showModal } from "../../store/errorModalSlice";
+import { showErrorModal } from "../../store/modalSlice";
 import Image from "../UI/Image";
+import ConfirmationModal from "../Modals/ConfirmationModal";
 
 function EditingWorkout(props) {
 	const location = useLocation();
@@ -25,6 +26,7 @@ function EditingWorkout(props) {
 	const [inEditMode, setInEditMode] = useState(props.inEditMode);
 	const [routines, setRoutines] = useState(props.workout.routines);
 	const [numberOfExerciseFormsOpen, setNumberOfExerciseFormsOpen] = useState(0);
+	const [showDeleteWorkoutConfirmationModal, setShowDeleteWorkoutConfirmationModal] = useState(false);
 
 	const [updateWorkout] = useUpdateWorkoutMutation();
 	const [deleteWorkout] = useDeleteWorkoutMutation();
@@ -47,8 +49,12 @@ function EditingWorkout(props) {
 		setRoutines(props.workout.routines);
 	}, [props.workout.routines]);
 
-	async function onDeleteWorkoutClicked(event) {
+	function onDeleteWorkoutClicked(event) {
 		event.preventDefault();
+		setShowDeleteWorkoutConfirmationModal(true);
+	}
+
+	function deleteWorkoutAndGoToWorkouts() {
 		deleteWorkout({ workout_id: workoutId });
 		navigate(`/workouts`);
 	}
@@ -66,7 +72,7 @@ function EditingWorkout(props) {
 			setDescriptionTextAreaOpen(false);
 			setInEditMode(false);
 		} catch (error) {
-			dispatch(showModal(error.data));
+			dispatch(showErrorModal(error.data));
 		}
 	}
 
@@ -99,7 +105,7 @@ function EditingWorkout(props) {
 				new_routine_index: destination.index,
 			}).unwrap();
 		} catch (error) {
-			dispatch(showModal(error.data));
+			dispatch(showErrorModal(error.data));
 		}
 	}
 
@@ -122,6 +128,21 @@ function EditingWorkout(props) {
 				setNumberOfExerciseFormsOpen={setNumberOfExerciseFormsOpen}
 				numberOfExerciseFormsOpen={numberOfExerciseFormsOpen}
 			/>
+		);
+	}
+
+	function renderConfirmationModal() {
+		return (
+			showDeleteWorkoutConfirmationModal && (
+				<ConfirmationModal
+					title="Confirmation required"
+					message="Are you sure you want to delete this workout?"
+					onCancel={() => {
+						setShowDeleteWorkoutConfirmationModal(false);
+					}}
+					onConfirm={deleteWorkoutAndGoToWorkouts}
+				/>
+			)
 		);
 	}
 
@@ -219,6 +240,7 @@ function EditingWorkout(props) {
 
 	return (
 		<div>
+			{renderConfirmationModal()}
 			<div className={classes.container}>
 				<div className={classes.container__workout}>{inEditMode ? renderWorkoutForm() : renderWorkout()}</div>
 				{renderExercises()}

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import classes from "./Workouts.module.css";
 import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlice";
 import { useDispatch } from "react-redux";
-import { showModal } from "../store/errorModalSlice";
+import { showErrorModal } from "../store/modalSlice";
 import { useEffect } from "react";
 import ImageOverlay from "../components/UI/ImageOverlay";
 
@@ -22,7 +22,7 @@ function Workouts(props) {
 
 	useEffect(() => {
 		if (isWorkoutsRequestError) {
-			dispatch(showModal(workoutsRequestError.error.toString()));
+			dispatch(showErrorModal(workoutsRequestError.error.toString()));
 		}
 	}, [isWorkoutsRequestError, dispatch, workoutsRequestError]);
 
@@ -40,7 +40,7 @@ function Workouts(props) {
 			}).unwrap();
 			goToWorkoutHandler(workoutId, "edit");
 		} catch (error) {
-			dispatch(showModal(error.data));
+			dispatch(showErrorModal(error.data));
 		}
 	}
 

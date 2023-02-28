@@ -3,7 +3,7 @@ import ExerciseForm from "./ExerciseForm";
 import { useAddRoutineMutation } from "../../store/apiSlice";
 import classes from "./NewExercise.module.css";
 import { useDispatch } from "react-redux";
-import { showModal } from "../../store/errorModalSlice";
+import { showErrorModal } from "../../store/modalSlice";
 
 function NewExerciseForm(props) {
 	const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function NewExerciseForm(props) {
 			resetForm();
 			setIsFormOpen(false);
 		} catch (error) {
-			dispatch(showModal(error.data));
+			dispatch(showErrorModal(error.data));
 		}
 	}
 

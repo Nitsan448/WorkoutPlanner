@@ -6,7 +6,7 @@ import ExerciseForm from "./ExerciseForm";
 import { Draggable } from "react-beautiful-dnd";
 import Image from "../UI/Image";
 import { useDispatch } from "react-redux";
-import { showModal } from "../../store/errorModalSlice";
+import { showErrorModal } from "../../store/modalSlice";
 
 function Exercise(props) {
 	const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function Exercise(props) {
 		try {
 			await deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout }).unwrap();
 		} catch (error) {
-			dispatch(showModal(error.data));
+			dispatch(showErrorModal(error.data));
 		}
 	}
 
@@ -36,7 +36,7 @@ function Exercise(props) {
 			await updateRoutine(routineData).unwrap();
 			toggleExerciseFormOpenState(false);
 		} catch (error) {
-			dispatch(showModal(error.data));
+			dispatch(showErrorModal(error.data));
 		}
 	}
 

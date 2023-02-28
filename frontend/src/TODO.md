@@ -2,9 +2,11 @@
 
 1. Loading component
 
-2. Make a warning when someone leaves the page without saving the workout or it's exercises.
+2. Add warning messages - when someone leaves an unsaved workout, tries to delete a workout.
 
 3. Clean code
+
+4. Merge unsaved and delete modals into confirmation modal
 
 ### CSS
 
@@ -14,19 +16,13 @@
 
 3. Editing/Viewing workout - add footer and header
 
-4. workouts page - buttons color when hovering
-
-5. Move filter and name bit down in workouts and increase each workout height
+4. Move filter and name bit down in workouts and increase each workout height
 
 ## Backend
 
 ## Bugs
 
-1. workout image not deleting sometimes when deleting the workout (in Hagar's computer)
-
-2. Images sometimes not uploading to buckets in other computers/phones - check if fixed
-
-3. Cors policy problem in Hagar's computer - check if fixed
+1. workout image sometimes not deleting from cloud when deleting the workout (in Hagar's computer)
 
 ## Other
 

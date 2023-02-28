@@ -6,7 +6,7 @@ import { useLoginMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setLoggedInState } from "../store/userSlice";
-import { showModal } from "../store/errorModalSlice";
+import { showErrorModal } from "../store/modalSlice";
 
 function Login(props) {
 	const navigate = useNavigate();
@@ -29,7 +29,7 @@ function Login(props) {
 			} else if (error.data === "Wrong password") {
 				setError("password", { message: error.data });
 			} else {
-				dispatch(showModal(error.data));
+				dispatch(showErrorModal(error.data));
 			}
 		}
 	}

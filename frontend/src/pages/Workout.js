@@ -5,7 +5,7 @@ import PlayingWorkout from "../components/workouts/PlayingWorkout";
 import EditingWorkout from "../components/workouts/EditingWorkout";
 import { useGetWorkoutQuery } from "../store/apiSlice";
 import { useDispatch } from "react-redux";
-import { showModal } from "../store/errorModalSlice";
+import { showErrorModal } from "../store/modalSlice";
 import { useEffect } from "react";
 
 function Workout(props) {
@@ -27,7 +27,7 @@ function Workout(props) {
 
 	useEffect(() => {
 		if (isWorkoutRequestError) {
-			dispatch(showModal(workoutRequestError.error.toString()));
+			dispatch(showErrorModal(workoutRequestError.error.toString()));
 		}
 	}, [isWorkoutRequestError, dispatch, workoutRequestError]);
 

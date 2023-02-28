@@ -6,7 +6,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import NavigationHeader from "./components/Layout/NavigationHeader";
 import classes from "./App.module.css";
-import ErrorModal from "./components/UI/ErrorModal";
+import ErrorModal from "./components/Modals/ErrorModal";
 
 function App() {
 	return (
