@@ -28,7 +28,7 @@ const NavigationHeader = () => {
 
 	return (
 		<header className={classes.header}>
-			{/* <button className={classes.logo} onClick={navigate("/workouts")} /> */}
+			<button className={classes.logo} onClick={navigate("/workouts")} />
 			<nav className={classes.nav}>
 				{loggedIn ? (
 					<ul>
