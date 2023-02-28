@@ -35,9 +35,11 @@
 	height: 31.5px;
 	background-size: contain;
 	position: absolute;
-	left: 1.65%;
+	left: 1.5%;
 	top: 35%;
 	background-repeat: no-repeat;
+	border: none;
+	background-color: transparent;
 }
 
 @media screen and (max-width: 576px) {

@@ -16,15 +16,7 @@
 
 4. workouts page - buttons color when hovering
 
-5. Handle UI for loading (spinner next to button?) for all api calls
-
-6. Update blue secondary
-
-7. Make + and create new workout smaller.
-
-8. Move filter and name bit down in workouts and increase each workout height
-
-9. export all images as svg
+5. Move filter and name bit down in workouts and increase each workout height
 
 ## Backend
 
@@ -56,7 +48,7 @@
 
 4. Add prefetching on hovers, etc.
 
-5. Make logo a button that takes to home page.
+5. Handle UI for loading (spinner next to button?) for all api calls
 
 #### CSS
 
