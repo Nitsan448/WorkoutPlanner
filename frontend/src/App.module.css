@@ -8,3 +8,47 @@
 	margin: 0 auto;
 	overflow: auto;
 }
+
+/* Scrollbar */
+.mainContainer::-webkit-scrollbar {
+	width: 1em;
+}
+
+.mainContainer::-webkit-scrollbar-thumb {
+	background-color: var(--WHITE);
+	border: 0.34em solid transparent;
+	border-radius: 9px;
+	background-clip: content-box;
+}
+
+.mainContainer::-webkit-scrollbar-thumb:hover {
+	background-color: rgb(216, 216, 216);
+}
+
+.mainContainer::-webkit-scrollbar-button:single-button {
+	background-color: var(--ORANGE);
+	display: block;
+	border-style: solid;
+	height: 0.8em;
+}
+
+.mainContainer::-webkit-scrollbar-button:single-button:vertical:decrement {
+	border-width: 0 8px 8px 8px;
+	border-color: transparent transparent var(--WHITE) transparent;
+}
+
+.mainContainer::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+	border-color: transparent transparent rgb(216, 216, 216) transparent;
+}
+
+.mainContainer::-webkit-scrollbar-button:single-button:vertical:increment {
+	border-width: 8px 8px 0 8px;
+	border-color: var(--WHITE) transparent var(--WHITE) transparent;
+}
+
+.mainContainer::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+	border-color: rgb(216, 216, 216) transparent rgb(216, 216, 216) transparent;
+}
+.mainContainer::-webkit-scrollbar-track {
+	background-color: orange;
+}
