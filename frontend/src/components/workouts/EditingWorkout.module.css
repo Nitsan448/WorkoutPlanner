@@ -56,18 +56,17 @@
 }
 
 .footer {
-	position: fixed;
-	/* align-self: start; */
-	/* background-color: black; */
-	right: 2.5em;
-	bottom: 1.5em;
+	position: sticky;
+	float: right;
+	bottom: 0.5em;
+	margin-top: -39px;
 }
 
 .footer button {
 	width: 126px;
 	height: 39px;
 	font-weight: bold;
-	margin-left: 0.5em;
+	margin-right: 0.5em;
 	border-radius: var(--BORDER-RADIUS);
 }
 .footer button:hover {
@@ -87,52 +86,6 @@
 	color: var(--ORANGE);
 	border: var(--BORDER);
 }
-
-/* .checkmark,
-.delete,
-.play,
-.edit {
-	width: 126px;
-	height: 39px;
-	color: white;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-color: transparent;
-	border: none;
-}
-
-.checkmark {
-	background-image: url("../../images/checkmark.svg");
-	background-color: var(--ORANGE);
-	background-position: center;
-	background-size: 40%;
-}
-.checkmark:hover {
-	transform: scale(0.9);
-}
-
-.delete {
-	background-image: url("../../images/delete.svg");
-}
-.delete:hover {
-	transform: scale(0.9);
-}
-
-.edit {
-	background-image: url("../../images/edit.svg");
-}
-.edit:hover {
-	transform: scale(0.9);
-	background-image: url("../../images/editHover.svg");
-}
-
-.play {
-	background-image: url("../../images/play.svg");
-}
-.play:hover {
-	transform: scale(0.9);
-} */
 
 @media screen and (max-width: 768px) {
 	.container {
