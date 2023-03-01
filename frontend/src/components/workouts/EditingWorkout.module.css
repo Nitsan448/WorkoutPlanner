@@ -56,10 +56,10 @@
 }
 
 .footer {
-	position: sticky;
+	position: absolute;
 	/* align-self: start; */
 	/* background-color: black; */
-	float: right;
+	right: 0.5em;
 	bottom: 0.5em;
 }
 
@@ -67,7 +67,7 @@
 	width: 126px;
 	height: 39px;
 	font-weight: bold;
-	margin-right: 0.5em;
+	margin-left: 0.5em;
 	border-radius: var(--BORDER-RADIUS);
 }
 .footer button:hover {

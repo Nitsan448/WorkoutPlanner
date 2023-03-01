@@ -265,14 +265,14 @@ function EditingWorkout(props) {
 	}
 
 	return (
-		<div>
+		<>
 			{renderConfirmationModal()}
 			<div className={classes.container}>
 				<div className={classes.container__workout}>{inEditMode ? renderWorkoutForm() : renderWorkout()}</div>
 				{renderExercises()}
 			</div>
 			{renderFooter()}
-		</div>
+		</>
 	);
 }
 
