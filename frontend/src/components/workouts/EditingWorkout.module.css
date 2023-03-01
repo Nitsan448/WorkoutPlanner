@@ -96,5 +96,14 @@
 	.container__workout {
 		position: relative;
 		width: 100%;
+		height: auto;
+	}
+
+	.container__workoutDescription {
+		margin-bottom: 15px;
+	}
+
+	.footer button:last-child {
+		margin-right: 12vw;
 	}
 }
