@@ -12,8 +12,6 @@
 
 4. Move filter and name a bit down in workouts and increase each workout height
 
-5. Improve error modal
-
 ## Backend
 
 ## Bugs

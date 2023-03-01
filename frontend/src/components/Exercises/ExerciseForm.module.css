@@ -115,7 +115,6 @@
 }
 .form__checkmark:hover {
 	background-color: var(--BLUE);
-	/* background-image: url("../../images/checkmarkHover.svg"); */
 }
 
 .form__delete {
@@ -128,7 +127,6 @@
 }
 .form__delete:hover {
 	transform: scale(1.1);
-	/* background-image: url("../../images/deleteSmallHover.svg"); */
 }
 .form__cancel {
 	background-image: url("../../images/Cancel.svg");
@@ -141,7 +139,6 @@
 
 .form__cancel:hover {
 	transform: scale(1.15);
-	/* background-image: url("../../images/CancelHover.svg"); */
 }
 
 @media screen and (max-width: 996px) {
