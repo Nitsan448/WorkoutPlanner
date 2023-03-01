@@ -55,14 +55,47 @@
 	margin-bottom: 5em;
 }
 
-.checkmark,
+.footer {
+	position: sticky;
+	/* align-self: start; */
+	/* background-color: black; */
+	float: right;
+	bottom: 0.5em;
+}
+
+.footer button {
+	width: 126px;
+	height: 39px;
+	font-weight: bold;
+	margin-right: 0.5em;
+	border-radius: var(--BORDER-RADIUS);
+}
+.footer button:hover {
+	transform: scale(1.1);
+}
+
+.play {
+	background-color: var(--BLUE);
+	color: var(--WHITE);
+	border: none;
+}
+
+.edit,
+.delete,
+.save {
+	background-color: var(--WHITE);
+	color: var(--ORANGE);
+	border: var(--BORDER);
+}
+
+/* .checkmark,
 .delete,
 .play,
 .edit {
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	top: 0;
+	width: 126px;
+	height: 39px;
+	color: white;
+	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-color: transparent;
@@ -77,16 +110,13 @@
 }
 .checkmark:hover {
 	transform: scale(0.9);
-	/* background-image: url("../../images/checkmarkHover.svg"); */
 }
 
 .delete {
-	left: 100px;
 	background-image: url("../../images/delete.svg");
 }
 .delete:hover {
 	transform: scale(0.9);
-	/* background-image: url("../../images/deleteHover.svg"); */
 }
 
 .edit {
@@ -98,13 +128,11 @@
 }
 
 .play {
-	left: 100px;
 	background-image: url("../../images/play.svg");
 }
 .play:hover {
 	transform: scale(0.9);
-	/* background-image: url("../../images/playHover.svg"); */
-}
+} */
 
 @media screen and (max-width: 768px) {
 	.container {

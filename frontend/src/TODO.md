@@ -2,11 +2,9 @@
 
 1. Loading component
 
-2. Clean code
-
 ### CSS
 
-1. Sign up, login pages buttons
+1. Sign up, login pages Image
 
 2. playWorkout page
 
@@ -22,7 +20,7 @@
 
 ## Other
 
-1. Maybe make a delete workout button in workouts?
+1. Delete workout button in workouts?
 
 2. Add Gif to readme file.
 
@@ -48,11 +46,9 @@
 
 2. Improve mobile querys
 
-3. Make workout container in workout page blue with orange border to the right
+3. Add animations
 
-4. Add animations
-
-5. Make container margin in width and height the same
+4. Make container margin in width and height the same
 
 ### Backend
 

@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./RegisterAndLogin.module.css";
-import Button from "../components/UI/Button";
 import { useNavigate, Link } from "react-router-dom";
 import { useLoginMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
@@ -73,7 +72,7 @@ function Login(props) {
 						/>
 						{errors.password && <p className={"invalidParagraph"}>{errors.password.message}</p>}
 					</div>
-					<Button text="Log in" />
+					<button>Log in</button>
 				</form>
 				{/* <Link to="/Register">Register</Link> */}
 			</div>

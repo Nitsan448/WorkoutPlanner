@@ -1,16 +1,16 @@
 .button {
 	background-color: var(--BLUE);
+	color: var(--WHITE);
 	padding: 10px 15px;
 	font-size: 1.3rem;
 	border: none;
 	border-radius: var(--BORDER-RADIUS);
 	cursor: pointer;
-	font-weight: bold;
 }
 
 .button:hover,
 .button:active {
-	background-color: var(--ORANGE);
+	transform: scale(1.1);
 }
 
 .button:disabled {

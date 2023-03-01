@@ -3,7 +3,6 @@ import classes from "./RegisterAndLogin.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { useRegisterMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
-import Button from "../components/UI/Button";
 import { useDispatch } from "react-redux";
 import { showErrorModal } from "../store/modalSlice";
 import { setLoggedInState } from "../store/userSlice";
@@ -98,7 +97,7 @@ function Register(props) {
 							<p className={"invalidParagraph"}>{errors.validatePassword.message}</p>
 						)}
 					</div>
-					<Button text="Sign up" />
+					<button>Sign up</button>
 				</form>
 			</div>
 			<Link className={classes.link} to="/Login">

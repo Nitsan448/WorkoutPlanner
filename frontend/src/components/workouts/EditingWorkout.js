@@ -148,7 +148,7 @@ function EditingWorkout(props) {
 
 	function renderWorkoutForm() {
 		return (
-			<form encType="multipart/form-data" onSubmit={handleSubmit(async (data) => saveWorkoutHandler(data))}>
+			<form encType="multipart/form-data">
 				<Image
 					workoutImage={true}
 					inputId="workout_image"
@@ -171,12 +171,6 @@ function EditingWorkout(props) {
 				{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
 
 				{renderDescriptionTextArea()}
-
-				<div>
-					<button className={classes.checkmark} />
-
-					<button className={classes.delete} onClick={onDeleteWorkoutClicked} />
-				</div>
 			</form>
 		);
 	}
@@ -214,11 +208,6 @@ function EditingWorkout(props) {
 					<h1>{props.workout.name}</h1>
 				</Image>
 				<p className={classes.container__workoutDescription}>{props.workout.description}</p>
-				<div>
-					<button className={classes.play} onClick={StartWorkoutHandler} />
-
-					<button className={classes.edit} onClick={EditWorkoutHandler}></button>
-				</div>
 			</>
 		);
 	}
@@ -247,6 +236,34 @@ function EditingWorkout(props) {
 		);
 	}
 
+	function renderFooter() {
+		return (
+			<div className={classes.footer}>
+				{inEditMode ? (
+					<>
+						<button className={classes.delete} onClick={onDeleteWorkoutClicked}>
+							Delete
+						</button>
+						<button
+							className={classes.save}
+							onClick={handleSubmit(async (data) => saveWorkoutHandler(data))}>
+							Save
+						</button>
+					</>
+				) : (
+					<>
+						<button className={classes.edit} onClick={EditWorkoutHandler}>
+							Edit
+						</button>
+						<button className={classes.play} onClick={StartWorkoutHandler}>
+							Play
+						</button>
+					</>
+				)}
+			</div>
+		);
+	}
+
 	return (
 		<div>
 			{renderConfirmationModal()}
@@ -254,6 +271,7 @@ function EditingWorkout(props) {
 				<div className={classes.container__workout}>{inEditMode ? renderWorkoutForm() : renderWorkout()}</div>
 				{renderExercises()}
 			</div>
+			{renderFooter()}
 		</div>
 	);
 }

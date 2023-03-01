@@ -33,3 +33,20 @@
 .link:visited {
 	color: var(--BLUE-SECONDARY);
 }
+
+.container button {
+	background-color: var(--BLUE);
+	color: var(--WHITE);
+	width: 160px;
+	height: 50px;
+	margin: 55px 0 0 90px;
+	font-size: 1.3rem;
+	border: none;
+	border-radius: var(--BORDER-RADIUS);
+	cursor: pointer;
+}
+
+.container button:active,
+.container button:hover {
+	transform: scale(1.1);
+}
