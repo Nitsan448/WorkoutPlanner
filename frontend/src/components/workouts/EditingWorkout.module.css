@@ -56,11 +56,11 @@
 }
 
 .footer {
-	position: absolute;
+	position: fixed;
 	/* align-self: start; */
 	/* background-color: black; */
-	right: 0.5em;
-	bottom: 0.5em;
+	right: 2.5em;
+	bottom: 1.5em;
 }
 
 .footer button {
