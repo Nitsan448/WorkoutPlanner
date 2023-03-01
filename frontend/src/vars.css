@@ -26,4 +26,7 @@
 
 	/* MARGIN */
 	--MARGIN: clamp(1em, 2.5vh, 1.5em) 0;
+
+	--EXERCISE-WIDTH: 97%;
+	--EXERCISE-WIDTH-SMALL-SCREENS: 90%;
 }

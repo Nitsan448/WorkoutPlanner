@@ -10,12 +10,11 @@
 }
 
 .container__workoutNameInput {
-	z-index: 2;
 	position: absolute;
 	bottom: 15px;
 	left: 15px;
 	width: 93%;
-	color: white;
+	color: var(--WHITE);
 	font-size: 2rem;
 	background-color: rgba(255, 255, 255, 0);
 	border-bottom: var(--BORDER-WHITE);
@@ -28,7 +27,7 @@
 
 .container__workout textarea {
 	margin: 15px 15px 0 15px;
-	height: calc(30vh);
+	height: 30vh;
 	width: 93%;
 }
 
@@ -51,16 +50,18 @@
 	margin-bottom: 5em;
 }
 
-.imageButton {
+.checkmark,
+.delete,
+.play,
+.edit {
 	width: 100px;
 	height: 100px;
 	position: absolute;
 	top: 0;
 	background-repeat: no-repeat;
 	background-size: contain;
-	background-color: rgba(255, 255, 255, 0);
+	background-color: transparent;
 	border: none;
-	z-index: 2;
 }
 
 .checkmark {

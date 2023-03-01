@@ -148,9 +148,11 @@ function ExerciseForm(props) {
 					/>
 					{errors.breakAfterExercise && <p className={"invalidParagraph"}>Must be in xx:xx format</p>}
 				</div>
-				<button className={classes.form__checkmark} />
-				<button type="button" className={classes.form__deleteButton} onClick={props.deleteExerciseHandler} />
-				<button type="button" className={classes.form__cancelButton} onClick={props.cancelEditHandler} />
+				<button className={classes.form__checkmarkButton}>
+					<div className={classes.form__checkmark}></div>
+				</button>
+				<button type="button" className={classes.form__delete} onClick={props.deleteExerciseHandler} />
+				<button type="button" className={classes.form__cancel} onClick={props.cancelEditHandler} />
 			</form>
 		</>
 	);

@@ -190,9 +190,9 @@ function EditingWorkout(props) {
 					/>
 				)}
 				<div>
-					<button className={`${classes.checkmark} ${classes.imageButton}`} />
+					<button className={classes.checkmark} />
 
-					<button className={`${classes.delete} ${classes.imageButton}`} onClick={onDeleteWorkoutClicked} />
+					<button className={classes.delete} onClick={onDeleteWorkoutClicked} />
 				</div>
 			</form>
 		);
@@ -206,9 +206,9 @@ function EditingWorkout(props) {
 				</Image>
 				<p className={classes.container__workoutDescription}>{props.workout.description}</p>
 				<div>
-					<button className={`${classes.play} ${classes.imageButton}`} onClick={StartWorkoutHandler} />
+					<button className={classes.play} onClick={StartWorkoutHandler} />
 
-					<button className={`${classes.edit} ${classes.imageButton}`} onClick={EditWorkoutHandler}></button>
+					<button className={classes.edit} onClick={EditWorkoutHandler}></button>
 				</div>
 			</>
 		);

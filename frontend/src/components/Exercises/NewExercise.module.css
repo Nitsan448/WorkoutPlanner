@@ -2,7 +2,7 @@
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
 	margin: 1em;
-	width: 97%;
+	width: var(--EXERCISE-WIDTH);
 	min-height: 20vh;
 	background-color: var(--WHITE);
 	background-image: url("../../Images/addExercise.svg");
@@ -15,6 +15,6 @@
 
 @media screen and (max-width: 768px) {
 	.newExerciseButton {
-		width: 90%;
+		width: var(--EXERCISE-WIDTH-SMALL-SCREENS);
 	}
 }

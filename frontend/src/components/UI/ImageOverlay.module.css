@@ -1,8 +1,12 @@
-.imageOverlay {
-	display: block;
+.imageOverlay,
+.imageFilter {
 	position: absolute;
 	width: 100%;
 	height: 100%;
+}
+
+.imageOverlay {
+	display: block;
 	top: 0;
 	left: 0;
 	background-color: #3b71b36b;
@@ -10,12 +14,9 @@
 
 .imageFilter {
 	background-image: url("../../Images/imageFilter.svg");
-	position: absolute;
 	background-repeat: no-repeat;
 	background-size: cover;
-	width: 100%;
-	height: 100%;
-	bottom: 0%;
+	bottom: 0;
 }
 
 .imageFilterExercise {
