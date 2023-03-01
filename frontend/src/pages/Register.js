@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { showErrorModal } from "../store/modalSlice";
 import { setLoggedInState } from "../store/userSlice";
+import Button from "../components/UI/Button";
 
 function Register(props) {
 	const navigate = useNavigate();
@@ -97,7 +98,7 @@ function Register(props) {
 							<p className={"invalidParagraph"}>{errors.validatePassword.message}</p>
 						)}
 					</div>
-					<button>Sign up</button>
+					<Button text="Sign up" />
 				</form>
 			</div>
 			<Link className={classes.link} to="/Login">

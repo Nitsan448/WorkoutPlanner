@@ -12,17 +12,21 @@
 	position: fixed;
 	top: 30vh;
 	height: 40%;
+	left: calc(50% - 30%);
+	width: 60%;
 	z-index: 100;
 	background-color: var(--WHITE);
+	border: var(--BORDER);
+	border-radius: var(--BORDER-RADIUS);
 }
 
 .title {
 	font-size: 1.6em;
-	margin: 15% 0 3% 15%;
+	margin: 12% 10% 3% 12%;
 }
 
 .content {
-	margin: 0% 40% 0 15%;
+	margin: 0% 45% 0 12%;
 	word-wrap: break-word;
 }
 
@@ -34,9 +38,18 @@
 	justify-content: flex-end;
 }
 
-@media (min-width: 768px) {
+.actions button {
+	margin-left: 1em;
+}
+
+@media (max-width: 768px) {
 	.modal {
-		left: calc(50% - 20rem);
-		width: 40rem;
+		left: calc(50% - 10rem);
+		width: 20rem;
+	}
+
+	.actions button {
+		width: 5em;
+		height: 2em;
 	}
 }

@@ -7,7 +7,7 @@ function Modal(props) {
 		<>
 			{createPortal(
 				<>
-					<div className={classes.backdrop} onClick={props.onConfirm} />
+					<div className={classes.backdrop} onClick={props.onCancel} />
 					<div className={classes.modal}>
 						<h2 className={classes.title}>{props.title}</h2>
 						<div className={classes.content}>
