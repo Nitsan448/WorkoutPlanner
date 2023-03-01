@@ -5,7 +5,7 @@
 	width: var(--EXERCISE-WIDTH);
 	min-height: 20vh;
 	background-color: var(--WHITE);
-	background-image: url("../../Images/addExercise.svg");
+	background-image: url("../../images/addExercise.svg");
 	background-repeat: no-repeat;
 	background-position: 10% 50%;
 }

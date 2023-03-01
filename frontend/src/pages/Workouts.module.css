@@ -73,7 +73,7 @@
 }
 
 .workouts__newWorkout {
-	background-image: url(../Images/newWorkout.svg);
+	background-image: url(../images/newWorkout.svg);
 	background-color: var(--WHITE);
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
@@ -111,25 +111,25 @@
 }
 
 .delete {
-	background-image: url("../Images/deleteWhite.svg");
+	background-image: url("../images/deleteWhite.svg");
 	left: 2%;
 }
 
 .delete:hover {
-	background-image: url("../Images/delete.svg");
+	background-image: url("../images/delete.svg");
 }
 
 .edit {
-	background-image: url("../Images/edit.svg");
+	background-image: url("../images/edit.svg");
 	right: 2%;
 }
 
 .edit:hover {
-	background-image: url("../Images/editHover.svg");
+	background-image: url("../images/editHover.svg");
 }
 
 .play {
-	background-image: url("../Images/play.svg");
+	background-image: url("../images/play.svg");
 	width: 66px;
 	height: 66px;
 	bottom: 11%;

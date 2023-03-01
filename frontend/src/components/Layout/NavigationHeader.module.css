@@ -30,7 +30,7 @@
 }
 
 .logo {
-	background-image: url("../../Images/logo.svg");
+	background-image: url("../../images/logo.svg");
 	width: 265px;
 	height: 31.5px;
 	background-size: contain;

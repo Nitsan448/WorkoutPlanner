@@ -26,7 +26,7 @@
 }
 
 .form__addDescriptionButton {
-	background-image: url("../../Images/addDescriptionBlue.svg");
+	background-image: url("../../images/addDescriptionBlue.svg");
 	margin-top: 0.75em;
 	/* margin: 15px 15px 0 15px; */
 	width: 10.5em;
@@ -94,7 +94,7 @@
 }
 
 .form__orImage {
-	background-image: url("../../Images/or.svg");
+	background-image: url("../../images/or.svg");
 	background-size: contain;
 	width: 60px;
 }
@@ -105,7 +105,7 @@
 }
 
 .form__checkmark {
-	background-image: url("../../Images/checkmark.svg");
+	background-image: url("../../images/checkmark.svg");
 	background-size: cover;
 	background-size: 40%;
 	display: flex;
@@ -115,11 +115,11 @@
 }
 .form__checkmark:hover {
 	background-color: var(--BLUE);
-	/* background-image: url("../../Images/checkmarkHover.svg"); */
+	/* background-image: url("../../images/checkmarkHover.svg"); */
 }
 
 .form__delete {
-	background-image: url("../../Images/delete.svg");
+	background-image: url("../../images/delete.svg");
 	position: absolute;
 	top: 7.5px;
 	right: 50px;
@@ -128,10 +128,10 @@
 }
 .form__delete:hover {
 	transform: scale(1.1);
-	/* background-image: url("../../Images/deleteSmallHover.svg"); */
+	/* background-image: url("../../images/deleteSmallHover.svg"); */
 }
 .form__cancel {
-	background-image: url("../../Images/Cancel.svg");
+	background-image: url("../../images/Cancel.svg");
 	position: absolute;
 	top: 12.5px;
 	right: 12.5px;
@@ -141,7 +141,7 @@
 
 .form__cancel:hover {
 	transform: scale(1.15);
-	/* background-image: url("../../Images/CancelHover.svg"); */
+	/* background-image: url("../../images/CancelHover.svg"); */
 }
 
 @media screen and (max-width: 996px) {

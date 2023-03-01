@@ -13,7 +13,7 @@
 }
 
 .workoutImage {
-	height: 50vh;
+	height: 55vh;
 }
 
 .exerciseImage {
@@ -34,7 +34,7 @@
 
 .image h1 {
 	position: absolute;
-	bottom: 15px;
+	bottom: 0;
 	left: 15px;
 	word-wrap: break-word;
 	color: var(--WHITE);

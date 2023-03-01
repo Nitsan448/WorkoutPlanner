@@ -162,14 +162,28 @@ function EditingWorkout(props) {
 						className={classes.container__workoutNameInput}
 						{...register("name", {
 							maxLength: {
-								value: 24,
-								message: "Workout name cannot be longer than 24 characters",
+								value: 22,
+								message: "Workout name cannot be longer than 22 characters",
 							},
 						})}
 					/>
 				</Image>
 				{errors.name && <p className={"invalidParagraph"}>{errors.name.message}</p>}
 
+				{renderDescriptionTextArea()}
+
+				<div>
+					<button className={classes.checkmark} />
+
+					<button className={classes.delete} onClick={onDeleteWorkoutClicked} />
+				</div>
+			</form>
+		);
+	}
+
+	function renderDescriptionTextArea() {
+		return (
+			<>
 				{descriptionTextAreaOpen ? (
 					<>
 						<textarea
@@ -189,12 +203,7 @@ function EditingWorkout(props) {
 						onClick={() => setDescriptionTextAreaOpen(true)}
 					/>
 				)}
-				<div>
-					<button className={classes.checkmark} />
-
-					<button className={classes.delete} onClick={onDeleteWorkoutClicked} />
-				</div>
-			</form>
+			</>
 		);
 	}
 
