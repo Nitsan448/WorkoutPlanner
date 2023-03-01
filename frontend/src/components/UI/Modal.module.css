@@ -11,29 +11,25 @@
 .modal {
 	position: fixed;
 	top: 30vh;
-	left: 10%;
-	width: 80%;
+	height: 40%;
 	z-index: 100;
-	overflow: hidden;
-	background-color: var(--ORANGE);
+	background-color: var(--WHITE);
 }
 
-.header {
-	background: var(--BLUE);
-	padding: 1rem;
-}
-
-.header h2 {
-	margin: 0;
-	color: white;
+.title {
+	font-size: 1.6em;
+	margin: 15% 0 3% 15%;
 }
 
 .content {
-	padding: 1rem;
+	margin: 0% 40% 0 15%;
+	word-wrap: break-word;
 }
 
 .actions {
-	padding: 1rem;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
 	display: flex;
 	justify-content: flex-end;
 }

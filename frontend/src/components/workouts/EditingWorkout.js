@@ -238,7 +238,7 @@ function EditingWorkout(props) {
 
 	function renderFooter() {
 		return (
-			<div className={classes.footer}>
+			<footer className={classes.footer}>
 				{inEditMode ? (
 					<>
 						<button className={classes.delete} onClick={onDeleteWorkoutClicked}>
@@ -260,7 +260,7 @@ function EditingWorkout(props) {
 						</button>
 					</>
 				)}
-			</div>
+			</footer>
 		);
 	}
 

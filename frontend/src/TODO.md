@@ -8,7 +8,7 @@
 
 2. playWorkout page
 
-3. Editing/Viewing workout - add footer and header
+3. Add icons to editing workout footer buttons
 
 4. Move filter and name a bit down in workouts and increase each workout height
 
