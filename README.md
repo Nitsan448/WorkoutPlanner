@@ -1,6 +1,6 @@
 # Workouts-Creator
 
-You can visit the web app here - https://www.workoutscreator.com/
+**You can visit the web app here - https://www.workoutscreator.com/**
 
 ## Table of Contents
 
