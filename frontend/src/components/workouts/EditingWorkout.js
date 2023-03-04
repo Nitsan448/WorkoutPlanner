@@ -99,7 +99,7 @@ function EditingWorkout(props) {
 		const workoutNotSaved = isDirty && inEditMode;
 		const exercisesNotSaved = numberOfExerciseFormsOpen !== 0;
 		dispatch(setUnsavedChanges(workoutNotSaved || exercisesNotSaved));
-	}, [numberOfExerciseFormsOpen, dispatch, props.workout.description, props.workout.name, isDirty]);
+	}, [numberOfExerciseFormsOpen, dispatch, props.workout.description, props.workout.name, isDirty, inEditMode]);
 
 	async function onDragEnd(result) {
 		const { destination, source } = result;
