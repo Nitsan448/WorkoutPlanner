@@ -81,6 +81,8 @@ function EditingWorkout(props) {
 		}
 	}
 
+	const workoutName = props.workout.name === "Unnamed workout" ? "" : props.workout.name;
+
 	const {
 		register,
 		formState: { errors, isDirty },
@@ -88,7 +90,7 @@ function EditingWorkout(props) {
 		clearErrors,
 	} = useForm({
 		defaultValues: {
-			name: props.workout.name,
+			name: workoutName,
 			description: props.workout.description,
 		},
 	});
