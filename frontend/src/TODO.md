@@ -34,9 +34,11 @@
 
 4. Add prefetching on hovers, etc.
 
-5. Handle UI for loading (spinner next to button?) for all api calls
+5. Handle UI for loading for all api calls
 
 6. Add confirmation modal when someone leaves an unsaved workout.
+
+7. Make it possible to drag and drop exercises when there is an exercises form open.
 
 #### CSS
 

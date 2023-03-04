@@ -25,7 +25,9 @@
 
 .nav a:hover,
 .nav a:active,
-.nav a.active {
+.nav a.active,
+.myWorkoutsButton:hover,
+.myWorkoutsButton.active {
 	color: var(--ORANGE);
 }
 
@@ -40,6 +42,12 @@
 	background-repeat: no-repeat;
 	border: none;
 	background-color: transparent;
+}
+
+.myWorkoutsButton {
+	background-color: transparent;
+	border: none;
+	color: var(--WHITE);
 }
 
 @media screen and (max-width: 576px) {

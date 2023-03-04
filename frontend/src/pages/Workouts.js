@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import classes from "./Workouts.module.css";
 import { useGetWorkoutsQuery, useAddWorkoutMutation } from "../store/apiSlice";
 import { useDispatch } from "react-redux";
-import { showErrorModal } from "../store/modalSlice";
+import { showErrorModal } from "../store/uiSlice";
 import { useEffect } from "react";
 import ImageOverlay from "../components/UI/ImageOverlay";
 

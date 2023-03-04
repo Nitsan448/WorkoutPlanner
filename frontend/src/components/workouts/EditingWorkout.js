@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import NewExercise from "../Exercises/NewExercise";
 import classes from "./EditingWorkout.module.css";
 import Exercise from "../Exercises/Exercise";
@@ -12,9 +12,10 @@ import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import useImageUpload from "../../hooks/use-image-upload";
 import { useDispatch } from "react-redux";
-import { showErrorModal } from "../../store/modalSlice";
+import { showErrorModal, setUnsavedChanges } from "../../store/uiSlice";
 import Image from "../UI/Image";
-import ConfirmationModal from "../Modals/ConfirmationModal";
+import Modal from "../UI/Modal";
+import Button from "../UI/Button";
 
 function EditingWorkout(props) {
 	const location = useLocation();
@@ -24,8 +25,8 @@ function EditingWorkout(props) {
 
 	const [descriptionTextAreaOpen, setDescriptionTextAreaOpen] = useState(props.workout.description !== "");
 	const [inEditMode, setInEditMode] = useState(props.inEditMode);
-	const [routines, setRoutines] = useState(props.workout.routines);
 	const [numberOfExerciseFormsOpen, setNumberOfExerciseFormsOpen] = useState(0);
+	const [showUnsavedExercisesModal, setShowUnsavedExerciseModal] = useState(false);
 	const [showDeleteWorkoutConfirmationModal, setShowDeleteWorkoutConfirmationModal] = useState(false);
 
 	const [updateWorkout] = useUpdateWorkoutMutation();
@@ -45,10 +46,6 @@ function EditingWorkout(props) {
 		setDescriptionTextAreaOpen(props.workout.description !== "");
 	}
 
-	useEffect(() => {
-		setRoutines(props.workout.routines);
-	}, [props.workout.routines]);
-
 	function onDeleteWorkoutClicked(event) {
 		event.preventDefault();
 		setShowDeleteWorkoutConfirmationModal(true);
@@ -60,6 +57,14 @@ function EditingWorkout(props) {
 	}
 
 	async function saveWorkoutHandler(data) {
+		if (numberOfExerciseFormsOpen > 0) {
+			setShowUnsavedExerciseModal(true);
+		} else {
+			await saveWorkout(data);
+		}
+	}
+
+	async function saveWorkout(data) {
 		const workoutData = new FormData();
 		workoutData.append("name", data.name);
 		workoutData.append("description", data.description);
@@ -78,7 +83,7 @@ function EditingWorkout(props) {
 
 	const {
 		register,
-		formState: { errors },
+		formState: { errors, isDirty },
 		handleSubmit,
 		clearErrors,
 	} = useForm({
@@ -88,15 +93,17 @@ function EditingWorkout(props) {
 		},
 	});
 
+	useEffect(() => {
+		const workoutNotSaved = isDirty && inEditMode;
+		const exercisesNotSaved = numberOfExerciseFormsOpen !== 0;
+		dispatch(setUnsavedChanges(workoutNotSaved || exercisesNotSaved));
+	}, [numberOfExerciseFormsOpen, dispatch, props.workout.description, props.workout.name, isDirty]);
+
 	async function onDragEnd(result) {
 		const { destination, source } = result;
 		if (!destination || destination.index === source.index) {
 			return;
 		}
-		const newRoutines = [...routines];
-		const [movedRoutine] = newRoutines.splice(source.index, 1);
-		newRoutines.splice(destination.index, 0, movedRoutine);
-		setRoutines(newRoutines);
 
 		try {
 			await updateRoutinesOrder({
@@ -131,18 +138,31 @@ function EditingWorkout(props) {
 		);
 	}
 
-	function renderConfirmationModal() {
+	function renderUnsavedExercisesModal() {
 		return (
-			showDeleteWorkoutConfirmationModal && (
-				<ConfirmationModal
-					title="Confirmation required"
-					message="Are you sure you want to delete this workout?"
-					onCancel={() => {
+			<Modal
+				showModal={showUnsavedExercisesModal}
+				title="Unsaved exercises"
+				message={"Please save or discard your exercises before saving the workout."}>
+				<Button text="Okay" onClick={() => setShowUnsavedExerciseModal(false)} />
+			</Modal>
+		);
+	}
+
+	function renderDeleteWorkoutConfirmationModal() {
+		return (
+			<Modal
+				title="Delete workout?"
+				message="Are you sure you want to delete this workout?"
+				showModal={showDeleteWorkoutConfirmationModal}>
+				<Button whiteButton onClick={deleteWorkoutAndGoToWorkouts} text="Yes" />
+				<Button
+					onClick={() => {
 						setShowDeleteWorkoutConfirmationModal(false);
 					}}
-					onConfirm={deleteWorkoutAndGoToWorkouts}
+					text="No"
 				/>
-			)
+			</Modal>
 		);
 	}
 
@@ -216,11 +236,11 @@ function EditingWorkout(props) {
 		return (
 			<DragDropContext onDragEnd={onDragEnd}>
 				<div className={classes.container__exercises}>
-					{routines ? (
+					{props.workout.routines ? (
 						<Droppable droppableId={"0"}>
 							{(provided) => (
 								<ul ref={provided.innerRef} {...provided.droppableProps}>
-									{routines.map((routine) => getExerciseAsComponent(routine))}
+									{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}
 									{provided.placeholder}
 								</ul>
 							)}
@@ -229,7 +249,11 @@ function EditingWorkout(props) {
 						""
 					)}
 					{inEditMode && (
-						<NewExercise orderInWorkout={routines ? routines.length : 0} workoutId={workoutId} />
+						<NewExercise
+							setNumberOfExerciseFormsOpen={setNumberOfExerciseFormsOpen}
+							orderInWorkout={props.workout.routines ? props.workout.routines.length : 0}
+							workoutId={workoutId}
+						/>
 					)}
 				</div>
 			</DragDropContext>
@@ -266,7 +290,8 @@ function EditingWorkout(props) {
 
 	return (
 		<>
-			{renderConfirmationModal()}
+			{renderUnsavedExercisesModal()}
+			{renderDeleteWorkoutConfirmationModal()}
 			<div className={classes.container}>
 				<div className={classes.container__workout}>{inEditMode ? renderWorkoutForm() : renderWorkout()}</div>
 				{renderExercises()}

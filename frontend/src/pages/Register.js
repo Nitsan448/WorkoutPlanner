@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useRegisterMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { showErrorModal } from "../store/modalSlice";
+import { showErrorModal } from "../store/uiSlice";
 import { setLoggedInState } from "../store/userSlice";
 import Button from "../components/UI/Button";
 

@@ -3,7 +3,7 @@ import ExerciseForm from "./ExerciseForm";
 import { useAddRoutineMutation } from "../../store/apiSlice";
 import classes from "./NewExercise.module.css";
 import { useDispatch } from "react-redux";
-import { showErrorModal } from "../../store/modalSlice";
+import { showErrorModal } from "../../store/uiSlice";
 
 function NewExerciseForm(props) {
 	const dispatch = useDispatch();
@@ -20,9 +20,19 @@ function NewExerciseForm(props) {
 		try {
 			await addRoutine(routineData).unwrap();
 			resetForm();
-			setIsFormOpen(false);
+			toggleFormOpenState(false);
 		} catch (error) {
 			dispatch(showErrorModal(error.data));
+		}
+	}
+
+	function toggleFormOpenState(startEditing) {
+		if (startEditing) {
+			setIsFormOpen(true);
+			props.setNumberOfExerciseFormsOpen((numberOfExerciseFormsOpen) => numberOfExerciseFormsOpen + 1);
+		} else {
+			setIsFormOpen(false);
+			props.setNumberOfExerciseFormsOpen((numberOfExerciseFormsOpen) => numberOfExerciseFormsOpen - 1);
 		}
 	}
 
@@ -31,13 +41,13 @@ function NewExerciseForm(props) {
 			{isFormOpen ? (
 				<ExerciseForm
 					saveExerciseHandler={addExerciseHandler}
-					cancelEditHandler={() => setIsFormOpen(false)}
-					deleteExerciseHandler={() => setIsFormOpen(false)}
+					cancelEditHandler={() => toggleFormOpenState(false)}
+					deleteExerciseHandler={() => toggleFormOpenState(false)}
 					usingTimer={true}
 					{...props}
 				/>
 			) : (
-				<button className={classes.newExerciseButton} onClick={() => setIsFormOpen(true)}>
+				<button className={classes.newExerciseButton} onClick={() => toggleFormOpenState(true)}>
 					<div className={classes.newExerciseButton__addExercise}></div>
 				</button>
 			)}

@@ -5,7 +5,7 @@ import PlayingWorkout from "../components/workouts/PlayingWorkout";
 import EditingWorkout from "../components/workouts/EditingWorkout";
 import { useGetWorkoutQuery } from "../store/apiSlice";
 import { useDispatch } from "react-redux";
-import { showErrorModal } from "../store/modalSlice";
+import { showErrorModal } from "../store/uiSlice";
 import { useEffect } from "react";
 
 function Workout(props) {

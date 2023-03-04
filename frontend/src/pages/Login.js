@@ -5,7 +5,7 @@ import { useLoginMutation } from "../store/apiSlice";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setLoggedInState } from "../store/userSlice";
-import { showErrorModal } from "../store/modalSlice";
+import { showErrorModal } from "../store/uiSlice";
 import Button from "../components/UI/Button";
 
 function Login(props) {

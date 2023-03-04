@@ -6,7 +6,7 @@ import ExerciseForm from "./ExerciseForm";
 import { Draggable } from "react-beautiful-dnd";
 import Image from "../UI/Image";
 import { useDispatch } from "react-redux";
-import { showErrorModal } from "../../store/modalSlice";
+import { showErrorModal } from "../../store/uiSlice";
 
 function Exercise(props) {
 	const dispatch = useDispatch();

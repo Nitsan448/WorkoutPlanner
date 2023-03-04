@@ -1,19 +1,15 @@
 import React from "react";
 import Button from "../UI/Button";
-import { hideErrorModal } from "../../store/modalSlice";
+import { hideErrorModal } from "../../store/uiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../UI/Modal";
 
 function ErrorModal(props) {
 	const dispatch = useDispatch();
-	const errorModal = useSelector((state) => state.modals.error);
-
-	if (!errorModal.show) {
-		return null;
-	}
+	const errorModal = useSelector((state) => state.ui.errorModal);
 
 	return (
-		<Modal title="An error occured" message={errorModal.message}>
+		<Modal showModal={errorModal.show} title="An error occured" message={errorModal.message}>
 			<Button onClick={() => dispatch(hideErrorModal())} text="Okay" />
 		</Modal>
 	);
