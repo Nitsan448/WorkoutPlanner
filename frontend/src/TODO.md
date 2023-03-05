@@ -2,8 +2,6 @@
 
 1. Loading component
 
-2. Token cookie not saved between sessions on deployment (seems it is saved but only appears when the user switches a page)
-
 ### CSS
 
 1. Sign up, login pages Image
