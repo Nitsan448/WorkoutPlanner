@@ -44,6 +44,7 @@ function setUserToken(res, userData) {
 	res.cookie("token", token, {
 		path: "/",
 		expires: tokenExpiryDate,
+		domain: process.env.DOMAIN,
 	});
 
 	return token;
