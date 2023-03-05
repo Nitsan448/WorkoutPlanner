@@ -19,6 +19,7 @@ function Exercise(props) {
 	async function deleteExerciseHandler() {
 		setEditingExercise(false);
 		try {
+			props.setNumberOfExerciseFormsOpen((numberOfExerciseFormsOpen) => numberOfExerciseFormsOpen - 1);
 			await deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout }).unwrap();
 		} catch (error) {
 			dispatch(showErrorModal(error.data));
