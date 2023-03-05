@@ -16,11 +16,13 @@
 
 ## Bugs
 
-1. Page breaks when user clicks next exercise but there isn't one
-
 ## Other
 
 1. Readme file - Add Gif and how to run section.
+
+### Refactoring
+
+1. Use routine id where it fits.
 
 # Backlog
 
