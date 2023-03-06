@@ -12,7 +12,9 @@
 
 ## Overview
 
-A web application where users can easily create highly customizable workouts, edit, and play them.
+![Screenshot 2023-03-06 151936](https://user-images.githubusercontent.com/51084989/223121690-1e40c1fb-64fa-4a16-ac0d-ca46e619c333.jpg)
+
+**A web application where users can easily create highly customizable workouts, edit, and play them.**
 
 #### Frontend
 
