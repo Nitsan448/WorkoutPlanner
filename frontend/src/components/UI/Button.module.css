@@ -15,6 +15,10 @@
 	border-radius: var(--BORDER-RADIUS);
 }
 
+.orangeButton {
+	background-color: var(--ORANGE);
+}
+
 .button:hover,
 .button:active {
 	transform: scale(1.1);

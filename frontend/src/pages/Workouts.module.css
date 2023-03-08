@@ -3,8 +3,10 @@
 	padding: 1em 2%;
 }
 
-.workouts h2 {
+.workouts__title {
 	margin-bottom: 0.5em;
+	font-weight: 400;
+	color: var(--WHITE);
 }
 
 .workouts__gridContainer {

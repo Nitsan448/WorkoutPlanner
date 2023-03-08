@@ -155,7 +155,7 @@ function EditingWorkout(props) {
 				title="Delete workout?"
 				message="Are you sure you want to delete this workout?"
 				showModal={showDeleteWorkoutConfirmationModal}>
-				<Button whiteButton onClick={deleteWorkoutAndGoToWorkouts} text="Yes" />
+				<Button color="white" onClick={deleteWorkoutAndGoToWorkouts} text="Yes" />
 				<Button
 					onClick={() => {
 						setShowDeleteWorkoutConfirmationModal(false);

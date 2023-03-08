@@ -57,7 +57,7 @@ const NavigationHeader = () => {
 				message="You have unsaved changes, are you sure you want to leave this page?"
 				showModal={showUnsavedChangesModal}>
 				<Button
-					whiteButton
+					color="white"
 					onClick={() => {
 						navigate(unsavedChangesModalnextPageUrl);
 						dispatch(setUnsavedChanges(false));

@@ -176,7 +176,7 @@ function PlayingWorkout(props) {
 					</div>
 
 					<div className={classes.nextButton}>
-						<Button text="Next" onClick={activityFinishedHandler} />
+						<Button color="orange" text="Next" onClick={activityFinishedHandler} />
 					</div>
 				</div>
 			</div>
@@ -194,14 +194,16 @@ function PlayingWorkout(props) {
 					</h1>
 
 					<div className={classes.break__nextButton}>
-						<Button text="Skip" onClick={activityFinishedHandler} />
+						<Button color="orange" text="Skip" onClick={activityFinishedHandler} />
 					</div>
 				</div>
-				<Image exerciseImage image={nextExercise.image}>
-					<h2 className={classes.nextExerciseName}>Next: {nextExercise.name}</h2>
-					<p className={classes.nextExerciseSets}>{nextExercise.sets} sets of 5 minutes</p>
-					<p className={classes.nextExerciseDescription}>dsa</p>
-				</Image>
+				{currentExerciseIndex + 1 < props.workout.routines.length && (
+					<Image exerciseImage image={nextExercise.image}>
+						<h2 className={classes.nextExerciseName}>Next: {nextExercise.name}</h2>
+						<p className={classes.nextExerciseSets}>{nextExercise.sets} sets of 5 minutes</p>
+						<p className={classes.nextExerciseDescription}>dsa</p>
+					</Image>
+				)}
 			</div>
 		);
 	}

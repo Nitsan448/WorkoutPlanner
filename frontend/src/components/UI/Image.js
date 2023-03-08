@@ -9,6 +9,8 @@ function Image(props) {
 		? `${containerClasses} ${classes.workoutImage}`
 		: `${containerClasses} ${classes.exerciseImage}`;
 
+	containerClasses = props.borderRight ? `${containerClasses} ${classes.borderRight}` : containerClasses;
+
 	return props.allowImageChange ? (
 		<label htmlFor={props.inputId} className={containerClasses}>
 			{!props.image && <p>+ Photo</p>}

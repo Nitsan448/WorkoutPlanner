@@ -82,9 +82,9 @@ function Workouts(props) {
 	}
 
 	return (
-		<div className="mainContainer">
+		<div>
 			<div className={classes.workouts}>
-				<h2>My workouts</h2>
+				<h2 className={classes.workouts__title}>My workouts</h2>
 				<div className={classes.workouts__gridContainer}>
 					{content} <button className={classes.workouts__newWorkout} onClick={onAddWorkoutClicked} />
 				</div>
