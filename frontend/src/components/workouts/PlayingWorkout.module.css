@@ -67,7 +67,28 @@
 
 .playingExercise__sets {
 	margin-top: 1em;
-	font-size: 1.2em;
+	display: flex;
+}
+
+.playingExercise__sets p {
+	font-size: 1.5em;
+	margin: 0 0.4em 0 0.4em;
+}
+
+.nextSet,
+.previousSet {
+	background-image: url("/src/images/changeSet.svg");
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	width: 14px;
+	height: 25px;
+	border: none;
+}
+
+.nextSet {
+	transform: rotate(180deg);
 }
 
 .upNext {
@@ -84,21 +105,25 @@
 	width: 25vw;
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
-	height: 10vh;
+	height: 15vh;
 	margin-right: 1em;
 }
 
 .upNext__exercise {
 	display: grid;
-	grid-template-columns: 10vh 1fr;
+	grid-template-columns: 15vh 1fr;
 }
 
 .upNext__name {
 	font-size: 1.3em;
-	margin: 0.4em 0 0 1rem;
+	margin: 1.1em 0 0 1rem;
 }
 
 .upNext__timeOrSets {
 	font-size: 0.9em;
 	margin: 0.2em 0 0 1rem;
+}
+
+.upNext__breakTime {
+	margin: 2.5em 0 0 1rem;
 }

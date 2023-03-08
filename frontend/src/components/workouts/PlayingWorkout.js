@@ -88,6 +88,12 @@ function PlayingWorkout(props) {
 		}
 	}
 
+	function setSwitchHandler(change) {
+		if (currentSet + change <= currentExercise.sets && currentSet + change > 0) {
+			setCurrentSet(currentSet + change);
+		}
+	}
+
 	let itemsShown = 0;
 
 	function getExercise(routine, index) {
@@ -112,7 +118,7 @@ function PlayingWorkout(props) {
 				)}
 				{showBreak && (
 					<div className={classes.upNext__break}>
-						<p className={classes.upNext__time}>
+						<p className={classes.upNext__breakTime}>
 							{getTimeInTimerFormat(routine.break_after_routine)} min Break
 						</p>
 					</div>
@@ -130,7 +136,9 @@ function PlayingWorkout(props) {
 			<div className={classes.playingExercise}>
 				<Image image={currentExercise.image} exerciseImage={true} />
 				<div className={classes.playingExercise__exerciseInformation}>
-					<h1 className={classes.playingExercise__exerciseName}>{currentExercise.name}</h1>
+					<h1 className={classes.playingExercise__exerciseName}>
+						{currentExercise.name} / set {currentSet}
+					</h1>
 					<h3 className={classes.playingExercise__exerciseBreakBetweenSets}>
 						Break between sets: <section>{getTimeInTimerFormat(currentExercise.rest_time)}min</section>
 					</h3>
@@ -144,9 +152,13 @@ function PlayingWorkout(props) {
 					) : (
 						<h1 className={classes.playingExercise__timer}>{props.repetitions}Reps</h1>
 					)}
-					<p className={classes.playingExercise__sets}>
-						{currentSet}/{currentExercise.sets} sets
-					</p>
+					<div className={classes.playingExercise__sets}>
+						<button className={classes.previousSet} onClick={() => setSwitchHandler(-1)} />
+						<p>
+							{currentSet}/{currentExercise.sets} sets
+						</p>
+						<button className={classes.nextSet} onClick={() => setSwitchHandler(1)} />
+					</div>
 				</div>
 			</div>
 		);
