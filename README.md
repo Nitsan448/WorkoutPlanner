@@ -1,6 +1,7 @@
 # Workouts-Creator
 
-**You can visit the web app here - https://www.workoutscreator.com/**
+**You can visit the web app here - https://www.workoutscreator.com/**<br/>
+(You can give a fake email to try the app)
 
 ## Table of Contents
 
