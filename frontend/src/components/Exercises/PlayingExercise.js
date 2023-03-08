@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./PlayingExercise.module.css";
-import Timer from "../Timer/Timer";
 
 function PlayingExercise(props) {
 	const currentSet = props.currentlyPlaying ? props.currentSet : 1;
@@ -12,7 +11,7 @@ function PlayingExercise(props) {
 			{props.currentActivity === "Break" && props.currentlyPlaying ? (
 				<div>
 					<p>{props.currentActivity}</p>
-					<Timer minutes={props.timer.minutes} seconds={props.timer.seconds} />
+					{/* <Timer minutes={props.timer.minutes} seconds={props.timer.seconds} /> */}
 				</div>
 			) : (
 				<>
@@ -26,7 +25,9 @@ function PlayingExercise(props) {
 						<div>
 							<p>{props.currentActivity}</p>
 							{props.usingTimer || props.currentActivity === "Resting" ? (
-								<Timer minutes={props.timer.minutes} seconds={props.timer.seconds} />
+								{
+									/* <Timer minutes={props.timer.minutes} seconds={props.timer.seconds} /> */
+								}
 							) : (
 								<h3>Repetitions: {props.repetitions}</h3>
 							)}

@@ -13,7 +13,7 @@ function App() {
 		<>
 			<NavigationHeader />
 			<ErrorModal />
-			<main className={classes.mainContainer}>
+			<main>
 				<Routes>
 					<Route path="/" element={<Navigate replace to="/register" />} />
 

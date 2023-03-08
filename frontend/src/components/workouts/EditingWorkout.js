@@ -289,7 +289,7 @@ function EditingWorkout(props) {
 	}
 
 	return (
-		<>
+		<div className="mainContainer">
 			{renderUnsavedExercisesModal()}
 			{renderDeleteWorkoutConfirmationModal()}
 			<div className={classes.container}>
@@ -297,7 +297,7 @@ function EditingWorkout(props) {
 				{renderExercises()}
 			</div>
 			{renderFooter()}
-		</>
+		</div>
 	);
 }
 

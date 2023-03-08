@@ -2,6 +2,8 @@
 
 1. Loading component
 
+2. Pause timer when an exercise uses repetitions
+
 ### CSS
 
 1. Sign up, login pages Image

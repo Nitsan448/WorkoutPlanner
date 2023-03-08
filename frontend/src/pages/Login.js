@@ -43,43 +43,45 @@ function Login(props) {
 	} = useForm();
 
 	return (
-		<div className={classes.container}>
-			<h1>Log in</h1>
-			<div className={classes.form}>
-				<form onSubmit={handleSubmit(async (data) => await loginHandler(data))}>
-					<div>
-						<label htmlFor="emailOrUserName">Email/User name:</label>
-						<input
-							type="text"
-							{...register("emailOrUserName", {
-								required: "Please enter your Email or user name",
-							})}
-						/>
-						{errors.emailOrUserName && (
-							<p className={"invalidParagraph"}>{errors.emailOrUserName.message}</p>
-						)}
-					</div>
-					<div>
-						<label htmlFor="password">Password:</label>
-						<input
-							type="password"
-							{...register("password", {
-								required: "Please enter your password",
-								minLength: {
-									value: 5,
-									message: "Password is not valid",
-								},
-							})}
-						/>
-						{errors.password && <p className={"invalidParagraph"}>{errors.password.message}</p>}
-					</div>
-					<Button text="Log in" />
-				</form>
-				{/* <Link to="/Register">Register</Link> */}
+		<div className="mainContainer">
+			<div className={classes.container}>
+				<h1>Log in</h1>
+				<div className={classes.form}>
+					<form onSubmit={handleSubmit(async (data) => await loginHandler(data))}>
+						<div>
+							<label htmlFor="emailOrUserName">Email/User name:</label>
+							<input
+								type="text"
+								{...register("emailOrUserName", {
+									required: "Please enter your Email or user name",
+								})}
+							/>
+							{errors.emailOrUserName && (
+								<p className={"invalidParagraph"}>{errors.emailOrUserName.message}</p>
+							)}
+						</div>
+						<div>
+							<label htmlFor="password">Password:</label>
+							<input
+								type="password"
+								{...register("password", {
+									required: "Please enter your password",
+									minLength: {
+										value: 5,
+										message: "Password is not valid",
+									},
+								})}
+							/>
+							{errors.password && <p className={"invalidParagraph"}>{errors.password.message}</p>}
+						</div>
+						<Button text="Log in" />
+					</form>
+					{/* <Link to="/Register">Register</Link> */}
+				</div>
+				<Link className={classes.link} to="/Register">
+					Don't have an account? Click here!
+				</Link>
 			</div>
-			<Link className={classes.link} to="/Register">
-				Don't have an account? Click here!
-			</Link>
 		</div>
 	);
 }

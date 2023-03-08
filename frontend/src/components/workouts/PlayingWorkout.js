@@ -1,10 +1,11 @@
 import useTimer from "../../hooks/use-timer";
 import { getTimeInMinutesAndSeconds, getTimeInTimerFormat } from "../../helpers/time";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, Fragment } from "react";
 import PlayingExercise from "../Exercises/PlayingExercise";
 import Button from "../UI/Button";
 import { useNavigate } from "react-router-dom";
 import classes from "./PlayingWorkout.module.css";
+import Image from "../UI/Image";
 
 const Activity = {
 	InSet: "InSet",
@@ -22,7 +23,7 @@ function PlayingWorkout(props) {
 	const [workoutFinished, setWorkoutFinished] = useState(false);
 
 	const currentExercise = exercises[currentExerciseIndex];
-
+	const usingTimer = currentExercise.time_or_repetitions.data[0] === 1;
 	const lastSet = currentSet === +currentExercise.sets;
 
 	const getNewTimerTime = useCallback(() => {
@@ -36,7 +37,7 @@ function PlayingWorkout(props) {
 	}, [currentActivity, currentExercise]);
 
 	const initialTimerTime = getNewTimerTime();
-	const timer = useTimer(initialTimerTime, activityFinishedHandler);
+	const timer = useTimer(initialTimerTime, activityFinishedHandler, !usingTimer);
 
 	useEffect(() => {
 		function setNewTimerTime() {
@@ -44,6 +45,7 @@ function PlayingWorkout(props) {
 			timer.setTime(newTimerTime);
 		}
 		setNewTimerTime();
+		//TODO: pause timer if the exercise uses repetitions
 	}, [getNewTimerTime, currentSet]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	function activityFinishedHandler() {
@@ -86,64 +88,105 @@ function PlayingWorkout(props) {
 		}
 	}
 
-	function renderPlayingExercise(exerciseIndex, currentlyPlaying) {
-		const inBreak = currentActivity === Activity.Break;
-		const renderBreakAfterExercise =
-			exercises[exerciseIndex].break_after_routine > 0 &&
-			((!inBreak && currentlyPlaying) || (inBreak && !currentlyPlaying));
-		return (
-			<>
-				<PlayingExercise
-					name={exercises[exerciseIndex].name}
-					setTime={exercises[exerciseIndex].set_time}
-					currentSet={currentSet}
-					sets={exercises[exerciseIndex].sets}
-					repetitions={exercises[exerciseIndex].repetitions}
-					restTime={exercises[exerciseIndex].rest_time}
-					description={exercises[exerciseIndex].description}
-					timer={timer}
-					usingTimer={currentExercise.time_or_repetitions.data[0] === 1 ? true : false}
-					currentActivity={currentActivity}
-					currentlyPlaying={currentlyPlaying}></PlayingExercise>
+	let itemsShown = 0;
 
-				{renderBreakAfterExercise && (
-					<div className={classes.break}>
-						<p>{getTimeInTimerFormat(exercises[exerciseIndex].break_after_routine)} Break</p>
+	function getExercise(routine, index) {
+		const showExercise = index > currentExerciseIndex;
+		if (showExercise) {
+			itemsShown++;
+		}
+		const showBreak = routine.break_after_routine > 0 && itemsShown < 3;
+		if (showBreak) {
+			itemsShown++;
+		}
+		return (
+			<Fragment key={index}>
+				{showExercise && (
+					<div className={classes.upNext__exercise}>
+						<Image image={routine.image} exerciseImage />
+						<div>
+							<p className={classes.upNext__name}>{routine.name}</p>
+							<p className={classes.upNext__timeOrSets}>{routine.sets} sets</p>
+						</div>
 					</div>
 				)}
-			</>
+				{showBreak && (
+					<div className={classes.upNext__break}>
+						<p className={classes.upNext__time}>
+							{getTimeInTimerFormat(routine.break_after_routine)} min Break
+						</p>
+					</div>
+				)}
+			</Fragment>
+		);
+	}
+
+	function renderPlayingExercise() {
+		// const inBreak = currentActivity === Activity.Break;
+		// const renderBreakAfterExercise =
+		// 	exercises[exerciseIndex].break_after_routine > 0 &&
+		// 	((!inBreak && currentlyPlaying) || (inBreak && !currentlyPlaying));
+		return (
+			<div className={classes.playingExercise}>
+				<Image image={currentExercise.image} exerciseImage={true} />
+				<div className={classes.playingExercise__exerciseInformation}>
+					<h1 className={classes.playingExercise__exerciseName}>{currentExercise.name}</h1>
+					<h3 className={classes.playingExercise__exerciseBreakBetweenSets}>
+						Break between sets: <section>{getTimeInTimerFormat(currentExercise.rest_time)}min</section>
+					</h3>
+					<p className={classes.playingExercise__exerciseDescription}>{currentExercise.description}</p>
+				</div>
+				<div className={classes.playingExercise__exerciseState}>
+					{usingTimer ? (
+						<h1 className={classes.playingExercise__timer}>
+							{timer.minutes}:{timer.seconds < 10 ? `0${timer.seconds}` : timer.seconds}
+						</h1>
+					) : (
+						<h1 className={classes.playingExercise__timer}>{props.repetitions}Reps</h1>
+					)}
+					<p className={classes.playingExercise__sets}>
+						{currentSet}/{currentExercise.sets} sets
+					</p>
+				</div>
+			</div>
 		);
 	}
 
 	return (
-		<div id="playingWorkout" className={classes.playingWorkout}>
-			{renderPlayingExercise(currentExerciseIndex, true)}
-
-			{currentExerciseIndex < props.workout.routines.length - 1 &&
-				renderPlayingExercise(currentExerciseIndex + 1, false)}
-
+		<>
 			{workoutFinished ? (
-				<>
+				<div>
 					<label>Workout finished!</label>
 					<Button onClick={() => navigate("/workouts")} text="Back to home page" />
-				</>
+				</div>
 			) : (
-				<div className={classes.playingWorkout__utilityButtons}>
-					{currentActivity === Activity.InSet && (
-						<Button text="Finish Set" onClick={activityFinishedHandler}></Button>
-					)}
-					{currentActivity === Activity.Resting && (
-						<Button text="Next Set" onClick={activityFinishedHandler}></Button>
-					)}
-					<Button
-						text="Pause Timer"
-						onClick={() => {
-							timer.togglePausedState();
-						}}></Button>
-					<Button text="Next Exercise" onClick={goToNextExercise}></Button>
+				<div id="playingWorkout" className={classes.mainContainer}>
+					{renderPlayingExercise(currentExerciseIndex, true)}
+					<div className={classes.upNext}>
+						{props.workout.routines.map(
+							(routine, index) =>
+								index >= currentExerciseIndex && itemsShown < 3 && getExercise(routine, index)
+						)}
+					</div>
+					{/* <div className={classes.playingWorkout__utilityButtons}>
+							{currentActivity === Activity.InSet && (
+								<Button text="Finish Set" onClick={activityFinishedHandler}></Button>
+							)}
+							{currentActivity === Activity.Resting && (
+								<Button text="Next Set" onClick={activityFinishedHandler}></Button>
+							)}
+							<Button
+								text="Pause Timer"
+								onClick={() => {
+									timer.togglePausedState();
+								}}></Button>
+							<Button text="Next Exercise" onClick={finishExercise}></Button>
+						</div> */}
+					{/* {currentExerciseIndex < props.workout.routines.length - 1 &&
+						renderPlayingExercise(currentExerciseIndex + 1, false)} */}
 				</div>
 			)}
-		</div>
+		</>
 	);
 }
 

@@ -1,8 +1,8 @@
 import { useEffect, useReducer, useState } from "react";
 
-function useTimer(initialTime, timerFinishedHandler) {
+function useTimer(initialTime, timerFinishedHandler, startsPaused) {
 	const [state, dispatchUpdateTime] = useReducer(timeReducer, initialTime);
-	const [paused, setPaused] = useState(false);
+	const [paused, setPaused] = useState(startsPaused);
 
 	function timeReducer(state, action) {
 		if (action.type === "tick") {

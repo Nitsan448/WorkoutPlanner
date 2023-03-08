@@ -54,56 +54,58 @@ function Register(props) {
 	} = useForm();
 
 	return (
-		<div className={classes.container}>
-			<h1>Sign up</h1>
-			<div className={classes.form}>
-				<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
-					<div>
-						<label htmlFor="userName">User name:</label>
-						<input type="text" {...register("userName", { required: "Please enter your user name" })} />
-						{errors.userName && <p className={"invalidParagraph"}>{errors.userName.message}</p>}
-					</div>
-					<div>
-						<label htmlFor="email">Email:</label>
-						<input
-							type="text"
-							{...register("email", {
-								required: "Please enter your email",
-								pattern: { value: /\S+@\S+\.\S+/, message: "Please enter a valid email" },
-							})}
-						/>
-						{errors.email && <p className={"invalidParagraph"}>{errors.email.message}</p>}
-					</div>
-					<div>
-						<label htmlFor="password">password:</label>
-						<input
-							type="password"
-							{...register("password", {
-								required: "Please enter a password",
-								minLength: { value: 5, message: "Password must be longer than 4 characters" },
-							})}
-						/>
-						{errors.password && <p className={"invalidParagraph"}>{errors.password.message}</p>}
-					</div>
-					<div>
-						<label htmlFor="validatePassword">Validate password:</label>
-						<input
-							type="password"
-							{...register("validatePassword", {
-								required: "Please enter your password again",
-								validate: (value) => value === getValues("password") || "Passwords do not match",
-							})}
-						/>
-						{errors.validatePassword && (
-							<p className={"invalidParagraph"}>{errors.validatePassword.message}</p>
-						)}
-					</div>
-					<Button text="Sign up" />
-				</form>
+		<div className="mainContainer">
+			<div className={classes.container}>
+				<h1>Sign up</h1>
+				<div className={classes.form}>
+					<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
+						<div>
+							<label htmlFor="userName">User name:</label>
+							<input type="text" {...register("userName", { required: "Please enter your user name" })} />
+							{errors.userName && <p className={"invalidParagraph"}>{errors.userName.message}</p>}
+						</div>
+						<div>
+							<label htmlFor="email">Email:</label>
+							<input
+								type="text"
+								{...register("email", {
+									required: "Please enter your email",
+									pattern: { value: /\S+@\S+\.\S+/, message: "Please enter a valid email" },
+								})}
+							/>
+							{errors.email && <p className={"invalidParagraph"}>{errors.email.message}</p>}
+						</div>
+						<div>
+							<label htmlFor="password">password:</label>
+							<input
+								type="password"
+								{...register("password", {
+									required: "Please enter a password",
+									minLength: { value: 5, message: "Password must be longer than 4 characters" },
+								})}
+							/>
+							{errors.password && <p className={"invalidParagraph"}>{errors.password.message}</p>}
+						</div>
+						<div>
+							<label htmlFor="validatePassword">Validate password:</label>
+							<input
+								type="password"
+								{...register("validatePassword", {
+									required: "Please enter your password again",
+									validate: (value) => value === getValues("password") || "Passwords do not match",
+								})}
+							/>
+							{errors.validatePassword && (
+								<p className={"invalidParagraph"}>{errors.validatePassword.message}</p>
+							)}
+						</div>
+						<Button text="Sign up" />
+					</form>
+				</div>
+				<Link className={classes.link} to="/Login">
+					Already have an account? Click here!
+				</Link>
 			</div>
-			<Link className={classes.link} to="/Login">
-				Already have an account? Click here!
-			</Link>
 		</div>
 	);
 }

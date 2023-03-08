@@ -1,14 +1,22 @@
-.playingWorkout button {
+.mainContainer {
+	position: relative;
+	width: 97.5%;
+	height: 87vh;
+	margin: 0 auto;
+	overflow: hidden auto;
+}
+
+.mainContainer button {
 	display: block;
 	margin: auto;
 }
 
-.playingWorkout__utilityButtons {
+.mainContainer__utilityButtons {
 	margin-top: 0.5em;
 	display: flex;
 }
 
-.break {
+/* .break {
 	display: flex;
 	justify-content: space-between;
 	width: 75%;
@@ -19,4 +27,78 @@
 	padding: 0.5em 0em 0.5em 1em;
 	font-size: 1.5rem;
 	font-weight: bold;
+} */
+
+.playingExercise {
+	height: 65vh;
+	background-color: var(--WHITE);
+	border: var(--BORDER);
+	border-radius: var(--BORDER-RADIUS);
+	display: grid;
+	grid-template-columns: 65vh 1fr 1fr;
+}
+
+.playingExercise__exerciseInformation,
+.playingExercise__exerciseState {
+	margin: 0em 3em 0em 3em;
+}
+
+.playingExercise__exerciseName {
+	margin-top: 3em;
+}
+.playingExercise__exerciseBreakBetweenSets {
+	margin-top: 0.5em;
+}
+.playingExercise__exerciseDescription {
+	margin-top: 1em;
+	font-size: 0.9em;
+}
+
+.playingExercise__exerciseState {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.playingExercise__timer {
+	margin-top: 3em;
+	font-size: 3em;
+}
+
+.playingExercise__sets {
+	margin-top: 1em;
+	font-size: 1.2em;
+}
+
+.upNext {
+	width: 75%;
+	height: calc(87vh - 65vh);
+	margin-left: 40vw;
+	color: white;
+	display: flex;
+	align-items: center;
+}
+
+.upNext__exercise,
+.upNext__break {
+	width: 25vw;
+	border: var(--BORDER);
+	border-radius: var(--BORDER-RADIUS);
+	height: 10vh;
+	margin-right: 1em;
+}
+
+.upNext__exercise {
+	display: grid;
+	grid-template-columns: 10vh 1fr;
+}
+
+.upNext__name {
+	font-size: 1.3em;
+	margin: 0.4em 0 0 1rem;
+}
+
+.upNext__timeOrSets {
+	font-size: 0.9em;
+	margin: 0.2em 0 0 1rem;
 }
