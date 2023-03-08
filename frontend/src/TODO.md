@@ -3,12 +3,13 @@
 1. Loading component
 
 2. Pause timer when an exercise uses repetitions
+3. playWorkout page -
 
 ### CSS
 
 1. Sign up, login pages Image
 
-2. playWorkout page
+2. playWorkout page - Make Next/Skip
 
 3. Add icons to editing workout footer buttons
 
@@ -25,6 +26,8 @@
 2. Add Gif to readme file.
 
 3. Add option to login as a guest
+
+4. Example workout
 
 # Backlog
 

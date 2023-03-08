@@ -44,6 +44,7 @@ function useTimer(initialTime, timerFinishedHandler, startsPaused) {
 		seconds: state.seconds,
 		setTime,
 		togglePausedState,
+		paused,
 	};
 }
 

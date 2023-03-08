@@ -1,9 +1,8 @@
 .button {
 	background-color: var(--BLUE);
 	color: var(--WHITE);
-	width: 7em;
-	height: 2.1em;
-	font-size: 1.3rem;
+	width: 8em;
+	height: 2.4em;
 	border: none;
 	border-radius: var(--BORDER-RADIUS);
 	cursor: pointer;
