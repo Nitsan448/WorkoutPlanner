@@ -118,8 +118,9 @@ function PlayingWorkout(props) {
 				)}
 				{showBreak && (
 					<div className={classes.upNext__break}>
-						<p className={classes.upNext__breakTime}>
-							{getTimeInTimerFormat(routine.break_after_routine)} min Break
+						<p className={classes.upNext__name}>Break</p>
+						<p className={classes.upNext__timeOrSets}>
+							{getTimeInTimerFormat(routine.break_after_routine)}
 						</p>
 					</div>
 				)}
@@ -155,7 +156,7 @@ function PlayingWorkout(props) {
 					<div className={classes.playingExercise__sets}>
 						<button className={classes.previousSet} onClick={() => setSwitchHandler(-1)} />
 						<p>
-							{currentSet}/{currentExercise.sets} sets
+							Set {currentSet}/{currentExercise.sets}
 						</p>
 						<button className={classes.nextSet} onClick={() => setSwitchHandler(1)} />
 					</div>
@@ -174,28 +175,26 @@ function PlayingWorkout(props) {
 			) : (
 				<div id="playingWorkout" className={classes.mainContainer}>
 					{renderPlayingExercise(currentExerciseIndex, true)}
+					{/* <div className={classes.playingWorkout__utilityButtons}>
+						{currentActivity === Activity.InSet && (
+							<Button text="Finish Set" onClick={activityFinishedHandler}></Button>
+						)}
+						{currentActivity === Activity.Resting && (
+							<Button text="Next Set" onClick={activityFinishedHandler}></Button>
+						)}
+						<Button
+							text="Pause Timer"
+							onClick={() => {
+								timer.togglePausedState();
+							}}></Button>
+						<Button text="Next Exercise" onClick={finishExercise}></Button>
+					</div> */}
 					<div className={classes.upNext}>
 						{props.workout.routines.map(
 							(routine, index) =>
 								index >= currentExerciseIndex && itemsShown < 3 && getExercise(routine, index)
 						)}
 					</div>
-					{/* <div className={classes.playingWorkout__utilityButtons}>
-							{currentActivity === Activity.InSet && (
-								<Button text="Finish Set" onClick={activityFinishedHandler}></Button>
-							)}
-							{currentActivity === Activity.Resting && (
-								<Button text="Next Set" onClick={activityFinishedHandler}></Button>
-							)}
-							<Button
-								text="Pause Timer"
-								onClick={() => {
-									timer.togglePausedState();
-								}}></Button>
-							<Button text="Next Exercise" onClick={finishExercise}></Button>
-						</div> */}
-					{/* {currentExerciseIndex < props.workout.routines.length - 1 &&
-						renderPlayingExercise(currentExerciseIndex + 1, false)} */}
 				</div>
 			)}
 		</>

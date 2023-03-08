@@ -24,6 +24,8 @@
 
 2. Add Gif to readme file.
 
+3. Add option to login as a guest
+
 # Backlog
 
 ### Frontend
@@ -67,8 +69,6 @@
 ### Bugs
 
 ### Other
-
-1. Add option to login as a guest
 
 2. Add social media features
 

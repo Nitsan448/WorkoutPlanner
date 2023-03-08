@@ -1,33 +1,9 @@
 .mainContainer {
 	position: relative;
-	width: 97.5%;
 	height: 87vh;
 	margin: 0 auto;
 	overflow: hidden auto;
 }
-
-.mainContainer button {
-	display: block;
-	margin: auto;
-}
-
-.mainContainer__utilityButtons {
-	margin-top: 0.5em;
-	display: flex;
-}
-
-/* .break {
-	display: flex;
-	justify-content: space-between;
-	width: 75%;
-	margin: auto;
-	border: var(--BORDER);
-	border-radius: var(--BORDER-RADIUS);
-	margin-top: 0.5em;
-	padding: 0.5em 0em 0.5em 1em;
-	font-size: 1.5rem;
-	font-weight: bold;
-} */
 
 .playingExercise {
 	height: 65vh;
@@ -36,6 +12,8 @@
 	border-radius: var(--BORDER-RADIUS);
 	display: grid;
 	grid-template-columns: 65vh 1fr 1fr;
+	width: 97.5%;
+	margin: auto;
 }
 
 .playingExercise__exerciseInformation,
@@ -122,8 +100,4 @@
 .upNext__timeOrSets {
 	font-size: 0.9em;
 	margin: 0.2em 0 0 1rem;
-}
-
-.upNext__breakTime {
-	margin: 2.5em 0 0 1rem;
 }
