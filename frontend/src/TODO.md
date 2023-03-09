@@ -5,6 +5,8 @@
 2. Pause timer when an exercise uses repetitions
 3. playWorkout page -
 
+4. Drag and drop not showing update until refresh
+
 ### CSS
 
 1. Sign up, login pages Image
@@ -18,6 +20,8 @@
 ## Backend
 
 ## Bugs
+
+1. Unsaved exercises modal pops up after deleting exercises
 
 ## Other
 
