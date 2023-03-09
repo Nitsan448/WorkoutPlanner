@@ -1,6 +1,7 @@
 # Workouts-Creator
 
-**You can visit the web app here - https://www.workoutscreator.com/**
+**You can visit the web app here - https://www.workoutscreator.com/**<br/>
+(You can give a fake email when registering to try the app)
 
 ## Table of Contents
 
@@ -12,7 +13,9 @@
 
 ## Overview
 
-A web application where users can easily create highly customizable workouts, edit, and play them.
+![Screenshot 2023-03-06 151936](https://user-images.githubusercontent.com/51084989/223122694-f282fc12-3d88-48b7-a1e3-d03a4e8b7c38.jpg)
+
+**A web application where users can easily create highly customizable workouts, edit, and play them.**
 
 #### Frontend
 
