@@ -28,6 +28,7 @@ function EditingWorkout(props) {
 	const [numberOfExerciseFormsOpen, setNumberOfExerciseFormsOpen] = useState(0);
 	const [showUnsavedExercisesModal, setShowUnsavedExerciseModal] = useState(false);
 	const [showDeleteWorkoutConfirmationModal, setShowDeleteWorkoutConfirmationModal] = useState(false);
+	const [routines, setRoutines] = useState(props.workout.routines);
 
 	const [updateWorkout] = useUpdateWorkoutMutation();
 	const [deleteWorkout] = useDeleteWorkoutMutation();
@@ -35,6 +36,10 @@ function EditingWorkout(props) {
 
 	const workoutImage = useImageUpload();
 	const image = props.workout.image ? workoutImage.imageUrl || `${props.workout.image}` : workoutImage.imageUrl;
+
+	useEffect(() => {
+		setRoutines(props.workout.routines);
+	}, [props.workout.routines]);
 
 	function StartWorkoutHandler() {
 		navigate(`${location.pathname}?mode=play`);
@@ -81,6 +86,8 @@ function EditingWorkout(props) {
 		}
 	}
 
+	const workoutName = props.workout.name === "Unnamed workout" ? "" : props.workout.name;
+
 	const {
 		register,
 		formState: { errors, isDirty },
@@ -88,7 +95,7 @@ function EditingWorkout(props) {
 		clearErrors,
 	} = useForm({
 		defaultValues: {
-			name: props.workout.name,
+			name: workoutName,
 			description: props.workout.description,
 		},
 	});
@@ -97,13 +104,20 @@ function EditingWorkout(props) {
 		const workoutNotSaved = isDirty && inEditMode;
 		const exercisesNotSaved = numberOfExerciseFormsOpen !== 0;
 		dispatch(setUnsavedChanges(workoutNotSaved || exercisesNotSaved));
-	}, [numberOfExerciseFormsOpen, dispatch, props.workout.description, props.workout.name, isDirty]);
+	}, [numberOfExerciseFormsOpen, dispatch, props.workout.description, props.workout.name, isDirty, inEditMode]);
 
 	async function onDragEnd(result) {
 		const { destination, source } = result;
 		if (!destination || destination.index === source.index) {
 			return;
 		}
+
+		const oldRoutines = [...routines];
+		const newRoutines = [...routines];
+		const [movedRoutine] = newRoutines.splice(source.index, 1);
+		newRoutines.splice(destination.index, 0, movedRoutine);
+
+		setRoutines(newRoutines);
 
 		try {
 			await updateRoutinesOrder({
@@ -112,6 +126,7 @@ function EditingWorkout(props) {
 				new_routine_index: destination.index,
 			}).unwrap();
 		} catch (error) {
+			setRoutines(oldRoutines);
 			dispatch(showErrorModal(error.data));
 		}
 	}
@@ -121,7 +136,8 @@ function EditingWorkout(props) {
 			<Exercise
 				workoutId={workoutId}
 				orderInWorkout={exercise.order_in_workout}
-				key={exercise.order_in_workout}
+				key={exercise.routine_id}
+				routineId={exercise.routine_id}
 				name={exercise.name}
 				description={exercise.description}
 				image={exercise.image}
@@ -236,11 +252,11 @@ function EditingWorkout(props) {
 		return (
 			<DragDropContext onDragEnd={onDragEnd}>
 				<div className={classes.container__exercises}>
-					{props.workout.routines ? (
+					{routines ? (
 						<Droppable droppableId={"0"}>
 							{(provided) => (
 								<ul ref={provided.innerRef} {...provided.droppableProps}>
-									{props.workout.routines.map((routine) => getExerciseAsComponent(routine))}
+									{routines.map((routine) => getExerciseAsComponent(routine))}
 									{provided.placeholder}
 								</ul>
 							)}
@@ -251,7 +267,7 @@ function EditingWorkout(props) {
 					{inEditMode && (
 						<NewExercise
 							setNumberOfExerciseFormsOpen={setNumberOfExerciseFormsOpen}
-							orderInWorkout={props.workout.routines ? props.workout.routines.length : 0}
+							orderInWorkout={routines ? routines.length : 0}
 							workoutId={workoutId}
 						/>
 					)}

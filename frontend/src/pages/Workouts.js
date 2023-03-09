@@ -35,7 +35,7 @@ function Workouts(props) {
 	async function onAddWorkoutClicked() {
 		try {
 			const workoutId = await addWorkout({
-				name: "",
+				name: "Unnamed workout",
 				description: "",
 			}).unwrap();
 			goToWorkoutHandler(workoutId, "edit");

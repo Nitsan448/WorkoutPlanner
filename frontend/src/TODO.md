@@ -27,9 +27,11 @@
 
 ## Other
 
-1. Delete workout button in workouts?
+1. Readme file - Add Gif and how to run section.
 
-2. Add Gif to readme file.
+### Refactoring
+
+1. Use routine id where it fits.
 
 3. Add option to login as a guest
 
@@ -39,41 +41,43 @@
 
 ### Frontend
 
-1. Add remember me field in sign up
+1. Delete workout button in workouts
 
-2. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise)
+2. Add remember me field in sign up
 
-3. Add sound effect when current activity finished
+3. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise)
 
-4. Add prefetching on hovers, etc.
+4. Add sound effect when current activity finished
 
-5. Handle UI for loading for all api calls
+5. Add prefetching on hovers, etc.
 
-6. Add confirmation modal when someone leaves an unsaved workout.
+6. Handle UI for loading for all api calls
 
 7. Make it possible to drag and drop exercises when there is an exercises form open.
 
 #### CSS
 
-1. Keep hover area the same size when making something smaller on hover
+1. Improve mobile querys
 
-2. Improve mobile querys
+2. Add animations
 
-3. Add animations
+3. Make container margin in width and height the same
 
-4. Make container margin in width and height the same
+4. Make slider prettier
 
 ### Backend
 
-1. Token cookie not saved between sessions on deployment (seems it is saved but only appears when user goes to all workouts)
+1. Remove loop from delete_routine and delete_workout stored procedures
 
-2. Remove loop from delete_routine stored procedure (do something similar to update_routines_order).
+2. Require auth when user enters a page
 
-3. Require auth when user enters a page
+3. Add tests
 
-4. Add tests
+4. Add more validations (workout name and description length, etc.)
 
-5. Add more validations (workout name and description length, etc.)
+5. Add a logging library
+
+6. Change CheckIfRowCanBeManipulated method to a better name and use user token instead of id.
 
 ### Bugs
 

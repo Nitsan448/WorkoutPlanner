@@ -11,7 +11,6 @@ import { showErrorModal } from "../../store/uiSlice";
 function Exercise(props) {
 	const dispatch = useDispatch();
 	const [editingExercise, setEditingExercise] = useState(false);
-
 	const [deleteRoutine] = useDeleteRoutineMutation();
 	const [updateRoutine] = useUpdateRoutineMutation();
 
@@ -20,6 +19,7 @@ function Exercise(props) {
 	async function deleteExerciseHandler() {
 		setEditingExercise(false);
 		try {
+			props.setNumberOfExerciseFormsOpen((numberOfExerciseFormsOpen) => numberOfExerciseFormsOpen - 1);
 			await deleteRoutine({ workout_id: props.workoutId, order_in_workout: props.orderInWorkout }).unwrap();
 		} catch (error) {
 			dispatch(showErrorModal(error.data));
@@ -55,10 +55,7 @@ function Exercise(props) {
 		return props.inEditMode ? (
 			<button className={classes.exercise__button} onClick={() => toggleExerciseFormOpenState(true)}>
 				{
-					<Draggable
-						draggableId={props.orderInWorkout.toString()}
-						index={props.orderInWorkout}
-						isDragDisabled={props.numberOfExerciseFormsOpen > 0}>
+					<Draggable draggableId={props.routineId.toString()} index={props.orderInWorkout}>
 						{(provided) => (
 							<div
 								className={exerciseClass}
@@ -101,13 +98,22 @@ function Exercise(props) {
 	return (
 		<>
 			{editingExercise && props.inEditMode ? (
-				<ExerciseForm
-					saveExerciseHandler={editExerciseHandler}
-					deleteExerciseHandler={deleteExerciseHandler}
-					cancelEditHandler={() => toggleExerciseFormOpenState(false)}
-					exerciseImage={image}
-					{...props}
-				/>
+				<Draggable
+					draggableId={props.orderInWorkout.toString()}
+					index={props.orderInWorkout}
+					isDragDisabled={true}>
+					{(provided) => (
+						<div ref={provided.innerRef} {...provided.draggableProps}>
+							<ExerciseForm
+								saveExerciseHandler={editExerciseHandler}
+								deleteExerciseHandler={deleteExerciseHandler}
+								cancelEditHandler={() => toggleExerciseFormOpenState(false)}
+								exerciseImage={image}
+								{...props}
+							/>
+						</div>
+					)}
+				</Draggable>
 			) : (
 				renderExercise()
 			)}

@@ -63,7 +63,7 @@ function PlayingWorkout(props) {
 	}
 
 	function finishExercise() {
-		if (currentActivity !== Activity.Break) {
+		if (currentActivity !== Activity.Break && currentExercise.break_after_routine > 0) {
 			setCurrentActivity(Activity.Break);
 		} else if (currentExerciseIndex < props.workout.routines.length - 1) {
 			goToNextExercise();

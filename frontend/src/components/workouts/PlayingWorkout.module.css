@@ -234,6 +234,7 @@
 
 .upNext__name {
 	font-size: 1.5em;
+	white-space: nowrap;
 	margin: 0.6em 0 0 1rem;
 }
 

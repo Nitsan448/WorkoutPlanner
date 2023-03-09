@@ -39,7 +39,7 @@ module.exports = class Workout {
 
 	static getRoutines(workoutId) {
 		const query =
-			"SELECT * FROM routines INNER JOIN exercises ON routines.exercise_id=exercises.exercise_id WHERE workout_id=?";
+			"SELECT * FROM routines INNER JOIN exercises ON routines.exercise_id=exercises.exercise_id WHERE workout_id=? ORDER BY order_in_workout";
 		return database.execute(query, [workoutId]);
 	}
 };
