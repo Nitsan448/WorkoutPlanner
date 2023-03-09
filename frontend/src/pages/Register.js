@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { showErrorModal } from "../store/uiSlice";
 import { setLoggedInState } from "../store/userSlice";
 import Button from "../components/UI/Button";
+import welcomeImage from "../images/welcome.svg";
 
 function Register(props) {
 	const navigate = useNavigate();
@@ -56,8 +57,9 @@ function Register(props) {
 	return (
 		<div className="mainContainer">
 			<div className={classes.container}>
-				<h1>Sign up</h1>
+				<img src={welcomeImage} className={classes.welcomeImage}></img>
 				<div className={classes.form}>
+					<h1>Sign up</h1>
 					<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>
 						<div>
 							<label htmlFor="userName">User name:</label>
@@ -100,11 +102,11 @@ function Register(props) {
 							)}
 						</div>
 						<Button text="Sign up" />
+						<Link className={classes.link} to="/Login">
+							Already have an account? Click here!
+						</Link>
 					</form>
 				</div>
-				<Link className={classes.link} to="/Login">
-					Already have an account? Click here!
-				</Link>
 			</div>
 		</div>
 	);

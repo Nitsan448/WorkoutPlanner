@@ -1,10 +1,15 @@
 .container {
-	margin-top: 8%;
-	margin-left: 15%;
+	display: grid;
+	grid-template-columns: 40vw 1fr;
 }
 
 .container h1 {
 	margin-bottom: 1em;
+}
+
+.form {
+	margin-top: 8em;
+	margin-left: 6em;
 }
 
 .form label {
@@ -25,7 +30,7 @@
 .link {
 	position: absolute;
 	bottom: 4%;
-	left: 2%;
+	right: 4%;
 	font-size: 0.9em;
 	color: var(--BLUE-SECONDARY);
 }
@@ -36,4 +41,49 @@
 
 .container button {
 	margin: 55px 0 0 90px;
+}
+
+.welcomeImage {
+	height: 86vh;
+	width: 40vw;
+	object-fit: cover;
+	border-right: var(--BORDER);
+}
+
+@media screen and (max-width: 768px) {
+	.container {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.welcomeImage {
+		height: 30vh;
+		width: 100%;
+		border-bottom: var(--BORDER);
+		border-right: none;
+	}
+
+	.form {
+		margin-top: 1em;
+		margin-left: 1em;
+	}
+
+	.link {
+		bottom: 2%;
+	}
+
+	.container button {
+		margin: 25px 0 0 120px;
+	}
+
+	.container h1 {
+		margin-bottom: 0.6em;
+	}
+
+	.form label {
+		display: block;
+		color: var(--BLUE-SECONDARY);
+		margin-bottom: 0;
+		margin-top: 0.7em;
+	}
 }

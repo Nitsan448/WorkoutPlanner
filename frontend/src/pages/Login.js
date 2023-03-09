@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { setLoggedInState } from "../store/userSlice";
 import { showErrorModal } from "../store/uiSlice";
 import Button from "../components/UI/Button";
+import welcomeImage from "../images/welcome.svg";
 
 function Login(props) {
 	const navigate = useNavigate();
@@ -45,8 +46,9 @@ function Login(props) {
 	return (
 		<div className="mainContainer">
 			<div className={classes.container}>
-				<h1>Log in</h1>
+				<img src={welcomeImage} className={classes.welcomeImage}></img>
 				<div className={classes.form}>
+					<h1>Log in</h1>
 					<form onSubmit={handleSubmit(async (data) => await loginHandler(data))}>
 						<div>
 							<label htmlFor="emailOrUserName">Email/User name:</label>
@@ -76,11 +78,10 @@ function Login(props) {
 						</div>
 						<Button text="Log in" />
 					</form>
-					{/* <Link to="/Register">Register</Link> */}
+					<Link className={classes.link} to="/Register">
+						Don't have an account? Click here!
+					</Link>
 				</div>
-				<Link className={classes.link} to="/Register">
-					Don't have an account? Click here!
-				</Link>
 			</div>
 		</div>
 	);
