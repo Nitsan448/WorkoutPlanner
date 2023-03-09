@@ -13,7 +13,8 @@
 
 ## Overview
 
-![Screenshot 2023-03-06 151936](https://user-images.githubusercontent.com/51084989/223122694-f282fc12-3d88-48b7-a1e3-d03a4e8b7c38.jpg)
+![Screenshot 2023-03-09 204055](https://user-images.githubusercontent.com/51084989/224123814-ab632d2a-43e7-4242-837d-38362820964e.jpg)
+
 
 **A web application where users can easily create highly customizable workouts, edit, and play them.**
 
@@ -47,6 +48,8 @@ Routine data - dynammic data that may be different every time the exercise appea
 
 The database is structured this way to avoid data duplication - when the user uses the same exercise a few times in different workouts, <br />
 but with a different number of sets and repetitions in each one,<br /> some of it's data (and specifically the image) is only saved once.
+
+![Screenshot 2023-03-06 151936](https://user-images.githubusercontent.com/51084989/223122694-f282fc12-3d88-48b7-a1e3-d03a4e8b7c38.jpg)
 
 <!-- TODO: Add a screenshot of the live project. --> 
 
