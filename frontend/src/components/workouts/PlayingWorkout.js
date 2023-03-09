@@ -159,9 +159,9 @@ function PlayingWorkout(props) {
 	function renderPlayingExercise() {
 		return (
 			<div className={classes.playingExercise}>
-				<div className={classes.playingExercise__image}>
-					<Image borderRight image={currentExercise.image} exerciseImage={true} />
-				</div>
+				{/* <div className={classes.playingExercise__image}> */}
+				<Image borderRight image={currentExercise.image} exerciseImage={true} />
+				{/* </div> */}
 
 				{renderExerciseInformation()}
 
