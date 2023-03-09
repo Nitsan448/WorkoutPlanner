@@ -23,6 +23,8 @@
 
 1. Unsaved exercises modal pops up after deleting exercises
 
+2. Drag and drop
+
 ## Other
 
 1. Delete workout button in workouts?

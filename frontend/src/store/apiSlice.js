@@ -44,7 +44,7 @@ export const apiSlice = createApi({
 				method: "POST",
 				body: workout,
 			}),
-			// invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.workout_id }],
+			invalidatesTags: (result, error, arg) => [{ type: "Workout", id: arg.workout_id }],
 		}),
 		addRoutine: builder.mutation({
 			query: (routine) => ({
