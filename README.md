@@ -32,15 +32,16 @@ The database structure is the following:
 
 | users         | workouts       | exercises   |  routines  |
 |:-------------:|:--------------:|:-----------:|:----------:|
-| user_id       | workout_id     | exercise_id | workout_id
+| user_id       | workout_id     | exercise_id | routine_id
 | user_name     | user_id        | user_id     | exercise_id
-| password      | name           | name        | order_in_workout
+| password      | name           | name        | workout_id
 |               | description    | description | sets
 |               | image          | image       | time_or_repetitions
 |               |                |             | set_time
 |               |                |             | repetitions
 |               |                |             | rest_time
 |               |                |             | break_after_routine
+|               |                |             | order_in_workout
 
 Exercise information is split into two parts: <br />
 Exercise data - constant data that remains the same whenever the exercise appears <br /> 
