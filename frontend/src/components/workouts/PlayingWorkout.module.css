@@ -2,7 +2,7 @@
 	position: relative;
 	height: 87vh;
 	margin: 0 auto;
-	overflow: hidden auto;
+	overflow: hidden;
 }
 
 .mainContainer button {
@@ -255,4 +255,103 @@
 	height: 70vh;
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
+}
+
+@media screen and (max-width: 768px) {
+	.playingExercise,
+	.workoutFinished {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.playingExercise__image {
+		max-height: 30vh;
+		border-bottom: var(--BORDER);
+	}
+
+	.playingExercise__exerciseInformation,
+	.playingExercise__exerciseState {
+		margin: 0em 0.5em 0em 0.5em;
+	}
+
+	.playingExercise__exerciseName {
+		margin-top: 0.5rem;
+	}
+	.playingExercise__exerciseBreakBetweenSets {
+		margin-top: 0.5em;
+		font-size: 0.9rem;
+	}
+
+	.playingExercise__timer {
+		margin-top: 0.5rem;
+		font-size: 3.5rem;
+	}
+
+	.playingExercise__sets {
+		margin-top: 0.5em;
+	}
+
+	.break__breakInformation {
+		width: 97.5%;
+	}
+
+	.utility {
+		justify-content: start;
+		margin-left: 1em;
+		gap: 1em;
+	}
+
+	.utilityButtons {
+		margin-top: 0.5em;
+		transform: rotate(90deg);
+	}
+
+	.playTimer,
+	.pauseTimer {
+		position: absolute;
+		top: 1em;
+		right: 1.5em;
+		width: 50px;
+		height: 50px;
+	}
+
+	.nextExercise,
+	.previousExercise {
+		width: 20px;
+		height: 60px;
+	}
+
+	.upNext {
+		margin-top: 0.5em;
+		display: block;
+	}
+
+	.upNext__title {
+		margin-bottom: 0.5em;
+	}
+
+	.upNext__exercise,
+	.upNext__break,
+	.upNext__wellDone {
+		width: 95%;
+	}
+
+	.upNext__name {
+		font-size: 1.3em;
+		white-space: nowrap;
+		margin: 0.6em 0 0 1rem;
+	}
+
+	.upNext__timeOrSets {
+		font-size: 0.8em;
+		margin: 0.2em 0 0 1rem;
+	}
+
+	.upNext__wellDoneTitle {
+		font-size: 1.5em;
+		margin: 1.5rem 0 0 1rem;
+	}
+	.workoutFinished__title {
+		top: 30%;
+	}
 }

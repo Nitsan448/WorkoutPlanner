@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import { useNavigate } from "react-router-dom";
 import classes from "./PlayingWorkout.module.css";
 import Image from "../UI/Image";
+import { useMediaQuery } from "react-responsive";
 
 const Activity = {
 	InSet: "InSet",
@@ -15,6 +16,7 @@ const Activity = {
 function PlayingWorkout(props) {
 	const navigate = useNavigate();
 	const exercises = props.workout.routines;
+	const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
 	const [currentSet, setCurrentSet] = useState(1);
 	const [currentActivity, setCurrentActivity] = useState(Activity.InSet);
@@ -65,7 +67,7 @@ function PlayingWorkout(props) {
 	function finishExercise() {
 		if (currentActivity !== Activity.Break && currentExercise.break_after_routine > 0) {
 			setCurrentActivity(Activity.Break);
-		} else if (currentExerciseIndex < props.workout.routines.length - 1) {
+		} else if (currentExerciseIndex < exercises.length - 1) {
 			goToNextExercise();
 		} else {
 			setWorkoutFinished(true);
@@ -110,26 +112,27 @@ function PlayingWorkout(props) {
 	}
 
 	let itemsShown = 0;
+	const maxItemsShown = isTabletOrMobile ? 1 : 3;
 
-	function getExercise(routine, index) {
+	function getNextExerciseAndBreaks(routine, index) {
 		const showExercise = index > currentExerciseIndex;
 		if (showExercise) {
 			itemsShown++;
 		}
 
 		const currentBreak = currentActivity === Activity.Break && index === currentExerciseIndex;
-		const showBreak = routine.break_after_routine > 0 && itemsShown < 3 && !currentBreak;
+		const showBreak = routine.break_after_routine > 0 && itemsShown < maxItemsShown && !currentBreak;
 		if (showBreak) {
 			itemsShown++;
 		}
 
-		const showWellDone = itemsShown < 3 && index === props.workout.routines.length - 1;
+		const showWellDone = itemsShown < maxItemsShown && index === exercises.length - 1;
 
 		return (
 			<Fragment key={index}>
 				{showExercise && (
 					<div className={classes.upNext__exercise}>
-						<Image image={routine.image} exerciseImage />
+						<Image image={routine.image} borderRight exerciseImage />
 						<div>
 							<p className={classes.upNext__name}>{routine.name}</p>
 							<p className={classes.upNext__timeOrSets}>{routine.sets} sets</p>
@@ -156,7 +159,9 @@ function PlayingWorkout(props) {
 	function renderPlayingExercise() {
 		return (
 			<div className={classes.playingExercise}>
-				<Image borderRight image={currentExercise.image} exerciseImage={true} />
+				<div className={classes.playingExercise__image}>
+					<Image borderRight image={currentExercise.image} exerciseImage={true} />
+				</div>
 
 				{renderExerciseInformation()}
 
@@ -173,10 +178,14 @@ function PlayingWorkout(props) {
 				<h1 className={classes.playingExercise__exerciseName}>
 					{currentExercise.name} / {activityText}
 				</h1>
-				<h3 className={classes.playingExercise__exerciseBreakBetweenSets}>
-					Break between sets: <section>{getTimeInTimerFormat(currentExercise.rest_time)}min</section>
-				</h3>
-				<p className={classes.playingExercise__exerciseDescription}>{currentExercise.description}</p>
+				{currentExercise.rest_time > 0 && (
+					<h3 className={classes.playingExercise__exerciseBreakBetweenSets}>
+						Rest between sets: {getTimeInTimerFormat(currentExercise.rest_time)}min
+					</h3>
+				)}
+				{!isTabletOrMobile && (
+					<p className={classes.playingExercise__exerciseDescription}>{currentExercise.description}</p>
+				)}
 			</div>
 		);
 	}
@@ -207,7 +216,7 @@ function PlayingWorkout(props) {
 	}
 
 	function renderBreak() {
-		const nextExercise = props.workout.routines[currentExerciseIndex + 1];
+		const nextExercise = exercises[currentExerciseIndex + 1];
 		return (
 			<div className={classes.break}>
 				<div className={classes.break__breakInformation}>
@@ -220,7 +229,7 @@ function PlayingWorkout(props) {
 						<Button color="orange" text="Skip" onClick={activityFinishedHandler} />
 					</div>
 				</div>
-				{currentExerciseIndex + 1 < props.workout.routines.length && (
+				{currentExerciseIndex + 1 < exercises.length && !isTabletOrMobile && (
 					<Image exerciseImage image={nextExercise.image}>
 						<h2 className={classes.nextExerciseName}>Next: {nextExercise.name}</h2>
 						<p className={classes.nextExerciseSets}>{nextExercise.sets} sets of 5 minutes</p>
@@ -258,21 +267,41 @@ function PlayingWorkout(props) {
 
 					{/* TODO: change utility class name */}
 					<div className={classes.utility}>
-						<div className={classes.utilityButtons}>
-							<button className={classes.previousExercise} onClick={goToPreviousExercise}></button>
-							<button
-								className={toggleTimerStateClass}
-								onClick={() => {
-									timer.togglePausedState();
-								}}></button>
-							<button className={classes.nextExercise} onClick={finishExercise}></button>
-						</div>
+						{isTabletOrMobile ? (
+							<>
+								<div className={classes.utilityButtons}>
+									<button
+										className={classes.previousExercise}
+										onClick={goToPreviousExercise}></button>
 
+									<button className={classes.nextExercise} onClick={finishExercise}></button>
+								</div>
+
+								<button
+									className={toggleTimerStateClass}
+									onClick={() => {
+										timer.togglePausedState();
+									}}></button>
+							</>
+						) : (
+							<div className={classes.utilityButtons}>
+								<button className={classes.previousExercise} onClick={goToPreviousExercise}></button>
+
+								<button
+									className={toggleTimerStateClass}
+									onClick={() => {
+										timer.togglePausedState();
+									}}></button>
+								<button className={classes.nextExercise} onClick={finishExercise}></button>
+							</div>
+						)}
 						<div className={classes.upNext}>
 							<p className={classes.upNext__title}>Up next:</p>
-							{props.workout.routines.map(
+							{exercises.map(
 								(routine, index) =>
-									index >= currentExerciseIndex && itemsShown < 3 && getExercise(routine, index)
+									index >= currentExerciseIndex &&
+									itemsShown < maxItemsShown &&
+									getNextExerciseAndBreaks(routine, index)
 							)}
 						</div>
 					</div>
