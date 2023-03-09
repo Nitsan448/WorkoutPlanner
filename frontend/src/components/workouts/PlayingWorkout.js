@@ -101,8 +101,11 @@ function PlayingWorkout(props) {
 	}
 
 	function setSwitchHandler(change) {
-		if (currentSet + change <= currentExercise.sets && currentSet + change > 0) {
-			setCurrentSet(currentSet + change);
+		const newSet = currentSet + change;
+		const isValidSet = newSet <= currentExercise.sets && newSet > 0;
+
+		if (isValidSet) {
+			setCurrentSet(newSet);
 		}
 	}
 
@@ -119,6 +122,9 @@ function PlayingWorkout(props) {
 		if (showBreak) {
 			itemsShown++;
 		}
+
+		const showWellDone = itemsShown < 3 && index === props.workout.routines.length - 1;
+
 		return (
 			<Fragment key={index}>
 				{showExercise && (
@@ -138,46 +144,63 @@ function PlayingWorkout(props) {
 						</p>
 					</div>
 				)}
+				{showWellDone && (
+					<div className={classes.upNext__wellDone}>
+						<p className={classes.upNext__wellDoneTitle}>Well done!</p>
+					</div>
+				)}
 			</Fragment>
 		);
 	}
 
 	function renderPlayingExercise() {
-		const activity = currentActivity === Activity.InSet ? getCurrentSetText() : "Resting";
-
 		return (
 			<div className={classes.playingExercise}>
-				<Image image={currentExercise.image} exerciseImage={true} />
+				<Image borderRight image={currentExercise.image} exerciseImage={true} />
 
-				<div className={classes.playingExercise__exerciseInformation}>
-					<h1 className={classes.playingExercise__exerciseName}>
-						{currentExercise.name} / {activity}
+				{renderExerciseInformation()}
+
+				{renderExerciseState()}
+			</div>
+		);
+	}
+
+	function renderExerciseInformation() {
+		const activityText = currentActivity === Activity.InSet ? getCurrentSetText() : "Resting";
+
+		return (
+			<div className={classes.playingExercise__exerciseInformation}>
+				<h1 className={classes.playingExercise__exerciseName}>
+					{currentExercise.name} / {activityText}
+				</h1>
+				<h3 className={classes.playingExercise__exerciseBreakBetweenSets}>
+					Break between sets: <section>{getTimeInTimerFormat(currentExercise.rest_time)}min</section>
+				</h3>
+				<p className={classes.playingExercise__exerciseDescription}>{currentExercise.description}</p>
+			</div>
+		);
+	}
+
+	function renderExerciseState() {
+		return (
+			<div className={classes.playingExercise__exerciseState}>
+				{usingTimer ? (
+					<h1 className={classes.playingExercise__timer}>
+						{timer.minutes}:{timer.seconds < 10 ? `0${timer.seconds}` : timer.seconds}
 					</h1>
-					<h3 className={classes.playingExercise__exerciseBreakBetweenSets}>
-						Break between sets: <section>{getTimeInTimerFormat(currentExercise.rest_time)}min</section>
-					</h3>
-					<p className={classes.playingExercise__exerciseDescription}>{currentExercise.description}</p>
+				) : (
+					<h1 className={classes.playingExercise__timer}>{props.repetitions}Reps</h1>
+				)}
+				<div className={classes.playingExercise__sets}>
+					<button className={classes.previousSet} onClick={() => setSwitchHandler(-1)} />
+					<p>
+						Set {currentSet}/{currentExercise.sets}
+					</p>
+					<button className={classes.nextSet} onClick={() => setSwitchHandler(1)} />
 				</div>
 
-				<div className={classes.playingExercise__exerciseState}>
-					{usingTimer ? (
-						<h1 className={classes.playingExercise__timer}>
-							{timer.minutes}:{timer.seconds < 10 ? `0${timer.seconds}` : timer.seconds}
-						</h1>
-					) : (
-						<h1 className={classes.playingExercise__timer}>{props.repetitions}Reps</h1>
-					)}
-					<div className={classes.playingExercise__sets}>
-						<button className={classes.previousSet} onClick={() => setSwitchHandler(-1)} />
-						<p>
-							Set {currentSet}/{currentExercise.sets}
-						</p>
-						<button className={classes.nextSet} onClick={() => setSwitchHandler(1)} />
-					</div>
-
-					<div className={classes.nextButton}>
-						<Button color="orange" text="Next" onClick={activityFinishedHandler} />
-					</div>
+				<div className={classes.nextButton}>
+					<Button color="orange" text="Next" onClick={activityFinishedHandler} />
 				</div>
 			</div>
 		);
@@ -209,19 +232,8 @@ function PlayingWorkout(props) {
 	}
 
 	function getCurrentSetText() {
-		let currentSetText;
-		switch (currentSet) {
-			case 1:
-				currentSetText = "1st set";
-				break;
-			case 2:
-				currentSetText = "2nd set";
-				break;
-			default:
-				currentSetText = currentSet + "rd set";
-				break;
-		}
-		return currentSetText;
+		const suffix = currentSet === 1 ? "st" : currentSet === 2 ? "nd" : "rd";
+		return `${currentSet}${suffix} set`;
 	}
 
 	const toggleTimerStateClass = timer.paused ? classes.playTimer : classes.pauseTimer;
@@ -229,9 +241,14 @@ function PlayingWorkout(props) {
 	return (
 		<>
 			{workoutFinished ? (
-				<div>
-					<label>Workout finished!</label>
-					<Button onClick={() => navigate("/workouts")} text="Back to home page" />
+				<div className={classes.workoutFinished}>
+					<div>
+						<h1 className={classes.workoutFinished__title}>Well done!</h1>
+						{/* <p>see you next time :)</p> */}
+					</div>
+					<div className={classes.workoutFinished__backToHomePageButton}>
+						<Button color="orange" onClick={() => navigate("/workouts")} text="Back to home page" />
+					</div>
 				</div>
 			) : (
 				<div id="playingWorkout" className={classes.mainContainer}>

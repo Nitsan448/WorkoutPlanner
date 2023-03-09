@@ -5,9 +5,7 @@ import ImageOverlay from "./ImageOverlay";
 function Image(props) {
 	let containerClasses = props.allowImageChange ? `${classes.image} pointerCursor` : classes.image;
 
-	containerClasses = props.workoutImage
-		? `${containerClasses} ${classes.workoutImage}`
-		: `${containerClasses} ${classes.exerciseImage}`;
+	containerClasses = props.workoutImage ? `${containerClasses} ${classes.workoutImage}` : containerClasses;
 
 	containerClasses = props.borderRight ? `${containerClasses} ${classes.borderRight}` : containerClasses;
 

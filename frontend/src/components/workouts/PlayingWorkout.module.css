@@ -16,14 +16,18 @@
 	height: 70vh;
 }
 
-.playingExercise {
-	display: grid;
+.playingExercise,
+.workoutFinished {
 	margin: auto;
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
-	grid-template-columns: 70vh 1fr 1fr;
 	background-color: var(--WHITE);
 	width: 97.5%;
+}
+
+.playingExercise {
+	display: grid;
+	grid-template-columns: 70vh 1fr 1fr;
 }
 
 .break {
@@ -41,18 +45,20 @@
 	color: var(--WHITE);
 }
 
-.breakTimer {
+.breakTimer,
+.workoutFinished__title {
+	text-align: center;
 	position: absolute;
+	width: 100%;
+	top: 40%;
 	font-size: 5em;
-	top: 42%;
-	left: 42%;
 }
 
 .breakTitle {
 	position: absolute;
 	font-size: 3em;
-	top: 10%;
-	left: 10%;
+	top: 13%;
+	left: 8%;
 }
 
 .break__nextButton {
@@ -153,7 +159,8 @@
 	transform: rotate(180deg) scale(1.1);
 }
 
-.nextButton {
+.nextButton,
+.workoutFinished__backToHomePageButton {
 	position: absolute;
 	bottom: 1.5em;
 	right: 1.5em;
@@ -162,12 +169,14 @@
 .utility {
 	display: flex;
 	justify-content: center;
+	gap: 15em;
 	margin-left: calc(70vh / 2);
 }
 
 .utilityButtons {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	gap: 1em;
 }
 
@@ -175,7 +184,6 @@
 .pauseTimer {
 	width: 80px;
 	height: 80px;
-	margin: 10em 10em 10em 10em;
 }
 
 .playTimer {
@@ -196,7 +204,6 @@
 .upNext {
 	width: 80%;
 	height: calc(87vh - 70vh);
-	margin-left: 15vw;
 	color: white;
 	display: flex;
 	align-items: center;
@@ -208,11 +215,16 @@
 }
 
 .upNext__exercise,
-.upNext__break {
+.upNext__break,
+.upNext__wellDone {
 	width: 25vw;
 	border: var(--BORDER);
 	border-radius: var(--BORDER-RADIUS);
 	height: 12vh;
+}
+
+.upNext__wellDone {
+	background-color: var(--ORANGE);
 }
 
 .upNext__exercise {
@@ -228,4 +240,18 @@
 .upNext__timeOrSets {
 	font-size: 0.9em;
 	margin: 0.2em 0 0 1rem;
+}
+
+.upNext__wellDoneTitle {
+	font-size: 1.5em;
+	margin: 1.5rem 0 0 1rem;
+}
+
+.workoutFinished {
+	position: relative;
+	background-color: var(--BLUE);
+	color: var(--WHITE);
+	height: 70vh;
+	border: var(--BORDER);
+	border-radius: var(--BORDER-RADIUS);
 }
