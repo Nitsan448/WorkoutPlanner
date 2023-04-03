@@ -13,7 +13,8 @@
 
 ## Overview
 
-![Screenshot 2023-03-06 151936](https://user-images.githubusercontent.com/51084989/223122694-f282fc12-3d88-48b7-a1e3-d03a4e8b7c38.jpg)
+![Screenshot 2023-03-09 204055](https://user-images.githubusercontent.com/51084989/224123814-ab632d2a-43e7-4242-837d-38362820964e.jpg)
+
 
 **A web application where users can easily create highly customizable workouts, edit, and play them.**
 
@@ -31,15 +32,16 @@ The database structure is the following:
 
 | users         | workouts       | exercises   |  routines  |
 |:-------------:|:--------------:|:-----------:|:----------:|
-| user_id       | workout_id     | exercise_id | workout_id
+| user_id       | workout_id     | exercise_id | routine_id
 | user_name     | user_id        | user_id     | exercise_id
-| password      | name           | name        | order_in_workout
+| password      | name           | name        | workout_id
 |               | description    | description | sets
 |               | image          | image       | time_or_repetitions
 |               |                |             | set_time
 |               |                |             | repetitions
 |               |                |             | rest_time
 |               |                |             | break_after_routine
+|               |                |             | order_in_workout
 
 Exercise information is split into two parts: <br />
 Exercise data - constant data that remains the same whenever the exercise appears <br /> 
@@ -47,6 +49,8 @@ Routine data - dynammic data that may be different every time the exercise appea
 
 The database is structured this way to avoid data duplication - when the user uses the same exercise a few times in different workouts, <br />
 but with a different number of sets and repetitions in each one,<br /> some of it's data (and specifically the image) is only saved once.
+
+![Screenshot 2023-03-06 151936](https://user-images.githubusercontent.com/51084989/223122694-f282fc12-3d88-48b7-a1e3-d03a4e8b7c38.jpg)
 
 <!-- TODO: Add a screenshot of the live project. --> 
 
