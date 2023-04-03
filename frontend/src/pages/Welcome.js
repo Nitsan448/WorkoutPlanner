@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./RegisterAndLogin.module.css";
 import welcomeImage from "../images/welcome.svg";
 import { useNavigate, Link } from "react-router-dom";
@@ -12,6 +12,13 @@ function Welcome(props) {
 	const dispatch = useDispatch();
 
 	const [registerUser] = useRegisterMutation();
+
+	useEffect(() => {
+		if (document.cookie.indexOf("token=") !== -1) {
+			dispatch(setLoggedInState(true));
+			navigate(`/workouts`);
+		}
+	}, [navigate, dispatch]);
 
 	async function registerGuest() {
 		const userNameAndPassword = Math.random().toString(36);
