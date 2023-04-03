@@ -7,9 +7,9 @@
 	margin-bottom: 1em;
 }
 
-.form {
-	margin-top: 8em;
-	margin-left: 6em;
+.form,
+.welcome {
+	margin: 8em 6em 0 6em;
 }
 
 .form label {
@@ -39,7 +39,7 @@
 	color: var(--BLUE-SECONDARY);
 }
 
-.container button {
+.form button {
 	margin: 55px 0 0 90px;
 }
 
@@ -48,6 +48,28 @@
 	width: 40vw;
 	object-fit: cover;
 	border-right: var(--BORDER);
+}
+
+.createAccountButton,
+.continueAsGuestButton {
+	background-color: var(--BLUE);
+	color: var(--WHITE);
+	width: 12em;
+	height: 3.2em;
+	border: none;
+	border-radius: var(--BORDER-RADIUS);
+	cursor: pointer;
+}
+
+.createAccountButton:hover,
+.continueAsGuestButton:hover,
+.createAccountButton:active,
+.continueAsGuestButton:active {
+	transform: scale(1.1);
+}
+
+.createAccountButton {
+	margin: 2em 1em 2em 0em;
 }
 
 @media screen and (max-width: 768px) {
@@ -63,16 +85,16 @@
 		border-right: none;
 	}
 
-	.form {
-		margin-top: 1em;
-		margin-left: 1em;
+	.form,
+	.welcome {
+		margin: 1em 1em 0 1em;
 	}
 
 	.link {
 		bottom: 2%;
 	}
 
-	.container button {
+	.form button {
 		margin: 25px 0 0 120px;
 	}
 
@@ -85,5 +107,23 @@
 		color: var(--BLUE-SECONDARY);
 		margin-bottom: 0;
 		margin-top: 0.7em;
+	}
+
+	.welcome {
+		text-align: center;
+	}
+
+	.welcomeButtons {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.createAccountButton {
+		margin: 0 0 1em 0;
+	}
+	.continueAsGuestButton {
+		margin: 0em;
 	}
 }

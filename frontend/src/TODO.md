@@ -29,13 +29,13 @@
 
 1. Readme file - Add Gif and how to run section.
 
+2. Add an example workout for all new users in the my workouts page.
+
 ### Refactoring
 
 1. Use routine id where it fits.
 
-3. Add option to login as a guest
-
-4. Example workout
+2. login as a guest code
 
 # Backlog
 
@@ -91,5 +91,3 @@
 4. Switch to cloudfront for accessing images from s3 and make them private
 
 5. Change favicon
-
-6. Add an example workout for all new users in the my workouts page.

@@ -29,6 +29,12 @@ router.post(
 			const userData = { email: req.body.email, userId };
 			const token = setUserToken(res, userData);
 
+			if (req.body.isGuest) {
+				setTimeout(async function () {
+					await User.deleteUser(userData.userId);
+				}, 24 * 60 * 60 * 1000); // 24 hours
+			}
+
 			res.status(200).json({ token, userId: userData.userId });
 		} catch (error) {
 			res.status(500).json(error.message);
@@ -41,11 +47,18 @@ function setUserToken(res, userData) {
 	const now = new Date();
 	const tokenExpiryDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 
-	res.cookie("token", token, {
-		path: "/",
-		expires: tokenExpiryDate,
-		domain: process.env.DOMAIN,
-	});
+	if (process.env.DOMAIN) {
+		res.cookie("token", token, {
+			path: "/",
+			expires: tokenExpiryDate,
+			domain: process.env.DOMAIN,
+		});
+	} else {
+		res.cookie("token", token, {
+			path: "/",
+			expires: tokenExpiryDate,
+		});
+	}
 
 	return token;
 }

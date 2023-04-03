@@ -5,8 +5,8 @@ import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import NavigationHeader from "./components/Layout/NavigationHeader";
-import classes from "./App.module.css";
 import ErrorModal from "./components/Modals/ErrorModal";
+import Welcome from "./pages/Welcome";
 
 function App() {
 	return (
@@ -15,7 +15,9 @@ function App() {
 			<ErrorModal />
 			<main>
 				<Routes>
-					<Route path="/" element={<Navigate replace to="/register" />} />
+					<Route path="/" element={<Navigate replace to="/welcome" />} />
+
+					<Route path="/welcome" element={<Welcome />} />
 
 					<Route path="/register" element={<Register />} />
 

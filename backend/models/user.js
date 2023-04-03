@@ -25,4 +25,9 @@ module.exports = class User {
 		const query = "INSERT INTO users (user_name ,email, password) VALUES (?, ?, ?)";
 		return database.execute(query, [user.userName, user.email, user.password]);
 	}
+
+	static deleteUser(userId) {
+		const query = "DELETE FROM users WHERE user_id=?";
+		return database.execute(query, [userId]);
+	}
 };

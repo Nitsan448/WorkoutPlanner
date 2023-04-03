@@ -28,6 +28,7 @@ function Register(props) {
 				user_name: data.userName,
 				email: data.email,
 				password: data.password,
+				isGuest: false,
 			}).unwrap();
 			clearErrors();
 			dispatch(setLoggedInState(true));
@@ -57,7 +58,7 @@ function Register(props) {
 	return (
 		<div className="mainContainer">
 			<div className={classes.container}>
-				<img src={welcomeImage} className={classes.welcomeImage}></img>
+				<img src={welcomeImage} className={classes.welcomeImage} alt="Welcome"></img>
 				<div className={classes.form}>
 					<h1>Sign up</h1>
 					<form onSubmit={handleSubmit(async (data) => await registerHandler(data))}>

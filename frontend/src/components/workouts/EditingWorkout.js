@@ -58,6 +58,7 @@ function EditingWorkout(props) {
 
 	function deleteWorkoutAndGoToWorkouts() {
 		deleteWorkout({ workout_id: workoutId });
+		dispatch(setUnsavedChanges(false));
 		navigate(`/workouts`);
 	}
 
