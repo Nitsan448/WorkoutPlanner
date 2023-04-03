@@ -85,7 +85,11 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/logout", async (req, res, next) => {
-	res.clearCookie("token");
+	if (process.env.DOMAIN) {
+		res.clearCookie("token", { path: "/", domain: process.env.DOMAIN });
+	} else {
+		res.clearCookie("token", { path: "/" });
+	}
 	res.sendStatus(200);
 });
 

@@ -83,11 +83,13 @@
 
 ### Other
 
-2. Add social media features
+1. Add social media features
 
-3. Add option to choose from current exercises and routines when creating a new exercise.
+2. Add option to choose from current exercises and routines when creating a new exercise.
    Make it impossible to change an exercise name to an already existing exercise.
 
-4. Switch to cloudfront for accessing images from s3 and make them private
+3. Switch to cloudfront for accessing images from s3 and make them private
 
-5. Change favicon
+4. Change favicon and description
+
+5. Setup Deploying through git hub for backend
