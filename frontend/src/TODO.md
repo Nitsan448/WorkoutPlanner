@@ -3,27 +3,16 @@
 1. Loading component
 
 2. Pause timer when an exercise uses repetitions
-3. playWorkout page -
-
-4. Drag and drop not showing update until refresh
 
 ### CSS
 
-1. Sign up, login pages Image
+1. playWorkout page - Add border to image when in break
 
-2. playWorkout page - Make Next/Skip
-
-3. Add icons to editing workout footer buttons
-
-4. Move filter and name a bit down in workouts and increase each workout height
+2. Move filter and name a bit down in workouts and increase each workout height
 
 ## Backend
 
 ## Bugs
-
-1. Unsaved exercises modal pops up after deleting exercises
-
-2. Drag and drop
 
 ## Other
 
@@ -33,27 +22,17 @@
 
 ### Refactoring
 
-1. Use routine id where it fits.
-
-2. login as a guest code
-
 # Backlog
 
 ### Frontend
 
-1. Delete workout button in workouts
+1. Add remember me field in sign up
 
-2. Add remember me field in sign up
+2. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise)
 
-3. Changing an exercise name changes the name of other exercises with the same name (make it create a new exercise)
+3. Add sound effect when current activity finished
 
-4. Add sound effect when current activity finished
-
-5. Add prefetching on hovers, etc.
-
-6. Handle UI for loading for all api calls
-
-7. Make it possible to drag and drop exercises when there is an exercises form open.
+4. Add prefetching on hovers, etc.
 
 #### CSS
 
@@ -63,7 +42,9 @@
 
 3. Make container margin in width and height the same
 
-4. Make slider prettier
+4. Make sliders prettier
+
+5. Add icons to editing workout footer buttons
 
 ### Backend
 
@@ -75,9 +56,7 @@
 
 4. Add more validations (workout name and description length, etc.)
 
-5. Add a logging library
-
-6. Change CheckIfRowCanBeManipulated method to a better name and use user token instead of id.
+5. Change CheckIfRowCanBeManipulated method to a better name and use user token instead of id.
 
 ### Bugs
 
@@ -90,6 +69,4 @@
 
 3. Switch to cloudfront for accessing images from s3 and make them private
 
-4. Change favicon and description
-
-5. Setup Deploying through git hub for backend
+4. Setup Deploying through git hub for backend
