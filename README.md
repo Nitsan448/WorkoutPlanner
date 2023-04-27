@@ -1,7 +1,6 @@
 # Workouts-Creator
 
 **You can visit the web app here - https://www.workoutscreator.com/**<br/>
-(You can give a fake email when registering to try the app)
 
 ## Table of Contents
 
@@ -86,7 +85,6 @@ and additional options for the user, such as finishing a set/exercise and pausin
 #### Coming soon
 
 * Allowing users to add previously created exercises to workout, without having to refill all the details.
-* Option to login as a guest.
 * Social media features: Sharing workouts, workouts feed, favorite workouts from other users, etc.
 
 ## Contact
