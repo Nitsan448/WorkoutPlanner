@@ -1,7 +1,5 @@
 # Workouts-Creator
 
-**You can visit the web app here - https://www.workoutscreator.com/**<br/>
-
 ## Table of Contents
 
 - [Overview](#overview)
@@ -73,6 +71,9 @@ express 4.18, aws-sdk 2.1309, multer 1.4, mysql2 2.3
 
 AWS amplify (frontend), elastic beanstalk (backend), RDS (MySQL database) and S3 buckets (For saving uploaded images).
 
+I previously used AWS's free tier to deploy the website for free for the one year.
+I have decided to take it down after that year due to the costs being too high.
+
 ## Features
 
 * User system, each user has his own workouts and exercises.
@@ -82,9 +83,8 @@ AWS amplify (frontend), elastic beanstalk (backend), RDS (MySQL database) and S3
 * A Timer to automatically switch between sets, exercises and rest periods when playing a workout, <br />
 and additional options for the user, such as finishing a set/exercise and pausing the timer.
 
-#### Coming soon
+#### Vision
 
-* Allowing users to add previously created exercises to workout, without having to refill all the details.
 * Social media features: Sharing workouts, workouts feed, favorite workouts from other users, etc.
 
 ## Contact
